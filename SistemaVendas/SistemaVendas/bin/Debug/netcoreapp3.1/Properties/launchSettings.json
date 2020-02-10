@@ -1,0 +1,37 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57797",
+      "sslPort": 44384
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "SistemaVendas": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:6001;http://localhost:6000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  },
+  "Kestrel Docker": {
+    "commandName": "Sandbox",
+    "launchBrowser": true,
+    "environmentVariables": {
+      "ASPNETCORE_My_Environment": "1",
+      "ASPNETCORE_DETAILEDERRORS": "1",
+      "ASPNETCORE_ENVIRONMENT": "Sandbox"
+    },
+    "applicationUrl": "http://localhost:51997/"
+  }
+}

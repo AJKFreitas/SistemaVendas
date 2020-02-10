@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+    api:
+        build:
+            context: ./api-vendas
+        container_name: api-vendas
+        ports:
+            - 5550:80
+        networks:
+            - lan
+    db_vendas:
+        image: mysql:8
+        command: --default-authentication-plugin=mysql_native_password
+        container_name: bd-vendas
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: Stefa9@2020
+            MYSQL_USER: sysadm
+            MYSQL_PASSWORD: Stefa9@2020
+            MYSQL_DATABASE: db_vendas
+ #       volumes:
+ #           - ./db-data:/var/lib/mysql
+        ports:
+            - 3306:3306 
+        networks:
+            - lan
+networks:
+    lan:
+#        driver: "bridge"
+    
+            
