@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Domains\Usuario\Dtos\" />
     <Folder Include="Domains\Usuario\Interfaces\" />
-    <Folder Include="Domains\Usuario\Services\" />
     <Folder Include="AutoMapers\" />
     <Folder Include="Shared\Configurations\" />
     <Folder Include="Shared\Interfaces\" />

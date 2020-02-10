@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C958C14C-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IoC", "IoC", "{72446146-F29F-4317-93E4-C92BF7E3BED7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data", "Infra\Data\Infra.Data\Infra.Data.csproj", "{7A013B72-66ED-41F5-A6F7-0B38F062D04A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaVendas.Infra.Data", "Infra\Data\Infra.Data\SistemaVendas.Infra.Data.csproj", "{7A013B72-66ED-41F5-A6F7-0B38F062D04A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.IoC", "Infra\IoC\Infra.IoC\Infra.IoC.csproj", "{20218D6B-EBA5-4E88-9E0B-698701857E5E}"
 EndProject

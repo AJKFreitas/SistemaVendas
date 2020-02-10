@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infra\Data\Infra.Data\Infra.Data.csproj" />
+    <ProjectReference Include="..\Infra\Data\Infra.Data\SistemaVendas.Infra.Data.csproj" />
     <ProjectReference Include="..\Infra\IoC\Infra.IoC\Infra.IoC.csproj" />
   </ItemGroup>
 

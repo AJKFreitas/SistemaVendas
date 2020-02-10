@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\SistemaVendas.csproj",
+  "FilePath": "c:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\SistemaVendas.Api.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -20498,7 +20498,7 @@
     ],
     "CSharpLanguageVersion": 800
   },
-  "RootNamespace": "SistemaVendas",
+  "RootNamespace": "SistemaVendas.Api",
   "Documents": [],
   "SerializationFormat": "0.2"
 }

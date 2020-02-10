@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\Infra.Data\Infra.Data.csproj" />
+    <ProjectReference Include="..\..\..\Entities\Models\Entities.Models\SistemaVendas.Core.csproj" />
+    <ProjectReference Include="..\..\Data\Infra.Data\SistemaVendas.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

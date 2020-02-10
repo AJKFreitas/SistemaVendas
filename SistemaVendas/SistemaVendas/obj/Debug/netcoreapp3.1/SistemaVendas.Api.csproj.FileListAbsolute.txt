@@ -31,9 +31,7 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.Design.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Infra.Data.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Infra.IoC.dll
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Infra.Data.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Infra.IoC.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csprojAssemblyReference.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.Manifest.cache
@@ -48,3 +46,5 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb

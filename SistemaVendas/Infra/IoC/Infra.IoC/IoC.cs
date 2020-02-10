@@ -1,8 +1,7 @@
 ﻿using Infra.Data;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SistemaVendas.Core.Domains.Usuario.Services;
+using SistemaVendas.Core.Domains.Usuario.Services.Interfaces;
 
 namespace Infra.IoC
 {
@@ -11,6 +10,7 @@ namespace Infra.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<VendasEFContext>();
+            services.AddScoped<UsuarioService, IUsuarioService>();
         }
     }
 }

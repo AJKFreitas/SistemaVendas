@@ -66,12 +66,12 @@
         }
       }
     },
-    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\Infra.Data.csproj": {
+    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\Infra.Data.csproj",
-        "projectName": "Infra.Data",
-        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\Infra.Data.csproj",
+        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
+        "projectName": "SistemaVendas.Infra.Data",
+        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
         "packagesPath": "C:\\Users\\aasantos6\\.nuget\\packages\\",
         "outputPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\obj\\",
         "projectStyle": "PackageReference",
@@ -177,8 +177,11 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\Infra.Data.csproj": {
-                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\Infra.Data.csproj"
+              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
+              },
+              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
+                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj"
               }
             }
           }

@@ -24,8 +24,8 @@
     ".NETCoreApp,Version=v3.1": {
       "SistemaVendas.Api/1.0.0": {
         "dependencies": {
-          "Infra.Data": "1.0.0",
           "Infra.IoC": "1.0.0",
+          "SistemaVendas.Infra.Data": "1.0.0",
           "Microsoft.AspNetCore.Antiforgery": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "3.1.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "3.1.0.0",
@@ -1310,25 +1310,10 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Infra.Data/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "3.1.1",
-          "Microsoft.Extensions.Configuration": "3.1.1",
-          "Pomelo.EntityFrameworkCore.MySql": "3.1.1",
-          "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2",
-          "SistemaVendas.Core": "1.0.0"
-        },
-        "runtime": {
-          "Infra.Data.dll": {}
-        },
-        "compile": {
-          "Infra.Data.dll": {}
-        }
-      },
       "Infra.IoC/1.0.0": {
         "dependencies": {
-          "Infra.Data": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection": "3.1.1"
+          "Microsoft.Extensions.DependencyInjection": "3.1.1",
+          "SistemaVendas.Infra.Data": "1.0.0"
         },
         "runtime": {
           "Infra.IoC.dll": {}
@@ -1346,6 +1331,21 @@
         },
         "compile": {
           "SistemaVendas.Core.dll": {}
+        }
+      },
+      "SistemaVendas.Infra.Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.1",
+          "Microsoft.Extensions.Configuration": "3.1.1",
+          "Pomelo.EntityFrameworkCore.MySql": "3.1.1",
+          "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2",
+          "SistemaVendas.Core": "1.0.0"
+        },
+        "runtime": {
+          "SistemaVendas.Infra.Data.dll": {}
+        },
+        "compile": {
+          "SistemaVendas.Infra.Data.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/3.1.0.0": {
@@ -3689,17 +3689,17 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Infra.Data/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Infra.IoC/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "SistemaVendas.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SistemaVendas.Infra.Data/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
