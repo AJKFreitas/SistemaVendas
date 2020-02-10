@@ -4,12 +4,12 @@
     "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj": {}
   },
   "projects": {
-    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\Entities.Models.csproj": {
+    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\Entities.Models.csproj",
-        "projectName": "Entities.Models",
-        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\Entities.Models.csproj",
+        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
+        "projectName": "SistemaVendas.Core",
+        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
         "packagesPath": "C:\\Users\\aasantos6\\.nuget\\packages\\",
         "outputPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\obj\\",
         "projectStyle": "PackageReference",
@@ -41,6 +41,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -87,8 +93,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\Entities.Models.csproj": {
-                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\Entities.Models.csproj"
+              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
               }
             }
           }

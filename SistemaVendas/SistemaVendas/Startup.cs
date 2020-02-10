@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaVendas
 {
@@ -22,7 +22,7 @@ namespace SistemaVendas
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<VendasEFContext>();
+            services.AddDbContext<VendasEFContext>(options => options.UseMySql("server=10.17.10.92;port=3306;userid=sysadm;password=Stefa9@2020;database=db_vendas;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

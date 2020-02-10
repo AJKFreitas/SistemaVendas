@@ -8,13 +8,12 @@
     ".NETCoreApp,Version=v3.1": {
       "Infra.Data/1.0.0": {
         "dependencies": {
-          "Entities.Models": "1.0.0",
-          "Infra.IoC": "1.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.1",
           "Microsoft.EntityFrameworkCore.Tools": "3.1.1",
           "Microsoft.Extensions.Configuration": "3.1.1",
           "Pomelo.EntityFrameworkCore.MySql": "3.1.1",
-          "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2"
+          "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2",
+          "SistemaVendas.Core": "1.0.0"
         },
         "runtime": {
           "Infra.Data.dll": {}
@@ -955,17 +954,9 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Entities.Models/1.0.0": {
+      "SistemaVendas.Core/1.0.0": {
         "runtime": {
-          "Entities.Models.dll": {}
-        }
-      },
-      "Infra.IoC/1.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "3.1.1"
-        },
-        "runtime": {
-          "Infra.IoC.dll": {}
+          "SistemaVendas.Core.dll": {}
         }
       }
     }
@@ -1690,12 +1681,7 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Entities.Models/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Infra.IoC/1.0.0": {
+    "SistemaVendas.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

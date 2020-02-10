@@ -20,7 +20,7 @@ namespace Infra.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder.UseMySql("server=10.17.10.92;port=3306;userid=sysadm;password=Stefa9@2020;database=db_vendas;"));
+            base.OnConfiguring(optionsBuilder);
             //Configuration["EndPointApi:ADAuthentication"]
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

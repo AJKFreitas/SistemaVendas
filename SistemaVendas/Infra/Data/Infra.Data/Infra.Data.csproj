@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Entities\Models\Entities.Models\Entities.Models.csproj" />
+    <ProjectReference Include="..\..\..\Entities\Models\Entities.Models\SistemaVendas.Core.csproj" />
   </ItemGroup>
 
 </Project>

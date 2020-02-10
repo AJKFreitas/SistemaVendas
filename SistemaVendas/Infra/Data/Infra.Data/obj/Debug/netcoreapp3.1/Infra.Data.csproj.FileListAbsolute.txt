@@ -3,13 +3,11 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\net
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.csprojAssemblyReference.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.AssemblyInfoInputs.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.AssemblyInfo.cs
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Infra.IoC.dll
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Entities.Models.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Infra.Data.runtimeconfig.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Infra.Data.runtimeconfig.dev.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Infra.Data.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Entities.Models.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\Infra.IoC.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.csproj.CopyComplete
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\Infra.Data.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
