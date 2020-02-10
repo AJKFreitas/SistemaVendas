@@ -5,9 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Usuario\Dtos\" />
-    <Folder Include="Usuario\Interfaces\" />
-    <Folder Include="Usuario\Services\" />
+    <Folder Include="Domains\Usuario\Dtos\" />
+    <Folder Include="Domains\Usuario\Interfaces\" />
+    <Folder Include="Domains\Usuario\Services\" />
+    <Folder Include="AutoMapers\" />
+    <Folder Include="Shared\Configurations\" />
+    <Folder Include="Shared\Interfaces\" />
+    <Folder Include="Shared\Entities\" />
+    <Folder Include="Shared\Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

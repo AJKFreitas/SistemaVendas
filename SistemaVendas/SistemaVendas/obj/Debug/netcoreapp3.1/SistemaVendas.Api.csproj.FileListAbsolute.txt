@@ -47,3 +47,4 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\AutoMapper.dll

@@ -25,6 +25,7 @@ namespace Infra.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuario");
             modelBuilder.ApplyConfiguration(new UsuarioMap());
         }
