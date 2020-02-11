@@ -9,6 +9,7 @@ import { AuthInterceptor } from './components/Auth/shared/config/authconfig.inte
 import { SigninComponent } from './components/Auth/signin/signin.component';
 import { SignupComponent } from './components/Auth/signup/signup.component';
 import { UserProfileComponent } from './components/Auth/user-profile/user-profile.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserProfileComponent } from './components/Auth/user-profile/user-profil
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [
     {
