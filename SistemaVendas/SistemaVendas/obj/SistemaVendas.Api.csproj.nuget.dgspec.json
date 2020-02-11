@@ -45,6 +45,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             }
           },
           "imports": [
@@ -118,10 +122,6 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
-            "Microsoft.Extensions.Configuration": {
-              "target": "Package",
-              "version": "[3.1.1, )"
-            },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[3.1.1, )"
@@ -150,12 +150,12 @@
         }
       }
     },
-    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj": {
+    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj",
-        "projectName": "Infra.IoC",
-        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj",
+        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
+        "projectName": "SistemaVendas.Infra.IoC",
+        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
         "packagesPath": "C:\\Users\\aasantos6\\.nuget\\packages\\",
         "outputPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\obj\\",
         "projectStyle": "PackageReference",
@@ -195,7 +195,7 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.Extensions.DependencyInjection": {
+            "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[3.1.1, )"
             }
@@ -246,11 +246,14 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
+              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
+              },
               "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
                 "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj"
               },
-              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj": {
-                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\Infra.IoC.csproj"
+              "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj": {
+                "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj"
               }
             }
           }
@@ -263,6 +266,30 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Extensions.Logging.Debug": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

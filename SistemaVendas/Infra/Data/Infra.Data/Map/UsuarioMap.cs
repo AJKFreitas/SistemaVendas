@@ -1,6 +1,6 @@
-﻿using Entities.Models.Usuario;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SistemaVendas.Core.Domains.Auth.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

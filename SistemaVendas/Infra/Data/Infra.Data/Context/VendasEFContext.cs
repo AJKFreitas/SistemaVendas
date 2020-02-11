@@ -1,14 +1,11 @@
-﻿using Entities.Models.Usuario;
-using Infra.Data.Map;
+﻿using Infra.Data.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using SistemaVendas.Core.Domains.Auth.Entities;
 
 namespace Infra.Data
 {
-   public class VendasEFContext : DbContext
+    public class VendasEFContext : DbContext
     {
 
         public IConfiguration Configuration { get; }
@@ -18,6 +15,11 @@ namespace Infra.Data
         {
             Configuration = configuration;
         }
+
+        public VendasEFContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -25,7 +27,7 @@ namespace Infra.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuario");
             modelBuilder.ApplyConfiguration(new UsuarioMap());
         }

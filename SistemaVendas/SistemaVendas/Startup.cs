@@ -22,6 +22,7 @@ namespace SistemaVendas
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddDbContext<VendasEFContext>(options => options.UseMySql("server=10.17.10.92;port=3306;userid=sysadm;password=Stefa9@2020;database=db_vendas;"));
         }
 
@@ -40,13 +41,16 @@ namespace SistemaVendas
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseHttpsRedirection();
+
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
+                //endpoints.MapGet("/", async context =>
+                //{
+                //    await context.Response.WriteAsync("Hello World!");
+                //});
             });
         }
     }

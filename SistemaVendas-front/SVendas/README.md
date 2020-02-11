@@ -33,3 +33,5 @@ https://www.positronx.io/angular-jwt-user-authentication-tutorial/
 https://www.positronx.io/angular-router-tutorial/
 
 https://www.angularjswiki.com/flexlayout/
+
+https://dotnettutorials.net/lesson/repository-design-pattern-csharp/

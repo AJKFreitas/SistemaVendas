@@ -1,21 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domains\Usuario\Dtos\" />
-    <Folder Include="Domains\Usuario\Interfaces\" />
+    <Folder Include="Domains\Auth\Dtos\" />
     <Folder Include="AutoMapers\" />
     <Folder Include="Shared\Configurations\" />
-    <Folder Include="Shared\Interfaces\" />
-    <Folder Include="Shared\Entities\" />
     <Folder Include="Shared\Services\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
 </Project>

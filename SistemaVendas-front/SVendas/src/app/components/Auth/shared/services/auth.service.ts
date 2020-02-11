@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
-  endpoint: string = 'http://localhost:4000/api';
+  endpoint: string = environment.apiVendas;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 

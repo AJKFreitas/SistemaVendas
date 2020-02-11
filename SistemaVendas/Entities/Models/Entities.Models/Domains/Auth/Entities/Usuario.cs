@@ -1,12 +1,14 @@
-﻿using System;
+﻿using SistemaVendas.Core.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.Models.Usuario
+namespace SistemaVendas.Core.Domains.Auth.Entities
 {
-    public class Usuario
+
+
+    public class Usuario : TEntity
     {
-        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
@@ -32,3 +34,5 @@ namespace Entities.Models.Usuario
         }
     }
 }
+
+
