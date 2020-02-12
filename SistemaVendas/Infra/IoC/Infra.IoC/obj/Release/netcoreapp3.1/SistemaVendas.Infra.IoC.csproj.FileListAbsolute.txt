@@ -1,0 +1,13 @@
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.deps.json
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Core.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Infra.Data.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Core.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\bin\Release\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.csprojAssemblyReference.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.AssemblyInfoInputs.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.AssemblyInfo.cs
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.csproj.CopyComplete
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\IoC\Infra.IoC\obj\Release\netcoreapp3.1\SistemaVendas.Infra.IoC.pdb

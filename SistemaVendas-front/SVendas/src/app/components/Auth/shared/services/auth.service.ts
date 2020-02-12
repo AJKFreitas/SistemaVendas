@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { User } from '../models/User';
+import { Usuario } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 
@@ -23,8 +23,8 @@ export class AuthService {
   }
 
   // Sign-up
-  signUp(user: User): Observable<any> {
-    const api = `${this.endpoint}/register-user`;
+  signUp(user: Usuario): Observable<any> {
+    const api = `${this.endpoint}/usuario`;
     return this.http.post(api, user)
       .pipe(
         catchError(this.handleError)
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   // Sign-in
-  signIn(user: User) {
+  signIn(user: Usuario) {
     return this.http.post<any>(`${this.endpoint}/signin`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.token)

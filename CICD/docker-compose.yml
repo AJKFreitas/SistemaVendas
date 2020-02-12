@@ -4,8 +4,11 @@ services:
         build:
             context: ./api-vendas
         container_name: api-vendas
+        environment: 
+            ASPNETCORE_ENVIRONMENT: "Sandbox"
         ports:
-            - 5550:80
+            - "5550:80"
+            - "5551:443"
         networks:
             - lan
     db_vendas:
@@ -19,7 +22,7 @@ services:
             MYSQL_PASSWORD: Stefa9@2020
             MYSQL_DATABASE: db_vendas
  #       volumes:
- #           - ./db-data:/var/lib/mysql
+  #          - ./db-data:/var/lib/mysql
         ports:
             - 3306:3306 
         networks:
