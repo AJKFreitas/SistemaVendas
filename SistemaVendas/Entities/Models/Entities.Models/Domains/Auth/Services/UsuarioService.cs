@@ -12,10 +12,7 @@ namespace SistemaVendas.Core.Domains.Auth.Services
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _repository;
-        public UsuarioService()
-        {
-
-        }
+       
         public UsuarioService(IUsuarioRepository repository)
         {
             _repository = repository;
@@ -35,9 +32,20 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             return _repository.GetById(id);
         }
 
-        public void Insert(Usuario usuario)
+        public async Task<HttpStatusCode> Insert(Usuario usuario)
         {
-            _repository.Insert(usuario);
+            try
+            {
+                Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha);
+                _repository.Insert(user);
+                _repository.Save();
+                return HttpStatusCode.Created;
+            }
+            catch (Exception)
+            {
+
+                return HttpStatusCode.NotModified;
+            }
         }
 
         public void Save()

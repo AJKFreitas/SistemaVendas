@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SistemaVendas.Infra.Data.Interfaces
 {
-   public interface IUsuarioRepository : IRepository<Usuario>
+   public interface IUsuarioRepository //: IRepository<Usuario>
     {
         IEnumerable<Usuario> GetAll();
         Usuario GetById(Guid EntityID);

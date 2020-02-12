@@ -1,5 +1,5 @@
 
-using Infra.Data;
+using SistemaVendas.Infra.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using SistemaVendas.Api.Configurations;
 
 namespace SistemaVendas
 {
@@ -22,6 +23,7 @@ namespace SistemaVendas
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDIConfiguration();
             services.AddControllers();
             services.AddDbContext<VendasEFContext>(options => options.UseMySql("server=10.17.10.92;port=3306;userid=sysadm;password=Stefa9@2020;database=db_vendas;"));
         }

@@ -1,9 +1,9 @@
-﻿using Infra.Data.Map;
+﻿using SistemaVendas.Infra.Data.Map;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SistemaVendas.Core.Domains.Auth.Entities;
 
-namespace Infra.Data
+namespace SistemaVendas.Infra.Data
 {
     public class VendasEFContext : DbContext
     {

@@ -1,4 +1,4 @@
-﻿using Infra.Data;
+﻿using SistemaVendas.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Core.Shared.Interfaces;

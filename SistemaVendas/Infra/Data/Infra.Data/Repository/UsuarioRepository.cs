@@ -1,4 +1,4 @@
-﻿using Infra.Data;
+﻿using SistemaVendas.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
-    public class UsuarioRepository : Repository<Usuario> , IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository//: Repository<Usuario> , IUsuarioRepository
     {
         protected readonly VendasEFContext _context;
         private bool disposed = false;
@@ -21,7 +21,7 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public override void Delete(Guid EntityID)
+        public  void Delete(Guid EntityID)
         {
             var user = _context.Usuarios.Find(EntityID);
             _context.Remove(user);
@@ -29,27 +29,27 @@ namespace SistemaVendas.Infra.Data.Repository
 
        
 
-        public override IEnumerable<Usuario> GetAll()
+        public  IEnumerable<Usuario> GetAll()
         {
             return _context.Usuarios;
         }
 
-        public override Usuario GetById(Guid EntityID)
+        public  Usuario GetById(Guid EntityID)
         {
             return _context.Usuarios.Find(EntityID);
         }
 
-        public override void Insert(Usuario usuario)
+        public  void Insert(Usuario usuario)
         {
             _context.Usuarios.Add(usuario);
         }
 
-        public override void Save()
+        public  void Save()
         {
             _context.SaveChanges();
         }
 
-        public override void Update(Usuario usuario)
+        public  void Update(Usuario usuario)
         {
             _context.Entry(usuario).State = EntityState.Modified;
         }
@@ -65,7 +65,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             this.disposed = true;
         }
-        public override void Dispose()
+        public  void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
