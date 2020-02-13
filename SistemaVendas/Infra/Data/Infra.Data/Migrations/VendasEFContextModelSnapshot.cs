@@ -26,7 +26,13 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Role")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Senha")

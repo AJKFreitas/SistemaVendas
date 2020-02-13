@@ -16,6 +16,8 @@ namespace SistemaVendas.Infra.Data.Map
             builder.Property(Usuario => Usuario.Nome);
             builder.Property(Usuario => Usuario.Email);
             builder.Property(Usuario => Usuario.Senha);
+            builder.Property(Usuario => Usuario.Role);
+            builder.Property(Usuario => Usuario.IsAdmin);
         }
     }
 }
