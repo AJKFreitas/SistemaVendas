@@ -32,9 +32,9 @@ namespace SistemaVendas.Api.Controller
 
         }
         [HttpGet]
-        public IEnumerable<Usuario> Get()
+        public async Task<IEnumerable<Usuario>> Get()
         {
-            return  _usuarioService.GetAll();
+            return await _usuarioService.GetAll();
         }
     }
 }

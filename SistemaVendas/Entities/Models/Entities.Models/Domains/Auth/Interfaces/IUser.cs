@@ -8,5 +8,6 @@ namespace SistemaVendas.Core.Domains.Auth.Interfaces
     {
      public string Id { get; set; }
      public string Nome { get; set; }
+
     }
 }

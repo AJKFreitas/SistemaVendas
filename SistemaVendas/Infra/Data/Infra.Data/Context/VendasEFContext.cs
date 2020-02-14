@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SistemaVendas.Core.Domains.Auth.Entities;
+using SistemaVendas.Core.Domains.Fornecedores.Entities;
 
 namespace SistemaVendas.Infra.Data
 {
@@ -10,6 +11,7 @@ namespace SistemaVendas.Infra.Data
 
         public IConfiguration Configuration { get; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Fornecedor> Fornecedores { get; set; }
 
         public VendasEFContext(DbContextOptions options, IConfiguration configuration) : base(options)
         {
@@ -30,6 +32,10 @@ namespace SistemaVendas.Infra.Data
 
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuario");
             modelBuilder.ApplyConfiguration(new UsuarioMap());
+
+            modelBuilder.Entity<Fornecedor>().ToTable("TB_Fornecedor");
+            modelBuilder.ApplyConfiguration(new FornecedorMap());
+            modelBuilder.Entity<Fornecedor>().Property(fornecedor => fornecedor.TipoUsuario).HasConversion<int>();
         }
     }
 }

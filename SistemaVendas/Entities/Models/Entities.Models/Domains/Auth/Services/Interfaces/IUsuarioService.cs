@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Auth.Services.Interfaces
 {
-   public interface IUsuarioService
+    public interface IUsuarioService
     {
-        IEnumerable<Usuario> GetAll();
-        Usuario GetById(Guid EntityID);
+        Task<IEnumerable<Usuario>> GetAll();
+        Task<Usuario> GetById(Guid EntityID);
         Task<HttpStatusCode> Insert(Usuario Entity);
         void Update(Usuario Entity);
         void Delete(Guid EntityID);

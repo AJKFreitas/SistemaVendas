@@ -4,6 +4,7 @@ using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
@@ -29,12 +30,12 @@ namespace SistemaVendas.Infra.Data.Repository
 
        
 
-        public  IEnumerable<Usuario> GetAll()
+        public async Task<IEnumerable<Usuario>> GetAll()
         {
             return _context.Usuarios;
         }
 
-        public  Usuario GetById(Guid EntityID)
+        public async Task<Usuario> GetById(Guid EntityID)
         {
             return _context.Usuarios.Find(EntityID);
         }

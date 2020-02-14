@@ -23,10 +23,9 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             var password = loginUser?.Senha ?? "";
 
             var result = new BaseResult<IUsuario>();
-            var user = _usuarioService.GetAll()
-                  .Where(u => u.Email.ToLower() == loginOrEmail.ToLower()
+            var userResult = await _usuarioService.GetAll();
+            var user =  userResult.ToList().Where(u => u.Email.ToLower() == loginOrEmail.ToLower()
                            && u.Senha == password).FirstOrDefault();
-
             if (user != null)
             {
                 result.Success = true;

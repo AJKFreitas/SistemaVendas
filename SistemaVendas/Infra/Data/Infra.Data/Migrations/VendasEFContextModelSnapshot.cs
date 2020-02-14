@@ -21,26 +21,65 @@ namespace SistemaVendas.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Email")
+                        .HasColumnName("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("IsAdmin")
+                        .HasColumnName("IsAdmin")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nome")
+                        .HasColumnName("Nome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Role")
+                        .HasColumnName("Role")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Senha")
+                        .HasColumnName("Senha")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
                     b.ToTable("TB_Usuario");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Fornecedores.Entities.Fornecedor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("CNPJ")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnName("Email")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Nome")
+                        .HasColumnName("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Senha")
+                        .HasColumnName("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("TipoUsuario")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Fornecedor");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,14 +22,14 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             _repository.Delete(id);
         }
 
-        public IEnumerable<Usuario> GetAll()
+        public async Task<IEnumerable<Usuario>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public Usuario GetById(Guid id)
+        public async Task<Usuario> GetById(Guid id)
         {
-            return _repository.GetById(id);
+            return await _repository.GetById(id);
         }
 
         public async Task<HttpStatusCode> Insert(Usuario usuario)
@@ -58,6 +58,6 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             _repository.Update(Entity);
         }
 
-     
+      
     }
 }
