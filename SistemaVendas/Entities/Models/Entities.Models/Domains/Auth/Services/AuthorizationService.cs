@@ -19,8 +19,8 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             LoginUser loginUser)
         {
 
-            var loginOrEmail = loginUser?.LoginOrEmail ?? "";
-            var password = loginUser?.Password ?? "";
+            var loginOrEmail = loginUser?.Email ?? "";
+            var password = loginUser?.Senha ?? "";
 
             var result = new BaseResult<IUsuario>();
             var user = _usuarioService.GetAll()

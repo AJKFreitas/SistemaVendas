@@ -6,7 +6,7 @@ namespace SistemaVendas.Core.Domains.Auth.Entities
 {
    public sealed class LoginUser
     {
-        public string LoginOrEmail { get; set; }
-        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
     }
 }

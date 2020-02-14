@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
+import { LoginUser } from '../models/LoginUser';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +33,10 @@ export class AuthService {
   }
 
   // Sign-in
-  signIn(user: Usuario) {
-    return this.http.post<any>(`${this.endpoint}/signin`, user)
+  signIn(user: LoginUser) {
+    return this.http.post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token)
+        localStorage.setItem('access_token', res.accessToken)
         this.getUserProfile(res._id).subscribe((res) => {
           this.currentUser = res;
           this.router.navigate(['user-profile/' + res.msg._id]);

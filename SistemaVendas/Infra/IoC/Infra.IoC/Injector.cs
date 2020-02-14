@@ -22,7 +22,7 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAuthorizationService, AuthorizationService>();  
-            services.AddScoped<IAuthenticationService, AuthenticationService>(); 
+            services.AddScoped<IAuthenticationService, JwtIdentityAuthenticationService>(); 
             services.AddScoped<IUsuario, Usuario>(); 
 
         }

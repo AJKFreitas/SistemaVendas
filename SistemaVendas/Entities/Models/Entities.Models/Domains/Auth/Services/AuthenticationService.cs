@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Auth.Services
 {
-  public  class AuthenticationService : IAuthenticationService
+  public  class AuthenticationService
     {
         public async Task<AuthenticationResult> AuthenticateAsync(
             IUsuario user)
