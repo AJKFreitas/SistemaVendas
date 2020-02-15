@@ -22,11 +22,7 @@ namespace SistemaVendas.Infra.Data
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            //Configuration["EndPointApi:ADAuthentication"]
-        }
+  //ççç
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

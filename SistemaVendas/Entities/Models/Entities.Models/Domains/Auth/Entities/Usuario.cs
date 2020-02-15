@@ -1,15 +1,13 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Shared.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Auth.Entities
 {
 
 
-    public class Usuario : TEntity , IUsuario
+    public class Usuario : IUsuario
     {
+        public Guid Id { get; set ; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
@@ -40,10 +38,12 @@ namespace SistemaVendas.Core.Domains.Auth.Entities
 
         public Usuario(string nome, string email, string senha)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Nome = nome;
             Email = email;
             Senha = senha;
+            IsAdmin = false;
+            Role = "Cliente";
         }
     }
 }

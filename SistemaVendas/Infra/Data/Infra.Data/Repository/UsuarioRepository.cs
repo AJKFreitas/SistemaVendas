@@ -1,10 +1,9 @@
-﻿using SistemaVendas.Infra.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
@@ -30,19 +29,29 @@ namespace SistemaVendas.Infra.Data.Repository
 
        
 
-        public async Task<IEnumerable<Usuario>> GetAll()
+        public  IEnumerable<Usuario> GetAll()
         {
-            return _context.Usuarios;
+            return  _context.Usuarios;
         }
 
-        public async Task<Usuario> GetById(Guid EntityID)
+        public  Usuario GetById(Guid EntityID)
         {
             return _context.Usuarios.Find(EntityID);
         }
 
         public  void Insert(Usuario usuario)
         {
-            _context.Usuarios.Add(usuario);
+            try
+            {
+                if(usuario != null)
+                _context.Usuarios.Add(usuario);
+                _context.SaveChanges();
+            }
+            catch (MySqlException e)
+            {
+
+                throw e;
+            }
         }
 
         public  void Save()

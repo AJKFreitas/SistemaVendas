@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SistemaVendas.Core.Domains.Auth.Entities;
+﻿using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Auth.Services
 {
@@ -22,29 +20,28 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             _repository.Delete(id);
         }
 
-        public async Task<IEnumerable<Usuario>> GetAll()
+        public  IEnumerable<Usuario> GetAll()
         {
-            return await _repository.GetAll();
+            return  _repository.GetAll();
         }
 
-        public async Task<Usuario> GetById(Guid id)
+        public  Usuario GetById(Guid id)
         {
-            return await _repository.GetById(id);
+            return  _repository.GetById(id);
         }
 
-        public async Task<HttpStatusCode> Insert(Usuario usuario)
+        public  HttpStatusCode Insert(Usuario usuario)
         {
             try
             {
                 Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha);
                 _repository.Insert(user);
-                _repository.Save();
                 return HttpStatusCode.Created;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                return HttpStatusCode.NotModified;
+                throw e;
+                // return  HttpStatusCode.NotModified + e;
             }
         }
 

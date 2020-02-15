@@ -8,6 +8,7 @@
     <Folder Include="Domains\Auth\Dtos\" />
     <Folder Include="AutoMapers\" />
     <Folder Include="Shared\Configurations\" />
+    <Folder Include="Shared\Entities\" />
     <Folder Include="Shared\Services\" />
   </ItemGroup>
 
