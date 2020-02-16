@@ -21,6 +21,7 @@ import { FornecedorComponent } from './components/Fornecedor/fornecedor/forneced
 import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
 import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,15 @@ import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.c
     ReactiveFormsModule,
     FormsModule,
     FlexLayoutModule,
-    routing
+    routing,
+    JwtModule.forRoot({
+      config: {
+        // ...
+        tokenGetter: () => {
+          return localStorage.getItem("access_token");
+        }
+      }
+    })
   ],
   providers: [
     {

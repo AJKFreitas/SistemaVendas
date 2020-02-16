@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,11 @@ namespace SistemaVendas.Api.Controller
         public  IEnumerable<Usuario> Get()
         {
             return  _usuarioService.GetAll();
+        }
+        [HttpGet("{id}")]
+        public  Usuario GetById(Guid id)
+        {
+            return  _usuarioService.GetById(id);
         }
     }
 }

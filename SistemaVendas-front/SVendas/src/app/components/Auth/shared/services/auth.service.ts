@@ -6,6 +6,7 @@ import { Usuario } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    public jwtHelper: JwtHelperService
   ) {
   }
 
@@ -36,12 +38,15 @@ export class AuthService {
   signIn(user: LoginUser) {
     return this.http.post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.accessToken)
-        this.getUserProfile(res._id).subscribe((res) => {
-          this.currentUser = res;
-          //this.router.navigate(['user-profile/' + res.msg._id]);
-          this.router.navigate(['dashboard']);
-        })
+        localStorage.setItem('access_token', res.accessToken);
+        debugger;
+        const token = this.jwtHelper.decodeToken(this.getToken());
+    //this.getUserProfile(token.data.id).subscribe((res) => {
+     //     this.currentUser = res;
+     //     this.router.navigate(['user-profile/' + res.msg.id]);
+     //   })
+     console.log(token);
+        this.router.navigate(['dashboard']);
       })
   }
 
@@ -63,7 +68,7 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `${this.endpoint}/user-profile/${id}`;
+    let api = `${this.endpoint}/usuario/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}

@@ -11,3 +11,16 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csproj.CopyComplete
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.deps.json
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.runtimeconfig.json
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.runtimeconfig.dev.json
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csprojAssemblyReference.cache
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfoInputs.cache
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfo.cs
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csproj.CopyComplete
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb

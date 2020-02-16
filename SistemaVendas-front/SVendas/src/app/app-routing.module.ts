@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'log-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'fornecedor', component: FornecedorComponent },
   { path: 'pedido', component: PedidoComponent },
   { path: 'cliente', component: ClienteComponent },

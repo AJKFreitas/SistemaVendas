@@ -11,7 +11,7 @@
     routerLinkActive="active" routerLink="/sign-up">Sign up</a>
   <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
 </div> -->
-<div class="wrapper">
+<div *ngIf="this.authService.isLoggedIn" class="wrapper">
   <!-- Sidebar Holder -->
   <nav id="sidebar">
       <div class="sidebar-header">
@@ -140,5 +140,9 @@
       </nav>
       <router-outlet></router-outlet>
       
-      </div>
+    </div>
+</div>
+<div *ngIf="!this.authService.isLoggedIn">    
+    <router-outlet></router-outlet>
+
 </div>
