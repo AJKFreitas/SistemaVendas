@@ -1,4 +1,4 @@
-<div class="d-flex flex-column flex-md-row 
+<!-- <div class="d-flex flex-column flex-md-row 
   align-items-center p-3 px-md-4 mb-3 
   bg-white border-bottom shadow-sm fixed-top">
   <h5 class="my-0 mr-md-auto font-weight-normal">SVendas</h5>
@@ -10,6 +10,135 @@
   <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active"
     routerLinkActive="active" routerLink="/sign-up">Sign up</a>
   <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
-</div>
+</div> -->
+<div class="wrapper">
+  <!-- Sidebar Holder -->
+  <nav *ngIf="this.authService.isLoggedIn" id="sidebar">
+      <div class="sidebar-header">
+          <h3>SVendas</h3>
+      </div>
 
-<router-outlet></router-outlet>
+      <ul class="list-unstyled components">
+          <li class="active">
+              <a href="#pedidoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pedido</a>
+              <ul class="collapse list-unstyled" id="pedidoSubmenu">
+                  <li>
+                      <a routerLinkActive="active" routerLink="/pedido">Novo Pedido</a>
+                  </li>
+                  <li>
+                      <a routerLinkActive="active" href="#">Listar Pedidos</a>
+                  </li>
+                  <li>
+                      <a routerLinkActive="active" href="#">Acompanhar Pedidos</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="active">
+              <a href="#produtoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produto</a>
+              <ul class="collapse list-unstyled" id="produtoSubmenu">
+                  <li>
+                      <a routerLinkActive="active" routerLink="/produto">Cadastrar</a>
+                  </li>
+                  <li>
+                      <a routerLinkActive="active" href="#">Editar</a>
+                  </li>
+                  <li>
+                      <a routerLinkActive="active" href="#">Listar</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="active">
+              <a href="#fornecedorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Fornecedor</a>
+              <ul class="collapse list-unstyled" id="fornecedorSubmenu">
+                <li>
+                  <a routerLinkActive="active" routerLink="/fornecedor">Cadastrar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Editar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Listar</a>
+              </li>
+              </ul>
+          </li>
+          <li class="active">
+              <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cliente</a>
+              <ul class="collapse list-unstyled" id="clienteSubmenu">
+                <li>
+                  <a routerLinkActive="active" routerLink="/cliente">Cadastrar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Editar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Listar</a>
+              </li>
+              </ul>
+          </li>
+          <li class="active">
+              <a href="#usuarioSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
+              <ul class="collapse list-unstyled" id="usuarioSubmenu">
+                <li>
+                  <a routerLinkActive="active" routerLink="/usuario">Cadastrar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Editar</a>
+              </li>
+              <li>
+                  <a routerLinkActive="active" href="#">Listar</a>
+              </li>
+              </ul>
+          </li>
+          <li>
+              <a routerLinkActive="active" routerLink="/perfil">Perfil</a>
+          </li>
+          <li>
+              <a routerLinkActive="active" routerLink="/relatorio">Relatorios</a>
+          </li>
+          <li>
+              <a routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
+          </li>
+      </ul>
+
+     
+  </nav>
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+      <nav *ngIf="this.authService.isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+              <button type="button" id="sidebarCollapse" class="navbar-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </button>
+              <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <i class="fas fa-align-justify"></i>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item active">
+                        <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">Usuario</a>
+                      </li>
+                      <li class="nav-item">
+                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign
+                          in</a>
+                      </li>
+                      <li class="nav-item">
+                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active"
+                        routerLinkActive="active" routerLink="/sign-up">Sign up</a>
+                      </li>
+                      <li class="nav-item">
+                        <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <router-outlet></router-outlet>
+      
+      </div>
+</div>
