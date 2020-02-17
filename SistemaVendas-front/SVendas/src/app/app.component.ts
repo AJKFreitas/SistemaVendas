@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './components/Auth/shared/services/auth.service';
 
 @Component({
@@ -6,9 +6,16 @@ import { AuthService } from './components/Auth/shared/services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'SVendas';
-  constructor(public authService: AuthService) { }
+  mostrarMenu = false;
+  constructor(public authService: AuthService) {
+  }
+  ngOnInit(): void {
+    this.authService.mostrarMenuEmitter.subscribe(
+      mostar => this.mostrarMenu = mostar
+    );
+  }
 
   logout() {
     this.authService.doLogout();

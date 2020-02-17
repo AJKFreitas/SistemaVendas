@@ -17,8 +17,7 @@ namespace SistemaVendas.Infra.IoC
     {
         public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
         {
-            //var siginingConfiguration = new SigningConfiguration();
-            //services.AddSingleton(siginingConfiguration);
+          
             services.AddScoped<VendasEFContext>();
             services.AddDbContext<VendasEFContext>(options => options.UseMySql(configuration.GetConnectionString("MysqlConnectionString")));
             services.AddScoped<IUsuarioService, UsuarioService>();
@@ -26,7 +25,7 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IAuthorizationService, AuthorizationService>();  
             services.AddScoped<IAuthenticationService, JwtIdentityAuthenticationService>(); 
             services.AddScoped<IUsuario, Usuario>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();  
+            //  services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 
 
         }

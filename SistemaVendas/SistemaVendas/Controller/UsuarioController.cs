@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
@@ -25,16 +21,21 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpPost]
-        public async Task<HttpStatusCode> RegisterUser(Usuario usuario)
+        public  HttpStatusCode RegisterUser(Usuario usuario)
         {
             
-          return   await  _usuarioService.Insert(usuario);
+          return  _usuarioService.Insert(usuario);
 
         }
         [HttpGet]
-        public async Task<IEnumerable<Usuario>> Get()
+        public  IEnumerable<Usuario> Get()
         {
-            return await _usuarioService.GetAll();
+            return  _usuarioService.GetAll();
+        }
+        [HttpGet("{id}")]
+        public  Usuario GetById(Guid id)
+        {
+            return  _usuarioService.GetById(id);
         }
     }
 }

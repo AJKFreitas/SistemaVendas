@@ -1,23 +1,17 @@
-﻿using SistemaVendas.Infra.Data;
-using Microsoft.EntityFrameworkCore;
-using SistemaVendas.Core.Shared.Entities;
-using SistemaVendas.Core.Shared.Interfaces;
-using SistemaVendas.Infra.Data.Interfaces;
+﻿using SistemaVendas.Core.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity>
+    public abstract class Repository<T> : IDisposable
     {
         public abstract void Delete(Guid EntityID);
-        public abstract Task<IEnumerable<TEntity>> GetAll();
-        public abstract Task<TEntity> GetById(Guid EntityID);
-        public abstract void Insert(TEntity Entity);
+        public abstract IEnumerable<T> GetAll();
+        public abstract T GetById(Guid EntityID);
+        public abstract void Insert(T Entity);
         public abstract void Save();
-        public abstract void Update(TEntity Entity);
+        public abstract void Update(T Entity);
         public abstract void Dispose();
     }
 }

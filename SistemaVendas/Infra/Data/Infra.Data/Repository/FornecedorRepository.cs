@@ -3,9 +3,6 @@ using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
@@ -36,7 +33,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<IEnumerable<Fornecedor>> GetAll()
+        public  IEnumerable<Fornecedor> GetAll()
         {
             
             try
@@ -50,7 +47,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Fornecedor> GetById(Guid EntityID)
+        public  Fornecedor GetById(Guid EntityID)
         {
             try
             {
@@ -113,5 +110,7 @@ namespace SistemaVendas.Infra.Data.Repository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+       
     }
 }

@@ -10,6 +10,18 @@ import { SigninComponent } from './components/Auth/signin/signin.component';
 import { SignupComponent } from './components/Auth/signup/signup.component';
 import { UserProfileComponent } from './components/Auth/user-profile/user-profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthGuard } from './components/Auth/shared/guard/auth.guard';
+import { AuthService } from './components/Auth/shared/services/auth.service';
+import { ProdutoComponent } from './components/Produto/produto/produto.component';
+import { PedidoComponent } from './components/Pedido/pedido/pedido.component';
+import { ClienteComponent } from './components/Cliente/cliente/cliente.component';
+import { UsuarioComponent } from './components/Usuario/usuario/usuario.component';
+import { routing } from './components/app.routing';
+import { FornecedorComponent } from './components/Fornecedor/fornecedor/fornecedor.component';
+import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
+import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
+import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -17,6 +29,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SigninComponent,
     SignupComponent,
     UserProfileComponent,
+    FornecedorComponent,
+    ProdutoComponent,
+    PedidoComponent,
+    ClienteComponent,
+    UsuarioComponent,
+    PerfilComponent,
+    RelatoriosComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,14 +44,25 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    routing,
+    JwtModule.forRoot({
+      config: {
+        // ...
+        tokenGetter: () => {
+          return localStorage.getItem("access_token");
+        }
+      }
+    })
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
