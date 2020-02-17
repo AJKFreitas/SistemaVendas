@@ -1,1 +1,36 @@
-<p>usuario works!</p>
+<div class="card" >
+    <div class="card-body titulo" id="titulo">
+        Cadastrar Usuários
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="signupForm" (ngSubmit)="registerUser()">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Nome</label>
+                <input type="text" class="form-control" id="nome" formControlName="nome">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Email</label>
+                <input type="email" class="form-control" id="email" formControlName="email">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Senha</label>
+                <input type="password" class="form-control" id="senha" formControlName="senha">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Tipo de Usuário</label>
+                
+            </div>
+            <div class="form-group float-right">
+                <div class="form-check-inline">
+                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
+                </div>
+                <div class="form-check-inline">
+                    <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

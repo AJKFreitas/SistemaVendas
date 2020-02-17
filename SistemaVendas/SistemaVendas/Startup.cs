@@ -23,7 +23,7 @@ namespace SistemaVendas
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDIConfiguration(Configuration);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(); 
             services.AddHttpClient();
 
             services.AddCors();

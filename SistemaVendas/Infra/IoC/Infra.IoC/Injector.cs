@@ -10,6 +10,8 @@ using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
 using SistemaVendas.Core.Shared.Interfaces;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
+using SistemaVendas.Core.Domains.Fornecedores.Services.interfaces;
+using SistemaVendas.Core.Domains.Fornecedores.Services;
 
 namespace SistemaVendas.Infra.IoC
 {
@@ -25,7 +27,8 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IAuthorizationService, AuthorizationService>();  
             services.AddScoped<IAuthenticationService, JwtIdentityAuthenticationService>(); 
             services.AddScoped<IUsuario, Usuario>();
-            //  services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IFornecedorService, FornecedorService>(); 
 
 
         }

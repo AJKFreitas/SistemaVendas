@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SistemaVendas.Core.Domains.Fornecedores.Interfaces
 {
-    public interface IFornecedorRepository : IDisposable
+    public interface IFornecedorRepository
 
     {
         public void Delete(Guid EntityID);

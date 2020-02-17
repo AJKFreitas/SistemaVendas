@@ -12,10 +12,9 @@ namespace SistemaVendas.Infra.Data.Repository
          protected readonly VendasEFContext _context;
         private bool disposed = false;
 
-        public FornecedorRepository(VendasEFContext context, bool disposed)
+        public FornecedorRepository(VendasEFContext context)
         {
             _context = context;
-            this.disposed = disposed;
         }
 
         public void Delete(Guid EntityID)
@@ -64,9 +63,8 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                Fornecedor fornecedor = new Fornecedor(Entity.Nome, Entity.Telefone, Entity.CNPJ, Entity.Email, Entity.Senha);
                 _context.Fornecedores.Add(Entity);
-                _context.SaveChangesAsync();
+                Save();
             }
             catch (MySqlException e)
             {

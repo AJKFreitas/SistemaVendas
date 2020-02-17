@@ -1,3 +1,4 @@
+import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornecedor/listar-fornecedor.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SigninComponent } from './components/Auth/signin/signin.component';
@@ -15,19 +16,20 @@ import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.c
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/log-in', pathMatch: 'full', canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/log-in', pathMatch: 'full' },
   { path: 'log-in', component: SigninComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: 'fornecedor', component: FornecedorComponent },
-  { path: 'pedido', component: PedidoComponent },
-  { path: 'cliente', component: ClienteComponent },
-  { path: 'produto', component: ProdutoComponent },
-  { path: 'usuario', component: UsuarioComponent },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'relatorio', component: RelatoriosComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'fornecedor', component: FornecedorComponent, canActivate: [AuthGuard] },
+  { path: 'fornecedor-listar', component: ListarFornecedorComponent, canActivate: [AuthGuard] },
+  { path: 'pedido', component: PedidoComponent, canActivate: [AuthGuard] },
+  { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
+  { path: 'produto', component: ProdutoComponent, canActivate: [AuthGuard] },
+  { path: 'usuario', component: UsuarioComponent , canActivate: [AuthGuard]},
+  { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
+  { path: 'relatorio', component: RelatoriosComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard]},
 
 ];
 

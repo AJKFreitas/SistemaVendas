@@ -11,9 +11,9 @@
     routerLinkActive="active" routerLink="/sign-up">Sign up</a>
   <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
 </div> -->
-<div *ngIf="mostrarMenu" class="wrapper">
+<div  class="wrapper">
   <!-- Sidebar Holder -->
-  <nav id="sidebar">
+  <nav *ngIf="this.authService.isLoggedIn" id="sidebar">
       <div class="sidebar-header">
           <h3>SVendas</h3>
       </div>
@@ -57,7 +57,7 @@
                   <a routerLinkActive="active" href="#">Editar</a>
               </li>
               <li>
-                  <a routerLinkActive="active" href="#">Listar</a>
+                  <a routerLinkActive="active" routerLink="/fornecedor-listar">Listar</a>
               </li>
               </ul>
           </li>
@@ -106,7 +106,7 @@
   <!-- Page Content Holder -->
   <div id="content">
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav *ngIf="this.authService.isLoggedIn" class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
 
               <button type="button" id="sidebarCollapse" class="navbar-btn">
@@ -121,7 +121,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="nav navbar-nav ml-auto">
                       <li class="nav-item active">
-                        <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">Usuario</a>
+                        <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">{{this.authService.getProfileContext}}</a>
                       </li>
                       <li class="nav-item">
                         <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign
@@ -138,11 +138,8 @@
               </div>
           </div>
       </nav>
+      <div toastContainer></div>
       <router-outlet></router-outlet>
       
     </div>
-</div>
-<div *ngIf="!mostrarMenu">    
-    <router-outlet></router-outlet>
-
 </div>

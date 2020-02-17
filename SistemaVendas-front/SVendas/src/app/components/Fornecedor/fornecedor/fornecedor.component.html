@@ -1,1 +1,35 @@
-<p>fornecedor works!</p>
+<div class="card" >
+    <div class="card-body titulo" id="titulo">
+        Cadastrar Fornecedor
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="fornecedorForm" (ngSubmit)="inserirFornecedor()" #formDirective="ngForm" (ngSubmit)="submitForm(fornecedorForm, formDirective)">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Nome</label>
+                <input type="text" class="form-control" id="nome" formControlName="nome">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Telefone</label>
+                <input type="text" class="form-control" id="telefone" formControlName="telefone">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">CNPJ</label>
+                <input type="text" class="form-control" id="cnpj" formControlName="cnpj">
+            </div>
+            <div class="form-group float-right">
+                <div class="form-check-inline">
+                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
+                </div>
+                <div class="form-check-inline">
+                    <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Salvando ...</p>  
+    </ngx-spinner> 

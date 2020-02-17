@@ -22,6 +22,11 @@ import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
 import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornecedor/listar-fornecedor.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +42,11 @@ import { JwtModule } from '@auth0/angular-jwt';
     PerfilComponent,
     RelatoriosComponent,
     DashboardComponent,
+    ListarFornecedorComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -50,10 +57,19 @@ import { JwtModule } from '@auth0/angular-jwt';
       config: {
         // ...
         tokenGetter: () => {
-          return localStorage.getItem("access_token");
+          return localStorage.getItem('access_token');
         }
       }
-    })
+    }),
+    NgxSpinnerModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 10000,
+        positionClass: 'top-right',
+        closeButton: true,
+    } ),
+    ToastContainerModule,
+    NgxDatatableModule
   ],
   providers: [
     {

@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/User';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -19,6 +19,7 @@ export class AuthService {
   endpoint: string = environment.apiVendas;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
+  profileContext: string ;
 
   usuarioAutenticado = false;
   mostrarMenuEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -45,7 +46,7 @@ export class AuthService {
         localStorage.setItem('access_token', res.accessToken);
         debugger;
         const token = this.jwtHelper.decodeToken(this.getToken());
-        this.getUserProfile(token.data.id).subscribe((res) => {
+        /*this.getUserProfile(token.data?.id).subscribe((res) => {
           if (token?.data?.id) {
             this.currentUser = res;
             this.usuarioAutenticado = true;
@@ -56,6 +57,7 @@ export class AuthService {
               this.mostrarMenuEmitter.emit(false);
           }
         })
+        */
         console.log(token);
         this.router.navigate(['dashboard']);
       });
@@ -71,12 +73,18 @@ export class AuthService {
   }
 
   doLogout() {
-    let removeToken = localStorage.removeItem('access_token');
+    const removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['log-in']);
     }
   }
 
+  get getProfileContext(): string {
+    return this.profileContext ;
+  }
+   setProfileContext(text: string) {
+     this.profileContext = text;
+  }
   // User profile
   getUserProfile(id): Observable<any> {
     const api = `${this.endpoint}/usuario/${id}`;

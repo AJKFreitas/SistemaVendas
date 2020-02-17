@@ -14,8 +14,6 @@ namespace SistemaVendas.Infra.Data.Map
             builder.ToTable("TB_Fornecedor");
             builder.Property(Fornecedor => Fornecedor.Id).HasColumnName("Id").ValueGeneratedOnAdd();
             builder.Property(Fornecedor => Fornecedor.Nome).HasColumnName("Nome"); 
-            builder.Property(Fornecedor => Fornecedor.Email).HasColumnName("Email");
-            builder.Property(Fornecedor => Fornecedor.Senha).HasColumnName("Senha");
         }
     }
 }

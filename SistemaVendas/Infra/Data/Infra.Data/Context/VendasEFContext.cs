@@ -31,7 +31,6 @@ namespace SistemaVendas.Infra.Data
 
             modelBuilder.Entity<Fornecedor>().ToTable("TB_Fornecedor");
             modelBuilder.ApplyConfiguration(new FornecedorMap());
-            modelBuilder.Entity<Fornecedor>().Property(fornecedor => fornecedor.TipoUsuario).HasConversion<int>();
         }
     }
 }
