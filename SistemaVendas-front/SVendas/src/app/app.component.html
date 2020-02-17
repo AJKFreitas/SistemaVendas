@@ -57,7 +57,11 @@
                   <a routerLinkActive="active" href="#">Editar</a>
               </li>
               <li>
+<<<<<<< HEAD
                   <a routerLinkActive="active" routerLink="/fornecedor-listar">Listar</a>
+=======
+                  <a routerLinkActive="active" href="#">Listar</a>
+>>>>>>> 084835aa857991868a738f40c363748a74baed02
               </li>
               </ul>
           </li>
@@ -102,6 +106,7 @@
 
      
   </nav>
+<<<<<<< HEAD
 
   <!-- Page Content Holder -->
   <div id="content">
@@ -143,3 +148,49 @@
       
     </div>
 </div>
+=======
+
+  <!-- Page Content Holder -->
+  <div id="content">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+              <button type="button" id="sidebarCollapse" class="navbar-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+              </button>
+              <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <i class="fas fa-align-justify"></i>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav ml-auto">
+                      <li class="nav-item active">
+                        <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">Usuario</a>
+                      </li>
+                      <li class="nav-item">
+                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign
+                          in</a>
+                      </li>
+                      <li class="nav-item">
+                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active"
+                        routerLinkActive="active" routerLink="/sign-up">Sign up</a>
+                      </li>
+                      <li class="nav-item">
+                        <button (click)="logout()" *ngIf="this.authService.isLoggedIn" type="button" class="btn btn-danger">Logout</button>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+      <router-outlet></router-outlet>
+      
+    </div>
+</div>
+<div *ngIf="!mostrarMenu">    
+    <router-outlet></router-outlet>
+
+</div>
+>>>>>>> 084835aa857991868a738f40c363748a74baed02

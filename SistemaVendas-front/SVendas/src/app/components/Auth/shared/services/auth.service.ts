@@ -46,7 +46,11 @@ export class AuthService {
         localStorage.setItem('access_token', res.accessToken);
         debugger;
         const token = this.jwtHelper.decodeToken(this.getToken());
+<<<<<<< HEAD
         /*this.getUserProfile(token.data?.id).subscribe((res) => {
+=======
+        this.getUserProfile(token.data.id).subscribe((res) => {
+>>>>>>> 084835aa857991868a738f40c363748a74baed02
           if (token?.data?.id) {
             this.currentUser = res;
             this.usuarioAutenticado = true;
@@ -57,7 +61,10 @@ export class AuthService {
               this.mostrarMenuEmitter.emit(false);
           }
         })
+<<<<<<< HEAD
         */
+=======
+>>>>>>> 084835aa857991868a738f40c363748a74baed02
         console.log(token);
         this.router.navigate(['dashboard']);
       });
