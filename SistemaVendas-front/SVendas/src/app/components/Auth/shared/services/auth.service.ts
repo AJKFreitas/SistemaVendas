@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/User';
 import { catchError, map } from 'rxjs/operators';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,8 @@ export class AuthService {
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
+  usuarioAutenticado = false;
+  mostrarMenuEmitter: EventEmitter<boolean> = new EventEmitter();
   constructor(
     private http: HttpClient,
     public router: Router,
@@ -41,13 +45,20 @@ export class AuthService {
         localStorage.setItem('access_token', res.accessToken);
         debugger;
         const token = this.jwtHelper.decodeToken(this.getToken());
-    //this.getUserProfile(token.data.id).subscribe((res) => {
-     //     this.currentUser = res;
-     //     this.router.navigate(['user-profile/' + res.msg.id]);
-     //   })
-     console.log(token);
+        this.getUserProfile(token.data.id).subscribe((res) => {
+          if (token?.data?.id) {
+            this.currentUser = res;
+            this.usuarioAutenticado = true;
+            this.mostrarMenuEmitter.emit(true);
+            this.router.navigate(['user-profile/' + token.data.id]);
+          } else {
+              this.usuarioAutenticado = false;
+              this.mostrarMenuEmitter.emit(false);
+          }
+        })
+        console.log(token);
         this.router.navigate(['dashboard']);
-      })
+      });
   }
 
   getToken() {
@@ -55,7 +66,7 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    const authToken = localStorage.getItem('access_token');
     return (authToken !== null) ? true : false;
   }
 
@@ -68,7 +79,7 @@ export class AuthService {
 
   // User profile
   getUserProfile(id): Observable<any> {
-    let api = `${this.endpoint}/usuario/${id}`;
+    const api = `${this.endpoint}/usuario/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {}

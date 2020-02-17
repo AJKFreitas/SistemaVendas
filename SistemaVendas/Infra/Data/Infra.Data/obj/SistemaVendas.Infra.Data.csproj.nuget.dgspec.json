@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {}
+    "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {}
   },
   "projects": {
-    "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+    "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
+        "projectUniqueName": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
         "projectName": "SistemaVendas.Core",
-        "projectPath": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
-        "packagesPath": "C:\\Users\\Angelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\obj\\",
+        "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Angelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,24 +69,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
+    "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
+        "projectUniqueName": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
         "projectName": "SistemaVendas.Infra.Data",
-        "projectPath": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
-        "packagesPath": "C:\\Users\\Angelo\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\obj\\",
+        "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Angelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -102,8 +96,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
-                "projectPath": "C:\\Projetos_net\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
+              "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+                "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
               }
             }
           }
@@ -158,7 +152,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
