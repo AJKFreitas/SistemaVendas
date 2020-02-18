@@ -36,8 +36,8 @@ export class ListarFornecedorComponent implements OnInit {
       if (res.result) {
         this.fornecedores = res;
       }
-      this.fornecedores = JSON.parse(res);
-      console.log(this.fornecedores);
+      this.fornecedores = res;
+      console.log(res);
       this.SpinnerService.hide();
     });
   }
