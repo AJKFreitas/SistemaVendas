@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SistemaVendas.Api.Configurations;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using SistemaVendas.Core.AutoMapers;
 
 namespace SistemaVendas
 {
@@ -23,6 +25,7 @@ namespace SistemaVendas
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDIConfiguration(Configuration);
+            services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
             services.AddControllers().AddNewtonsoftJson(); 
             services.AddHttpClient();
 

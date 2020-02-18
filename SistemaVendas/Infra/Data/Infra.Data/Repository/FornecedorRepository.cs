@@ -27,7 +27,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             catch (MySqlException e)
             {
-
+                _context.Dispose();
                 throw e;
             }
         }
@@ -41,7 +41,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             catch (MySqlException e)
             {
-
+                _context.Dispose();
                 throw e;
             }
         }
@@ -54,7 +54,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             catch (MySqlException e)
             {
-
+                _context.Dispose();
                 throw e;
             }
         }
@@ -68,7 +68,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             catch (MySqlException e)
             {
-
+                _context.Dispose();
                 throw e;
             }
         }
@@ -76,7 +76,7 @@ namespace SistemaVendas.Infra.Data.Repository
         public void Save()
         {
             _context.SaveChanges();
-            Dispose();
+            _context.Dispose();
         }
 
         public void Update(Fornecedor Entity)
@@ -87,28 +87,10 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             catch (MySqlException e)
             {
-                Dispose();
+                _context.Dispose();
                 throw e;
             }
         }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-       
+     
     }
 }

@@ -13,6 +13,6 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Services.interfaces
         HttpStatusCode Insert(Fornecedor Entity);
         void Update(Fornecedor Entity);
         void Delete(Guid EntityID);
-        void Save();
+        
     }
 }

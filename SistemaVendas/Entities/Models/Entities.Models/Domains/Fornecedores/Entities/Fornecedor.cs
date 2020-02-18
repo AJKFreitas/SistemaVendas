@@ -1,5 +1,6 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Enums;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
+using SistemaVendas.Core.Domains.Produtos.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,7 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Entities
         public string Nome { get ; set ; }
         public string Telefone { get; set; }
         public long CNPJ { get; set; }
-
+        public virtual IEnumerable<ProdutoFornecedor> ProdutosFornecidos { get; set; } = new List<ProdutoFornecedor>();
         public Fornecedor()
         {
         }

@@ -18,10 +18,9 @@ export class ListarFornecedorComponent implements OnInit {
       {
         this.fornecedores = new Array<any>();
         this.columns = [
-          { id: 'Id' },
-          { nome: 'Nome' },
-          { telefone: 'Telefone' },
-          { cnpj: 'CNPJ' }
+          { prop: 'nome' },
+          { name: 'Telefone' },
+          { name: 'CNPJ' }
         ];
       }
 

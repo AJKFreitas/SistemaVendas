@@ -15,6 +15,19 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -1779,6 +1792,7 @@
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "AutoMapper": "9.0.0",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.1",
           "Microsoft.AspNetCore.Mvc.Abstractions": "2.2.0"
         },
@@ -1830,6 +1844,19 @@
         "lib/netstandard2.0/AutoMapper.dll",
         "lib/netstandard2.0/AutoMapper.pdb",
         "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "AutoMapper.Extensions.Microsoft.DependencyInjection/7.0.0": {
+      "sha512": "szI4yeRIM7GWe9JyekW0dKYehPB0t6M+I55fPeCebN6PhS7zQZa0eG3bgOnOx+eP3caSNoE7KEJs2rk7MLsh8w==",
+      "type": "package",
+      "path": "automapper.extensions.microsoft.dependencyinjection/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
+        "automapper.extensions.microsoft.dependencyinjection.nuspec",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
+        "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/3.1.1": {
@@ -2689,12 +2716,11 @@
       ]
     },
     "runtime.native.System.IO.Compression/4.3.0": {
-      "sha512": "INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
+      "sha512": "b+V9JC/Ii3sR659flBeaBJww111425tgjcDS1k+hqV4sGh9FALRDBvJnDtQ895gAzpPTUOFDHdqaZ2Et7BpZMg==",
       "type": "package",
       "path": "runtime.native.system.io.compression/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -2800,12 +2826,11 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
+      "sha512": "T5NvFgmHX0WH4c7lP72krsnk+IJI10vJf2j2twGE+5QBRA4RyRAgD+ZjEgdmpLOjW4B+nZGaadewTCUcR899OQ==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -6229,19 +6254,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\angel\\.nuget\\packages\\": {}
+    "C:\\Users\\aasantos6\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
+      "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
       "projectName": "SistemaVendas.Infra.IoC",
-      "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
-      "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\obj\\",
+      "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\SistemaVendas.Infra.IoC.csproj",
+      "packagesPath": "C:\\Users\\aasantos6\\.nuget\\packages\\",
+      "outputPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\IoC\\Infra.IoC\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\aasantos6\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6249,16 +6278,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\aasantos6\\Downloads": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
-              "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
+            "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+              "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
             },
-            "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
-              "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj"
+            "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj": {
+              "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Infra\\Data\\Infra.Data\\SistemaVendas.Infra.Data.csproj"
             }
           }
         }

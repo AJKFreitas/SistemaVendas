@@ -57,6 +57,7 @@ namespace SistemaVendas.Infra.Data.Repository
         public  void Save()
         {
             _context.SaveChanges();
+            _context.Dispose();
         }
 
         public  void Update(Usuario usuario)

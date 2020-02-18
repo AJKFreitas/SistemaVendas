@@ -70,6 +70,60 @@ namespace SistemaVendas.Infra.Data.Migrations
 
                     b.ToTable("TB_Fornecedor");
                 });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Fornecedores.Entities.ProdutoFornecedor", b =>
+                {
+                    b.Property<Guid>("IdFornecedor")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdProduto")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("IdFornecedor", "IdProduto");
+
+                    b.HasIndex("IdProduto");
+
+                    b.ToTable("ProdutoFornecedor");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Produtos.Entities.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Produto");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Fornecedores.Entities.ProdutoFornecedor", b =>
+                {
+                    b.HasOne("SistemaVendas.Core.Domains.Fornecedores.Entities.Fornecedor", "Fornecedor")
+                        .WithMany("ProdutosFornecidos")
+                        .HasForeignKey("IdFornecedor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
+                        .WithMany("ProdutoFornecedores")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -12,6 +12,9 @@ using SistemaVendas.Core.Shared.Interfaces;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
 using SistemaVendas.Core.Domains.Fornecedores.Services.interfaces;
 using SistemaVendas.Core.Domains.Fornecedores.Services;
+using SistemaVendas.Core.Domains.Produtos.Interfaces;
+using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
+using SistemaVendas.Core.Domains.Produtos.Services;
 
 namespace SistemaVendas.Infra.IoC
 {
@@ -29,6 +32,8 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IUsuario, Usuario>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IFornecedorService, FornecedorService>(); 
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();  
+            services.AddScoped<IProdutoService, ProdutoService>();  
 
 
         }

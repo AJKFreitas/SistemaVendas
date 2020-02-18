@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,13 +8,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor(private location: Location) { }
+  constructor( ) {
+  }
 
   ngOnInit(): void {
-   
-  }
-  load() {
-    location.reload();
   }
 }

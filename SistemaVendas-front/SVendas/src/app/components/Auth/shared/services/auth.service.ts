@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/User';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Injectable({
@@ -26,7 +27,9 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     public router: Router,
-    public jwtHelper: JwtHelperService
+    public jwtHelper: JwtHelperService,
+    private SpinnerService: NgxSpinnerService,
+    private route: ActivatedRoute
   ) {
   }
 
@@ -41,32 +44,15 @@ export class AuthService {
 
   // Sign-in
   signIn(user: LoginUser) {
+    this.SpinnerService.show();
     return this.http.post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
-        debugger;
         const token = this.jwtHelper.decodeToken(this.getToken());
-<<<<<<< HEAD
-        /*this.getUserProfile(token.data?.id).subscribe((res) => {
-=======
-        this.getUserProfile(token.data.id).subscribe((res) => {
->>>>>>> 084835aa857991868a738f40c363748a74baed02
-          if (token?.data?.id) {
-            this.currentUser = res;
-            this.usuarioAutenticado = true;
-            this.mostrarMenuEmitter.emit(true);
-            this.router.navigate(['user-profile/' + token.data.id]);
-          } else {
-              this.usuarioAutenticado = false;
-              this.mostrarMenuEmitter.emit(false);
-          }
-        })
-<<<<<<< HEAD
-        */
-=======
->>>>>>> 084835aa857991868a738f40c363748a74baed02
-        console.log(token);
-        this.router.navigate(['dashboard']);
+        this.SpinnerService.hide();
+        this.router.navigate(['dashboard'], {relativeTo: this.route}).then(nav => {
+          window.location.reload();
+    });
       });
   }
 
@@ -84,6 +70,7 @@ export class AuthService {
     if (removeToken == null) {
       this.router.navigate(['log-in']);
     }
+    this.SpinnerService.hide();
   }
 
   get getProfileContext(): string {

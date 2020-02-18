@@ -29,12 +29,12 @@ const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent , canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'relatorio', component: RelatoriosComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard], runGuardsAndResolvers: 'always'},
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
