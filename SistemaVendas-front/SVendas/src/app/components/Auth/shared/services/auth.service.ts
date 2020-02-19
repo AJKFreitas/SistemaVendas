@@ -55,6 +55,7 @@ export class AuthService {
         });
       },
         err => {
+          this.doLogout();
           this.SpinnerService.hide();
         });
   }

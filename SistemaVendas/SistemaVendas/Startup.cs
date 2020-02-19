@@ -9,6 +9,10 @@ using SistemaVendas.Api.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using SistemaVendas.Core.AutoMapers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SistemaVendas
 {
@@ -24,25 +28,44 @@ namespace SistemaVendas
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var key = Encoding.UTF8.GetBytes(Configuration["Security:SecretKeyJWT"]);
+
             services.AddDIConfiguration(Configuration);
             services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
-            services.AddControllers().AddNewtonsoftJson(); 
-            services.AddHttpClient();
-
             services.AddCors();
-
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
                 options.HttpsPort = 5551;
             });
+            services.AddHttpClient();
+            services.AddControllers().AddNewtonsoftJson();
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+
+                });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -68,10 +91,13 @@ namespace SistemaVendas
                   .AllowAnyOrigin()
                   .AllowAnyMethod()
                   .AllowAnyHeader());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-             });
+            });
         }
     }
 }

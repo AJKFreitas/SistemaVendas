@@ -24,11 +24,12 @@ export class AppComponent implements OnInit {
     this.token = this.jwtHelper.decodeToken(this.authService.getToken());
     }
   ngOnInit(): void {
-    if(this.authService.isLoggedIn){
+    if (this.authService.isLoggedIn) {
       this.authService.setProfileContext(JSON.parse(this.token.Data).Nome);
-    }else{
+    } else {
       debugger;
-      this.toasteSevice.Error("Usuario e senha invalidos!");
+      this.toasteSevice.Error('Usuario e senha invalidos!');
+      this.logout();
     }
     this.authService.mostrarMenuEmitter.subscribe(
       mostar => this.mostrarMenu = mostar

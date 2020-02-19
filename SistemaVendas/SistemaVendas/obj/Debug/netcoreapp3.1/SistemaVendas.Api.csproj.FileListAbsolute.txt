@@ -509,3 +509,5 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll

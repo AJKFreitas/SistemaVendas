@@ -4,10 +4,10 @@ using System.Text;
 
 namespace SistemaVendas.Core.Domains.Auth.Enums
 {
-    public enum EnumTipoUsuario
+    public enum EnumRoleUsuario
     {
         Admin = 1,
-        Cliente = 2,
+        Funcionario = 2,
         Fornecedor = 3,
         Vendedor = 4
     }
