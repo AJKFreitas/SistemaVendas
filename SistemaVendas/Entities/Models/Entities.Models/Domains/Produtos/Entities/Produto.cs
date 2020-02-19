@@ -1,7 +1,7 @@
 ﻿using SistemaVendas.Core.Domains.Fornecedores.Entities;
+using SistemaVendas.Core.Domains.Pedidos.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Produtos.Entities
 {
@@ -12,6 +12,39 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
         public string Descricao { get; set; }
         public double Valor { get; set; }
         public virtual IEnumerable<ProdutoFornecedor> ProdutoFornecedores { get; set; } = new List<ProdutoFornecedor>();
+        public virtual IEnumerable<ItemPedido> ItemPedidos { get; set; } = new List<ItemPedido>();
+
+        public Produto()
+        {
+        }
+        public Produto(string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedido> itemPedidos)
+        {
+            Id = Guid.NewGuid();
+            Nome = nome;
+            Descricao = descricao;
+            Valor = valor;
+            ProdutoFornecedores = produtoFornecedores;
+            ItemPedidos = itemPedidos;
+        }
+
+
+        public Produto(Guid id, string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedido> itemPedidos)
+        {
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
+            Valor = valor;
+            ProdutoFornecedores = produtoFornecedores;
+            ItemPedidos = itemPedidos;
+        }
+
+        public Produto(string nome, string descricao, double valor)
+        {
+            Id = Guid.NewGuid();
+            Nome = nome;
+            Descricao = descricao;
+            Valor = valor;
+        }
 
         public Produto(Guid id, string nome, string descricao, double valor)
         {
@@ -21,17 +54,10 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
             Valor = valor;
         }
 
-        public Produto(string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores)
+        public Produto(string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores) : this(nome, descricao, valor)
         {
             Id = Guid.NewGuid();
-            Nome = nome;
-            Descricao = descricao;
-            Valor = valor;
             ProdutoFornecedores = produtoFornecedores;
-        }
-
-        public Produto()
-        {
         }
     }
 }

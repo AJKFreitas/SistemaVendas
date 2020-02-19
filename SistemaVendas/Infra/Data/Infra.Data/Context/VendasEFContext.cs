@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Produtos.Entities;
+using SistemaVendas.Core.Domains.Clientes.Entities;
+using SistemaVendas.Core.Domains.Pedidos.Entities;
 
 namespace SistemaVendas.Infra.Data
 {
@@ -14,6 +16,9 @@ namespace SistemaVendas.Infra.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<ItemPedido> ItemsPedidos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
         public DbSet<ProdutoFornecedor> ProdutosFornecidos { get; set; }
 
 
@@ -26,21 +31,30 @@ namespace SistemaVendas.Infra.Data
         {
         }
 
-  //ççç
+        //ççç
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuario");
             modelBuilder.ApplyConfiguration(new UsuarioMap());
 
+            modelBuilder.Entity<Cliente>().ToTable("TB_Cliente");
+            modelBuilder.ApplyConfiguration(new ClienteMap());
+
             modelBuilder.Entity<Fornecedor>().ToTable("TB_Fornecedor");
             modelBuilder.ApplyConfiguration(new FornecedorMap());
-            
+
             modelBuilder.Entity<Produto>().ToTable("TB_Produto");
             modelBuilder.ApplyConfiguration(new ProdutoMap());
 
+            modelBuilder.Entity<Pedido>().ToTable("TB_Pedido");
+            modelBuilder.ApplyConfiguration(new PedidoMap());
 
-            modelBuilder.Entity<ProdutoFornecedor>()
+            modelBuilder.Entity<ItemPedido>().ToTable("TB_ItemPedido");
+            modelBuilder.ApplyConfiguration(new ItemPedidoMap());
+
+
+            modelBuilder.Entity<ProdutoFornecedor>().ToTable("TB_Produto_Fornecedor")
                 .HasKey(pf => new { pf.IdFornecedor, pf.IdProduto });
             modelBuilder.Entity<ProdutoFornecedor>()
                 .HasOne(pf => pf.Produto)

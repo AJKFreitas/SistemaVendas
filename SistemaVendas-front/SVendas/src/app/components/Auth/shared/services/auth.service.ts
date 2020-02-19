@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { isNullOrUndefined } from 'util';
 
 
 @Injectable({
@@ -65,7 +66,7 @@ export class AuthService {
   }
 
   get isLoggedIn(): boolean {
-    const authToken = localStorage.getItem('access_token');
+    const authToken =  isNullOrUndefined(this.getToken()) ? null : this.getToken() ;
     return (authToken !== null) ? true : false;
   }
 

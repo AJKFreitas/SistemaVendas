@@ -13,6 +13,10 @@ namespace SistemaVendas.Infra.Data.Map
         {
             builder.ToTable("TB_Produto");
             builder.Property(Fornecedor => Fornecedor.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+
+            builder.HasMany(produto => produto.ItemPedidos)
+                   .WithOne(intemPedido => intemPedido.Produto)
+                   .HasForeignKey(itemPedido => itemPedido.IdProduto);
         }
     }
 }

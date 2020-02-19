@@ -22,6 +22,13 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 500) {
                 this.toastSevice.Error('Erro no servidor, tente novamente mais tarde!');
             }
+            if (err.status === 403) {
+                this.toastSevice.Warning('Seu perfil de usuário nao pode executar essa ação!', 'Forbidden!');
+            }
+            if (err.status === 415) {
+               this.toastSevice.Warning('O formato de mídia dos dados requisitados não é suportado pelo servidor.',
+                'Unsupported Media Type!');
+            }
 
             const error = err.error.message || err.statusText;
             return throwError(error);

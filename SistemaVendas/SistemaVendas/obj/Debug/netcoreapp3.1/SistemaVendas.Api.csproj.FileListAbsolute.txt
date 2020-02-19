@@ -336,12 +336,6 @@ C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.
 C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csprojAssemblyReference.cache
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.Manifest.cache
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.xml
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.MvcApplicationPartsAssemblyInfo.cache
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.AssemblyInfoInputs.cache
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.AssemblyInfo.cs
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\web.config
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.json
@@ -424,6 +418,7 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\de\Microsoft.CodeAnalysis.resources.dll
@@ -498,6 +493,7 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
@@ -505,9 +501,13 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.IoC.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csprojAssemblyReference.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.Manifest.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.xml
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.AssemblyInfoInputs.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.AssemblyInfo.cs
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.RazorTargetAssemblyInfo.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll

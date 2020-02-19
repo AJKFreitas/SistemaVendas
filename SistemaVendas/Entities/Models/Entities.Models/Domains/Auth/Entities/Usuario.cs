@@ -12,38 +12,27 @@ namespace SistemaVendas.Core.Domains.Auth.Entities
         public string Email { get; set; }
         public string Senha { get; set; }
         public string Role { get; set; }
-        public bool IsAdmin { get; set; }
-
-        public Usuario(string nome, string email, string senha, string role) : this(nome, email, senha)
-        {
-            Role = role;
-        }
-
-        public Usuario(string nome, string email, string senha, string role, bool isAdmin) : this(nome, email, senha, role)
-        {
-            IsAdmin = isAdmin;
-        }
-
+        
         public Usuario()
         {
         }
 
-        public Usuario(Guid id, string nome, string email, string senha)
-        {
-            Id = id;
-            Nome = nome;
-            Email = email;
-            Senha = senha;
-        }
-
-        public Usuario(string nome, string email, string senha)
+        public Usuario(string nome, string email, string senha, string role)
         {
             Id = Guid.NewGuid();
             Nome = nome;
             Email = email;
             Senha = senha;
-            IsAdmin = false;
-            Role = "Cliente";
+            Role = role;
+        }
+
+        public Usuario(Guid id, string nome, string email, string senha, string role)
+        {
+            Id = id;
+            Nome = nome;
+            Email = email;
+            Senha = senha;
+            Role = role;
         }
     }
 }

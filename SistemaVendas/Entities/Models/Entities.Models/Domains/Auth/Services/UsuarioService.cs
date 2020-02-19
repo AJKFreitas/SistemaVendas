@@ -34,7 +34,7 @@ namespace SistemaVendas.Core.Domains.Auth.Services
         {
             try
             {
-                Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha);
+                Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha, usuario.Role);
                 _repository.Insert(user);
                 return HttpStatusCode.Created;
             }
