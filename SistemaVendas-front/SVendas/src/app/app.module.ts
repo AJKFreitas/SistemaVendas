@@ -27,6 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornecedor/listar-fornecedor.component';
+import { ErrorInterceptor } from './components/Auth/shared/config/ErrorInterceptor';
+import { ToastService } from './components/Shared/ToastService';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({
   declarations: [
@@ -69,16 +72,15 @@ import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornec
         closeButton: true,
     } ),
     ToastContainerModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    SelectDropDownModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
     AuthGuard,
-    AuthService
+    AuthService,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

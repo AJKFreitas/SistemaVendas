@@ -20,7 +20,7 @@ export class AuthService {
   endpoint: string = environment.apiVendas;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
-  profileContext: string ;
+  profileContext: string;
 
   usuarioAutenticado = false;
   mostrarMenuEmitter: EventEmitter<boolean> = new EventEmitter();
@@ -47,13 +47,16 @@ export class AuthService {
     this.SpinnerService.show();
     return this.http.post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
+        console.log(res);
         localStorage.setItem('access_token', res.accessToken);
-        const token = this.jwtHelper.decodeToken(this.getToken());
         this.SpinnerService.hide();
-        this.router.navigate(['dashboard'], {relativeTo: this.route}).then(nav => {
+        this.router.navigate(['dashboard'], { relativeTo: this.route }).then(nav => {
           window.location.reload();
-    });
-      });
+        });
+      },
+        err => {
+          this.SpinnerService.hide();
+        });
   }
 
   getToken() {
@@ -74,10 +77,10 @@ export class AuthService {
   }
 
   get getProfileContext(): string {
-    return this.profileContext ;
+    return this.profileContext;
   }
-   setProfileContext(text: string) {
-     this.profileContext = text;
+  setProfileContext(text: string) {
+    this.profileContext = text;
   }
   // User profile
   getUserProfile(id): Observable<any> {

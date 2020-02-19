@@ -5,26 +5,26 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form>
-            <div class="form-group">
+        <form [formGroup]="clienteForm" (ngSubmit)="inserirCliente()" #formDirective="ngForm" (ngSubmit)="submitForm(clienteForm, formDirective)">
+            <div class="form-group" >
                 <label for="exampleFormControlInput1">Nome</label>
-                <input type="text" class="form-control" id="nome">
+                <input type="text" class="form-control" id="nome" formControlName="nome">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">CPF</label>
-                <input type="text" class="form-control" id="cpf">
+                <input type="text" class="form-control" id="cpf" formControlName="cpf">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Endereço</label>
-                <input type="text" class="form-control" id="endereco">
+                <input type="text" class="form-control" id="endereco" formControlName="endereco">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefone</label>
-                <input type="text" class="form-control" id="telefone">
+                <input type="text" class="form-control" id="telefone" formControlName="telefone">
             </div>
             <div class="form-group float-right">
                 <div class="form-check-inline">
-                    <button type="button" class="btn btn-success btn-md">Salvar</button>
+                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
                 </div>
                 <div class="form-check-inline">
                     <button type="button" class="btn btn-secondary btn-md">Cancelar</button>

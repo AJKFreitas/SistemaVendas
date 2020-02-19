@@ -1,11 +1,11 @@
-<div class="card" >
+<div class="card">
     <div class="card-body titulo" id="titulo">
         Cadastrar Produto
     </div>
 </div>
 <div class="card">
     <div class="card-body">
-        <form>
+        <form [formGroup]="produtoForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
                 <input type="text" class="form-control" id="nome">
@@ -20,7 +20,9 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Fornecedor</label>
-                <input type="text" class="form-control" id="fornecedor">
+                <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectData" [multiple]="true"
+                    [config]="config" [options]="dropdownOptions">
+                </ngx-select-dropdown>
             </div>
             <div class="form-group float-right">
                 <div class="form-check-inline">
