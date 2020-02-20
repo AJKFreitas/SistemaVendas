@@ -26,7 +26,7 @@ namespace SistemaVendas.Api.Controller
             var authorization = await _authorizationService.AuthorizeAsync(loginUser);
             if (!authorization.Success)
             {
-                return Ok(authorization);
+                return Unauthorized(authorization);
             }
 
             var authentication = await _authenticationService.AuthenticateAsync(authorization.Data);
