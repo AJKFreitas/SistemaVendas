@@ -1,6 +1,6 @@
+import { Usuario } from './../../Auth/shared/models/User';
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsersData } from '../../Usuario/listar-usuario/listar-usuario.component';
 
 @Component({
   selector: 'app-dialog-box',
@@ -15,7 +15,7 @@ export class DialogBoxComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     // @Optional() is used to prevent error if no data is passed
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: UsersData
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario
   ) {
     console.log(data);
     this.local_data = { ...data };

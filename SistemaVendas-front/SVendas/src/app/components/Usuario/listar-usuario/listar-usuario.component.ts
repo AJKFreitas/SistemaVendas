@@ -1,27 +1,13 @@
+import { UsuarioService } from './../services/usuario.service';
+import { Usuario } from './../../Auth/shared/models/User';
 import { DialogBoxComponent } from './../../Shared/dialog-box/dialog-box.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
-export interface UsersData {
-  name: string;
-  id: number;
-}
-
-const ELEMENT_DATA: UsersData[] = [
-  { id: 1560608769632, name: 'Artificial Intelligence' },
-  { id: 1560608796014, name: 'Machine Learning' },
-  { id: 1560608787815, name: 'Robotic Process Automation' },
-  { id: 1560608769632, name: 'Artificial Intelligence' },
-  { id: 1560608796014, name: 'Machine Learning' },
-  { id: 1560608787815, name: 'Robotic Process Automation' },
-  { id: 1560608769632, name: 'Artificial Intelligence' },
-  { id: 1560608796014, name: 'Machine Learning' },
-  { id: 1560608787815, name: 'Robotic Process Automation' },
-  { id: 1560608805101, name: 'Blockchain' }
-];
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastService } from '../../Shared/ToastService';
 
 @Component({
   selector: 'app-listar-usuario',
@@ -29,17 +15,21 @@ const ELEMENT_DATA: UsersData[] = [
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit {
-  dataSource: MatTableDataSource<UsersData>;
-  displayedColumns: string[] = ['id', 'name', 'action'];
-  
-  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  
-  constructor(public dialog: MatDialog) {}
-  
+  dataSource: MatTableDataSource<Usuario>;
+  displayedColumns: string[] = [ 'nome', 'email', 'role', 'action'];
+  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  usuarios: Usuario[] = [];
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
+    private usuarioService: UsuarioService
+  ) {}
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+    this.listarUsuarioss();
+    this.dataSource = new MatTableDataSource(this.usuarios);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -62,25 +52,28 @@ export class ListarUsuarioComponent implements OnInit {
     });
   }
 
-  addRowData(row_obj) {
-    const d = new Date();
+  addRowData(usuario: Usuario) {
     this.dataSource.data.push({
-          id: d.getTime(),
-          name: row_obj.name
-        });
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+      senha: usuario.senha,
+      role: usuario.role
+    });
+
     this.table.renderRows();
   }
-  updateRowData(row_obj) {
+  updateRowData(usuario: Usuario) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      if (value.id === row_obj.id) {
-        value.name = row_obj.name;
+      if (value.id === usuario.id) {
+        value.nome = usuario.nome;
       }
       return true;
     });
   }
-  deleteRowData(row_obj) {
+  deleteRowData(usuario: Usuario) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      return value.id !== row_obj.id;
+      return value.id !== usuario.id;
     });
   }
   applyFilter(event: Event) {
@@ -91,5 +84,17 @@ export class ListarUsuarioComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
+  listarUsuarioss() {
+    this.spinnerService.show();
+    this.usuarioService.listar().subscribe(res => {
+      if (res.result) {
+        this.usuarios = res;
+      }
+      this.dataSource = new MatTableDataSource(res);
+      this.usuarios = res;
+      console.log(this.dataSource);
+      this.spinnerService.hide();
+    });
+  }
+}

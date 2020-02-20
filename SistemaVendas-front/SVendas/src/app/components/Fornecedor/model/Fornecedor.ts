@@ -6,4 +6,5 @@ export class Fornecedor {
     nome: string;
     telefone: string;
     cnpj: number;
+    produtoFornecedores: Produto[];
 }

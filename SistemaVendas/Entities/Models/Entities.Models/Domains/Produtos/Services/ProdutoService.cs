@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SistemaVendas.Core.Domains.Produtos.Dtos;
+using SistemaVendas.Core.Domains.Produtos.VMs;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Interfaces;
 using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;

@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Domains\Auth\Dtos\" />
+    <Folder Include="Domains\Auth\VMs\" />
+    <Folder Include="Domains\Clientes\VMs\" />
     <Folder Include="Shared\Configurations\" />
     <Folder Include="Shared\Entities\" />
     <Folder Include="Shared\Services\" />
