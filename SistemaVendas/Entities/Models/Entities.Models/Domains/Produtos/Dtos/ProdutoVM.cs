@@ -1,4 +1,5 @@
-﻿using SistemaVendas.Core.Domains.Fornecedores.Entities;
+﻿using SistemaVendas.Core.Domains.Fornecedores.Dtos;
+using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using System;
 
 namespace SistemaVendas.Core.Domains.Produtos.Dtos
@@ -11,5 +12,7 @@ namespace SistemaVendas.Core.Domains.Produtos.Dtos
         public string Descricao { get; set; }
         public double Valor { get; set; }
         public Fornecedor Fornecedor { get; set; }
+
+             
     }
 }

@@ -1,3 +1,5 @@
+import { Produto } from '../../Produto/model/Produto';
+
 export class Fornecedor {
 
     id: string;

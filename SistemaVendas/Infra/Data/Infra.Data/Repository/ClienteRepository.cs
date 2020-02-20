@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
-   public class ClienteRepository : IClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
         protected readonly VendasEFContext _context;
 
@@ -85,11 +85,16 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 return await _context.SaveChangesAsync();
+
             }
             catch (MySqlException e)
             {
                 _context.Dispose();
                 throw e;
+            }
+            finally
+            {
+                _context.Dispose(); 
             }
         }
 
@@ -99,7 +104,7 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 _context.Entry(cliente).State = EntityState.Modified;
                 _context.Clientes.Update(cliente);
-                return await _context.SaveChangesAsync();
+                return await Save();
             }
             catch (MySqlException e)
             {

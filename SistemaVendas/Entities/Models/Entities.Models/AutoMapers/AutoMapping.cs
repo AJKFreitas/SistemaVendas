@@ -10,11 +10,11 @@ namespace SistemaVendas.Core.AutoMapers
     {
         public AutoMapping()
         {
-            //CreateMap<Produto, ProdutoVM>()
-            //     .ForMember(dr => dr.Fornecedor, opt => opt
-            //     .MapFrom(d => d.ProdutoFornecedores
-            //     .Select(y => y.Fornecedor)
-            //     .ToList())).ReverseMap();
+            CreateMap<Produto, ProdutoVM>()
+                 .ForMember(dr => dr.Fornecedor, opt => opt
+                 .MapFrom(d => d.ProdutoFornecedores
+                 .Select(y => y.Fornecedor)
+                 .ToList())).ReverseMap();
         }
     }
 }

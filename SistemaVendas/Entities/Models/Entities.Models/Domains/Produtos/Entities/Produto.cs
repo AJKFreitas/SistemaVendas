@@ -12,12 +12,12 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
         public string Descricao { get; set; }
         public double Valor { get; set; }
         public virtual IEnumerable<ProdutoFornecedor> ProdutoFornecedores { get; set; } = new List<ProdutoFornecedor>();
-        public virtual IEnumerable<ItemPedido> ItemPedidos { get; set; } = new List<ItemPedido>();
+        public virtual IEnumerable<ItemPedidoVenda> ItemPedidos { get; set; } = new List<ItemPedidoVenda>();
 
         public Produto()
         {
         }
-        public Produto(string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedido> itemPedidos)
+        public Produto(string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedidoVenda> itemPedidos)
         {
             Id = Guid.NewGuid();
             Nome = nome;
@@ -28,7 +28,7 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
         }
 
 
-        public Produto(Guid id, string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedido> itemPedidos)
+        public Produto(Guid id, string nome, string descricao, double valor, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedidoVenda> itemPedidos)
         {
             Id = id;
             Nome = nome;

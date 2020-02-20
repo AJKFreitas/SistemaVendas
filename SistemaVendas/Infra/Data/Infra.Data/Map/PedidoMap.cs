@@ -4,9 +4,9 @@ using SistemaVendas.Core.Domains.Pedidos.Entities;
 
 namespace SistemaVendas.Infra.Data.Map
 {
-    public class PedidoMap : IEntityTypeConfiguration<Pedido>
+    public class PedidoMap : IEntityTypeConfiguration<PedidoVenda>
     {
-        public void Configure(EntityTypeBuilder<Pedido> builder)
+        public void Configure(EntityTypeBuilder<PedidoVenda> builder)
         {
             builder.HasMany(pedido => pedido.ItemPedidos)
                    .WithOne(intemPedido => intemPedido.Pedido)

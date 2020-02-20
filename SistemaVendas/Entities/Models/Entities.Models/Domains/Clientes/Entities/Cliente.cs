@@ -12,7 +12,7 @@ namespace SistemaVendas.Core.Domains.Clientes.Entities
         public long CPF { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
-        public virtual IEnumerable<Pedido> Pedidos { get; set; } = new List<Pedido>();
+        public virtual IEnumerable<PedidoVenda> Pedidos { get; set; } = new List<PedidoVenda>();
 
         public Cliente()
         {
@@ -37,7 +37,7 @@ namespace SistemaVendas.Core.Domains.Clientes.Entities
             Endereco = endereco;
         }
 
-        public Cliente(Guid id, string nome, long cPF, string telefone, string endereco, IEnumerable<Pedido> pedidos) : this(id, nome, cPF, telefone, endereco)
+        public Cliente(Guid id, string nome, long cPF, string telefone, string endereco, IEnumerable<PedidoVenda> pedidos) : this(id, nome, cPF, telefone, endereco)
         {
             Pedidos = pedidos;
         }
