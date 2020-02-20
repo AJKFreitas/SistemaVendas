@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
@@ -24,6 +25,7 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
+        [Authorize(Roles ="Admin,Fornecedor,Funcionario")]
         public HttpStatusCode InserirFornecedor([FromBody]Fornecedor fornecedor)
         {
 
@@ -32,6 +34,7 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
         public IEnumerable<Fornecedor> Get()
         {
             return _fornecedorService.GetAll();

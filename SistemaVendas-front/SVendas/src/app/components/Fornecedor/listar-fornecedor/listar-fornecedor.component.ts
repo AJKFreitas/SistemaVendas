@@ -2,6 +2,7 @@ import { Fornecedor } from './../model/Fornecedor';
 import { Component, OnInit } from '@angular/core';
 import { FornecedorService } from '../services/fornecedor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastService } from '../../Shared/ToastService';
 
 @Component({
   selector: 'app-listar-fornecedor',
@@ -13,7 +14,8 @@ export class ListarFornecedorComponent implements OnInit {
   columns = [];
   constructor(
     public fornecedorService: FornecedorService,
-    private SpinnerService: NgxSpinnerService
+    private SpinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
     )
       {
         this.fornecedores = new Array<any>();
@@ -26,10 +28,10 @@ export class ListarFornecedorComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.inserirFornecedor();
+    this.listarFornecedores();
   }
 
-  inserirFornecedor() {
+  listarFornecedores() {
     this.SpinnerService.show();
     this.fornecedorService.listarFornecedores().subscribe((res) => {
       if (res.result) {

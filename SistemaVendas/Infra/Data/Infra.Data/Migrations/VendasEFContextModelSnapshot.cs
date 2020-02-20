@@ -28,10 +28,6 @@ namespace SistemaVendas.Infra.Data.Migrations
                         .HasColumnName("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnName("IsAdmin")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<string>("Nome")
                         .HasColumnName("Nome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -47,6 +43,34 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_Usuario");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Clientes.Entities.Cliente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<long>("CPF")
+                        .HasColumnName("CPF")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Endereco")
+                        .HasColumnName("Endereco")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Nome")
+                        .HasColumnName("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnName("Telefone")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TB_Cliente");
                 });
 
             modelBuilder.Entity("SistemaVendas.Core.Domains.Fornecedores.Entities.Fornecedor", b =>
@@ -86,7 +110,59 @@ namespace SistemaVendas.Infra.Data.Migrations
 
                     b.HasIndex("IdProduto");
 
-                    b.ToTable("ProdutoFornecedor");
+                    b.ToTable("TB_Produto_Fornecedor");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedido", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdPedido")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdProduto")
+                        .HasColumnType("char(36)");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("double");
+
+                    b.Property<long>("Quantidade")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPedido");
+
+                    b.HasIndex("IdProduto");
+
+                    b.ToTable("TB_ItemPedido");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdCliente")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Moment")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCliente");
+
+                    b.ToTable("TB_Pedido");
                 });
 
             modelBuilder.Entity("SistemaVendas.Core.Domains.Produtos.Entities.Produto", b =>
@@ -121,6 +197,30 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
                         .WithMany("ProdutoFornecedores")
                         .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedido", b =>
+                {
+                    b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", "Pedido")
+                        .WithMany("ItemPedidos")
+                        .HasForeignKey("IdPedido")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
+                        .WithMany("ItemPedidos")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", b =>
+                {
+                    b.HasOne("SistemaVendas.Core.Domains.Clientes.Entities.Cliente", "Cliente")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

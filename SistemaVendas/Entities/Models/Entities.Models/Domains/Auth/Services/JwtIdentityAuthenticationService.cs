@@ -24,26 +24,30 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             _config = config;
         }
 
-        public async Task<AuthenticationResult> AuthenticateAsync(IUsuario user) { 
+        public async Task<AuthenticationResult> AuthenticateAsync(IUsuario user)
+        {
             var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-            new Claim(JwtRegisteredClaimNames.UniqueName, user.Id.ToString()),
-            new Claim("Data", ToJson(user))
+                new Claim(ClaimTypes.Name, user.Nome),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.Id.ToString()),
+                new Claim("Data", ToJson(user))
         };
 
             var identity = new ClaimsIdentity(claims);
-
-            var created = DateTime.UtcNow.AddDays(1);
-            var expiration = created + TimeSpan.FromSeconds(60000);
+            var key = Encoding.UTF8.GetBytes(_config["Security:SecretKeyJWT"]);
+            var created = DateTime.UtcNow;
+            var expiration = DateTime.UtcNow.AddHours(12);
             var handler = new JwtSecurityTokenHandler();
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Security:SecretKeyJWT"]));
+            var secretKey = new SymmetricSecurityKey(key);
+            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256Signature);
 
-            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512Signature);
             var securityToken = handler.CreateToken(new SecurityTokenDescriptor
             {
-                Issuer = "FSL",
-                Audience = "FSL",
+                Issuer = "SVendas",
+                Audience = "SVendas",
                 SigningCredentials = signingCredentials,
                 Subject = identity,
                 NotBefore = created,
@@ -64,7 +68,7 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             return await Task.FromResult(result);
         }
 
-      
+
         private string ToJson<T>(
             T obj)
         {

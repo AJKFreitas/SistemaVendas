@@ -15,8 +15,7 @@ namespace SistemaVendas.Core.Domains.Auth.Services
             _usuarioService = usuarioService;
         }
 
-        public async Task<BaseResult<IUsuario>> AuthorizeAsync(
-            LoginUser loginUser)
+        public async Task<BaseResult<IUsuario>> AuthorizeAsync(LoginUser loginUser)
         {
 
             var loginOrEmail = loginUser?.Email ?? "";
@@ -34,8 +33,8 @@ namespace SistemaVendas.Core.Domains.Auth.Services
                 {
                     Id = user.Id,
                     Nome = user.Nome,
+                    Email = user.Email,
                     Role = user.Role,
-                    IsAdmin = false
                 };
             }
             else

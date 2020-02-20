@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
 export class UsuarioComponent implements OnInit {
 
   signupForm: FormGroup;
-
+  role: string;
+  roles: string[] = ['Admin', 'Funcionario', 'Fornecedor', 'Vendedor'];
+ 
   constructor(
     public fb: FormBuilder,
     public authService: AuthService,
@@ -20,7 +22,8 @@ export class UsuarioComponent implements OnInit {
     this.signupForm = this.fb.group({
       nome: [''],
       email: [''],
-      senha: ['']
+      senha: [''],
+      role: ['']
     })
   }
 

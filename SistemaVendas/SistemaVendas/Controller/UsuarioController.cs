@@ -10,10 +10,9 @@ namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     public class UsuarioController : ControllerBase
     {
-       private readonly IUsuarioService _usuarioService;
+        private readonly IUsuarioService _usuarioService;
 
         public UsuarioController(IUsuarioService usuarioService)
         {
@@ -21,21 +20,24 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpPost]
-        public  HttpStatusCode RegisterUser(Usuario usuario)
+        [Authorize(Roles = "Admin")]
+        public HttpStatusCode RegisterUser(Usuario usuario)
         {
-            
-          return  _usuarioService.Insert(usuario);
+
+            return _usuarioService.Insert(usuario);
 
         }
         [HttpGet]
-        public  IEnumerable<Usuario> Get()
+        [Authorize(Roles = "Admin")]
+        public IEnumerable<Usuario> Get()
         {
-            return  _usuarioService.GetAll();
+            return _usuarioService.GetAll();
         }
         [HttpGet("{id}")]
-        public  Usuario GetById(Guid id)
+        [Authorize(Roles = "Admin")]
+        public Usuario GetById(Guid id)
         {
-            return  _usuarioService.GetById(id);
+            return _usuarioService.GetById(id);
         }
     }
 }

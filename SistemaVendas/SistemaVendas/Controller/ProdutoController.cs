@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Core.Domains.Produtos.Dtos;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
-using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Api.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Funcionario,Fornecedor")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
@@ -77,6 +76,7 @@ namespace SistemaVendas.Api.Controller
 
        
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Produto>> DeleteProduto(Guid id)
         {
             var produto = await _produtoService.GetById(id);
