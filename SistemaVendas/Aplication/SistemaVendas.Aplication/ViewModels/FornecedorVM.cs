@@ -9,6 +9,6 @@ namespace SistemaVendas.Aplication.ViewModels
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public long CNPJ { get; set; }
-        public IEnumerable<ProdutoVM> ProdutoFornecedores { get; set; }
+        public IEnumerable<ProdutoVM> Produtos { get; set; } = new List<ProdutoVM>();
     }
 }

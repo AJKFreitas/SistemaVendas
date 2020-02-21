@@ -69,7 +69,7 @@ export class ListarFornecedorComponent implements OnInit {
       nome: fornecedor.nome,
       cnpj: fornecedor.cnpj,
       telefone: fornecedor.telefone,
-      produtoFornecedores: fornecedor.produtoFornecedores
+      produtos: fornecedor.produtos
     });
 
     this.table.renderRows();

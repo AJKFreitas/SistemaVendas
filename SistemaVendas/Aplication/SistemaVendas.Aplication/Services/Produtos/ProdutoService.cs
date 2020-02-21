@@ -63,7 +63,7 @@ namespace SistemaVendas.Aplication.Services.Produtos
         {
             try
             {
-                var prod = _mapper.Map<Produto>(ProdutoVM);
+                var prod = _mapper.Map<ProdutoVM, Produto>(ProdutoVM);
                 return _repository.Insert(prod);
             }
             catch (Exception e)

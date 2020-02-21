@@ -45,3 +45,8 @@ table {
 td, th {
   width: 25%;
 }
+
+
+.formulario {
+  width: 70% !important;
+}

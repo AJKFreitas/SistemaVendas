@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
+import { Produto } from '../model/Produto';
 
 @Component({
   selector: 'app-produto',
@@ -40,7 +41,7 @@ export class ProdutoComponent implements OnInit {
       nome: [''],
       descricao: [''],
       valor: [''],
-      produtoFornecedores: this.formBuilder.array ([])
+      fornecedores: this.formBuilder.array ([])
       });
     }
      fornecedorVM  = new FormControl();
@@ -65,9 +66,14 @@ export class ProdutoComponent implements OnInit {
   }
 iserirProduto() {
   this.spinnerService.show();
-  this.produtoForm.value.produtoFornecedores.push(this.fornecedorVM.value);
-  console.log(this.produtoForm.value);
-  this.produtoService.iserir(this.produtoForm.value).subscribe((res) => {
+  const produto: Produto = new Produto();
+  produto.nome = this.produtoForm.get('nome').value;
+  produto.descricao = this.produtoForm.get('descricao').value;
+  produto.valor = this.produtoForm.get('valor').value;
+  produto.fornecedores = [... this.fornecedorVM.value];
+
+  console.log(produto);
+  this.produtoService.iserir(produto).subscribe((res) => {
       if (res.result) {
         this.produtoForm.reset();
         this.formBuilder = new  FormBuilder();

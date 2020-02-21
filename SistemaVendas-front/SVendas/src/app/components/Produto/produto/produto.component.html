@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="card">
-    <div class="card-body">
+    <div class="card-body formulario">
         <form [formGroup]="produtoForm"  (ngSubmit)="iserirProduto()" #formDirective="ngForm" (ngSubmit)="submitForm(produtoForm, formDirective)">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
@@ -18,13 +18,10 @@
                 <label for="exampleFormControlInput1">Valor Unitário</label>
                 <input type="number" class="form-control" id="valor" formControlName="valor">
             </div>
-            <div class="form-group" formControlName="fornecedorVM">
+            <div class="form-group" >
                 <label for="exampleFormControlInput1">Fornecedor</label>
-                <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produtoFornecedores[]" [multiple]="true"
-                    [config]="config" [options]="fornecedores" >
-                </ngx-select-dropdown> -->
-                <mat-select  [formControl]="fornecedorVM" multiple>
-                    <mat-option *ngFor="let item of fornecedores let i = index" [value]="item" formControlName="produtoFornecedores[i]">{{item.nome}}</mat-option>
+                <mat-select  [formControl]="fornecedorVM" multiple class="form-group">
+                    <mat-option *ngFor="let item of fornecedores let i = index" [value]="item">{{item.nome}}</mat-option>
                   </mat-select>
             </div>
             <div class="form-group float-right">
@@ -36,5 +33,6 @@
                 </div>
             </div>
            </form>
+           <sub> {{fornecedorVM.value| json}} </sub>
     </div>
 </div>

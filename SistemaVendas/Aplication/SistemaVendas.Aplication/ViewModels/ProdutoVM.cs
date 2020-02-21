@@ -10,6 +10,6 @@ namespace SistemaVendas.Aplication.ViewModels
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public double Valor { get; set; }
-        public IEnumerable<FornecedorVM> ProdutoFornecedores { get; set; }
+        public IEnumerable<FornecedorVM> Fornecedores { get; set; } = new List<FornecedorVM>();
     }
 }

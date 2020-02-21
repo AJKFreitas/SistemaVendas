@@ -5,5 +5,5 @@ export class Produto {
     nome: string;
     descricao: string;
     valor: number;
-    produtoFornecedores: Fornecedor[];
+    fornecedores: Fornecedor[];
 }

@@ -29,7 +29,8 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action </th>
         <td mat-cell *matCellDef="let element" class="action-link"> 
-           <a (click)="openDialog('Update',element)">Edit</a> | 
+           <!-- <a (click)="openDialog('Update',element)">Edit</a> -->
+           <a type="button" class="btn btn-success btn-md" routerLink="/user-profile/{{element.id}}">Editar</a> | 
            <a (click)="openDialog('Delete',element)">Delete</a>  
         </td>
       </ng-container>

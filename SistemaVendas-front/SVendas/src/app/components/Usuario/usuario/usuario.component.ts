@@ -42,6 +42,7 @@ export class UsuarioComponent implements OnInit {
         this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
         this.spinnerService.hide();
       }
+      this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.submitForm(formData, formDirective);
     },
     err => {
