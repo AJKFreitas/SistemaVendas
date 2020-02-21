@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using SistemaVendas.Core.Domains.Produtos.VMs;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Interfaces;
-using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SistemaVendas.Aplication.InterfaceServices.Produtos;
+using SistemaVendas.Aplication.ViewModels;
 
-namespace SistemaVendas.Core.Domains.Produtos.Services
+namespace SistemaVendas.Aplication.Services.Produtos
 {
   public  class ProdutoService : IProdutoService
     {

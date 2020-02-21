@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace SistemaVendas.Core.Domains.Auth.Services.Interfaces
+namespace SistemaVendas.Aplication.InterfaceServices.Auth
 {
     public interface IUsuarioService
     {

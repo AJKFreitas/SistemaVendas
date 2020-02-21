@@ -1,7 +1,7 @@
 import { ProdutoService } from './../services/produto.service';
 import { Fornecedor } from './../../Fornecedor/model/Fornecedor';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, FormGroupDirective, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
@@ -40,10 +40,10 @@ export class ProdutoComponent implements OnInit {
       nome: [''],
       descricao: [''],
       valor: [''],
-      // tslint:disable-next-line:new-parens
-      produtoFornecedores: [['']]
-    });
-  }
+      produtoFornecedores: this.formBuilder.array ([])
+      });
+    }
+     fornecedorVM  = new FormControl();
 
   ngOnInit(): void {
     this.popularComboFornecedores();
@@ -63,8 +63,10 @@ export class ProdutoComponent implements OnInit {
       this.spinnerService.hide();
     });
   }
-iserirProduto(){
+iserirProduto() {
   this.spinnerService.show();
+  this.produtoForm.value.produtoFornecedores.push(this.fornecedorVM.value);
+  console.log(this.produtoForm.value);
   this.produtoService.iserir(this.produtoForm.value).subscribe((res) => {
       if (res.result) {
         this.produtoForm.reset();
@@ -84,4 +86,6 @@ public submitForm(formData: any, formDirective: FormGroupDirective): void {
   formDirective.resetForm();
   this.produtoForm.reset();
 }
+
+
 }

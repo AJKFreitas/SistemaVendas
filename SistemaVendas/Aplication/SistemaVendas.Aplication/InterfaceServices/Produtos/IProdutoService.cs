@@ -1,10 +1,10 @@
-﻿using SistemaVendas.Core.Domains.Produtos.VMs;
+﻿using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SistemaVendas.Core.Domains.Produtos.Services.Interfaces
+namespace SistemaVendas.Aplication.InterfaceServices.Produtos
 {
    public interface IProdutoService
     {

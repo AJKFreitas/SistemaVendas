@@ -1,12 +1,11 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaVendas.Core.Domains.Auth.Services
+namespace SistemaVendas.Aplication.Services.Auth
 {
   public  class AuthenticationService
     {

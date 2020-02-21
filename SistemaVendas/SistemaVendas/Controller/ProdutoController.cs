@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SistemaVendas.Core.Domains.Produtos.VMs;
 using SistemaVendas.Core.Domains.Produtos.Entities;
-using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
+using SistemaVendas.Aplication.ViewModels;
+using SistemaVendas.Aplication.InterfaceServices.Produtos;
+using System.Net.Mime;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -67,6 +68,7 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<Produto>> PostProduto(ProdutoVM produtoVM)
         {
             await _produtoService.Insert(produtoVM);

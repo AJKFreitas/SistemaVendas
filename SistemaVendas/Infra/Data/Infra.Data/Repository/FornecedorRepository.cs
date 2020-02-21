@@ -10,7 +10,6 @@ namespace SistemaVendas.Infra.Data.Repository
 
     {
          protected readonly VendasEFContext _context;
-        private bool disposed = false;
 
         public FornecedorRepository(VendasEFContext context)
         {

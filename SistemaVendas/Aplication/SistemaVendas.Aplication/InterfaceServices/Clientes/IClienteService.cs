@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaVendas.Core.Domains.Clientes.Services.Interfaces
+namespace SistemaVendas.Aplication.InterfaceServices.Clientes
 {
    public interface IClienteService
     {

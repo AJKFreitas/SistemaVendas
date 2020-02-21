@@ -1,10 +1,8 @@
-﻿using SistemaVendas.Core.Domains.Fornecedores.VMs;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace SistemaVendas.Core.Domains.Produtos.VMs
-
-
+namespace SistemaVendas.Aplication.ViewModels
 {
     public class ProdutoVM
     {

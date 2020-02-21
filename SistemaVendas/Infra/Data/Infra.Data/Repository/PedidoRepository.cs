@@ -41,11 +41,10 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                return  _context.Pedidos;
+                return  _context.Pedidos.AsAsyncEnumerable<PedidoVenda>();
             }
             catch (MySqlException e)
             {
-                _context.Dispose();
                 throw e;
             }
             finally

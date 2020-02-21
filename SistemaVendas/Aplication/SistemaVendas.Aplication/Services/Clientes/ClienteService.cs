@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
-using SistemaVendas.Core.Domains.Clientes.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaVendas.Core.Domains.Clientes.Services
+namespace SistemaVendas.Aplication.Services.Clientes
 {
     public class ClienteService : IClienteService
 

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using SistemaVendas.Core.Domains.Produtos.VMs;
+using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using System.Linq;
 
 namespace SistemaVendas.Core.AutoMapers
 {
-    public class AutoMapping : Profile
+    public class MapViewModelToDomain : Profile
 
     {
-        public AutoMapping()
+        public MapViewModelToDomain()
         {
             CreateMap<ProdutoVM, Produto>();
 

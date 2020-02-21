@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace SistemaVendas.Core.Domains.Fornecedores.Services.interfaces
+namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
 {
    public interface IFornecedorService
     {

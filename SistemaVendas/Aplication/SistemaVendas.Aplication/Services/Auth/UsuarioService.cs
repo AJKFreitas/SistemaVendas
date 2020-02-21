@@ -1,11 +1,12 @@
-﻿using SistemaVendas.Core.Domains.Auth.Entities;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
+﻿using SistemaVendas.Aplication.InterfaceServices.Auth;
+using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Linq;
 
-namespace SistemaVendas.Core.Domains.Auth.Services
+namespace SistemaVendas.Aplication.Services.Auth
 {
     public class UsuarioService : IUsuarioService
     {
@@ -34,9 +35,17 @@ namespace SistemaVendas.Core.Domains.Auth.Services
         {
             try
             {
-                Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha, usuario.Role);
-                _repository.Insert(user);
-                return HttpStatusCode.Created;
+                Usuario exitente = GetAll().Where(u => u.Email.ToLower().Equals(usuario.Email.ToLower())).FirstOrDefault();
+                if (exitente != null)
+                {
+                    return HttpStatusCode.Locked;
+                }else
+                {
+                    Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha, usuario.Role);
+                    _repository.Insert(user);
+                    return HttpStatusCode.Created;
+                }
+
             }
             catch (Exception e)
             {

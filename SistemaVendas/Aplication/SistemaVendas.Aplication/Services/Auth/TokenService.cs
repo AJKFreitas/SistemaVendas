@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
-namespace SistemaVendas.Core.Domains.Auth.Services
+namespace SistemaVendas.Aplication.Services.Auth
 {
     public class TokenService
     {

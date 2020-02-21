@@ -3,7 +3,7 @@ using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
 using System.Threading.Tasks;
 
-namespace SistemaVendas.Core.Domains.Auth.Services.Interfaces
+namespace SistemaVendas.Aplication.InterfaceServices.Auth
 {
     public interface IAuthorizationService
     {

@@ -1,11 +1,11 @@
-﻿using SistemaVendas.Core.Domains.Fornecedores.Entities;
+﻿using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
+using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
-using SistemaVendas.Core.Domains.Fornecedores.Services.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace SistemaVendas.Core.Domains.Fornecedores.Services
+namespace SistemaVendas.Aplication.Services.Fornecedores
 {
     public class FornecedorService : IFornecedorService
     {

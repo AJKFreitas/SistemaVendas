@@ -1,10 +1,11 @@
 ﻿
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 using System.Threading.Tasks;
 using System.Linq;
-namespace SistemaVendas.Core.Domains.Auth.Services
+using SistemaVendas.Aplication.InterfaceServices.Auth;
+
+namespace SistemaVendas.Aplication.Services.Auth
 {
     public class AuthorizationService : IAuthorizationService
     {

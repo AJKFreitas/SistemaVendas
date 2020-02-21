@@ -18,11 +18,14 @@
                 <label for="exampleFormControlInput1">Valor Unitário</label>
                 <input type="number" class="form-control" id="valor" formControlName="valor">
             </div>
-            <div class="form-group">
+            <div class="form-group" formControlName="fornecedorVM">
                 <label for="exampleFormControlInput1">Fornecedor</label>
-                <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produtoFornecedores" [multiple]="false"
+                <!-- <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produtoFornecedores[]" [multiple]="true"
                     [config]="config" [options]="fornecedores" >
-                </ngx-select-dropdown>
+                </ngx-select-dropdown> -->
+                <mat-select  [formControl]="fornecedorVM" multiple>
+                    <mat-option *ngFor="let item of fornecedores let i = index" [value]="item" formControlName="produtoFornecedores[i]">{{item.nome}}</mat-option>
+                  </mat-select>
             </div>
             <div class="form-group float-right">
                 <div class="form-check-inline">
@@ -32,7 +35,6 @@
                     <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
                 </div>
             </div>
-
-        </form>
+           </form>
     </div>
 </div>

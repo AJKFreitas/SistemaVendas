@@ -1,6 +1,5 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,8 +11,9 @@ using System.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using SistemaVendas.Aplication.InterfaceServices.Auth;
 
-namespace SistemaVendas.Core.Domains.Auth.Services
+namespace SistemaVendas.Aplication.Services.Auth
 {
     public sealed class JwtIdentityAuthenticationService : IAuthenticationService
     {
