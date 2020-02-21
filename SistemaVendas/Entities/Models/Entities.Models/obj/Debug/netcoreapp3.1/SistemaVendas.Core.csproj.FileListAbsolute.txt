@@ -21,3 +21,4 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfo.cs
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache

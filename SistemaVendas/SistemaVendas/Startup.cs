@@ -31,7 +31,7 @@ namespace SistemaVendas
             var key = Encoding.UTF8.GetBytes(Configuration["Security:SecretKeyJWT"]);
 
             services.AddDIConfiguration(Configuration);
-            services.AddAutoMapper(vmd => vmd.AddProfile<MapViewModelToDomain>(), typeof(Startup));
+            services.AddAutoMapper(vmd => vmd.AddProfile<MapViewModelToDomain>(), typeof(Startup) );
             services.AddCors();
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {

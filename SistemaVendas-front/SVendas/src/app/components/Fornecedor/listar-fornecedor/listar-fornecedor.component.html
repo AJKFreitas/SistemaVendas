@@ -1,27 +1,45 @@
 <div class="container-fluid">
-  <div class="card" >
+  <div class="card">
     <div class="card-body titulo" id="titulo">
       Listar Fornecedores
     </div>
   </div>
-  <div class="card">
-    <ngx-datatable 
-    class="table thead-dark"
-    [rows]="fornecedores"
-    [columns]="columns"
-    [loadingIndicator]="true"
-    [columnMode]="'force'"
-    [headerHeight]="40"
-    [summaryRow]="true"
-    [summaryPosition]="'bottom'"
-    [limit]="10"
-    rowHeight="auto"
-    [reorderable]="true"
-    [headerHeight]="50"
-    [footerHeight]="50" >
-  </ngx-datatable>
-</div>
-<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
-  <p style="color: white">Carregando ...</p>  
-</ngx-spinner> 
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="fornecedores" #mytable class="mat-elevation-z8" matSort>
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
+        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+        <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cnpj">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CNPJ </th>
+        <td mat-cell *matCellDef="let element"> {{element.cnpj}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element" class="action-link">
+          <a (click)="openDialog('Update',element)">Edit</a> |
+          <a (click)="openDialog('Delete',element)">Delete</a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+
+
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Carregando ...</p>
+  </ngx-spinner>
+
 </div>
