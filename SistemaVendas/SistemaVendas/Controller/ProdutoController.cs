@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SistemaVendas.Core.Domains.Produtos.Dtos;
+using SistemaVendas.Core.Domains.Produtos.VMs;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
 
 namespace SistemaVendas.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("svendas/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Funcionario,Fornecedor")]
     public class ProdutoController : ControllerBase
@@ -22,14 +22,14 @@ namespace SistemaVendas.Api.Controller
             _produtoService = produtoService;
         }
 
-        
+
         [HttpGet]
         public async Task<IAsyncEnumerable<Produto>> GetProdutos()
         {
             return await _produtoService.GetAll();
         }
 
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Produto>> GetProduto(Guid id)
         {
@@ -43,7 +43,7 @@ namespace SistemaVendas.Api.Controller
             return produto;
         }
 
-       
+
         [HttpPut]
         public async Task<IActionResult> PutProduto(Produto produto)
         {
@@ -66,7 +66,7 @@ namespace SistemaVendas.Api.Controller
             return NoContent();
         }
 
-         [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<Produto>> PostProduto(ProdutoVM produtoVM)
         {
             await _produtoService.Insert(produtoVM);
@@ -74,7 +74,7 @@ namespace SistemaVendas.Api.Controller
             return CreatedAtAction("GetProduto", new { id = produtoVM.Id }, produtoVM);
         }
 
-       
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Produto>> DeleteProduto(Guid id)
@@ -94,8 +94,9 @@ namespace SistemaVendas.Api.Controller
             if (_produtoService.GetById(id) != null)
             {
                 return true;
-            }else
-            return false;
+            }
+            else
+                return false;
         }
     }
 }

@@ -31,6 +31,14 @@ import { ToastService } from './components/Shared/ToastService';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
 import { MatRadioModule } from '@angular/material/radio';
+import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
+import { MatTableModule} from '@angular/material/table';
+import { MatDialogModule} from '@angular/material/dialog';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule} from '@angular/material/input';
+import { MatButtonModule} from '@angular/material/button';
+import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -47,6 +55,8 @@ import { MatRadioModule } from '@angular/material/radio';
     RelatoriosComponent,
     DashboardComponent,
     ListarFornecedorComponent,
+    ListarUsuarioComponent,
+    DialogBoxComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,11 +66,16 @@ import { MatRadioModule } from '@angular/material/radio';
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     FlexLayoutModule,
+    MatPaginatorModule,
     routing,
     JwtModule.forRoot({
       config: {
-        // ...
         tokenGetter: () => {
           return localStorage.getItem('access_token');
         }
@@ -76,6 +91,9 @@ import { MatRadioModule } from '@angular/material/radio';
     ToastContainerModule,
     NgxDatatableModule,
     SelectDropDownModule
+  ],
+  entryComponents: [
+    DialogBoxComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },

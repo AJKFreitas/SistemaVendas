@@ -16,8 +16,8 @@ namespace SistemaVendas.Infra.Data
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Produto> Produtos { get; set; }
-        public DbSet<Pedido> Pedidos { get; set; }
-        public DbSet<ItemPedido> ItemsPedidos { get; set; }
+        public DbSet<PedidoVenda> Pedidos { get; set; }
+        public DbSet<ItemPedidoVenda> ItemsPedidos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<ProdutoFornecedor> ProdutosFornecidos { get; set; }
 
@@ -47,10 +47,10 @@ namespace SistemaVendas.Infra.Data
             modelBuilder.Entity<Produto>().ToTable("TB_Produto");
             modelBuilder.ApplyConfiguration(new ProdutoMap());
 
-            modelBuilder.Entity<Pedido>().ToTable("TB_Pedido");
+            modelBuilder.Entity<PedidoVenda>().ToTable("TB_Pedido");
             modelBuilder.ApplyConfiguration(new PedidoMap());
 
-            modelBuilder.Entity<ItemPedido>().ToTable("TB_ItemPedido");
+            modelBuilder.Entity<ItemPedidoVenda>().ToTable("TB_ItemPedido");
             modelBuilder.ApplyConfiguration(new ItemPedidoMap());
 
 

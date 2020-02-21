@@ -38,7 +38,6 @@ export class ListarFornecedorComponent implements OnInit {
         this.fornecedores = res;
       }
       this.fornecedores = res;
-      console.log(res);
       this.SpinnerService.hide();
     });
   }

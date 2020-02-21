@@ -1,90 +1,89 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
-using SistemaVendas.Core.Domains.Clientes.Entities;
-using SistemaVendas.Core.Domains.Clientes.Interfaces;
+﻿using SistemaVendas.Core.Domains.Pedidos.Entities;
+using SistemaVendas.Core.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
-    public class ClienteRepository : IClienteRepository
+    class PedidoRepository : IRepository<PedidoVenda>
     {
         protected readonly VendasEFContext _context;
 
-        public ClienteRepository(VendasEFContext context)
+        public PedidoRepository(VendasEFContext context)
         {
             _context = context;
         }
 
-        public async Task<int> Delete(Guid clienteId)
+        public async Task<int> Delete(Guid Id)
         {
             try
             {
-                var cliente = _context.Clientes.Find(clienteId);
-                _context.Remove(cliente);
+                var pedido = _context.Pedidos.FindAsync(Id);
+                _context.Remove(pedido);
                 return await Save();
             }
             catch (MySqlException e)
             {
-                _context.Dispose();
                 throw e;
+            }
+            finally
+            {
+                _context.Dispose();
             }
         }
 
-        public async Task<IAsyncEnumerable<Cliente>> GetAll()
+        public async Task<IAsyncEnumerable<PedidoVenda>> GetAll()
         {
             try
             {
-                return _context.Clientes;
+                return  _context.Pedidos;
             }
             catch (MySqlException e)
             {
                 _context.Dispose();
                 throw e;
             }
+            finally
+            {
+                _context.Dispose();
+            }
         }
 
-        public async Task<Cliente> GetById(Guid clienteId)
+        public async Task<PedidoVenda> GetById(Guid Id)
         {
             try
             {
-                return await _context.Clientes.FindAsync(clienteId);
+                return await _context.Pedidos.FindAsync(Id);
             }
             catch (MySqlException e)
             {
                 _context.Dispose();
                 throw e;
             }
+            finally
+            {
+                _context.Dispose();
+            }
         }
 
-        public async Task<int> Insert(Cliente cliente)
+        public async Task<int> Insert(PedidoVenda pedido)
         {
             try
             {
-                Cliente newCliente = new Cliente(
-                    cliente.Nome,
-                    cliente.CPF,
-                    cliente.Telefone,
-                    cliente.Endereco
+                PedidoVenda newPedido = new PedidoVenda(
+                        pedido.Moment,
+                        pedido.IdCliente,
+                        pedido.ItemPedidos,
+                        pedido.ValorTotal
                     );
-                _context.Clientes.Add(newCliente);
+                
+                _context.Pedidos.Add(newPedido);
                 return await Save();
-
-            }
-            catch (MySqlException e)
-            {
-                _context.Dispose();
-                throw e;
-            }
-        }
-
-        public async Task<int> Save()
-        {
-            try
-            {
-                return await _context.SaveChangesAsync();
 
             }
             catch (MySqlException e)
@@ -94,16 +93,33 @@ namespace SistemaVendas.Infra.Data.Repository
             }
             finally
             {
-                _context.Dispose(); 
+                _context.Dispose();
             }
         }
 
-        public async Task<int> Update(Cliente cliente)
+        public async Task<int> Save()
+        { 
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+            finally
+            {
+                _context.Dispose();
+            }
+        }
+
+        public async Task<int> Update(PedidoVenda T)
         {
             try
             {
-                _context.Entry(cliente).State = EntityState.Modified;
-                _context.Clientes.Update(cliente);
+                _context.Entry(T).State = EntityState.Modified;
+                _context.Pedidos.Update(T);
                 return await Save();
             }
             catch (MySqlException e)

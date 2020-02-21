@@ -33,6 +33,7 @@ namespace SistemaVendas.Api.Controller
         {
             return _usuarioService.GetAll();
         }
+     
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         public Usuario GetById(Guid id)

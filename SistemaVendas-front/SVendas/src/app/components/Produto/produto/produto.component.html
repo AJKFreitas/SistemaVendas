@@ -5,28 +5,28 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="produtoForm">
+        <form [formGroup]="produtoForm"  (ngSubmit)="iserirProduto()" #formDirective="ngForm" (ngSubmit)="submitForm(produtoForm, formDirective)">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
-                <input type="text" class="form-control" id="nome">
+                <input type="text" class="form-control" id="nome" formControlName="nome">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Descrição</label>
-                <input type="text" class="form-control" id="descircao">
+                <input type="text" class="form-control" id="descricao" formControlName="descricao">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Valor Unitário</label>
-                <input type="text" class="form-control" id="valorUnitario">
+                <input type="number" class="form-control" id="valor" formControlName="valor">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Fornecedor</label>
-                <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectData" [multiple]="true"
-                    [config]="config" [options]="dropdownOptions">
+                <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produtoFornecedores" [multiple]="false"
+                    [config]="config" [options]="fornecedores" >
                 </ngx-select-dropdown>
             </div>
             <div class="form-group float-right">
                 <div class="form-check-inline">
-                    <button type="button" class="btn btn-success btn-md">Salvar</button>
+                    <button type="button" (click)="iserirProduto()" class="btn btn-success btn-md">Salvar</button>
                 </div>
                 <div class="form-check-inline">
                     <button type="button" class="btn btn-secondary btn-md">Cancelar</button>

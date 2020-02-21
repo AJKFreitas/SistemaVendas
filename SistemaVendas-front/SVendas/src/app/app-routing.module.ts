@@ -13,6 +13,7 @@ import { UsuarioComponent } from './components/Usuario/usuario/usuario.component
 import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
 import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
+import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   { path: 'produto', component: ProdutoComponent, canActivate: [AuthGuard] },
   { path: 'usuario', component: UsuarioComponent , canActivate: [AuthGuard]},
+  { path: 'listar-usuario', component: ListarUsuarioComponent , canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'relatorio', component: RelatoriosComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard], runGuardsAndResolvers: 'always'},

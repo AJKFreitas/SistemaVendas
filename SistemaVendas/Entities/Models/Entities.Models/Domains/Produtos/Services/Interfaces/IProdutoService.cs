@@ -1,8 +1,7 @@
-﻿using SistemaVendas.Core.Domains.Produtos.Dtos;
+﻿using SistemaVendas.Core.Domains.Produtos.VMs;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Produtos.Services.Interfaces

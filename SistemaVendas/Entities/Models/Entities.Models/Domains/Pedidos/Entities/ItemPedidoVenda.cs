@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SistemaVendas.Core.Domains.Pedidos.Entities
 {
-    public class ItemPedido
+    public class ItemPedidoVenda
     {
         public Guid Id { get; set; }
         public long Quantidade { get; set; }
@@ -13,14 +13,14 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         public double SubTotal { get; set; }
         public virtual Produto Produto { get; set; }
         public Guid IdProduto { get; set; }
-        public virtual Pedido Pedido { get; set; }
+        public virtual PedidoVenda Pedido { get; set; }
         public Guid IdPedido { get; set; }
 
-        public ItemPedido()
+        public ItemPedidoVenda()
         {
 
         }
-        public ItemPedido(Guid id, long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, Pedido pedido, Guid idPedido)
+        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, PedidoVenda pedido, Guid idPedido)
         {
             Id = id;
             Quantidade = quantidade;
@@ -32,7 +32,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             IdPedido = idPedido;
         }
 
-        public ItemPedido(long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, Pedido pedido, Guid idPedido)
+        public ItemPedidoVenda(long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, PedidoVenda pedido, Guid idPedido)
         {
             Id = Guid.NewGuid();
             Quantidade = quantidade;

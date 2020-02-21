@@ -7,9 +7,9 @@ using System.Text;
 
 namespace SistemaVendas.Infra.Data.Map
 {
-    class ItemPedidoMap : IEntityTypeConfiguration<ItemPedido>
+    class ItemPedidoMap : IEntityTypeConfiguration<ItemPedidoVenda>
     {
-        public void Configure(EntityTypeBuilder<ItemPedido> builder)
+        public void Configure(EntityTypeBuilder<ItemPedidoVenda> builder)
         {
             builder.HasOne(itemPedido => itemPedido.Produto)
                     .WithMany(produto => produto.ItemPedidos)

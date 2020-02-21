@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Shared.Interfaces
 {
-  public  interface IRepository<T> : IDisposable
+  public  interface IRepository<T> 
     {
-        public  void Delete(Guid EntityID);
-        public IEnumerable<T> GetAll();
-        public T GetById(Guid EntityID);
-        public  void Insert(T Entity);
-        public  void Save();
-        public  void Update(T Entity);
+        Task<int> Delete(Guid Id);
+        Task<IAsyncEnumerable<T>> GetAll();
+        Task<T> GetById(Guid Id);
+        Task<int> Insert(T T);
+        Task<int> Save();
+        Task<int> Update(T T);
     }
 }

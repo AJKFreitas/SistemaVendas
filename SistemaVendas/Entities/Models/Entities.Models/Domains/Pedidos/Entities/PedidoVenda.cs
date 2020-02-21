@@ -5,20 +5,20 @@ using System.Text;
 
 namespace SistemaVendas.Core.Domains.Pedidos.Entities
 {
-  public class Pedido
+  public class PedidoVenda
     {
         public Guid Id { get; set; }
         public DateTime Moment { get; set; }
         public virtual Cliente Cliente { get; set; }
         public Guid IdCliente { get; set; }
-        public virtual IEnumerable<ItemPedido> ItemPedidos { get; set; } = new List<ItemPedido>();
+        public virtual IEnumerable<ItemPedidoVenda> ItemPedidos { get; set; } = new List<ItemPedidoVenda>();
         public double ValorTotal { get; set; }
 
-        public Pedido()
+        public PedidoVenda()
         {
 
         }
-        public Pedido(Guid id, DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedido> itemPedidos, double valorTotal)
+        public PedidoVenda(Guid id, DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
         {
             Id = id;
             Moment = moment;
@@ -28,7 +28,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             ValorTotal = valorTotal;
         }
 
-        public Pedido(DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedido> itemPedidos, double valorTotal)
+        public PedidoVenda(DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
         {
             Id = Guid.NewGuid();
             Moment = moment;
@@ -41,14 +41,20 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         public double Total()
         {
             double sum = 0;
-            foreach (ItemPedido item in ItemPedidos)
+            foreach (ItemPedidoVenda item in ItemPedidos)
             {
                 sum += item.CalcSubTotal();
             }
             return sum;
         }
 
-       
-
+        public PedidoVenda(DateTime moment, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
+        {
+            Id = Guid.NewGuid();
+            Moment = moment;
+            IdCliente = idCliente;
+            ItemPedidos = itemPedidos;
+            ValorTotal = valorTotal;
+        }
     }
 }
