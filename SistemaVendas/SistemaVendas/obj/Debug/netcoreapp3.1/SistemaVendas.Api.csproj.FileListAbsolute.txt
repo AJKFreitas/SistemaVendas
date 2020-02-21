@@ -424,6 +424,7 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\n
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\cs\Microsoft.CodeAnalysis.resources.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\de\Microsoft.CodeAnalysis.resources.dll
@@ -498,10 +499,13 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\n
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.IoC.dll
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.IoC.pdb

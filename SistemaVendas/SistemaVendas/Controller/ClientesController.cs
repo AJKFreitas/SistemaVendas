@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Clientes.Entities;
-using SistemaVendas.Core.Domains.Clientes.Services.Interfaces;
 using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Api.Controller

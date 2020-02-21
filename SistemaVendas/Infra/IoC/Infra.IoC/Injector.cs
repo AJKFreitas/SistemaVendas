@@ -1,23 +1,22 @@
 ﻿using SistemaVendas.Infra.Data;
 using Microsoft.Extensions.DependencyInjection;
-using SistemaVendas.Core.Domains.Auth.Services;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 using SistemaVendas.Infra.Data.Interfaces;
 using SistemaVendas.Infra.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Shared.Interfaces;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
-using SistemaVendas.Core.Domains.Fornecedores.Services.interfaces;
-using SistemaVendas.Core.Domains.Fornecedores.Services;
 using SistemaVendas.Core.Domains.Produtos.Interfaces;
-using SistemaVendas.Core.Domains.Produtos.Services.Interfaces;
-using SistemaVendas.Core.Domains.Produtos.Services;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
-using SistemaVendas.Core.Domains.Clientes.Services.Interfaces;
-using SistemaVendas.Core.Domains.Clientes.Services;
+using SistemaVendas.Aplication.InterfaceServices.Auth;
+using SistemaVendas.Aplication.Services.Auth;
+using SistemaVendas.Aplication.InterfaceServices.Clientes;
+using SistemaVendas.Aplication.Services.Clientes;
+using SistemaVendas.Aplication.Services.Produtos;
+using SistemaVendas.Aplication.InterfaceServices.Produtos;
+using SistemaVendas.Aplication.Services.Fornecedores;
+using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 
 namespace SistemaVendas.Infra.IoC
 {

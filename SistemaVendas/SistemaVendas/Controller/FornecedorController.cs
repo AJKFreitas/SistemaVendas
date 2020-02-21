@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
-using SistemaVendas.Core.Domains.Fornecedores.Services.interfaces;
 
 namespace SistemaVendas.Api.Controller
 {

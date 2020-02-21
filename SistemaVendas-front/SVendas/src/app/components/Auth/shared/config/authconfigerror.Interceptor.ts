@@ -16,6 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
+            debugger;
             if (err.status === 401) {
                 this.toastSevice.Warning('Usuário não autorizado!', 'Atenção!');
             }
@@ -26,11 +27,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastSevice.Warning('Seu perfil de usuário nao pode executar essa ação!', 'Forbidden!');
             }
             if (err.status === 415) {
-               this.toastSevice.Warning('O formato de mídia dos dados requisitados não é suportado pelo servidor.',
-                'Unsupported Media Type!');
+               this.toastSevice.Warning('Unsupported Media Type!',
+                'O formato de mídia dos dados requisitados não é suportado pelo servidor.');
+            }
+            if (err.status === 423) {
+               this.toastSevice.Warning('Recurso já existe', 'Já existe um recurso com esses dados cadastrado');
             }
 
             const error = err.error.message || err.statusText;
+            this.toastSevice.Error(error);
             return throwError(error);
         }));
     }

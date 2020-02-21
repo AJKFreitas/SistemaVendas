@@ -29,7 +29,9 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.runtimeconfig.dev.json
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csprojAssemblyReference.cache
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfoInputs.cache

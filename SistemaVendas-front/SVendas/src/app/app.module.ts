@@ -1,7 +1,7 @@
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +39,14 @@ import { MatInputModule} from '@angular/material/input';
 import { MatButtonModule} from '@angular/material/button';
 import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/br';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import {MatSelectModule} from '@angular/material/select';
 
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+
+registerLocaleData(localeFr, 'pt-BR');
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +80,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     FlexLayoutModule,
     MatPaginatorModule,
+    MatSelectModule,
     routing,
     JwtModule.forRoot({
       config: {
@@ -90,7 +98,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     } ),
     ToastContainerModule,
     NgxDatatableModule,
-    SelectDropDownModule
+    SelectDropDownModule,
+    NgxMaskModule.forRoot(options)
   ],
   entryComponents: [
     DialogBoxComponent
@@ -98,6 +107,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
+    {provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR'},
 
     AuthGuard,
     AuthService,

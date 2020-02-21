@@ -5,7 +5,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="signupForm" (ngSubmit)="registerUser()">
+        <form [formGroup]="signupForm" (ngSubmit)="registerUser(signupForm,formDirective)" #formDirective="ngForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
                 <input type="text" class="form-control" id="nome" formControlName="nome">

@@ -3230,11 +3230,28 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "SistemaVendas.Core/1.0.0": {
+      "SistemaVendas.Aplication/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "AutoMapper": "9.0.0",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
+          "SistemaVendas.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SistemaVendas.Aplication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SistemaVendas.Aplication.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "SistemaVendas.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.2",
@@ -3245,7 +3262,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SistemaVendas.Infra.Data/1.0.0": {
         "type": "project",
@@ -3254,6 +3274,7 @@
           "Microsoft.EntityFrameworkCore": "3.1.1",
           "Pomelo.EntityFrameworkCore.MySql": "3.1.1",
           "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2",
+          "SistemaVendas.Aplication": "1.0.0",
           "SistemaVendas.Core": "1.0.0",
           "System.Data.SqlClient": "4.8.0"
         },
@@ -3262,7 +3283,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Infra.Data.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SistemaVendas.Infra.IoC/1.0.0": {
         "type": "project",
@@ -3277,7 +3301,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Infra.IoC.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -9906,6 +9933,11 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
+    "SistemaVendas.Aplication/1.0.0": {
+      "type": "project",
+      "path": "../Aplication/SistemaVendas.Aplication/SistemaVendas.Aplication.csproj",
+      "msbuildProject": "../Aplication/SistemaVendas.Aplication/SistemaVendas.Aplication.csproj"
+    },
     "SistemaVendas.Core/1.0.0": {
       "type": "project",
       "path": "../Entities/Models/Entities.Models/SistemaVendas.Core.csproj",
@@ -9930,6 +9962,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
       "Microsoft.Extensions.Logging.Debug >= 3.1.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
+      "SistemaVendas.Aplication >= 1.0.0",
       "SistemaVendas.Core >= 1.0.0",
       "SistemaVendas.Infra.Data >= 1.0.0",
       "SistemaVendas.Infra.IoC >= 1.0.0"
@@ -9961,6 +9994,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Aplication\\SistemaVendas.Aplication\\SistemaVendas.Aplication.csproj": {
+              "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Aplication\\SistemaVendas.Aplication\\SistemaVendas.Aplication.csproj"
+            },
             "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
               "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj"
             },

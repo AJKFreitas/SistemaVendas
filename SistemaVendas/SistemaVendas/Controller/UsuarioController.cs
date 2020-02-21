@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SistemaVendas.Aplication.InterfaceServices.Auth;
 using SistemaVendas.Core.Domains.Auth.Entities;
-using SistemaVendas.Core.Domains.Auth.Services.Interfaces;
 
 namespace SistemaVendas.Api.Controller
 {

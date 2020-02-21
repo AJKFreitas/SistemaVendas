@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Aplication\SistemaVendas.Aplication\SistemaVendas.Aplication.csproj" />
     <ProjectReference Include="..\Entities\Models\Entities.Models\SistemaVendas.Core.csproj" />
     <ProjectReference Include="..\Infra\Data\Infra.Data\SistemaVendas.Infra.Data.csproj" />
     <ProjectReference Include="..\Infra\IoC\Infra.IoC\SistemaVendas.Infra.IoC.csproj" />
