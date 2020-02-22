@@ -43,6 +43,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/br';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import {MatSelectModule} from '@angular/material/select';
+import { UsuarioService } from './components/Usuario/services/usuario.service';
+import { MaterialModule } from './shared/modules/material/material.module';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -72,15 +74,11 @@ registerLocaleData(localeFr, 'pt-BR');
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,
-    MatTableModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
+
     FlexLayoutModule,
     MatPaginatorModule,
     MatSelectModule,
+    MaterialModule,
     routing,
     JwtModule.forRoot({
       config: {
@@ -111,7 +109,8 @@ registerLocaleData(localeFr, 'pt-BR');
 
     AuthGuard,
     AuthService,
-    ToastService
+    ToastService,
+    UsuarioService
   ],
   bootstrap: [AppComponent]
 })

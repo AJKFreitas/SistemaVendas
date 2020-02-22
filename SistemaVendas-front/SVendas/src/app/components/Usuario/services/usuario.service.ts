@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Usuario } from '../../Auth/shared/models/User';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,15 @@ export class UsuarioService {
      public router: Router
     ) { }
 
-     // Sign-up
+    form: FormGroup = new FormGroup({
+      $key: new FormControl(null),
+      id: new FormControl(''),
+      nome: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      senha: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required),
+    });
+
   iserir(usuario: Usuario): Observable<any> {
     const api = `${this.endpoint}/usuario`;
     return this.http.post(api, usuario)

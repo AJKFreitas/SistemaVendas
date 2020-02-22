@@ -1,41 +1,85 @@
-
-<div class="card" >
-    <div class="card-body titulo" id="titulo">
-      Listar Usuarios
-    </div>
+<div class="card">
+  <div class="card-body titulo" id="titulo">
+    Listar Usuarios
+  </div>
 </div>
 <div class="mat-elevation-z8">
- 
-   <button mat-button (click)="openDialog('Add',{})" mat-flat-button color="primary">Adicionar</button> 
-   
-    <table mat-table [dataSource]="dataSource" #mytable class="mat-elevation-z8" matSort>
-   
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
-      </ng-container>
 
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-      </ng-container>
+  <form [formGroup]="service.form" class="normal-form">
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <input type="hidden" formControlName="$key">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Nome</label>
+            <input type="text" class="form-control" id="nome" formControlName="nome">
+            <mat-error>Campo obrigatório.</mat-error>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <mat-error>* Campo obrigatório.</mat-error>
+            <mat-error>* Email no formato Inválido.</mat-error>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Senha</label>
+            <input type="password" class="form-control" id="senha" formControlName="senha">
+            <mat-error>Campo obrigatório.</mat-error>
+          </div>
+          <div class="form-group">
+            <label id="radio-group-label" for="exampleFormControlInput1">Perfil de Usuário</label>
+            <mat-error>Campo obrigatório.</mat-error>
+            <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" formControlName="role">
+              <mat-radio-button class="radio-button" *ngFor="let role of roles" [value]="role">
+                {{role}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="form-group float-right">
+            <div class="form-check-inline">
+              <button type="submit" class="btn btn-success btn-md">Salvar</button>
+            </div>
+            <div class="form-check-inline">
+              <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="warn">Clear</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
 
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
-      </ng-container>
-   
-     
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef > Action </th>
-        <td mat-cell *matCellDef="let element" class="action-link"> 
-           <a (click)="openDialog('Update',element)">Edit</a> | 
-           <a (click)="openDialog('Delete',element)">Delete</a>  
-        </td>
-      </ng-container>
-   
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  </div>
+  <form [formGroup]="service.form" class="normal-form">
+    <mat-grid-list cols="2" rowHeight="500px">
+      <mat-grid-tile>
+        <div class="controles-container">
+          <input type="hidden" formControlName="$key">
+          <mat-form-field>
+            <input formControlName="nome" matInput placeholder="Nome">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="email" matInput placeholder="Email">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="role" matInput placeholder="Role">
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container">
+          <div class="button-row">
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="warn">Clear</button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
