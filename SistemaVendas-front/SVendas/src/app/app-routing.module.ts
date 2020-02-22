@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'pedido', component: PedidoComponent, canActivate: [AuthGuard] },
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
   { path: 'produto', component: ProdutoComponent, canActivate: [AuthGuard] },
-  { path: 'usuario', component: UsuarioComponent , canActivate: [AuthGuard]},
+  { path: 'usuario/:id', component: UsuarioComponent , canActivate: [AuthGuard]},
   { path: 'listar-usuario', component: ListarUsuarioComponent , canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'relatorio', component: RelatoriosComponent, canActivate: [AuthGuard] },
