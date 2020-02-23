@@ -15,5 +15,6 @@ namespace SistemaVendas.Aplication.InterfaceServices.Auth
         Task<Usuario> GetById(Guid Id);
         Task<int> Insert(Usuario Usuario);
         Task<int> Update(Usuario Usuario);
+        bool ExisteUsuario(string email);
     }
 }

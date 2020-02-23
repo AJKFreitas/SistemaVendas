@@ -16,5 +16,6 @@ namespace SistemaVendas.Infra.Data.Interfaces
         Task<int> Insert(Usuario usuario);
         Task<int> Save();
         Task<int> Update(Usuario usuario);
+        bool ExisteUsuario(string email);
     }
 }

@@ -5,6 +5,7 @@ using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
@@ -33,10 +34,10 @@ namespace SistemaVendas.Infra.Data.Repository
                 _context.Usuarios.Remove(usuario);
                 return _context.SaveChangesAsync();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -47,10 +48,10 @@ namespace SistemaVendas.Infra.Data.Repository
                 var query = _context.Usuarios;   
                 return  await PagedList<Usuario>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         } 
         public async Task<IEnumerable<Usuario>> GetAll()
@@ -59,10 +60,10 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 return  _context.Usuarios;   
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -72,10 +73,10 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 return await _context.Usuarios.FindAsync(EntityID);
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -83,6 +84,8 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
+
+
                 Usuario usuario = new Usuario(
                     Usuario.Nome,
                     Usuario.Email,
@@ -93,10 +96,10 @@ namespace SistemaVendas.Infra.Data.Repository
                 return await _context.SaveChangesAsync();
 
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -106,10 +109,10 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 return _context.SaveChangesAsync();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -121,10 +124,25 @@ namespace SistemaVendas.Infra.Data.Repository
                 _context.Usuarios.Update(usuario);
                 return await _context.SaveChangesAsync();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                throw new Exception(ex.Message);
             }
+        }
+        public bool ExisteUsuario(string email)
+        {
+            Usuario user = null;
+
+            try
+            {
+                user = _context.Usuarios.Where(x => x.Email.ToLower() == email.ToLower()).FirstOrDefault();
+                return user != null;
+            }
+            catch (  MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+                
         }
     }
 }

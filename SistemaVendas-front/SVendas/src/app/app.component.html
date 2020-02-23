@@ -66,8 +66,8 @@
                 <li>
                   <a routerLinkActive="active" routerLink="/usuario">Cadastrar</a>
               </li>
-              <li>
-                  <a routerLinkActive="active" routerLink="/listar-usuario">Gestão de Usuários</a>
+              <li >
+                  <a routerLinkActive="active" *appHasRole="['Admin']" routerLink="/listar-usuario">Gestão de Usuários</a>
               </li>
               </ul>
           </li>

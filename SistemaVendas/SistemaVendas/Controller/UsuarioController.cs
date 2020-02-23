@@ -29,13 +29,17 @@ namespace SistemaVendas.Api.Controller
         {
             if (usuarioValido(usuario))
             {
-                 await _usuarioService.Insert(usuario);
+                if (_usuarioService.ExisteUsuario(usuario.Email))
+                {
+                    return BadRequest("Já existe Usuário com esse email cadastrado");
+                }
+                await _usuarioService.Insert(usuario);
                 return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
 
             }
             else
             {
-                  return BadRequest();
+                  return BadRequest("Usuário invalido, verifique os dados inseridos.");
             }
 
         }
@@ -55,7 +59,7 @@ namespace SistemaVendas.Api.Controller
 
             if (produto == null)
             {
-                return NotFound();
+                return NotFound("Usuário não encontrado.");
             }
 
             return produto;
@@ -65,7 +69,7 @@ namespace SistemaVendas.Api.Controller
         {
             if (!usuarioValido(usuario))
             {
-                return BadRequest();
+                return BadRequest("Usuário invalido, verifique os dados inseridos.");
             }
             try
             {
@@ -73,13 +77,14 @@ namespace SistemaVendas.Api.Controller
             }
             catch (DbUpdateConcurrencyException e)
             {
-                if (!ExisteUsuario(usuario.Id))
+                if (!await ExisteUsuario(usuario.Id))
                 {
-                    return NotFound();
+                    return NotFound("Usuário não encontrado.");
                 }
                 else
                 {
-                    throw e;
+                    
+                    return BadRequest(e.Message);
                 }
             }
 
@@ -87,11 +92,11 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Usuario>> DeleteProduto(Guid id)
+        public async Task<ActionResult<Usuario>> Delete(Guid id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound("Usuário não encontrado.");
             }
             try
             {
@@ -108,14 +113,21 @@ namespace SistemaVendas.Api.Controller
         {
             return usuario.Email != null && usuario.Nome != null && usuario.Senha != null & usuario.Role != null;
         }
-        private bool ExisteUsuario(Guid id)
+        private async Task<bool> ExisteUsuario(Guid id)
         {
-            if (_usuarioService.GetById(id) != null)
+            Usuario user = null;
+            try
             {
-                return true;
+                user = await _usuarioService.GetById(id);
+                return user != null;
+
             }
-            else
-                return false;
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+           
         }
 
     }

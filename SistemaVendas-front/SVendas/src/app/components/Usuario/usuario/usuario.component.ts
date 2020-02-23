@@ -20,7 +20,7 @@ export class UsuarioComponent implements OnInit {
 
   signupForm: FormGroup;
   role: string;
-  roles: string[] = ['Admin', 'Funcionario', 'Fornecedor', 'Vendedor'];
+  roles: string[] = ['Funcionario', 'Fornecedor', 'Vendedor'];
  
   constructor(
     public fb: FormBuilder,

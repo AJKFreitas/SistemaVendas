@@ -12,7 +12,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(
-        private authService: AuthService,
         private toastSevice: ToastService,
         private spinnerService: NgxSpinnerService) { }
 
@@ -30,15 +29,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.spinnerService.hide();
             }
             if (err.status === 415) {
-               this.toastSevice.Warning('Unsupported Media Type!',
-                'O formato de mídia dos dados requisitados não é suportado pelo servidor.');
+                this.toastSevice.Warning('Unsupported Media Type!',
+                    'O formato de mídia dos dados requisitados não é suportado pelo servidor.');
             }
             if (err.status === 423) {
-               this.toastSevice.Warning('Recurso já existe', 'Já existe um recurso com esses dados cadastrado');
+                this.toastSevice.Warning('Recurso já existe', 'Já existe um recurso com esses dados cadastrado');
             }
-
+            // tslint:disable-next-line:no-debugger
+            debugger;
+            this.toastSevice.Error(err.error);
             const error = err.error.message || err.statusText;
-            this.toastSevice.Error(error);
             return throwError(error);
         }));
     }

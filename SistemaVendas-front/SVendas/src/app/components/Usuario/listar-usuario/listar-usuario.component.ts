@@ -143,10 +143,11 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.service.listar(params).subscribe(res => {
       if (res.result) {
         this.usuarios = res;
+        this.dataSource.paginator = this.paginator;
       }
-      this.dataSource = new MatTableDataSource(res);
       this.usuarios = res;
-      console.log(this.dataSource);
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
       this.spinnerService.hide();
     });
   }

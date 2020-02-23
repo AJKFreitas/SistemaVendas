@@ -107,5 +107,18 @@ export class AuthService {
     }
     return throwError(msg);
   }
+  roleMatch(allowedRoles) {
+    let isMatch = false;
+    const userRoles = this.jwtHelper.decodeToken(
+      localStorage.getItem('access_token')
+    ).role as Array<string>;
+    allowedRoles.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return;
+      }
+    });
+    return isMatch;
+  }
 }
 

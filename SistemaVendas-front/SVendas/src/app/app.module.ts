@@ -1,5 +1,5 @@
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -31,14 +31,15 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
 import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/br';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { UsuarioService } from './components/Usuario/services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { ModalComponent } from './components/Usuario/modal/modal.component';
+import { HasRoleDirective } from './shared/utils/has-role.directive';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -61,6 +62,7 @@ registerLocaleData(localeFr, 'pt-BR');
     ListarUsuarioComponent,
     DialogBoxComponent,
     ModalComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
@@ -88,11 +90,15 @@ registerLocaleData(localeFr, 'pt-BR');
         timeOut: 10000,
         positionClass: 'top-right',
         closeButton: true,
-    } ),
+      }),
     ToastContainerModule,
     NgxDatatableModule,
     SelectDropDownModule,
     NgxMaskModule.forRoot(options)
+  ], exports: [
+
+    HasRoleDirective,
+
   ],
   entryComponents: [
     DialogBoxComponent,
@@ -101,7 +107,7 @@ registerLocaleData(localeFr, 'pt-BR');
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
-    {provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR'},
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR' },
 
     AuthGuard,
     AuthService,

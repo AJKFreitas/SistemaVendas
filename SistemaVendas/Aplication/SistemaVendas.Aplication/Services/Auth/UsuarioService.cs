@@ -3,6 +3,7 @@ using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.Services.Auth
@@ -25,11 +26,25 @@ namespace SistemaVendas.Aplication.Services.Auth
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
-     public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
+        public bool ExisteUsuario(string email)
+        {
+            try
+            {
+            return _repository.ExisteUsuario(email);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception (e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
         {
             try
             {
@@ -39,7 +54,7 @@ namespace SistemaVendas.Aplication.Services.Auth
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         } 
         public async Task<IEnumerable<Usuario>> GetAll()
@@ -52,7 +67,7 @@ namespace SistemaVendas.Aplication.Services.Auth
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -65,7 +80,7 @@ namespace SistemaVendas.Aplication.Services.Auth
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -73,13 +88,13 @@ namespace SistemaVendas.Aplication.Services.Auth
         {
             try
             {
-                
+                             
                 return _repository.Insert(usuario);
             }
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -87,7 +102,16 @@ namespace SistemaVendas.Aplication.Services.Auth
 
         public Task<int> Update(Usuario usuario)
         {
+            try
+            {
             return _repository.Update(usuario);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
 
