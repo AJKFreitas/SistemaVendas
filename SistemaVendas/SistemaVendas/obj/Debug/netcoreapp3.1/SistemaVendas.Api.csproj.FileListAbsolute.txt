@@ -344,3 +344,11 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\n
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.dll
+C:\Projetos_net\SistemaVendas\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.pdb

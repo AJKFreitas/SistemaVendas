@@ -1,82 +1,76 @@
-import { UsuarioService } from './../services/usuario.service';
-import { Usuario, UsuarioVM } from './../../Auth/shared/models/User';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Action } from 'src/app/shared/modules/material/actionEnum';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { ClienteDialogComponent } from '../modal/cliente-dialog/cliente-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
-import { ModalComponent } from '../modal/modal.component';
-import { Action } from 'src/app/shared/modules/material/actionEnum';
+import { Cliente, ClienteVM } from '../model/Cliente';
+import { ClienteService } from '../service/cliente.service';
 import { Params } from 'src/app/shared/models/Params';
-import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-listar-usuario',
-  templateUrl: './listar-usuario.component.html',
-  styleUrls: ['./listar-usuario.component.css']
+  selector: 'app-gestao-cliente',
+  templateUrl: './gestao-cliente.component.html',
+  styleUrls: ['./gestao-cliente.component.css']
 })
-export class ListarUsuarioComponent implements OnInit, AfterViewInit {
+export class GestaoClienteComponent implements OnInit {
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
   }
 
-
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService,
-    public service: UsuarioService,
-
+    public service: ClienteService,
   ) { }
-  dataSource: MatTableDataSource<Usuario>;
-  displayedColumns: string[] = ['nome', 'email', 'role', 'action'];
-  usuarios: Usuario[] = [];
+  dataSource: MatTableDataSource<Cliente>;
+  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco'];
+  clientes: Cliente[] = [];
 
-  @ViewChild(MatTable, { static: true }) table: MatTable<Usuario>;
+  @ViewChild(MatTable, { static: true }) table: MatTable<Cliente>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
- 
+
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
   public currentPage = 0;
   public totalSize = 0;
 
+  // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.usuarios);
+    this.dataSource = new MatTableDataSource(this.clientes);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    length = this.usuarios.length;
-    this.listarUsuarioss(new Params(10, 1));
+    length = this.clientes.length;
+    this.listarClientes(new Params(10, 1));
     this.pageEvent = new PageEvent();
   }
 
-
-
   getPaginatorData(event) {
     console.log(event);
-    this.listarUsuarioss( new Params(event.pageSize, event.pageIndex || 1));
-}
+    this.listarClientes(new Params(event.pageSize, event.pageIndex || 1));
+  }
 
-
-
-
+ 
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '60%';
     dialogConfig.data = obj;
     obj.action = action;
-    const dialogRef = this.dialog.open(ModalComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ClienteDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === Action.Adicionar) {
@@ -91,37 +85,34 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-
-  addRowData(usuario: Usuario) {
+  addRowData(cliente: Cliente) {
     this.dataSource.data.push({
       id: '',
-      nome: usuario.nome,
-      email: usuario.email,
-      senha: usuario.senha,
-      role: usuario.role
+      nome: cliente.nome,
+      cpf: cliente.cpf,
+      endereco: cliente.endereco,
+      telefone: cliente.telefone
     });
-    this.registerUser(new UsuarioVM(usuario.nome, usuario.email, usuario.senha, usuario.role));
+    this.registerCliente(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
     this.table.renderRows();
 
   }
-  updateRowData(usuario: Usuario) {
+  updateRowData(cliente: Cliente) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      if (value.id === usuario.id) {
-        value.nome = usuario.nome;
+      if (value.id === cliente.id) {
+        value.nome = cliente.nome;
       }
       return true;
     });
-    this.updateUser(usuario);
+    this.updateCliente(cliente);
   }
 
-  deleteRowData(usuario: Usuario) {
+  deleteRowData(cliente: Cliente) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      return value.id !== usuario.id;
+      return value.id !== cliente.id;
     });
-    this.deleteUser(usuario);
+    this.deleteCliente(cliente);
   }
-
   applyFilter(event: Event) {
     console.log('applyFilter', event);
     const filterValue = (event.target as HTMLInputElement).value;
@@ -131,33 +122,34 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
   buscaPaginada(pageSize, pageIndex) {
-    this.listarUsuarioss(new Params(pageSize, pageIndex));
+    this.listarClientes(new Params(pageSize, pageIndex));
   }
 
-  listarUsuarioss(params: Params) {
+  listarClientes(params: Params) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
       if (res.result) {
-        this.usuarios = res;
+        this.clientes = res;
         this.dataSource.paginator = this.paginator;
       }
-      this.usuarios = res;
+      this.clientes = res;
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
+      this.spinnerService.hide();
+    }, err =>{
       this.spinnerService.hide();
     });
   }
 
-  registerUser(usuario: UsuarioVM) {
+  registerCliente(cliente: ClienteVM) {
     this.spinnerService.show();
-    this.service.iserir(usuario).subscribe((res) => {
+    this.service.iserir(cliente).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+        this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+      this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
       this.spinnerService.hide();
     },
       err => {
@@ -166,14 +158,15 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  updateUser(usuario: Usuario) {
+
+  updateCliente(cliente: Cliente) {
     this.spinnerService.show();
-    this.service.editar(usuario).subscribe((res) => {
+    this.service.editar(cliente).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
+        this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
+      this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
       this.spinnerService.hide();
     },
       err => {
@@ -182,14 +175,15 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  deleteUser(usuario: Usuario) {
+
+  deleteCliente(cliente: Cliente) {
     this.spinnerService.show();
-    this.service.deletar(usuario).subscribe((res) => {
+    this.service.deletar(cliente).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
+        this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
+      this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
       this.spinnerService.hide();
     },
       err => {
@@ -200,4 +194,4 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
 
   }
 
- }
+}

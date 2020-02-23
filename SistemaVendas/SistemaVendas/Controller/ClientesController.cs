@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Clientes.Entities;
+using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("svendas/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Funcionario")]
     public class ClientesController : ControllerBase
@@ -44,7 +45,13 @@ namespace SistemaVendas.Api.Controller
 
             return cliente;
         }
-
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [Route("buscar-todos")]
+        public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
+        {
+            return await _service.GetAll();
+        }
         [HttpPut]
         public async Task<IActionResult> PutCliente( Cliente cliente)
         {
