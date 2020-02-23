@@ -1,18 +1,21 @@
 ﻿using SistemaVendas.Core.Domains.Fornecedores.Entities;
-using SistemaVendas.Core.Shared.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Fornecedores.Interfaces
 {
     public interface IFornecedorRepository
 
     {
-        public void Delete(Guid EntityID);
-        public IEnumerable<Fornecedor> GetAll();
-        public Fornecedor GetById(Guid EntityID);
-        public void Insert(Fornecedor Entity);
-        public void Save();
-        public void Update(Fornecedor Entity);
+        Task<int> Delete(Guid Id);
+        Task<PagedList<Fornecedor>> GetAll(FornecedorParams usuarioParams);
+        Task<IEnumerable<Fornecedor>> GetAll();
+        Task<Fornecedor> GetById(Guid Id);
+        Task<int> Insert(Fornecedor usuario);
+        Task<int> Save();
+        Task<int> Update(Fornecedor usuario);
+        bool ExisteFornecedor(long cnpj);
     }
 }

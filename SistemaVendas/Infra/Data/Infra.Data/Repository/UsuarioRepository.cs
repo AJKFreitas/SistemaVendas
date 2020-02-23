@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository//: Repository<Usuario> , IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         protected readonly VendasEFContext _context;
         private bool disposed = false;
@@ -26,17 +26,19 @@ namespace SistemaVendas.Infra.Data.Repository
 
 
 
-        public Task<int> Delete(Guid EntityID)
+        public async Task<int> Delete(Guid EntityID)
         {
             try
             {
-                var usuario = _context.Usuarios.Find(EntityID);
-                _context.Usuarios.Remove(usuario);
-                return _context.SaveChangesAsync();
+                Usuario usuario = null;
+                 usuario = _context.Usuarios.Find(EntityID);
+                if (usuario != null)
+                 _context.Usuarios.Remove(usuario);
+                 return await Save();
+                
             }
             catch (MySqlException ex)
             {
-                _context.Dispose();
                 throw new Exception(ex.Message);
             }
         }
@@ -93,26 +95,28 @@ namespace SistemaVendas.Infra.Data.Repository
                     Usuario.Role
                     );
                 _context.Usuarios.Add(usuario);
-                return await _context.SaveChangesAsync();
+                return await Save();
 
             }
             catch (MySqlException ex)
             {
-                _context.Dispose();
                 throw new Exception(ex.Message);
             }
         }
 
-        public Task<int> Save()
+        public async Task<int> Save()
         {
             try
             {
-                return _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync();
             }
             catch (MySqlException ex)
             {
-                _context.Dispose();
                 throw new Exception(ex.Message);
+            }
+            finally{
+
+                _context.Dispose();
             }
         }
 

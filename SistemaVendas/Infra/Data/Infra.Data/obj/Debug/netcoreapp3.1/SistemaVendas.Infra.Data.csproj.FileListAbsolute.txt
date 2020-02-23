@@ -11,9 +11,6 @@ C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netc
 C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csproj.CopyComplete
 C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
-D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csprojAssemblyReference.cache
-D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfoInputs.cache
-D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfo.cs
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.deps.json
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.runtimeconfig.json
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.runtimeconfig.dev.json
@@ -23,8 +20,9 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.pdb
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csprojAssemblyReference.cache
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfoInputs.cache
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.AssemblyInfo.cs
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.csproj.CopyComplete
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\obj\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
-C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.dll
-C:\Projetos_net\SistemaVendas\SistemaVendas\Infra\Data\Infra.Data\bin\Debug\netcoreapp3.1\SistemaVendas.Aplication.pdb

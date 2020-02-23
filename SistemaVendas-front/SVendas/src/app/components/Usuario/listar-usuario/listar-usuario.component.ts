@@ -10,7 +10,6 @@ import { ToastService } from '../../Shared/ToastService';
 import { ModalComponent } from '../modal/modal.component';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { Params } from 'src/app/shared/models/Params';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listar-usuario',

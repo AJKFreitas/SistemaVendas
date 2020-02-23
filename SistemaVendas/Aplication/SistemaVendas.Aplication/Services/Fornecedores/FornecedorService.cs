@@ -1,9 +1,11 @@
 ﻿using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.Services.Fornecedores
 {
@@ -17,44 +19,102 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             _repository = repository;
         }
 
-        public void Delete(Guid EntityID)
-        {
-            _repository.Delete(EntityID);
-        }
-
-        public IEnumerable<Fornecedor> GetAll()
-        {
-           return _repository.GetAll();
-        }
-
-        public Fornecedor GetById(Guid EntityID)
-        {
-          return  _repository.GetById(EntityID);
-        }
-
-        public HttpStatusCode Insert(Fornecedor Entity)
+        public async Task<int> Delete(Guid EntityID)
         {
             try
             {
-                Fornecedor fornecedor = new Fornecedor(Entity.Nome, Entity.Telefone, Entity.CNPJ );
-                _repository.Insert(fornecedor);
-                return HttpStatusCode.Created;
+
+           return await _repository.Delete(EntityID);
             }
             catch (Exception e)
             {
+
                 throw e;
-              //  return  HttpStatusCode.NotModified;
             }
         }
 
-        public void Save()
+
+        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams)
         {
-            _repository.Save();
+            try
+            {
+
+                return await _repository.GetAll(fParams);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+        public async Task<IEnumerable<Fornecedor>> GetAll()
+        {
+            try
+            {
+
+                return await _repository.GetAll();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
-        public void Update(Fornecedor Entity)
+        public Task<Fornecedor> GetById(Guid Id)
         {
-            _repository.Update(Entity);
+            try
+            {
+                return _repository.GetById(Id);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
+
+        public Task<int> Insert(Fornecedor fornecedor)
+        {
+            try
+            {
+                
+               return _repository.Insert(fornecedor);
+              
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public Task<int> Update(Fornecedor fornecedor)
+        {
+            try
+            {
+                return _repository.Update(fornecedor);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+                
+        public bool ExisteFornecedor(long cnpj)
+        {
+            try
+            {
+                return _repository.ExisteFornecedor(cnpj);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        
     }
 }
