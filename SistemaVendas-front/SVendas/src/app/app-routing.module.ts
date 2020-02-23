@@ -14,6 +14,7 @@ import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
 import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
+import { GestaoClienteComponent } from './components/Cliente/gestao-cliente/gestao-cliente.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'fornecedor-listar', component: ListarFornecedorComponent, canActivate: [AuthGuard] },
   { path: 'pedido', component: PedidoComponent, canActivate: [AuthGuard] },
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
+  { path: 'gestao-cliente', component: GestaoClienteComponent, canActivate: [AuthGuard] },
   { path: 'produto', component: ProdutoComponent, canActivate: [AuthGuard] },
   { path: 'usuario/:id', component: UsuarioComponent , canActivate: [AuthGuard]},
   { path: 'listar-usuario', component: ListarUsuarioComponent , canActivate: [AuthGuard]},
