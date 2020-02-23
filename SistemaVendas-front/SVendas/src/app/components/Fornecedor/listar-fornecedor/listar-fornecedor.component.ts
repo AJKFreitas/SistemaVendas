@@ -43,7 +43,12 @@ export class ListarFornecedorComponent implements OnInit {
   public totalSize = 0;
 
   ngOnInit(): void {
-    this.listarFornecedoresvoid();
+    this.dataSource = new MatTableDataSource(this.fornecedores);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    length = this.fornecedores.length;
+    this.listarFornecedores(new Params(10, 1));
+    this.pageEvent = new PageEvent();
   }
 
   listarFornecedoresvoid() {

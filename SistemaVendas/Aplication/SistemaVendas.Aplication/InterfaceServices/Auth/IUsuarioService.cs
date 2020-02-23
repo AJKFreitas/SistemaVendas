@@ -9,12 +9,12 @@ namespace SistemaVendas.Aplication.InterfaceServices.Auth
     public interface IUsuarioService
     {
        
-        Task<int> Delete(Guid Id);
         Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams);
         Task<IEnumerable<Usuario>> GetAll();
         Task<Usuario> GetById(Guid Id);
         Task<int> Insert(Usuario Usuario);
         Task<int> Update(Usuario Usuario);
         bool ExisteUsuario(string email);
+        Task<int> Delete(Guid Id);
     }
 }

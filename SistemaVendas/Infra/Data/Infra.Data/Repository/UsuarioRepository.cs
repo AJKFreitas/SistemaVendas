@@ -28,9 +28,9 @@ namespace SistemaVendas.Infra.Data.Repository
 
         public async Task<int> Delete(Guid EntityID)
         {
-            Usuario usuario = null;
             try
             {
+                Usuario usuario = null;
                  usuario = _context.Usuarios.Find(EntityID);
                 if (usuario != null)
                  _context.Usuarios.Remove(usuario);

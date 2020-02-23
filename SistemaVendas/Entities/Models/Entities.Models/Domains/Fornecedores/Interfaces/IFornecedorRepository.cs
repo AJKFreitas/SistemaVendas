@@ -16,6 +16,6 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Interfaces
         Task<int> Insert(Fornecedor usuario);
         Task<int> Save();
         Task<int> Update(Fornecedor usuario);
-        bool ExisteForcedor(long cnpj);
+        bool ExisteFornecedor(long cnpj);
     }
 }

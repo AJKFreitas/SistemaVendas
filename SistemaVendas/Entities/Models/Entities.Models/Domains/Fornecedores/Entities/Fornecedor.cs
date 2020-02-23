@@ -1,9 +1,5 @@
-﻿using SistemaVendas.Core.Domains.Auth.Enums;
-using SistemaVendas.Core.Domains.Auth.Interfaces;
-using SistemaVendas.Core.Domains.Produtos.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Fornecedores.Entities
 {

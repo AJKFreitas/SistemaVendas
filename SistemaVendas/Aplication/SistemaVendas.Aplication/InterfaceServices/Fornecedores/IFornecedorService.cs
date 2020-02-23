@@ -10,13 +10,13 @@ namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
 {
    public interface IFornecedorService
     {
-        IEnumerable<Fornecedor> GetAll();
-        Task<PagedList<Fornecedor>> GetAll(Params usuarioParams);
-        Fornecedor GetById(Guid EntityID);
-        HttpStatusCode Insert(Fornecedor Entity);
-        void Update(Fornecedor Entity);
-        void Delete(Guid EntityID);
-      
+        Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams);
+        Task<IEnumerable<Fornecedor>> GetAll();
+        Task<Fornecedor> GetById(Guid Id);
+        Task<int> Insert(Fornecedor fornecedor);
+        Task<int> Update(Fornecedor fornecedor);
+        bool ExisteFornecedor(long cnpj);
+        Task<int> Delete(Guid Id);
 
     }
 }
