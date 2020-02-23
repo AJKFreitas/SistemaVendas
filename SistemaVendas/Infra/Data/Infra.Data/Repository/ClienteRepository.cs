@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +13,12 @@ namespace SistemaVendas.Infra.Data.Repository
     public class ClienteRepository : IClienteRepository
     {
         protected readonly VendasEFContext _context;
-
+        private bool disposed = false;
+        public ClienteRepository()
+        {
+            _context = new VendasEFContext();
+        }
+        
         public ClienteRepository(VendasEFContext context)
         {
             _context = context;
@@ -30,6 +36,20 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 _context.Dispose();
                 throw e;
+            }
+        }
+        public async Task<PagedList<Cliente>> GetALL(ClienteParams clienteParams)
+        {
+            try
+            {
+                var query = _context.Clientes;
+                return await PagedList<Cliente>.CreateAsync(query, clienteParams.PageNumber, clienteParams.PageSize);
+            }
+            catch (MySqlException ex)
+            {
+                _context.Dispose();
+                throw new Exception(ex.Message);
+
             }
         }
 

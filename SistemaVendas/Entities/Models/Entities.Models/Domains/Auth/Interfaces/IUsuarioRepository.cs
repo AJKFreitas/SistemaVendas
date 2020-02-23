@@ -1,6 +1,5 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Shared.Entities;
-using SistemaVendas.Core.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
