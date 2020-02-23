@@ -3280,7 +3280,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Infra.Data.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SistemaVendas.Infra.IoC/1.0.0": {
         "type": "project",
@@ -3295,7 +3298,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Infra.IoC.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
