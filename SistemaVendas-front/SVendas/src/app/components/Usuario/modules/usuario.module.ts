@@ -44,11 +44,8 @@ import { ToastService } from '../../Shared/ToastService';
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent,
-    SignupComponent,
     UserProfileComponent,
     UsuarioComponent,
-    PerfilComponent,
     ModalComponent,
   ],
   imports: [

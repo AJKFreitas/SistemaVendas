@@ -40,6 +40,7 @@ import { UsuarioService } from './components/Usuario/services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { ModalComponent } from './components/Usuario/modal/modal.component';
 import { HasRoleDirective } from './shared/utils/has-role.directive';
+import { FornecedorDialogComponent } from './components/Fornecedor/modal/fornecedor-dialog/fornecedor-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -62,7 +63,8 @@ registerLocaleData(localeFr, 'pt-BR');
     ListarUsuarioComponent,
     DialogBoxComponent,
     ModalComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    FornecedorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,6 @@ registerLocaleData(localeFr, 'pt-BR');
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-
     FlexLayoutModule,
     MatPaginatorModule,
     MatSelectModule,
@@ -102,7 +103,8 @@ registerLocaleData(localeFr, 'pt-BR');
   ],
   entryComponents: [
     DialogBoxComponent,
-    ModalComponent
+    ModalComponent,
+    FornecedorDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },

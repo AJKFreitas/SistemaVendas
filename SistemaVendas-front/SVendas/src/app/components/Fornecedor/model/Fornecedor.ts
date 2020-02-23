@@ -8,3 +8,12 @@ export class Fornecedor {
     cnpj: number;
     produtos: Produto[];
 }
+export class FornecedorVM {
+
+    constructor(
+        public nome: string,
+        public telefone: string,
+        public cnpj: string,
+    ) { }
+
+}

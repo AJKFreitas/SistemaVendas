@@ -54,18 +54,3 @@ public submitForm(formData: any, formDirective: FormGroupDirective): void {
     this.fornecedorForm.reset();
 }
 }
-/* successmsg(){
-  this.toastr.success("Toastr Success message",'Success')
-}
-errorsmsg(){
-  this.toastr.error("Toastr Error Notification",'Error')
-
-}
-infotoastr()
-{
-this.toastr.info("Important News", 'Information');
-}
-toastrwaring()
-{  
-this.toastr.warning("Battery about to Die", 'Warning');
-}   */

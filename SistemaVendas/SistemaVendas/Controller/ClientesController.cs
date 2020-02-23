@@ -12,7 +12,7 @@ using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("svendas/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Funcionario")]
     public class ClientesController : ControllerBase

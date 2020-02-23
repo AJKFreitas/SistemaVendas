@@ -1,0 +1,39 @@
+
+<div mat-dialog-content>
+    <div class="card" >
+        <div class="card-body titulo" id="titulo">
+            <h1 mat-dialog-title> {{action}} Fornecedor</h1>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="service.form">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome">
+                     <mat-error *ngIf="service.form.controls['nome'].invalid && (service.form.controls['nome'].dirty 
+                    || service.form.controls['nome'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">CNPJ</label>
+                    <input type="number" class="form-control" id="cnpj" formControlName="cnpj">
+                    <mat-error *ngIf="service.form.controls['cnpj'].invalid && (service.form.controls['cnpj'].dirty 
+                    || service.form.controls['cnpj'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" formControlName="telefone">
+                    <mat-error *ngIf="service.form.controls['telefone'].invalid && (service.form.controls['telefone'].dirty 
+                    || service.form.controls['telefone'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="form-group float-right">
+    
+  <button mat-button (click)="closeDialog() " class="btn btn-secondary btn-md">Cancelar</button>
+  <!-- <button mat-button  cdkFocusInitial  class="btn btn-success btn-md" (click)="doAction()">Salvar</button> -->
+  <button mat-button (click)="doAction()" class="btn btn-success btn-md">{{action}}</button>
+  
+</div>

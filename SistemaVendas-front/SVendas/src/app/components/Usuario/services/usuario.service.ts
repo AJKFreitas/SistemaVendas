@@ -50,8 +50,6 @@ export class UsuarioService {
         catchError(this.handleError)
       );
   }
-  // public int PageNumber { get; set; } = 1;
-  // private int pageSize = 10;
 
   listar(params: Params): Observable<any> {
     const api = `${this.endpoint}/usuario/buscar-todos`;
@@ -63,17 +61,6 @@ export class UsuarioService {
     );
   }
 
-  handleError(error: HttpErrorResponse) {
-    let msg = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      msg = error.error.message;
-    } else {
-      // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(msg);
-  }
   public resetForm() {
     this.form.reset();
     this.form.setErrors = null;
@@ -86,6 +73,18 @@ export class UsuarioService {
       senha: '',
       role: '',
     });
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      msg = error.error.message;
+    } else {
+      // server-side error
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(msg);
   }
 
 }
