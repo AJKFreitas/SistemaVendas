@@ -9,8 +9,8 @@ C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.deps.json
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfoInputs.cache
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfo.cs
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
-D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache

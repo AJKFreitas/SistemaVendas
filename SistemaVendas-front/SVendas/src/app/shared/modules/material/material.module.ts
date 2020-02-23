@@ -1,4 +1,4 @@
-
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
+    CommonModule,
     MatGridListModule, // for grid column
     MatFormFieldModule, //form
     MatInputModule, //input

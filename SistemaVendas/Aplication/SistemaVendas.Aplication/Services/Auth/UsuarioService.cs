@@ -3,8 +3,7 @@ using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.Services.Auth
 {
@@ -16,54 +15,81 @@ namespace SistemaVendas.Aplication.Services.Auth
         {
             _repository = repository;
         }
-        public void Delete(Guid id)
-        {
-            _repository.Delete(id);
-        }
-
-        public  IEnumerable<Usuario> GetAll()
-        {
-            return  _repository.GetAll();
-        }
-
-        public  Usuario GetById(Guid id)
-        {
-            return  _repository.GetById(id);
-        }
-
-        public  HttpStatusCode Insert(Usuario usuario)
+        public async Task<int> Delete(Guid id)
         {
             try
             {
-                Usuario exitente = GetAll().Where(u => u.Email.ToLower().Equals(usuario.Email.ToLower())).FirstOrDefault();
-                if (exitente != null)
-                {
-                    return HttpStatusCode.Locked;
-                }else
-                {
-                    Usuario user = new Usuario(usuario.Nome, usuario.Email, usuario.Senha, usuario.Role);
-                    _repository.Insert(user);
-                    return HttpStatusCode.Created;
-                }
+                return await _repository.Delete(id);
 
             }
             catch (Exception e)
             {
+
                 throw e;
-                // return  HttpStatusCode.NotModified + e;
             }
         }
 
-        public void Save()
+     public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
         {
-            _repository.Save();
+            try
+            {
+                
+                return await  _repository.GetAll(uparams);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        } 
+        public async Task<IEnumerable<Usuario>> GetAll()
+        {
+            try
+            {
+                
+                return await  _repository.GetAll();
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
-        public void Update(Usuario Entity)
+        public Task<Usuario> GetById(Guid Id)
         {
-            _repository.Update(Entity);
+            try
+            {
+                return _repository.GetById(Id);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
-      
+        public Task<int> Insert(Usuario usuario)
+        {
+            try
+            {
+                
+                return _repository.Insert(usuario);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+ 
+
+        public Task<int> Update(Usuario usuario)
+        {
+            return _repository.Update(usuario);
+        }
+
+
     }
 }

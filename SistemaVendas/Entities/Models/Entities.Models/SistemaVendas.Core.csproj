@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Domains\Clientes\Dtos\" />
     <Folder Include="Shared\Configurations\" />
-    <Folder Include="Shared\Entities\" />
     <Folder Include="Shared\Services\" />
   </ItemGroup>
 
@@ -16,6 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
   </ItemGroup>
 
 </Project>

@@ -27,7 +27,7 @@ namespace SistemaVendas.Api.Controller
 
 
         [HttpGet]
-        public async Task<IAsyncEnumerable<Cliente>> GetClientes()
+        public async Task<IEnumerable<Cliente>> GetClientes()
         {
             return await _service.GetAll();
         }

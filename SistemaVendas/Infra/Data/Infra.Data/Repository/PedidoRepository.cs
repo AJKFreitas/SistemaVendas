@@ -37,11 +37,11 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<IAsyncEnumerable<PedidoVenda>> GetAll()
+        public async Task<IEnumerable<PedidoVenda>> GetAll()
         {
             try
             {
-                return  _context.Pedidos.AsAsyncEnumerable<PedidoVenda>();
+                return  _context.Pedidos;
             }
             catch (MySqlException e)
             {

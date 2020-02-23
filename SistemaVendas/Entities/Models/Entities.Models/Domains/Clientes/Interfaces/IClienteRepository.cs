@@ -9,7 +9,7 @@ namespace SistemaVendas.Core.Domains.Clientes.Interfaces
     public interface IClienteRepository
     {
         Task<int> Delete(Guid clienteId);
-        Task<IAsyncEnumerable<Cliente>> GetAll();
+        Task<IEnumerable<Cliente>> GetAll();
         Task<Cliente> GetById(Guid clienteId);
         Task<int> Insert(Cliente cliente);
         Task<int> Save();

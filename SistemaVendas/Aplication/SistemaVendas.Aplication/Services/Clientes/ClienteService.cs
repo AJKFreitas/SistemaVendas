@@ -36,7 +36,7 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
         }
 
-        public Task<IAsyncEnumerable<Cliente>> GetAll()
+        public Task<IEnumerable<Cliente>> GetAll()
         {
             try
             {

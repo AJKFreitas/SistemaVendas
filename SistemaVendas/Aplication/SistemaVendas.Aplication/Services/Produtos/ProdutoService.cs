@@ -33,7 +33,7 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public Task<IAsyncEnumerable<Produto>> GetAll()
+        public Task<IEnumerable<Produto>> GetAll()
         {
             try
             {

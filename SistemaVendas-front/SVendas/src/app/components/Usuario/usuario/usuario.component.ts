@@ -6,7 +6,11 @@ import { error } from '@angular/compiler/src/util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { UsuarioService } from '../services/usuario.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
+interface DialogData {
+  email: string;
+}
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
@@ -20,7 +24,7 @@ export class UsuarioComponent implements OnInit {
  
   constructor(
     public fb: FormBuilder,
-    public authService: UsuarioService,
+    public service: UsuarioService,
     public router: Router,
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService
@@ -30,20 +34,21 @@ export class UsuarioComponent implements OnInit {
       email: [''],
       senha: [''],
       role: ['']
-    })
+    });
   }
 
   ngOnInit() { }
 
   registerUser(formData: any, formDirective: FormGroupDirective) {
     this.spinnerService.show();
-    this.authService.iserir(this.signupForm.value).subscribe((res) => {
+    this.service.iserir(this.signupForm.value).subscribe((res) => {
       if (res.result) {
         this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.submitForm(formData, formDirective);
+      this.spinnerService.hide();
     },
     err => {
       this.spinnerService.hide();
@@ -55,4 +60,12 @@ export class UsuarioComponent implements OnInit {
     formDirective.resetForm();
     this.signupForm.reset();
 }
+
+
+onClear() {
+    let $key = this.service.form.get('$key').value;
+    this.service.form.reset();
+    this.service.initializeFormGroup();
+    this.service.form.patchValue({ $key });
+  }
 }

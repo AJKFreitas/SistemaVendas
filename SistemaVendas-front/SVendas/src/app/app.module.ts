@@ -2,7 +2,6 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './components/Auth/shared/config/authconfig.interceptor';
@@ -30,13 +29,7 @@ import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornec
 import { ToastService } from './components/Shared/ToastService';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
-import { MatRadioModule } from '@angular/material/radio';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
-import { MatTableModule} from '@angular/material/table';
-import { MatDialogModule} from '@angular/material/dialog';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule} from '@angular/material/input';
-import { MatButtonModule} from '@angular/material/button';
 import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { registerLocaleData } from '@angular/common';
@@ -45,6 +38,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import {MatSelectModule} from '@angular/material/select';
 import { UsuarioService } from './components/Usuario/services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
+import { ModalComponent } from './components/Usuario/modal/modal.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -66,6 +60,7 @@ registerLocaleData(localeFr, 'pt-BR');
     ListarFornecedorComponent,
     ListarUsuarioComponent,
     DialogBoxComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -100,7 +95,8 @@ registerLocaleData(localeFr, 'pt-BR');
     NgxMaskModule.forRoot(options)
   ],
   entryComponents: [
-    DialogBoxComponent
+    DialogBoxComponent,
+    ModalComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },

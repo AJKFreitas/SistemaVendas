@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {}
+    "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {}
   },
   "projects": {
-    "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
+    "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
+        "projectUniqueName": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
         "projectName": "SistemaVendas.Core",
-        "projectPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
-        "packagesPath": "C:\\Users\\aasantos6\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos_net\\SISTEMA-VENDAS\\SistemaVendas\\Entities\\Models\\Entities.Models\\obj\\",
+        "projectPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\SistemaVendas.Core.csproj",
+        "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\SISTEMA-VENDAS\\SistemaVendas\\SistemaVendas\\Entities\\Models\\Entities.Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\aasantos6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\aasantos6\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,6 +53,10 @@
             "Microsoft.AspNetCore.Mvc.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
             }
           },
           "imports": [

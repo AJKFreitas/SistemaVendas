@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Auth.Entities;
+using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
@@ -21,65 +23,110 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public  void Delete(Guid EntityID)
-        {
-            var user = _context.Usuarios.Find(EntityID);
-            _context.Remove(user);
-        }
 
-       
 
-        public  IEnumerable<Usuario> GetAll()
-        {
-            return  _context.Usuarios;
-        }
-
-        public  Usuario GetById(Guid EntityID)
-        {
-            return _context.Usuarios.Find(EntityID);
-        }
-
-        public  void Insert(Usuario usuario)
+        public Task<int> Delete(Guid EntityID)
         {
             try
             {
-                if(usuario != null)
-                _context.Usuarios.Add(usuario);
-                _context.SaveChanges();
+                var usuario = _context.Usuarios.Find(EntityID);
+                _context.Usuarios.Remove(usuario);
+                return _context.SaveChangesAsync();
             }
             catch (MySqlException e)
             {
-
+                _context.Dispose();
                 throw e;
             }
         }
 
-        public  void Save()
+        public async Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams)
         {
-            _context.SaveChanges();
-            _context.Dispose();
-        }
-
-        public  void Update(Usuario usuario)
-        {
-            _context.Entry(usuario).State = EntityState.Modified;
-        }
-
-        protected virtual  void Dispose(bool disposing)
-        {
-            if (!this.disposed)
+            try
             {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
+                var query = _context.Usuarios;   
+                return  await PagedList<Usuario>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
             }
-            this.disposed = true;
-        }
-        public  void Dispose()
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+        } 
+        public async Task<IEnumerable<Usuario>> GetAll()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            try
+            {
+                return  _context.Usuarios;   
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+        }
+
+        public async Task<Usuario> GetById(Guid EntityID)
+        {
+            try
+            {
+                return await _context.Usuarios.FindAsync(EntityID);
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+        }
+
+        public async Task<int> Insert(Usuario Usuario)
+        {
+            try
+            {
+                Usuario usuario = new Usuario(
+                    Usuario.Nome,
+                    Usuario.Email,
+                    Usuario.Senha,
+                    Usuario.Role
+                    );
+                _context.Usuarios.Add(usuario);
+                return await _context.SaveChangesAsync();
+
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+        }
+
+        public Task<int> Save()
+        {
+            try
+            {
+                return _context.SaveChangesAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw e;
+            }
+        }
+
+        public async Task<int> Update(Usuario usuario)
+        {
+            try
+            {
+                _context.Entry(usuario).State = EntityState.Modified;
+                _context.Usuarios.Update(usuario);
+                return await _context.SaveChangesAsync();
+            }
+            catch (MySqlException e)
+            {
+                throw e;
+            }
         }
     }
 }
+
+

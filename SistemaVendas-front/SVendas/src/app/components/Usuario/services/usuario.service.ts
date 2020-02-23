@@ -1,44 +1,61 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Usuario } from '../../Auth/shared/models/User';
+import { Usuario, UsuarioVM } from '../../Auth/shared/models/User';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-
+  roles: string[] = ['Admin', 'Funcionario', 'Fornecedor', 'Vendedor'];
   endpoint: string = environment.apiVendas;
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   constructor(
-     private http: HttpClient,
-     public router: Router
-    ) { }
+    private http: HttpClient,
+    public router: Router
+  ) { }
 
-    form: FormGroup = new FormGroup({
-      $key: new FormControl(null),
-      id: new FormControl(''),
-      nome: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.email, Validators.required]),
-      senha: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required),
-    });
+  public form: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    nome: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    senha: new FormControl('', Validators.required),
+    role: new FormControl('', Validators.required),
+  });
 
-  iserir(usuario: Usuario): Observable<any> {
+
+  iserir(usuario: UsuarioVM): Observable<any> {
     const api = `${this.endpoint}/usuario`;
     return this.http.post(api, usuario)
       .pipe(
         catchError(this.handleError)
       );
-  }
 
-  listar(): Observable<any> {
+  }
+  editar(usuario: Usuario): Observable<any> {
     const api = `${this.endpoint}/usuario`;
-    return this.http.get(api, { headers: this.headers }).pipe(
+    return this.http.put(api, usuario)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  deletar(usuario: Usuario) {
+    const api = `${this.endpoint}/usuario/${usuario.id}`;
+    return this.http.delete(api)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  // public int PageNumber { get; set; } = 1;
+  // private int pageSize = 10;
+
+  listar(params: Params): Observable<any> {
+    const api = `${this.endpoint}/usuario/buscar-todos`;
+    return this.http.post(api, params).pipe(
       map((res: Response) => {
         return res || []
       }),
@@ -56,5 +73,18 @@ export class UsuarioService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
+  }
+  public resetForm() {
+    this.form.reset();
+    this.form.setErrors = null;
+  }
+  initializeFormGroup() {
+    this.form.setValue({
+      id: '',
+      email: '',
+      nome: '',
+      senha: '',
+      role: '',
+    });
   }
 }

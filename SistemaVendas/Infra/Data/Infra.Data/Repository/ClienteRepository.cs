@@ -33,7 +33,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<IAsyncEnumerable<Cliente>> GetAll()
+        public async Task<IEnumerable<Cliente>> GetAll()
         {
             try
             {
