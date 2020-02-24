@@ -352,6 +352,7 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\n
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csprojAssemblyReference.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.Production.json
@@ -518,7 +519,6 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\SistemaVendas.Infra.IoC.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csprojAssemblyReference.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.Manifest.cache
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\staticwebassets\SistemaVendas.Api.StaticWebAssets.xml
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.MvcApplicationPartsAssemblyInfo.cache

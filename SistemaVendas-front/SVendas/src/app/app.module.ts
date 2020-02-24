@@ -43,6 +43,8 @@ import { HasRoleDirective } from './shared/utils/has-role.directive';
 import { FornecedorDialogComponent } from './components/Fornecedor/modal/fornecedor-dialog/fornecedor-dialog.component';
 import { GestaoClienteComponent } from './components/Cliente/gestao-cliente/gestao-cliente.component';
 import { ClienteDialogComponent } from './components/Cliente/modal/cliente-dialog/cliente-dialog.component';
+import { GestaoProdutosComponent } from './components/Produto/gestao-produtos/gestao-produtos.component';
+import { ProdutoDialogComponent } from './components/Produto/modal/produto-dialog/produto-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -68,7 +70,9 @@ registerLocaleData(localeFr, 'pt-BR');
     HasRoleDirective,
     FornecedorDialogComponent,
     GestaoClienteComponent,
-    ClienteDialogComponent
+    ClienteDialogComponent,
+    GestaoProdutosComponent,
+    ProdutoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +114,7 @@ registerLocaleData(localeFr, 'pt-BR');
     ModalComponent,
     FornecedorDialogComponent,
     ClienteDialogComponent,
+    ProdutoDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },

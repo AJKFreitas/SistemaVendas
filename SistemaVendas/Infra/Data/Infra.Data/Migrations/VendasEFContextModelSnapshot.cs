@@ -224,6 +224,9 @@ namespace SistemaVendas.Infra.Data.Migrations
                         .HasColumnName("Id")
                         .HasColumnType("char(36)");
 
+                    b.Property<long>("Codigo")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

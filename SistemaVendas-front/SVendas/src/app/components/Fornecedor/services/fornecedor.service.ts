@@ -27,7 +27,7 @@ export class FornecedorService {
     cnpj: new FormControl('', Validators.required),
   });
 
-  // Sign-up
+  // grid
   listarFornecedores(): Observable<any> {
     const api = `${this.endpoint}/fornecedor`;
     return this.http.get(api, { headers: this.headers }).pipe(
@@ -71,9 +71,9 @@ export class FornecedorService {
   }
 
 
-  editar(usuario: Fornecedor): Observable<any> {
+  editar(fornecedor: Fornecedor): Observable<any> {
     const api = `${this.endpoint}/fornecedor`;
-    return this.http.put(api, usuario)
+    return this.http.put(api, fornecedor)
       .pipe(
         catchError(this.handleError)
       );

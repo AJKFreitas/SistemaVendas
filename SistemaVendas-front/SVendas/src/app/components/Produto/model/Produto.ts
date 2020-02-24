@@ -7,3 +7,12 @@ export class Produto {
     valor: number;
     fornecedores: Fornecedor[];
 }
+export class ProdutoVM {
+
+    constructor(
+        public nome: string,
+        public descricao: string,
+        public valor: number,
+        public fornecedores: Fornecedor[]
+    ) { }
+}

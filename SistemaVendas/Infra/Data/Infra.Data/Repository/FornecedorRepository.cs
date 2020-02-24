@@ -58,7 +58,7 @@ namespace SistemaVendas.Infra.Data.Repository
             catch (MySqlException e)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 

@@ -2,9 +2,10 @@
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
@@ -18,21 +19,34 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public Task Delete(Guid EntityID)
+        public async Task<int> Delete(Guid id)
         {
             try
             {
-                var produto = _context.Produtos.Find(EntityID);
-                _context.Remove(produto);
-                return _context.SaveChangesAsync();
+                Produto produto = null;
+                 produto = _context.Produtos.Find(id);
+                if (produto != null)
+                    _context.Remove(produto);
+                return await Save();
             }
             catch (MySqlException e)
             {
-                _context.Dispose();
-                throw e;
+                throw new Exception(e.Message);
             }
         }
-
+        public async Task<PagedList<Produto>> GetAll(ProdutoParams prodParams)
+        {
+            try
+            {
+                var query = _context.Produtos;
+                return await PagedList<Produto>.CreateAsync(query, prodParams.PageNumber, prodParams.PageSize);
+            }
+            catch (MySqlException ex)
+            {
+                _context.Dispose();
+                throw new Exception(ex.Message);
+            }
+        }
         public async Task<IEnumerable<Produto>> GetAll()
         {
             try
@@ -42,7 +56,7 @@ namespace SistemaVendas.Infra.Data.Repository
             catch (MySqlException e)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -55,7 +69,7 @@ namespace SistemaVendas.Infra.Data.Repository
             catch (MySqlException e)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -67,29 +81,33 @@ namespace SistemaVendas.Infra.Data.Repository
                     Produto.Nome,
                     Produto.Descricao,
                     Produto.Valor,
+                    Produto.Codigo,
                     Produto.ProdutoFornecedores
                     );
                 _context.Produtos.Add(produto);
-                return await _context.SaveChangesAsync();
+                return await Save();
 
             }
             catch (MySqlException e)
             {
-                _context.Dispose();
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
-        public Task Save()
+        public async Task<int> Save()
         {
             try
             {
-               return _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync();
+
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
             {
                 _context.Dispose();
-                throw e;
             }
         }
 
@@ -99,12 +117,28 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 _context.Entry(Produto).State = EntityState.Modified;
                 _context.Produtos.Update(Produto);
-                return await _context.SaveChangesAsync();
+                return await Save();
             }
             catch (MySqlException e)
             {
-                throw e;
+                throw new Exception(e.Message);
             }
+        }
+
+        public bool ExisteProduto(long codigo)
+        {
+            Produto prod = null;
+
+            try
+            {
+                prod = _context.Produtos.Where(x => x.Codigo == codigo).FirstOrDefault();
+                return prod != null;
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }
