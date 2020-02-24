@@ -82,6 +82,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
+      this.listarFornecedores(new Params(10, 1));
     });
   }
 
@@ -152,6 +153,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
       this.spinnerService.hide();
     },
       err => {
+        this.listarFornecedores(new Params(10, 1));
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar cadastar Fornecedor!');
       }
@@ -164,8 +166,9 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
+      this.listarFornecedores(new Params(10, 1));
       this.spinnerService.hide();
+      this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
     },
       err => {
         this.spinnerService.hide();
@@ -180,8 +183,9 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
+      this.listarFornecedores(new Params(10, 1));
       this.spinnerService.hide();
+      this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();

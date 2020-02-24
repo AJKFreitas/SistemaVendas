@@ -352,7 +352,6 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\n
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.csproj.CopyComplete
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\SistemaVendas\obj\Debug\netcoreapp3.1\SistemaVendas.Api.pdb
-C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\web.config
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\bin\Debug\netcoreapp3.1\appsettings.Production.json

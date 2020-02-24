@@ -397,3 +397,6 @@ SistemaVendas/Infra/Data/Infra.Data/obj/SistemaVendas.Infra.Data.csproj.nuget.g.
 SistemaVendas/Infra/IoC/Infra.IoC/obj/SistemaVendas.Infra.IoC.csproj.nuget.g.props
 SistemaVendas/SistemaVendas/appsettings.Development.json
 SistemaVendas/SistemaVendas/obj/SistemaVendas.Api.csproj.nuget.g.props
+CICD/api-vendas/code/
+SistemaVendas/SistemaVendas/bin/Release/netcoreapp3.1/
+SistemaVendas/Infra/IoC/Infra.IoC/obj/Release/netcoreapp3.1/

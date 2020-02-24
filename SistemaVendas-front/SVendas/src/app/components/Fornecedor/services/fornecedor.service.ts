@@ -79,7 +79,7 @@ export class FornecedorService {
       );
   }
   deletar(fornecedor: Fornecedor) {
-    const api = `${this.endpoint}/usuario/${fornecedor.id}`;
+    const api = `${this.endpoint}/fornecedor/${fornecedor.id}`;
     return this.http.delete(api)
       .pipe(
         catchError(this.handleError)

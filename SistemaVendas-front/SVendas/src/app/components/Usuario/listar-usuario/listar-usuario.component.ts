@@ -17,7 +17,7 @@ import { Params } from 'src/app/shared/models/Params';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit, AfterViewInit {
-
+  isMobile = true;
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
@@ -39,7 +39,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Usuario>;
   displayedColumns: string[] = ['nome', 'email', 'role', 'action'];
   usuarios: Usuario[] = [];
- 
+
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
   public currentPage = 0;
@@ -59,8 +59,8 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   getPaginatorData(event) {
-    this.listarUsuarioss( new Params(event.pageSize, event.pageIndex || 1));
-}
+    this.listarUsuarioss(new Params(event.pageSize, event.pageIndex || 1));
+  }
 
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
@@ -82,6 +82,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
+      this.listarUsuarioss(new Params(10, 1));
     });
   }
 
@@ -151,7 +152,9 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+      this.listarUsuarioss(new Params(10, 1));
       this.spinnerService.hide();
+
     },
       err => {
         this.spinnerService.hide();
@@ -167,6 +170,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
+      this.listarUsuarioss(new Params(10, 1));
       this.spinnerService.hide();
     },
       err => {
@@ -183,6 +187,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
+      this.listarUsuarioss(new Params(10, 1));
       this.spinnerService.hide();
     },
       err => {
@@ -193,4 +198,4 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
 
   }
 
- }
+}

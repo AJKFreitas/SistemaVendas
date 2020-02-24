@@ -1,5 +1,16 @@
 version: '3.1'
 services:
+    app: 
+        image: nginx:alpine 
+        container_name: app-vendas
+        ports:
+           - "5080:80" 
+           - "5443:443"
+        volumes: 
+           - ./nginx/:/etc/nginx/conf.d/
+           - ./code:/var/www
+        networks:
+            - lan
     api:
         build:
             context: ./api-vendas
