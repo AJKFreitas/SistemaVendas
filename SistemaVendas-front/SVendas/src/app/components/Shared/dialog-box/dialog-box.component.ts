@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.css']
 })
+
 export class DialogBoxComponent implements OnInit {
   action: string;
   // tslint:disable-next-line:variable-name
@@ -14,8 +15,9 @@ export class DialogBoxComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    // @Optional() is used to prevent error if no data is passed
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario
+    @Optional()
+    @Inject(MAT_DIALOG_DATA)
+     public data: Usuario
   ) {
     console.log(data);
     this.local_data = { ...data };

@@ -50,3 +50,12 @@ td, th {
 .formulario {
   width: 70% !important;
 }
+.radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
+}

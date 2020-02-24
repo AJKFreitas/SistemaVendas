@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="card">
-    <div class="card-body formulario">
+    <div class="card-body ">
         <form [formGroup]="signupForm" (ngSubmit)="registerUser(signupForm,formDirective)" #formDirective="ngForm">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
@@ -24,6 +24,9 @@
                     aria-labelledby="radio-group-label"
                     class="radio-group"
                     formControlName = "role">
+                    <mat-radio-button class="radio-button" [value]="role" *appHasRole="['Admin']" >
+                       Admin
+                    </mat-radio-button>
                     <mat-radio-button class="radio-button" *ngFor="let role of roles" [value]="role">
                         {{role}}
                     </mat-radio-button>

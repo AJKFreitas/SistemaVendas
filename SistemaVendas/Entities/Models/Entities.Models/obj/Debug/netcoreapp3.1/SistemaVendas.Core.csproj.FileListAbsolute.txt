@@ -1,7 +1,6 @@
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.deps.json
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
-C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfoInputs.cache
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfo.cs
 C:\Projetos_net\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.dll
@@ -13,4 +12,11 @@ D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfo.cs
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.dll
 D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
-D:\Projects\SISTEMA-VENDAS\SistemaVendas\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.deps.json
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\bin\Debug\netcoreapp3.1\SistemaVendas.Core.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.csprojAssemblyReference.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfoInputs.cache
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.AssemblyInfo.cs
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Entities\Models\Entities.Models\obj\Debug\netcoreapp3.1\SistemaVendas.Core.pdb

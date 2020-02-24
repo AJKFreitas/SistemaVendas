@@ -42,10 +42,7 @@
                   <a routerLinkActive="active" routerLink="/fornecedor">Cadastrar</a>
               </li>
               <li>
-                  <a routerLinkActive="active" href="#">Editar</a>
-              </li>
-              <li>
-                  <a routerLinkActive="active" routerLink="/fornecedor-listar">Listar</a>
+                  <a routerLinkActive="active" routerLink="/fornecedor-listar">Gestão de Fornecedores</a>
               </li>
               </ul>
           </li>
@@ -56,10 +53,7 @@
                   <a routerLinkActive="active" routerLink="/cliente">Cadastrar</a>
               </li>
               <li>
-                  <a routerLinkActive="active" href="#">Editar</a>
-              </li>
-              <li>
-                  <a routerLinkActive="active" href="#">Listar</a>
+                  <a routerLinkActive="active" href="/gestao-cliente">Gestão de Clientes</a>
               </li>
               </ul>
           </li>
@@ -69,23 +63,17 @@
                 <li>
                   <a routerLinkActive="active" routerLink="/usuario">Cadastrar</a>
               </li>
-              <li>
-                  <a routerLinkActive="active" href="#">Editar</a>
-              </li>
-              <li>
-                  <a routerLinkActive="active" routerLink="/listar-usuario">Listar</a>
+              <li >
+                  <a routerLinkActive="active" *appHasRole="['Admin']" routerLink="/listar-usuario">Gestão de Usuários</a>
               </li>
               </ul>
           </li>
-          <li>
-              <a routerLinkActive="active" routerLink="/perfil">Perfil</a>
-          </li>
-          <li>
+          <!-- <li>
               <a routerLinkActive="active" routerLink="/relatorio">Relatorios</a>
           </li>
           <li>
               <a routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
-          </li>
+          </li> -->
       </ul>
 
      

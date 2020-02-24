@@ -89,7 +89,7 @@ export class AuthService {
     const api = `${this.endpoint}/usuario/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || {}
+        return res || {};
       }),
       catchError(this.handleError)
     )
@@ -106,6 +106,19 @@ export class AuthService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
+  }
+  roleMatch(allowedRoles) {
+    let isMatch = false;
+    const userRoles = this.jwtHelper.decodeToken(
+      localStorage.getItem('access_token')
+    ).role as Array<string>;
+    allowedRoles.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return;
+      }
+    });
+    return isMatch;
   }
 }
 

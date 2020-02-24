@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SistemaVendas.Aplication.InterfaceServices.Clientes;
+using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
 using System;
@@ -14,12 +15,12 @@ namespace SistemaVendas.Aplication.Services.Clientes
     {
 
         private readonly IClienteRepository _repository;
-        private readonly IMapper _mapper;
 
-        public ClienteService(IClienteRepository repository, IMapper mapper)
+
+        public ClienteService(IClienteRepository repository)
         {
             _repository = repository;
-            _mapper = mapper;
+            
         }
 
         public async Task<int> Delete(Guid Id)
@@ -29,55 +30,86 @@ namespace SistemaVendas.Aplication.Services.Clientes
                 return await _repository.Delete(Id);
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
-        public Task<IAsyncEnumerable<Cliente>> GetAll()
+        public bool ExisteCliente(long cpf)
         {
             try
             {
-                return _repository.GetAll();
+                return _repository.ExisteCliente(cpf);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw new Exception (ex.Message);
             }
         }
 
-        public Task<Cliente> GetById(Guid Id)
+        public async Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams)
+
         {
             try
             {
-                return _repository.GetById(Id);
+                return await _repository.GetAll(clienteParams);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
-        public Task<int> Insert(Cliente Cliente)
+        public async  Task<IEnumerable<Cliente>> GetAll()
         {
             try
             {
-                return _repository.Insert(Cliente);
+                return await _repository.GetAll();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw e;
+                throw new Exception(ex.Message);
             }
         }
 
-        public Task<int> Update(Cliente Cliente)
+        public async Task<Cliente> GetById(Guid Id)
         {
-            return _repository.Update(Cliente);
+            try
+            {
+                return await _repository.GetById(Id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+        public Task<int> Insert(Cliente cliente)
+        {
+            try
+            {
+                return _repository.Insert(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public Task<int> Update(Cliente cliente)
+        {
+            try
+            {
+                return _repository.Update(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

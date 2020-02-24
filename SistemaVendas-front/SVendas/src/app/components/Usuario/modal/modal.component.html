@@ -1,0 +1,52 @@
+<div mat-dialog-content>
+    <div class="card" >
+        <div class="card-body titulo" id="titulo">
+            <h1 mat-dialog-title> {{action}} Usuário</h1>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="service.form">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nome</label>
+                    <input type="text" class="form-control" id="nome" formControlName="nome">
+                     <mat-error *ngIf="service.form.controls['nome'].invalid && (service.form.controls['nome'].dirty 
+                    || service.form.controls['nome'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <input type="email" class="form-control" id="email" formControlName="email">
+                    <mat-error *ngIf="service.form.controls['email'].invalid && (service.form.controls['email'].dirty 
+                    || service.form.controls['email'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Senha</label>
+                    <input type="password" class="form-control" id="senha" formControlName="senha">
+                    <mat-error *ngIf="service.form.controls['senha'].invalid && (service.form.controls['senha'].dirty 
+                    || service.form.controls['senha'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label id="radio-group-label" for="exampleFormControlInput1">Perfil de Usuário</label>
+                        <mat-radio-group
+                        aria-labelledby="radio-group-label"
+                        class="radio-group"
+                        formControlName = "role">
+                        <mat-radio-button class="radio-button" *ngFor="let role of service.roles" [value]="role">
+                            {{role}}
+                        </mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngIf="service.form.controls['role'].invalid && (service.form.controls['role'].dirty 
+                    || service.form.controls['role'].touched)">* Campo obrigatório.</mat-error>
+                    
+                </div>    
+            </form>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions class="form-group float-right">
+    
+  <button mat-button (click)="closeDialog() " class="btn btn-secondary btn-md">Cancelar</button>
+  <!-- <button mat-button  cdkFocusInitial  class="btn btn-success btn-md" (click)="doAction()">Salvar</button> -->
+  <button mat-button (click)="doAction()" class="btn btn-success btn-md">{{action}}</button>
+  
+</div>

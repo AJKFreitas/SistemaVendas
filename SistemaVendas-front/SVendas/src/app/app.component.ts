@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
     if (this.authService.isLoggedIn) {
       this.authService.setProfileContext(JSON.parse(this.token.Data).Nome);
     } else {
-      debugger;
       this.toasteSevice.Error('Usuario e senha invalidos!');
       this.logout();
     }

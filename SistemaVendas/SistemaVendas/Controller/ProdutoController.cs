@@ -25,7 +25,7 @@ namespace SistemaVendas.Api.Controller
 
 
         [HttpGet]
-        public async Task<IAsyncEnumerable<Produto>> GetProdutos()
+        public async Task<IEnumerable<Produto>> GetProdutos()
         {
             return await _produtoService.GetAll();
         }
@@ -72,7 +72,7 @@ namespace SistemaVendas.Api.Controller
         public async Task<ActionResult<Produto>> PostProduto(ProdutoVM produtoVM)
         {
             await _produtoService.Insert(produtoVM);
-
+            
             return CreatedAtAction("GetProduto", new { id = produtoVM.Id }, produtoVM);
         }
 

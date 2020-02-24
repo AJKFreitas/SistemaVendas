@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Clientes.Entities;
-using SistemaVendas.Infra.Data;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("svendas/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Funcionario")]
-    public class ClientesController : ControllerBase
+    public class ClienteController : ControllerBase
     {
         private readonly IClienteService _service;
 
-        public ClientesController(IClienteService service)
+        public ClienteController(IClienteService service)
         {
             _service = service;
         }
@@ -27,7 +25,7 @@ namespace SistemaVendas.Api.Controller
 
 
         [HttpGet]
-        public async Task<IAsyncEnumerable<Cliente>> GetClientes()
+        public async Task<IEnumerable<Cliente>> GetClientes()
         {
             return await _service.GetAll();
         }
@@ -44,7 +42,12 @@ namespace SistemaVendas.Api.Controller
 
             return cliente;
         }
-
+        [HttpPost]
+        [Route("buscar-todos")]
+        public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
+        {
+            return await _service.GetAll();
+        }
         [HttpPut]
         public async Task<IActionResult> PutCliente( Cliente cliente)
         {

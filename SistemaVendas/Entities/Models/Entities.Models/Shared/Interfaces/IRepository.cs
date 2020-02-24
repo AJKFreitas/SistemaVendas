@@ -7,7 +7,7 @@ namespace SistemaVendas.Core.Shared.Interfaces
   public  interface IRepository<T> 
     {
         Task<int> Delete(Guid Id);
-        Task<IAsyncEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAll();
         Task<T> GetById(Guid Id);
         Task<int> Insert(T T);
         Task<int> Save();

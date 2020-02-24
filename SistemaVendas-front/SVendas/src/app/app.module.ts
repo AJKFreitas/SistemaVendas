@@ -1,8 +1,7 @@
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './components/Auth/shared/config/authconfig.interceptor';
@@ -30,19 +29,20 @@ import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornec
 import { ToastService } from './components/Shared/ToastService';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
-import { MatRadioModule } from '@angular/material/radio';
 import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
-import { MatTableModule} from '@angular/material/table';
-import { MatDialogModule} from '@angular/material/dialog';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule} from '@angular/material/input';
-import { MatButtonModule} from '@angular/material/button';
 import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/br';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { UsuarioService } from './components/Usuario/services/usuario.service';
+import { MaterialModule } from './shared/modules/material/material.module';
+import { ModalComponent } from './components/Usuario/modal/modal.component';
+import { HasRoleDirective } from './shared/utils/has-role.directive';
+import { FornecedorDialogComponent } from './components/Fornecedor/modal/fornecedor-dialog/fornecedor-dialog.component';
+import { GestaoClienteComponent } from './components/Cliente/gestao-cliente/gestao-cliente.component';
+import { ClienteDialogComponent } from './components/Cliente/modal/cliente-dialog/cliente-dialog.component';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -64,6 +64,11 @@ registerLocaleData(localeFr, 'pt-BR');
     ListarFornecedorComponent,
     ListarUsuarioComponent,
     DialogBoxComponent,
+    ModalComponent,
+    HasRoleDirective,
+    FornecedorDialogComponent,
+    GestaoClienteComponent,
+    ClienteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,15 +77,10 @@ registerLocaleData(localeFr, 'pt-BR');
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,
-    MatTableModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     FlexLayoutModule,
     MatPaginatorModule,
     MatSelectModule,
+    MaterialModule,
     routing,
     JwtModule.forRoot({
       config: {
@@ -95,23 +95,31 @@ registerLocaleData(localeFr, 'pt-BR');
         timeOut: 10000,
         positionClass: 'top-right',
         closeButton: true,
-    } ),
+      }),
     ToastContainerModule,
     NgxDatatableModule,
     SelectDropDownModule,
     NgxMaskModule.forRoot(options)
+  ], exports: [
+
+    HasRoleDirective,
+
   ],
   entryComponents: [
-    DialogBoxComponent
+    DialogBoxComponent,
+    ModalComponent,
+    FornecedorDialogComponent,
+    ClienteDialogComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
-    {provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR'},
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR' },
 
     AuthGuard,
     AuthService,
-    ToastService
+    ToastService,
+    UsuarioService
   ],
   bootstrap: [AppComponent]
 })

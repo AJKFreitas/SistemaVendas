@@ -9,7 +9,7 @@ namespace SistemaVendas.Core.Domains.Produtos.Interfaces
    public interface IProdutoRepository
     {
         Task Delete(Guid EntityID);
-        Task<IAsyncEnumerable<Produto>> GetAll();
+        Task<IEnumerable<Produto>> GetAll();
         Task <Produto> GetById(Guid EntityID);
         Task<int> Insert(Produto Entity);
         Task Save();

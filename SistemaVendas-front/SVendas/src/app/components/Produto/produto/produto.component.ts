@@ -62,6 +62,8 @@ export class ProdutoComponent implements OnInit {
       }
       this.fornecedores = res;
       this.spinnerService.hide();
+    }, err =>{
+      this.spinnerService.hide();
     });
   }
 iserirProduto() {

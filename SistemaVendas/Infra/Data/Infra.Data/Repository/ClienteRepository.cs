@@ -2,8 +2,10 @@
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +14,12 @@ namespace SistemaVendas.Infra.Data.Repository
     public class ClienteRepository : IClienteRepository
     {
         protected readonly VendasEFContext _context;
-
+        private bool disposed = false;
+        public ClienteRepository()
+        {
+            _context = new VendasEFContext();
+        }
+        
         public ClienteRepository(VendasEFContext context)
         {
             _context = context;
@@ -33,11 +40,26 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<IAsyncEnumerable<Cliente>> GetAll()
+        public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
         {
             try
             {
-                return _context.Clientes;
+                var query = _context.Clientes;
+                return await PagedList<Cliente>.CreateAsync(query, clienteParams.PageNumber, clienteParams.PageSize);
+            }
+            catch (MySqlException ex)
+            {
+                _context.Dispose();
+                throw new Exception(ex.Message);
+
+            }
+        }
+
+        public async Task<IEnumerable<Cliente>> GetAll()
+        {
+            try
+            {
+                return  _context.Clientes;
             }
             catch (MySqlException e)
             {
@@ -87,10 +109,10 @@ namespace SistemaVendas.Infra.Data.Repository
                 return await _context.SaveChangesAsync();
 
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -106,10 +128,25 @@ namespace SistemaVendas.Infra.Data.Repository
                 _context.Clientes.Update(cliente);
                 return await Save();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                throw new Exception(ex.Message);
             }
+        }
+        public bool ExisteCliente(long cpf)
+        {
+            Cliente cliente = null;
+
+            try
+            {
+                cliente = _context.Clientes.Where(x => x.CPF == cpf).FirstOrDefault();
+                return cliente != null;
+            }
+            catch ( MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }
