@@ -5,6 +5,7 @@ using SistemaVendas.Core.Domains.Clientes.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -107,10 +108,10 @@ namespace SistemaVendas.Infra.Data.Repository
                 return await _context.SaveChangesAsync();
 
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
                 _context.Dispose();
-                throw e;
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -126,10 +127,35 @@ namespace SistemaVendas.Infra.Data.Repository
                 _context.Clientes.Update(cliente);
                 return await Save();
             }
-            catch (MySqlException e)
+            catch (MySqlException ex)
             {
-                throw e;
+                throw new Exception(ex.Message);
             }
+        }
+        public bool ExisteCliente(long cpf)
+        {
+            Cliente cliente = null;
+
+            try
+            {
+                cliente = _context.Clientes.Where(x => x.CPF == cpf).FirstOrDefault();
+                return cliente != null;
+            }
+            catch ( MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public Task<IEnumerable<Cliente>> GetAll(ClienteParams clienteParams)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Cliente>> GetALL()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SistemaVendas.Core.Shared.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace SistemaVendas.Core.Domains.Clientes.Entities
 {
-    class ClienteParams
+    public class ClienteParams : Params
     {
     }
 }
