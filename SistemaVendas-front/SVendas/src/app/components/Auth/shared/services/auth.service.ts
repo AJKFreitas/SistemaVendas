@@ -89,7 +89,7 @@ export class AuthService {
     const api = `${this.endpoint}/usuario/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || {}
+        return res || {};
       }),
       catchError(this.handleError)
     )

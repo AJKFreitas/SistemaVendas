@@ -35,9 +35,14 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 423) {
                 this.toastSevice.Warning('Recurso já existe', 'Já existe um recurso com esses dados cadastrado');
             }
+            if (err.status === 404) {
+                this.toastSevice.Error('Recurso não encontrado ou não existe!');
+            }
             // tslint:disable-next-line:no-debugger
             debugger;
-            this.toastSevice.Error(err.error);
+            if (err.error) {
+                this.toastSevice.Error(err.error);
+            }
             const error = err.error.message || err.statusText;
             return throwError(error);
         }));

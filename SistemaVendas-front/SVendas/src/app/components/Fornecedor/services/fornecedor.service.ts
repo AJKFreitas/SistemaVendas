@@ -2,7 +2,7 @@ import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router, Params } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Fornecedor } from '../model/Fornecedor';
+import { Fornecedor, FornecedorVM } from '../model/Fornecedor';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -62,7 +62,7 @@ export class FornecedorService {
     });
   }
 
-  iserir(fornecedor: Fornecedor): Observable<any> {
+  iserir(fornecedor: FornecedorVM): Observable<any> {
     const api = `${this.endpoint}/fornecedor`;
     return this.http.post(api, fornecedor)
       .pipe(

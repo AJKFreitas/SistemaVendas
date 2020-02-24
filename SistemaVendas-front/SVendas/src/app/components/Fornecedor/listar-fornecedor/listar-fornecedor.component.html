@@ -1,16 +1,18 @@
-<div class="container-fluid">
   <div class="card">
     <div class="card-body titulo" id="titulo">
       Listar Fornecedores
     </div>
   </div>
+
   <mat-form-field>
     <mat-label>Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
+
   <div class="mat-elevation-z8">
+
     <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
-    <table mat-table [dataSource]="fornecedores" #mytable class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="dataSource" #mytable class="mat-elevation-z8" matSort>
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
@@ -37,15 +39,10 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
-  [pageIndex]="currentPage" (page)="getPaginatorData($event)">
+  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" 
+      [showFirstLastButtons]="true" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="getPaginatorData($event)">
 </mat-paginator>
-</div>
-
-  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
-    <p style="color: white">Carregando ...</p>
-  </ngx-spinner>
-
 </div>

@@ -23,6 +23,11 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  @ViewChild(MatTable, { static: true }) table: MatTable<Usuario>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(PageEvent) pageEvent: PageEvent;
+
 
   constructor(
     public dialog: MatDialog,
@@ -34,11 +39,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Usuario>;
   displayedColumns: string[] = ['nome', 'email', 'role', 'action'];
   usuarios: Usuario[] = [];
-
-  @ViewChild(MatTable, { static: true }) table: MatTable<Usuario>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(PageEvent) pageEvent: PageEvent;
  
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
@@ -58,15 +58,9 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.pageEvent = new PageEvent();
   }
 
-
-
   getPaginatorData(event) {
-    console.log(event);
     this.listarUsuarioss( new Params(event.pageSize, event.pageIndex || 1));
 }
-
-
-
 
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
@@ -90,7 +84,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
 
   addRowData(usuario: Usuario) {
     this.dataSource.data.push({
@@ -122,7 +115,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    console.log('applyFilter', event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -145,6 +137,8 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       this.usuarios = res;
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
+      this.spinnerService.hide();
+    }, err => {
       this.spinnerService.hide();
     });
   }

@@ -38,6 +38,12 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw e;
             }
         }
+
+        public bool ExisteCliente(long cpf)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<PagedList<Cliente>> GetALL(ClienteParams clienteParams)
         {
             try

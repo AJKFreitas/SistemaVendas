@@ -110,7 +110,7 @@ namespace SistemaVendas.Api.Controller
         }
         private bool fornecedorValido(Fornecedor fornecedor)
         {
-            return fornecedor.CNPJ != null && fornecedor.Nome != null && fornecedor.Telefone != null ;
+            return null != fornecedor.CNPJ && fornecedor.Nome != null && fornecedor.Telefone != null ;
         }
         private async Task<bool> ExisteFornecedor(Guid id)
         {

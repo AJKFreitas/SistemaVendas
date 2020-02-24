@@ -12,8 +12,8 @@ export class FornecedorVM {
 
     constructor(
         public nome: string,
+        public cnpj: number,
         public telefone: string,
-        public cnpj: string,
     ) { }
 
 }

@@ -1,15 +1,12 @@
-import { Fornecedor } from './../model/Fornecedor';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Fornecedor, FornecedorVM } from './../model/Fornecedor';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FornecedorService } from '../services/fornecedor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { Usuario } from '../../Auth/shared/models/User';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { DialogBoxComponent } from '../../Shared/dialog-box/dialog-box.component';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../../Usuario/modal/modal.component';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { FornecedorDialogComponent } from '../modal/fornecedor-dialog/fornecedor-dialog.component';
 import { Params } from 'src/app/shared/models/Params';
@@ -19,28 +16,38 @@ import { Params } from 'src/app/shared/models/Params';
   templateUrl: './listar-fornecedor.component.html',
   styleUrls: ['./listar-fornecedor.component.css']
 })
-export class ListarFornecedorComponent implements OnInit {
-  fornecedores = [];
-  columns = [];
-  dataSource: MatTableDataSource<Fornecedor>;
-  displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
+export class ListarFornecedorComponent implements OnInit, AfterViewInit {
 
-  constructor(
-    public dialog: MatDialog,
-    public service: FornecedorService,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
-  ) { }
-
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.dataSource.paginator = this.paginator;
+  }
   @ViewChild(MatTable, { static: true }) table: MatTable<Fornecedor>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
 
+  
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
+    public service: FornecedorService,
+    ) { }
+    dataSource: MatTableDataSource<Fornecedor>;
+    displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
+    fornecedores: Fornecedor [] = [];
+
+
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
   public currentPage = 0;
   public totalSize = 0;
+
+  
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.fornecedores);
@@ -51,37 +58,10 @@ export class ListarFornecedorComponent implements OnInit {
     this.pageEvent = new PageEvent();
   }
 
-  listarFornecedoresvoid() {
-    this.spinnerService.show();
-    this.service.listarFornecedores().subscribe((res) => {
-      if (res.result) {
-        this.fornecedores = res;
-      }
-      this.fornecedores = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    });
-  }
-
   getPaginatorData(event) {
-    console.log(event);
     this.listarFornecedores(new Params(event.pageSize, event.pageIndex || 1));
   }
 
-  listarFornecedores(params: Params) {
-    this.spinnerService.show();
-    this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.fornecedores = res;
-        this.dataSource.paginator = this.paginator;
-      }
-      this.fornecedores = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    });
-  }
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -107,13 +87,13 @@ export class ListarFornecedorComponent implements OnInit {
 
   addRowData(fornecedor: Fornecedor) {
     this.dataSource.data.push({
-      id: fornecedor.id,
+      id: '',
       nome: fornecedor.nome,
       cnpj: fornecedor.cnpj,
       telefone: fornecedor.telefone,
       produtos: fornecedor.produtos
     });
-
+    this.registerFornecedor( new FornecedorVM(fornecedor.nome, fornecedor.cnpj, fornecedor.telefone));
     this.table.renderRows();
   }
   updateRowData(fornecedor: Fornecedor) {
@@ -123,12 +103,15 @@ export class ListarFornecedorComponent implements OnInit {
       }
       return true;
     });
+    this.updateFornecedor(fornecedor);
   }
   deleteRowData(fornecedor: Fornecedor) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
       return value.id !== fornecedor.id;
     });
+    this.deleteFornecedor(fornecedor);
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -137,7 +120,28 @@ export class ListarFornecedorComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  registerFornecedor(fornecedor: Fornecedor) {
+  buscaPaginada(pageSize, pageIndex) {
+    this.listarFornecedores(new Params(pageSize, pageIndex));
+  }
+
+ 
+  listarFornecedores(params: Params) {
+    this.spinnerService.show();
+    this.service.listar(params).subscribe(res => {
+      if (res.result) {
+        this.fornecedores = res;
+        this.dataSource.paginator = this.paginator;
+      }
+      this.fornecedores = res;
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.spinnerService.hide();
+    }, err => {
+      this.spinnerService.hide();
+    });
+  }
+
+  registerFornecedor(fornecedor: FornecedorVM) {
     this.spinnerService.show();
     this.service.iserir(fornecedor).subscribe((res) => {
       if (res.result) {
@@ -153,7 +157,7 @@ export class ListarFornecedorComponent implements OnInit {
       }
     );
   }
-  updateUser(fornecedor: Fornecedor) {
+  updateFornecedor(fornecedor: Fornecedor) {
     this.spinnerService.show();
     this.service.editar(fornecedor).subscribe((res) => {
       if (res) {
@@ -169,7 +173,7 @@ export class ListarFornecedorComponent implements OnInit {
       }
     );
   }
-  deleteUser(fornecedor: Fornecedor) {
+  deleteFornecedor(fornecedor: Fornecedor) {
     this.spinnerService.show();
     this.service.deletar(fornecedor).subscribe((res) => {
       if (res) {

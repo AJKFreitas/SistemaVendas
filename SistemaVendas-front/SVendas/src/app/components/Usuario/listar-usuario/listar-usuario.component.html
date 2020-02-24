@@ -3,10 +3,12 @@
     Listar Usuarios
   </div>
 </div>
+
 <mat-form-field>
   <mat-label>Filtrar</mat-label>
   <input matInput (keyup)="applyFilter($event)">
 </mat-form-field>
+
 <div class="mat-elevation-z8">
 
   <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
@@ -39,7 +41,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
-  [pageIndex]="currentPage" (page)="getPaginatorData($event)">
+  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" 
+      [showFirstLastButtons]="true" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="getPaginatorData($event)">
 </mat-paginator>
 </div>
