@@ -123,7 +123,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
   listarProdutos(params: Params) {
     this.spinnerService.show();
-    this.service.listarTodos().subscribe(res => {
+    this.service.listar(params).subscribe(res => {
       if (res.result) {
         this.produtos = res;
         this.dataSource.paginator = this.paginator;

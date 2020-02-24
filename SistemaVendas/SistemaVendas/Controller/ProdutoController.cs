@@ -23,13 +23,20 @@ namespace SistemaVendas.Api.Controller
             _produtoService = produtoService;
         }
 
-
+     
         [HttpGet]
         public async Task<IEnumerable<Produto>> GetProdutos()
         {
             return await _produtoService.GetAll();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
+        [Route("buscar-todos")]
+        public async Task<IEnumerable<Produto>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
+        {
+            return await _produtoService.GetAll(uparams);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Produto>> GetProduto(Guid id)

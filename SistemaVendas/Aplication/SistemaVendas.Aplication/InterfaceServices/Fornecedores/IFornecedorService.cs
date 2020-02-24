@@ -2,8 +2,6 @@
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
@@ -17,6 +15,5 @@ namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
         Task<int> Update(Fornecedor fornecedor);
         bool ExisteFornecedor(long cnpj);
         Task<int> Delete(Guid Id);
-
     }
 }

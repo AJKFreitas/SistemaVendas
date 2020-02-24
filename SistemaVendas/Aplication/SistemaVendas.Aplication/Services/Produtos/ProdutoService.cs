@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using SistemaVendas.Aplication.ViewModels;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Aplication.Services.Produtos
 {
@@ -19,11 +20,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             _mapper = mapper;
         }
 
-        public Task Delete(Guid Id)
+        public async Task<int> Delete(Guid Id)
         {
             try
             {
-             return _repository.Delete(Id);
+             return await _repository.Delete(Id);
 
             }
             catch (Exception e)
@@ -32,17 +33,30 @@ namespace SistemaVendas.Aplication.Services.Produtos
                 throw e;
             }
         }
-
-        public Task<IEnumerable<Produto>> GetAll()
+        public async Task<PagedList<Produto>> GetAll(ProdutoParams fParams)
         {
             try
             {
-                return _repository.GetAll();
+
+                return await _repository.GetAll(fParams);
             }
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<IEnumerable<Produto>> GetAll()
+        {
+            try
+            {
+                return await _repository.GetAll();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
             }
         }
 
@@ -55,7 +69,7 @@ namespace SistemaVendas.Aplication.Services.Produtos
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
@@ -69,13 +83,35 @@ namespace SistemaVendas.Aplication.Services.Produtos
             catch (Exception e)
             {
 
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 
         public Task<int> Update(Produto Produto)
         {
-            return _repository.Update(Produto);
+            try
+            {
+                return _repository.Update(Produto);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool ExisteProduto(long codigo)
+        {
+            try
+            {
+                return _repository.ExisteProduto(codigo);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }

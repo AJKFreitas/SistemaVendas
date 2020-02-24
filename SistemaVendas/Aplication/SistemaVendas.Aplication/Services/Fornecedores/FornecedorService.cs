@@ -4,7 +4,6 @@ using SistemaVendas.Core.Domains.Fornecedores.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.Services.Fornecedores
@@ -24,7 +23,7 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             try
             {
 
-           return await _repository.Delete(EntityID);
+                return await _repository.Delete(EntityID);
             }
             catch (Exception e)
             {
