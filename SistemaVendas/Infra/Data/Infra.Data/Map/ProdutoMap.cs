@@ -12,11 +12,15 @@ namespace SistemaVendas.Infra.Data.Map
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
             builder.ToTable("TB_Produto");
-            builder.Property(Fornecedor => Fornecedor.Id).HasColumnName("Id").ValueGeneratedOnAdd();
+            builder.Property(produto => produto.Id).HasColumnName("Id").ValueGeneratedOnAdd();
 
             builder.HasMany(produto => produto.ItemPedidos)
                    .WithOne(intemPedido => intemPedido.Produto)
                    .HasForeignKey(itemPedido => itemPedido.IdProduto);
+
+            builder.HasMany(produto => produto.ItemOrdemCompras)
+                  .WithOne(itemOrdemCompras => itemOrdemCompras.Produto)
+                  .HasForeignKey(itemOrdemCompras => itemOrdemCompras.IdProduto);
         }
     }
 }

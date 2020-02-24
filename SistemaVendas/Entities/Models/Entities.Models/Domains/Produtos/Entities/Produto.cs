@@ -13,6 +13,7 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
         public double Valor { get; set; }
         public virtual IEnumerable<ProdutoFornecedor> ProdutoFornecedores { get; set; } = new List<ProdutoFornecedor>();
         public virtual IEnumerable<ItemPedidoVenda> ItemPedidos { get; set; } = new List<ItemPedidoVenda>();
+        public virtual IEnumerable<ItemOrdemCompra> ItemOrdemCompras { get; set; } = new List<ItemOrdemCompra>();
 
         public Produto()
         {

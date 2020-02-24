@@ -14,7 +14,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         public virtual Fornecedor Fornecedor { get; set; }
         public Guid IdFornecedor { get; set; }
         public IEnumerable<ItemOrdemCompra> ItemsOrdemCompra { get; set; }
-
+        public double ValorTotal { get; set; }
 
         public OrdemCompra()
         {

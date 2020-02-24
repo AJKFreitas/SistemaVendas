@@ -13,7 +13,6 @@ namespace SistemaVendas.Infra.Data.Repository
     public class UsuarioRepository : IUsuarioRepository
     {
         protected readonly VendasEFContext _context;
-        private bool disposed = false;
         public UsuarioRepository()
         {
             _context = new VendasEFContext();

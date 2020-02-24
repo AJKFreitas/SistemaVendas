@@ -14,7 +14,7 @@ namespace SistemaVendas.Infra.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("SistemaVendas.Core.Domains.Auth.Entities.Usuario", b =>
@@ -113,7 +113,34 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.ToTable("TB_Produto_Fornecedor");
                 });
 
-            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedido", b =>
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemOrdemCompra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdOrdemCompra")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("IdProduto")
+                        .HasColumnType("char(36)");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("double");
+
+                    b.Property<long>("Quantidade")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdOrdemCompra");
+
+                    b.HasIndex("IdProduto");
+
+                    b.ToTable("TB_ItemOrdemCompra");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedidoVenda", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +170,32 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.ToTable("TB_ItemPedido");
                 });
 
-            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", b =>
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.OrdemCompra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DataEntrada")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("IdFornecedor")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Nota")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<double>("ValorTotal")
+                        .HasColumnType("double");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdFornecedor");
+
+                    b.ToTable("TB_OrdemCompra");
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.PedidoVenda", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -201,9 +253,24 @@ namespace SistemaVendas.Infra.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedido", b =>
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemOrdemCompra", b =>
                 {
-                    b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", "Pedido")
+                    b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.OrdemCompra", "OrdemCompra")
+                        .WithMany("ItemsOrdemCompra")
+                        .HasForeignKey("IdOrdemCompra")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
+                        .WithMany("ItemOrdemCompras")
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.ItemPedidoVenda", b =>
+                {
+                    b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.PedidoVenda", "Pedido")
                         .WithMany("ItemPedidos")
                         .HasForeignKey("IdPedido")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -216,7 +283,16 @@ namespace SistemaVendas.Infra.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.Pedido", b =>
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.OrdemCompra", b =>
+                {
+                    b.HasOne("SistemaVendas.Core.Domains.Fornecedores.Entities.Fornecedor", "Fornecedor")
+                        .WithMany("OrdemCompras")
+                        .HasForeignKey("IdFornecedor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.PedidoVenda", b =>
                 {
                     b.HasOne("SistemaVendas.Core.Domains.Clientes.Entities.Cliente", "Cliente")
                         .WithMany("Pedidos")

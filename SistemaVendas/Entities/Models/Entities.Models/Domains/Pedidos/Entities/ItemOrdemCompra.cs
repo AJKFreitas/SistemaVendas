@@ -11,6 +11,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         public double Preco { get; set; }
         public long Quantidade { get; set; }
         public Produto  Produto { get; set; }
+        public Guid IdProduto { get; set; }
         public virtual OrdemCompra OrdemCompra { get; set; }
         public Guid IdOrdemCompra { get; set; }
 

@@ -20,6 +20,8 @@ namespace SistemaVendas.Infra.Data
         public DbSet<ItemPedidoVenda> ItemsPedidos { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<ProdutoFornecedor> ProdutosFornecidos { get; set; }
+        public DbSet<ItemOrdemCompra> ItemOrdemCompras { get; set; }
+        public DbSet<OrdemCompra> OrdemCompras { get; set; }
 
 
         public VendasEFContext(DbContextOptions options, IConfiguration configuration) : base(options)
@@ -52,6 +54,12 @@ namespace SistemaVendas.Infra.Data
 
             modelBuilder.Entity<ItemPedidoVenda>().ToTable("TB_ItemPedido");
             modelBuilder.ApplyConfiguration(new ItemPedidoMap());
+            
+            modelBuilder.Entity<OrdemCompra>().ToTable("TB_OrdemCompra");
+            modelBuilder.ApplyConfiguration(new OrdemCompraMap());
+
+            modelBuilder.Entity<ItemOrdemCompra>().ToTable("TB_ItemOrdemCompra");
+            modelBuilder.ApplyConfiguration(new ItemOrdemCompraMap());
 
 
             modelBuilder.Entity<ProdutoFornecedor>().ToTable("TB_Produto_Fornecedor")
