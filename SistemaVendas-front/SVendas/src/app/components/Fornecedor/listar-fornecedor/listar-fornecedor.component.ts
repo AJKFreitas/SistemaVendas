@@ -27,16 +27,16 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
 
-  
+
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService,
     public service: FornecedorService,
-    ) { }
-    dataSource: MatTableDataSource<Fornecedor>;
-    displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
-    fornecedores: Fornecedor [] = [];
+  ) { }
+  dataSource: MatTableDataSource<Fornecedor>;
+  displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
+  fornecedores: Fornecedor[] = [];
 
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -44,7 +44,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   public currentPage = 0;
   public totalSize = 0;
 
-  
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -94,7 +94,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
       telefone: fornecedor.telefone,
       produtos: fornecedor.produtos
     });
-    this.registerFornecedor( new FornecedorVM(fornecedor.nome, fornecedor.cnpj, fornecedor.telefone));
+    this.registerFornecedor(new FornecedorVM(fornecedor.nome, fornecedor.cnpj, fornecedor.telefone));
     this.table.renderRows();
   }
   updateRowData(fornecedor: Fornecedor) {
@@ -125,7 +125,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.listarFornecedores(new Params(pageSize, pageIndex));
   }
 
- 
+
   listarFornecedores(params: Params) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {

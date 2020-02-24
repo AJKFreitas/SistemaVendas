@@ -391,6 +391,7 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 .suo
+<<<<<<< HEAD
 .cache
 SistemaVendas/Entities/Models/Entities.Models/obj/SistemaVendas.Core.csproj.nuget.g.props
 SistemaVendas/Infra/Data/Infra.Data/obj/SistemaVendas.Infra.Data.csproj.nuget.g.props
@@ -400,3 +401,6 @@ SistemaVendas/SistemaVendas/obj/SistemaVendas.Api.csproj.nuget.g.props
 CICD/api-vendas/code/
 SistemaVendas/SistemaVendas/bin/Release/netcoreapp3.1/
 SistemaVendas/Infra/IoC/Infra.IoC/obj/Release/netcoreapp3.1/
+=======
+.cache
+>>>>>>> cbe1c445427d103dd0109b11a462ee673633a1e8

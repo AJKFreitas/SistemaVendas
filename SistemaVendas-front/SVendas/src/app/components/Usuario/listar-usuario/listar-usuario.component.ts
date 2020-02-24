@@ -39,7 +39,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<Usuario>;
   displayedColumns: string[] = ['nome', 'email', 'role', 'action'];
   usuarios: Usuario[] = [];
-
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
   public currentPage = 0;
