@@ -23,10 +23,10 @@ namespace SistemaVendas.Aplication.Services.Auth
                 return await _repository.Delete(id);
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -37,10 +37,10 @@ namespace SistemaVendas.Aplication.Services.Auth
             return _repository.ExisteUsuario(email);
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception (e.Message);
+                throw new Exception (ex.Message);
             }
         }
 
@@ -51,10 +51,10 @@ namespace SistemaVendas.Aplication.Services.Auth
                 
                 return await  _repository.GetAll(uparams);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         } 
         public async Task<IEnumerable<Usuario>> GetAll()
@@ -62,12 +62,12 @@ namespace SistemaVendas.Aplication.Services.Auth
             try
             {
                 
-                return await  _repository.GetAll();
+                return await _repository.GetAll();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -77,10 +77,10 @@ namespace SistemaVendas.Aplication.Services.Auth
             {
                 return _repository.GetById(Id);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -91,10 +91,10 @@ namespace SistemaVendas.Aplication.Services.Auth
                              
                 return _repository.Insert(usuario);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -107,10 +107,10 @@ namespace SistemaVendas.Aplication.Services.Auth
             return _repository.Update(usuario);
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
 
-                throw new Exception(e.Message);
+                throw new Exception(ex.Message);
             }
         }
 
