@@ -392,3 +392,8 @@ msbuild.wrn
 .vs/
 .suo
 .cache
+SistemaVendas/Entities/Models/Entities.Models/obj/SistemaVendas.Core.csproj.nuget.g.props
+SistemaVendas/Infra/Data/Infra.Data/obj/SistemaVendas.Infra.Data.csproj.nuget.g.props
+SistemaVendas/Infra/IoC/Infra.IoC/obj/SistemaVendas.Infra.IoC.csproj.nuget.g.props
+SistemaVendas/SistemaVendas/appsettings.Development.json
+SistemaVendas/SistemaVendas/obj/SistemaVendas.Api.csproj.nuget.g.props
