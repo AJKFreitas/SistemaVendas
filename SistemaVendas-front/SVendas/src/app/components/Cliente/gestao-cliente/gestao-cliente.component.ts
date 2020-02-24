@@ -30,7 +30,7 @@ export class GestaoClienteComponent implements OnInit {
     public service: ClienteService,
   ) { }
   dataSource: MatTableDataSource<Cliente>;
-  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco'];
+  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco', 'action'];
   clientes: Cliente[] = [];
 
   @ViewChild(MatTable, { static: true }) table: MatTable<Cliente>;
@@ -82,6 +82,7 @@ export class GestaoClienteComponent implements OnInit {
       } else {
         this.service.resetForm();
         this.service.initializeFormGroup();
+        this.listarClientes(new Params(10, 1));
       }
     });
   }
@@ -151,6 +152,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
       this.spinnerService.hide();
+      this.listarClientes(new Params(10, 1));
     },
       err => {
         this.spinnerService.hide();
@@ -168,6 +170,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
       this.spinnerService.hide();
+      this.listarClientes(new Params(10, 1));
     },
       err => {
         this.spinnerService.hide();
@@ -185,6 +188,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
       this.spinnerService.hide();
+      this.listarClientes(new Params(10, 1));
     },
       err => {
         this.spinnerService.hide();

@@ -50,12 +50,12 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
         }
 
-        public Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams)
+        public async Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams)
 
         {
             try
             {
-                return  _repository.GetAll(clienteParams);
+                return await _repository.GetAll(clienteParams);
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace SistemaVendas.Aplication.Services.Clientes
         {
             try
             {
-                return await _repository.GetALL();
+                return await _repository.GetAll();
             }
             catch (Exception ex)
             {

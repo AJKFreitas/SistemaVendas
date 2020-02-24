@@ -40,12 +40,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public bool ExisteCliente(long cpf)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<PagedList<Cliente>> GetALL(ClienteParams clienteParams)
+        public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
         {
             try
             {
@@ -64,7 +59,7 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                return _context.Clientes;
+                return  _context.Clientes;
             }
             catch (MySqlException e)
             {
@@ -152,16 +147,6 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
 
-        }
-
-        public Task<IEnumerable<Cliente>> GetAll(ClienteParams clienteParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Cliente>> GetALL()
-        {
-            throw new NotImplementedException();
         }
     }
 }

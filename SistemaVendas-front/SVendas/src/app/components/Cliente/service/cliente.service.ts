@@ -49,7 +49,7 @@ export class ClienteService {
       );
   }
   listar(params: Params): Observable<any> {
-    const api = `${this.endpoint}/clientes/buscar-todos`;
+    const api = `${this.endpoint}/cliente/buscar-todos`;
     return this.http.post(api, params).pipe(
       map((res: Response) => {
         return res || [];

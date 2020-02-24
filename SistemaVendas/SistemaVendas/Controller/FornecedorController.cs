@@ -29,7 +29,7 @@ namespace SistemaVendas.Api.Controller
             {
                 if (_fornecedorService.ExisteFornecedor(fornecedor.CNPJ))
                 {
-                    return BadRequest("Já existe Usuário com esse email cadastrado");
+                    return BadRequest("Já existe Fornecedor com esse email cadastrado");
                 }
                 await _fornecedorService.Insert(fornecedor);
                 return CreatedAtAction("GetFornecedor", new { id = fornecedor.Id }, fornecedor);
@@ -37,7 +37,7 @@ namespace SistemaVendas.Api.Controller
             }
             else
             {
-                return BadRequest("Usuário invalido, verifique os dados inseridos.");
+                return BadRequest("Fornecedor invalido, verifique os dados inseridos.");
             }
 
         }
@@ -57,7 +57,7 @@ namespace SistemaVendas.Api.Controller
 
             if (produto == null)
             {
-                return NotFound("Usuário não encontrado.");
+                return NotFound("Fornecedor não encontrado.");
             }
 
             return produto;
@@ -95,7 +95,7 @@ namespace SistemaVendas.Api.Controller
         {
             if (id == null)
             {
-                return NotFound("Usuário não encontrado.");
+                return NotFound("Fornecedor não encontrado.");
             }
             try
             {
@@ -114,9 +114,9 @@ namespace SistemaVendas.Api.Controller
         }
         private async Task<bool> ExisteFornecedor(Guid id)
         {
-            Fornecedor user = null;
             try
             {
+                Fornecedor user = null;
                 user = await _fornecedorService.GetById(id);
                 return user != null;
 

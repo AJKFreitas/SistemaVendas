@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Shared.Entities;
-using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin,Funcionario")]
-    public class ClientesController : ControllerBase
+    public class ClienteController : ControllerBase
     {
         private readonly IClienteService _service;
 
-        public ClientesController(IClienteService service)
+        public ClienteController(IClienteService service)
         {
             _service = service;
         }
@@ -46,7 +43,6 @@ namespace SistemaVendas.Api.Controller
             return cliente;
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [Route("buscar-todos")]
         public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
         {
