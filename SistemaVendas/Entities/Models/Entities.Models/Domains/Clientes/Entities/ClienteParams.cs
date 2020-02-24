@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SistemaVendas.Core.Domains.Clientes.Entities
 {
-   public class ClienteParams : Params 
+    public class ClienteParams : Params
     {
     }
 }

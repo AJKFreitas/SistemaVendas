@@ -2068,7 +2068,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Core.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SistemaVendas.Infra.Data/1.0.0": {
         "type": "project",
