@@ -392,3 +392,6 @@ msbuild.wrn
 .vs/
 .suo
 .cache
+SistemaVendas/.vs/SistemaVendas/DesignTimeBuild/.dtbcache
+SistemaVendas/.vs/SistemaVendas/v16/.suo
+SistemaVendas/.vs/SistemaVendas/v16/Server/sqlite3/storage.ide
