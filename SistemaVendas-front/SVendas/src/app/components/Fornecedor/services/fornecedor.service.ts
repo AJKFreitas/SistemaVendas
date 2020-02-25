@@ -27,7 +27,7 @@ export class FornecedorService {
     cnpj: new FormControl('', Validators.required),
   });
 
-  // Sign-up
+  // grid
   listarFornecedores(): Observable<any> {
     const api = `${this.endpoint}/fornecedor`;
     return this.http.get(api, { headers: this.headers }).pipe(
@@ -71,15 +71,15 @@ export class FornecedorService {
   }
 
 
-  editar(usuario: Fornecedor): Observable<any> {
+  editar(fornecedor: Fornecedor): Observable<any> {
     const api = `${this.endpoint}/fornecedor`;
-    return this.http.put(api, usuario)
+    return this.http.put(api, fornecedor)
       .pipe(
         catchError(this.handleError)
       );
   }
   deletar(fornecedor: Fornecedor) {
-    const api = `${this.endpoint}/usuario/${fornecedor.id}`;
+    const api = `${this.endpoint}/fornecedor/${fornecedor.id}`;
     return this.http.delete(api)
       .pipe(
         catchError(this.handleError)

@@ -7,12 +7,12 @@ namespace SistemaVendas.Core.Domains.Auth.Entities
 
     public class Usuario : IUsuario
     {
-        public Guid Id { get; set ; }
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public string Role { get; set; }
-        
+
         public Usuario()
         {
         }

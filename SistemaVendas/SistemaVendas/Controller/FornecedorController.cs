@@ -44,24 +44,33 @@ namespace SistemaVendas.Api.Controller
         [HttpPost]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
         [Route("buscar-todos")]
-        public async Task<IEnumerable<Fornecedor>> GetProdutos([FromQuery]FornecedorParams uparams)
+        public async Task<IEnumerable<Fornecedor>> GetFornecedorFiltro([FromQuery]FornecedorParams uparams)
         {
             return await _fornecedorService.GetAll(uparams);
+        }  
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
+        public async Task<IEnumerable<Fornecedor>> Get()
+        {
+            return await _fornecedorService.GetAll();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
         public async Task<ActionResult<Fornecedor>> Get(Guid id)
         {
-            var produto = await _fornecedorService.GetById(id);
+            var fornecedor = await _fornecedorService.GetById(id);
 
-            if (produto == null)
+            if (fornecedor == null)
             {
                 return NotFound("Fornecedor não encontrado.");
             }
 
-            return produto;
+            return fornecedor;
         }
+
         [HttpPut]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
         public async Task<IActionResult> Put(Fornecedor fornecedor)

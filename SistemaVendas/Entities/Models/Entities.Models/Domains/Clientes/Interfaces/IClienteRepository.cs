@@ -1,5 +1,4 @@
-﻿using SistemaVendas.Core.Domains.Auth.Entities;
-using SistemaVendas.Core.Domains.Clientes.Entities;
+﻿using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,6 @@ namespace SistemaVendas.Core.Domains.Clientes.Interfaces
         Task<int> Save();
         Task<int> Update(Cliente cliente);
         bool ExisteCliente(long cpf);
-        
+
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SistemaVendas.Core.Domains.Auth.Entities
+﻿namespace SistemaVendas.Core.Domains.Auth.Entities
 {
     public sealed class AuthenticationResult : BaseResult<object>
     {

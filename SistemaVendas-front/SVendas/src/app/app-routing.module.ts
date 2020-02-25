@@ -1,3 +1,4 @@
+import { GestaoProdutosComponent } from './components/Produto/gestao-produtos/gestao-produtos.component';
 import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornecedor/listar-fornecedor.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -26,9 +27,9 @@ const routes: Routes = [
   { path: 'fornecedor', component: FornecedorComponent, canActivate: [AuthGuard] },
   { path: 'fornecedor-listar', component: ListarFornecedorComponent, canActivate: [AuthGuard] },
   { path: 'pedido', component: PedidoComponent, canActivate: [AuthGuard] },
-  { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
-  { path: 'gestao-cliente', component: GestaoClienteComponent, canActivate: [AuthGuard] },
+  
   { path: 'produto', component: ProdutoComponent, canActivate: [AuthGuard] },
+  { path: 'gestao-produtos', component: GestaoProdutosComponent, canActivate: [AuthGuard] },
   { path: 'usuario/:id', component: UsuarioComponent , canActivate: [AuthGuard]},
   { path: 'listar-usuario', component: ListarUsuarioComponent , canActivate: [AuthGuard]},
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Shared.Interfaces
 {
-  public  interface IRepository<T> 
+    public interface IRepository<T>
     {
         Task<int> Delete(Guid Id);
         Task<IEnumerable<T>> GetAll();

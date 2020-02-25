@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SistemaVendas.Core.Shared.Entities
+﻿namespace SistemaVendas.Core.Shared.Entities
 {
     public class PaginationHeader
     {

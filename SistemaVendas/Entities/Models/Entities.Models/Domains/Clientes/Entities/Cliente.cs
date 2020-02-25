@@ -1,11 +1,10 @@
 ﻿using SistemaVendas.Core.Domains.Pedidos.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Clientes.Entities
 {
-   public class Cliente
+    public class Cliente
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
@@ -16,7 +15,7 @@ namespace SistemaVendas.Core.Domains.Clientes.Entities
 
         public Cliente()
         {
-                
+
         }
 
         public Cliente(string nome, long cPF, string telefone, string endereco)

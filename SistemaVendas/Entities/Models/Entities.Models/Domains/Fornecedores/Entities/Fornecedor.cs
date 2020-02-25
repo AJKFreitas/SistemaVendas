@@ -1,15 +1,17 @@
-﻿using System;
+﻿using SistemaVendas.Core.Domains.Pedidos.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace SistemaVendas.Core.Domains.Fornecedores.Entities
 {
     public class Fornecedor
     {
-        public Guid Id { get ; set ; }
-        public string Nome { get ; set ; }
+        public Guid Id { get; set; }
+        public string Nome { get; set; }
         public string Telefone { get; set; }
         public long CNPJ { get; set; }
         public virtual IEnumerable<ProdutoFornecedor> ProdutosFornecidos { get; set; } = new List<ProdutoFornecedor>();
+        public virtual IEnumerable<OrdemCompra> OrdemCompras { get; set; } = new List<OrdemCompra>();
         public Fornecedor()
         {
         }
@@ -30,6 +32,6 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Entities
             CNPJ = cNPJ;
         }
 
-       
+
     }
 }

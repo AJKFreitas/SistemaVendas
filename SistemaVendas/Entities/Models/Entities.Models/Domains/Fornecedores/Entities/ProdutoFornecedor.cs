@@ -1,7 +1,5 @@
 ﻿using SistemaVendas.Core.Domains.Produtos.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Fornecedores.Entities
 {
@@ -18,7 +16,7 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Entities
             Id = Guid.NewGuid();
         }
 
-        public ProdutoFornecedor( Guid idFornecedor, Guid idProduto)
+        public ProdutoFornecedor(Guid idFornecedor, Guid idProduto)
         {
             Id = Guid.NewGuid();
             IdProduto = idProduto;

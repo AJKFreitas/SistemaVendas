@@ -27,16 +27,16 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
 
-  
+
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService,
     public service: FornecedorService,
-    ) { }
-    dataSource: MatTableDataSource<Fornecedor>;
-    displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
-    fornecedores: Fornecedor [] = [];
+  ) { }
+  dataSource: MatTableDataSource<Fornecedor>;
+  displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
+  fornecedores: Fornecedor[] = [];
 
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -44,7 +44,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   public currentPage = 0;
   public totalSize = 0;
 
-  
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -82,6 +82,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
+      this.listarFornecedores(new Params(10, 1));
     });
   }
 
@@ -93,7 +94,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
       telefone: fornecedor.telefone,
       produtos: fornecedor.produtos
     });
-    this.registerFornecedor( new FornecedorVM(fornecedor.nome, fornecedor.cnpj, fornecedor.telefone));
+    this.registerFornecedor(new FornecedorVM(fornecedor.nome, fornecedor.cnpj, fornecedor.telefone));
     this.table.renderRows();
   }
   updateRowData(fornecedor: Fornecedor) {
@@ -124,7 +125,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.listarFornecedores(new Params(pageSize, pageIndex));
   }
 
- 
+
   listarFornecedores(params: Params) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
@@ -152,6 +153,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
       this.spinnerService.hide();
     },
       err => {
+        this.listarFornecedores(new Params(10, 1));
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar cadastar Fornecedor!');
       }
@@ -164,8 +166,9 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
+      this.listarFornecedores(new Params(10, 1));
       this.spinnerService.hide();
+      this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
     },
       err => {
         this.spinnerService.hide();
@@ -180,8 +183,9 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
+      this.listarFornecedores(new Params(10, 1));
       this.spinnerService.hide();
+      this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();

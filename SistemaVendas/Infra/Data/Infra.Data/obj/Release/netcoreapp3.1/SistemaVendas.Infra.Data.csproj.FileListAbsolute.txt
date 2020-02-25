@@ -11,3 +11,5 @@ C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Release\n
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Release\netcoreapp3.1\SistemaVendas.Infra.Data.csproj.CopyComplete
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Release\netcoreapp3.1\SistemaVendas.Infra.Data.dll
 C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\obj\Release\netcoreapp3.1\SistemaVendas.Infra.Data.pdb
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Release\netcoreapp3.1\SistemaVendas.Aplication.dll
+C:\Projetos_net\SISTEMA-VENDAS\SistemaVendas\Infra\Data\Infra.Data\bin\Release\netcoreapp3.1\SistemaVendas.Aplication.pdb

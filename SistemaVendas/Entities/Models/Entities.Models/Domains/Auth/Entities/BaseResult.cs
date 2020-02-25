@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SistemaVendas.Core.Domains.Auth.Entities
+﻿namespace SistemaVendas.Core.Domains.Auth.Entities
 {
-   public class BaseResult<T>
+    public class BaseResult<T>
     {
         public string Message { get; set; }
         public bool Success { get; set; }

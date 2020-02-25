@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Interfaces
 {
-   public interface IUsuarioRepository 
+    public interface IUsuarioRepository
     {
         Task<int> Delete(Guid Id);
         Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams);

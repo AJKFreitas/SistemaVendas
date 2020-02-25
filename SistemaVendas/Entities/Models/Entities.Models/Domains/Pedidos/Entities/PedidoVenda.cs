@@ -1,11 +1,10 @@
 ﻿using SistemaVendas.Core.Domains.Clientes.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SistemaVendas.Core.Domains.Pedidos.Entities
 {
-  public class PedidoVenda
+    public class PedidoVenda
     {
         public Guid Id { get; set; }
         public DateTime Moment { get; set; }
