@@ -1,8 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Fornecedor } from 'src/app/components/Fornecedor/model/Fornecedor';
-import { FornecedorService } from 'src/app/components/Fornecedor/services/fornecedor.service';
 import { ProdutoService } from '../../services/produto.service';
 import { Produto } from '../../model/Produto';
 
