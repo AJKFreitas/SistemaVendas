@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Shared.Entities;

@@ -1,3 +1,5 @@
+import { Params } from 'src/app/shared/models/Params';
+
 export class Usuario {
     id: string;
     nome: string;
@@ -13,4 +15,13 @@ export class UsuarioVM {
         public senha: string,
         public role: string) { }
 
+}
+export class UsuarioParams extends Params {
+    constructor(
+        public pageSize: number,
+        public pageNumber: number
+
+    ) {
+        super(pageSize, pageNumber);
+    }
 }

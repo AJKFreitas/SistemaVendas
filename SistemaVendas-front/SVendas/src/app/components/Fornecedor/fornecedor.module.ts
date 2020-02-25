@@ -1,14 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
 import { FornecedorRoutingModule } from './fornecedor-routing.module';
+import { FornecedorComponent } from './fornecedor/fornecedor.component';
+import { FornecedorDialogComponent } from './modal/fornecedor-dialog/fornecedor-dialog.component';
+import { ListarFornecedorComponent } from './listar-fornecedor/listar-fornecedor.component';
+import { SharedModule } from 'src/app/shared/modules/material/shared.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FornecedorDialogComponent,
+    FornecedorComponent,
+    ListarFornecedorComponent,
+  ],
   imports: [
-    CommonModule,
-    FornecedorRoutingModule
-  ]
+    SharedModule,
+    FornecedorRoutingModule,
+  ],
+  entryComponents: [
+    FornecedorDialogComponent,
+  ],
+
+
 })
 export class FornecedorModule { }

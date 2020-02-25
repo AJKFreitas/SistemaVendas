@@ -1,5 +1,5 @@
 import { UsuarioService } from './../services/usuario.service';
-import { Usuario, UsuarioVM } from './../../Auth/shared/models/User';
+import { Usuario, UsuarioVM, UsuarioParams } from './../../Auth/shared/models/User';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -53,12 +53,12 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     length = this.usuarios.length;
-    this.listarUsuarioss(new Params(10, 1));
+    this.listarUsuarioss(new UsuarioParams(10, 1));
     this.pageEvent = new PageEvent();
   }
 
   getPaginatorData(event) {
-    this.listarUsuarioss(new Params(event.pageSize, event.pageIndex || 1));
+    this.listarUsuarioss(new UsuarioParams(event.pageSize, event.pageIndex || 1));
   }
 
   openModal(action, obj) {
@@ -81,7 +81,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarUsuarioss(new Params(10, 1));
+      this.listarUsuarioss(new UsuarioParams(10, 1));
     });
   }
 
@@ -124,10 +124,10 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   buscaPaginada(pageSize, pageIndex) {
-    this.listarUsuarioss(new Params(pageSize, pageIndex));
+    this.listarUsuarioss(new UsuarioParams(pageSize, pageIndex));
   }
 
-  listarUsuarioss(params: Params) {
+  listarUsuarioss(params: UsuarioParams) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
       if (res.result) {
@@ -151,7 +151,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
-      this.listarUsuarioss(new Params(10, 1));
+      this.listarUsuarioss(new UsuarioParams(10, 1));
       this.spinnerService.hide();
 
     },
@@ -169,7 +169,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
-      this.listarUsuarioss(new Params(10, 1));
+      this.listarUsuarioss(new UsuarioParams(10, 1));
       this.spinnerService.hide();
     },
       err => {
@@ -186,7 +186,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
-      this.listarUsuarioss(new Params(10, 1));
+      this.listarUsuarioss(new UsuarioParams(10, 1));
       this.spinnerService.hide();
     },
       err => {

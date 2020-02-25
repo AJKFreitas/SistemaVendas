@@ -1,53 +1,30 @@
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './components/Auth/shared/config/authconfig.interceptor';
 import { SigninComponent } from './components/Auth/signin/signin.component';
-import { SignupComponent } from './components/Auth/signup/signup.component';
-import { UserProfileComponent } from './components/Auth/user-profile/user-profile.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthGuard } from './components/Auth/shared/guard/auth.guard';
 import { AuthService } from './components/Auth/shared/services/auth.service';
-import { ProdutoComponent } from './components/Produto/produto/produto.component';
 import { PedidoComponent } from './components/Pedido/pedido/pedido.component';
-import { ClienteComponent } from './components/Cliente/cliente/cliente.component';
-import { UsuarioComponent } from './components/Usuario/usuario/usuario.component';
-import { routing } from './components/app.routing';
-import { FornecedorComponent } from './components/Fornecedor/fornecedor/fornecedor.component';
 import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
-import { RelatoriosComponent } from './components/Relatorios/relatorios/relatorios.component';
-import { DashboardComponent } from './components/Dashboard/dashboard/dashboard.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ListarFornecedorComponent } from './components/Fornecedor/listar-fornecedor/listar-fornecedor.component';
 import { ToastService } from './components/Shared/ToastService';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
-import { ListarUsuarioComponent } from './components/Usuario/listar-usuario/listar-usuario.component';
-import { DialogBoxComponent } from './components/Shared/dialog-box/dialog-box.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { registerLocaleData } from '@angular/common';
-import localeFr from '@angular/common/locales/br';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { MatSelectModule } from '@angular/material/select';
 import { UsuarioService } from './components/Usuario/services/usuario.service';
-import { MaterialModule } from './shared/modules/material/material.module';
-import { ModalComponent } from './components/Usuario/modal/modal.component';
 import { HasRoleDirective } from './shared/utils/has-role.directive';
-import { FornecedorDialogComponent } from './components/Fornecedor/modal/fornecedor-dialog/fornecedor-dialog.component';
-import { GestaoClienteComponent } from './components/Cliente/gestao-cliente/gestao-cliente.component';
-import { ClienteDialogComponent } from './components/Cliente/modal/cliente-dialog/cliente-dialog.component';
-import { GestaoProdutosComponent } from './components/Produto/gestao-produtos/gestao-produtos.component';
-import { ProdutoDialogComponent } from './components/Produto/modal/produto-dialog/produto-dialog.component';
 import { ClienteModule } from './components/Cliente/cliente.module';
 import { DashboardModule } from './components/Dashboard/dashboard.module';
 import { FornecedorModule } from './components/Fornecedor/fornecedor.module';
+import { SharedModule } from './shared/modules/material/shared.module';
+import { ProdutoModule } from './components/Produto/produto.module';
+import { UsuarioModule } from './components/Usuario/usuario.module';
+import { RelatoriosModule } from './components/Relatorios/relatorios.module';
+import localeFr from '@angular/common/locales/br';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -56,39 +33,15 @@ registerLocaleData(localeFr, 'pt-BR');
   declarations: [
     AppComponent,
     SigninComponent,
-    SignupComponent,
-    UserProfileComponent,
-    FornecedorComponent,
-    ProdutoComponent,
     PedidoComponent,
-    
-    UsuarioComponent,
     PerfilComponent,
-    RelatoriosComponent,
-    DashboardComponent,
-    ListarFornecedorComponent,
-    ListarUsuarioComponent,
-    DialogBoxComponent,
-    ModalComponent,
     HasRoleDirective,
-    FornecedorDialogComponent,
-    
-    ClienteDialogComponent,
-    GestaoProdutosComponent,
-    ProdutoDialogComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    SharedModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    FlexLayoutModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MaterialModule,
-    routing,
+    JwtModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -103,24 +56,20 @@ registerLocaleData(localeFr, 'pt-BR');
         positionClass: 'top-right',
         closeButton: true,
       }),
-    ToastContainerModule,
-    NgxDatatableModule,
-    SelectDropDownModule,
     NgxMaskModule.forRoot(options),
+    ToastContainerModule,
     ClienteModule,
     DashboardModule,
-    FornecedorModule
+    FornecedorModule,
+    ProdutoModule,
+    UsuarioModule,
+    RelatoriosModule,
   ], exports: [
 
     HasRoleDirective,
 
   ],
   entryComponents: [
-    DialogBoxComponent,
-    ModalComponent,
-    FornecedorDialogComponent,
-    ClienteDialogComponent,
-    ProdutoDialogComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
