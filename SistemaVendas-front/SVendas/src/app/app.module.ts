@@ -1,3 +1,4 @@
+import { PedidoModule } from './components/Pedido/pedido.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,10 +14,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 import { ToastService } from './components/Shared/ToastService';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
-import { registerLocaleData, CommonModule } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { UsuarioService } from './components/Usuario/services/usuario.service';
-import { HasRoleDirective } from './shared/utils/has-role.directive';
 import { ClienteModule } from './components/Cliente/cliente.module';
 import { DashboardModule } from './components/Dashboard/dashboard.module';
 import { FornecedorModule } from './components/Fornecedor/fornecedor.module';
@@ -25,6 +25,8 @@ import { ProdutoModule } from './components/Produto/produto.module';
 import { UsuarioModule } from './components/Usuario/usuario.module';
 import { RelatoriosModule } from './components/Relatorios/relatorios.module';
 import localeFr from '@angular/common/locales/br';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -33,11 +35,11 @@ registerLocaleData(localeFr, 'pt-BR');
   declarations: [
     AppComponent,
     SigninComponent,
-    PedidoComponent,
     PerfilComponent,
-    HasRoleDirective,
   ],
   imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     AppRoutingModule,
     HttpClientModule,
@@ -64,9 +66,9 @@ registerLocaleData(localeFr, 'pt-BR');
     ProdutoModule,
     UsuarioModule,
     RelatoriosModule,
+    PedidoModule,
   ], exports: [
 
-    HasRoleDirective,
 
   ],
   entryComponents: [

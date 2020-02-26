@@ -1,5 +1,72 @@
-<div class="card" >
+<div class="card">
     <div class="card-body titulo" id="titulo">
         Cadastrar Pedido
+    </div>
+</div>
+<div class="card">
+    <div class="card-body ">
+        <form [formGroup]="pedidoForm" #formDirective="ngForm">
+            <div class="row">
+                <div class="col-5">
+
+                    <label for="cliente">Cliente</label>
+                    <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="cliente" [multiple]="false"
+                    [config]="config" [options]="clientes">
+                </ngx-select-dropdown>
+            </div>
+            <div class="col-6">&nbsp;</div>
+        </div>
+        <span><br> <hr></span>
+            <div class="row col-12">
+                
+                <div class="col-1"><label>-</label></div>
+                <div class="col-4"><label>Produto</label></div>
+                <div class="col-1"><label>Quantidade</label></div>
+                <div class="col-2"><label>Preço Venda</label></div>
+                <div class="col-2"><label>Estoque Atual</label></div>
+                <div class="col-2"><label>Valor total</label></div>
+            </div>
+            <div class="row col-12" *ngFor="let item of itemsPedido; let in = index">
+                <div class="col-1">
+                    <button class="btn btn-danger" type="button" (click)="removeItemPedido(item)">
+                        &nbsp;-&nbsp;
+                    </button>
+                </div>
+                
+                <div class=" col-4">
+                    <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produto"
+                        [multiple]="false" [config]="config" [options]="produtos" id="produto-{{in}}">
+                    </ngx-select-dropdown>
+                </div>
+                <div class=" col-1">
+                    <input type="text" class="form-control" id="quantidade-{{in}}">
+                </div>
+                <div class=" col-2">
+                    <input type="text" class="form-control" id="preco-{{in}}">
+                </div>
+                <div class=" col-2">
+                    <input type="text" class="form-control" id="estoque-{{in}}">
+                </div>
+                <div class=" col-2">
+                    <input type="text" class="form-control" id="valorTotal-{{in}}">
+                </div>
+                <span><br> <hr></span>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-info" type="button" (click)="adicionarItemPedido()">
+                    &nbsp;+&nbsp;
+                </button>
+            </div>
+           
+            <div class="form-group float-right row">
+                <div class="form-check-inline">
+                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
+                </div>
+                <div class="form-check-inline">
+                    <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
+                </div>
+            </div>
+
+        </form>
     </div>
 </div>

@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 using System.Linq;
 using MySql.Data.MySqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Dapper;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
     class PedidoRepository : IRepository<PedidoVenda>
     {
         protected readonly VendasEFContext _context;
+       
 
         public PedidoRepository(VendasEFContext context)
         {
             _context = context;
+           
+
         }
 
         public async Task<int> Delete(Guid Id)
@@ -126,5 +131,7 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw e;
             }
         }
+
+       
     }
 }

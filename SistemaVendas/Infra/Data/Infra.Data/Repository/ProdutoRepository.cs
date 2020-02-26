@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Interfaces;
@@ -7,16 +8,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using MySql.Data;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
     public class ProdutoRepository : IProdutoRepository
     {
         protected readonly VendasEFContext _context;
-
-        public ProdutoRepository(VendasEFContext context)
+        IConfiguration _configuration;
+        public ProdutoRepository(VendasEFContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<int> Delete(Guid id)
@@ -140,5 +144,15 @@ namespace SistemaVendas.Infra.Data.Repository
             }
 
         }
+
+        public long Calcularestoque(Guid idproduto)
+        {
+            using (MySqlConnection conexao = new MySqlConnection(_configuration.GetConnectionString("mysqlconnectionstring")))
+            {
+                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) -(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
+                return  conexao.Query<long>(query).SingleOrDefault();
+            }
+        }
+       
     }
 }

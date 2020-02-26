@@ -4,6 +4,7 @@ import { SharedModule } from 'src/app/shared/modules/material/shared.module';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { ModalComponent } from './modal/modal.component';
 import { ListarUsuarioComponent } from './listar-usuario/listar-usuario.component';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -13,8 +14,12 @@ import { ListarUsuarioComponent } from './listar-usuario/listar-usuario.componen
     ListarUsuarioComponent,
   ],
   imports: [
+    CommonModule,
+    UsuarioRoutingModule,
     SharedModule,
-    UsuarioRoutingModule
+  ],
+  entryComponents: [
+    ModalComponent
   ]
 })
 export class UsuarioModule { }

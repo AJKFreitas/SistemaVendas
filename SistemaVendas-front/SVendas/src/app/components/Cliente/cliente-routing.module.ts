@@ -7,7 +7,7 @@ import { GestaoClienteComponent } from './gestao-cliente/gestao-cliente.componen
 
 const routes: Routes = [
   { path: 'cliente', component: ClienteComponent, canActivate: [AuthGuard] },
-  { path: 'gestao-cliente', component: GestaoClienteComponent, canActivate: [AuthGuard] },
+  { path: 'gestao-clientes', component: GestaoClienteComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

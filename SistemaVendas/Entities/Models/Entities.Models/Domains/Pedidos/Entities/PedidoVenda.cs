@@ -57,3 +57,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         }
     }
 }
+//SELECT(
+//SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = '0f6c5175-beb5-44bd-9236-17d314286415')
+//-
+//(SELECT ifnull(SUM(quantidade),0) from TB_ItemPedido where idproduto = '0f6c5175-beb5-44bd-9236-17d314286415') estoque

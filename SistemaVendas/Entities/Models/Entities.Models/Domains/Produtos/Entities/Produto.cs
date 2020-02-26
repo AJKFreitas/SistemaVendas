@@ -16,11 +16,10 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
         public virtual IEnumerable<ProdutoFornecedor> ProdutoFornecedores { get; set; } = new List<ProdutoFornecedor>();
         public virtual IEnumerable<ItemPedidoVenda> ItemPedidos { get; set; } = new List<ItemPedidoVenda>();
         public virtual IEnumerable<ItemOrdemCompra> ItemOrdemCompras { get; set; } = new List<ItemOrdemCompra>();
-
+        public virtual long EstoqueAtual { get; set; }
         public Produto()
         {
         }
-
         public Produto(string nome, string descricao, double valor, long codigo, IEnumerable<ProdutoFornecedor> produtoFornecedores)
         {
             Id = Guid.NewGuid();
@@ -30,21 +29,14 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
             Codigo = codigo;
             ProdutoFornecedores = produtoFornecedores;
         }
-
-        public Produto(Guid id, string nome, string descricao, double valor, long codigo, IEnumerable<ProdutoFornecedor> produtoFornecedores)
+        public Produto(Guid id, string nome, string descricao, double valor, long codigo, long estoqueAtual)
         {
             Id = id;
             Nome = nome;
             Descricao = descricao;
             Valor = valor;
             Codigo = codigo;
-            ProdutoFornecedores = produtoFornecedores;
-        }
-
-        public Produto(Guid id, string nome, string descricao, double valor, long codigo, IEnumerable<ProdutoFornecedor> produtoFornecedores, IEnumerable<ItemPedidoVenda> itemPedidos, IEnumerable<ItemOrdemCompra> itemOrdemCompras) : this(id, nome, descricao, valor, codigo, produtoFornecedores)
-        {
-            ItemPedidos = itemPedidos;
-            ItemOrdemCompras = itemOrdemCompras;
+            EstoqueAtual = estoqueAtual;
         }
     }
 }

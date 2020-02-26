@@ -19,13 +19,13 @@ export class ClienteService {
     private http: HttpClient,
     public router: Router) { }
 
-    public form: FormGroup = new FormGroup({
-      id: new FormControl(''),
-      nome: new FormControl('', Validators.required),
-      cpf: new FormControl('',  Validators.required),
-      telefone: new FormControl('', Validators.required),
-      endereco  : new FormControl('', Validators.required),
-    });
+  public form: FormGroup = new FormGroup({
+    id: new FormControl(''),
+    nome: new FormControl('', Validators.required),
+    cpf: new FormControl('', Validators.required),
+    telefone: new FormControl('', Validators.required),
+    endereco: new FormControl('', Validators.required),
+  });
 
   iserir(cliente: ClienteVM): Observable<any> {
     const api = `${this.endpoint}/cliente`;
@@ -57,6 +57,17 @@ export class ClienteService {
       catchError(this.handleError)
     );
   }
+
+  listarClientes(): Observable<any> {
+    const api = `${this.endpoint}/cliente`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res: Response) => {
+        return res || [];
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
