@@ -3249,7 +3249,10 @@
         },
         "runtime": {
           "bin/placeholder/SistemaVendas.Aplication.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "SistemaVendas.Core/1.0.0": {
         "type": "project",
