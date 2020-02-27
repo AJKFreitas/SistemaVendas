@@ -104,18 +104,18 @@ export class PedidoComponent implements OnInit {
     this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null));
   }
   removeItemPedido(item: ItemPedidoVenda) {
-    if (this.itemsPedido.length <= 1) {
+    if ( this.pedidoVenda.itemsPedido.length <= 1) {
       return;
     } else {
-      if (this.itemsPedido.includes(item)) {
+      if (  this.pedidoVenda.itemsPedido.includes(item)) {
         if (item.id) {
           this.itemsPedidoDeleted.push(item);
         }
-        const ITEMPEDIDO = this.itemsPedido.findIndex(
+        const ITEMPEDIDO =  this.pedidoVenda.itemsPedido.findIndex(
           resultado => resultado === item
         );
-        this.itemsPedido.splice(ITEMPEDIDO, 1);
-        this.itemsPedido = [...this.itemsPedido];
+        this.pedidoVenda.itemsPedido.splice(ITEMPEDIDO, 1);
+        this.pedidoVenda.itemsPedido = [... this.pedidoVenda.itemsPedido];
       }
     }
   }
