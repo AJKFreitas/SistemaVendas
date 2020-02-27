@@ -16,6 +16,6 @@ namespace SistemaVendas.Core.Domains.Produtos.Interfaces
         Task<int> Save();
         Task<int> Update(Produto produto);
         bool ExisteProduto(long codigo);
-        Task<long> CalcularEstoque(Guid idproduto);
+        Task<dynamic> CalcularEstoque(Guid idproduto);
     }
 }

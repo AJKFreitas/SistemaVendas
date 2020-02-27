@@ -9,7 +9,6 @@ import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 const routes: Routes = [
   { path: '', redirectTo: '/log-in', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'log-in', component: SigninComponent },
- 
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   // { path: 'usuario', loadChildren: () => import('./components/Usuario/usuario.module').then(m => m.UsuarioModule) },
   // { path: 'gestao-usuarios', loadChildren: () => import('./components/Usuario/usuario.module').then(m => m.UsuarioModule) },

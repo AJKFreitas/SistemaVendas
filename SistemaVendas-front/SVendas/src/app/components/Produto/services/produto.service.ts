@@ -83,7 +83,7 @@ export class ProdutoService {
         catchError(this.handleError)
       );
   }
-  estoqueAtual(produto: Produto) {
+  estoqueAtual(produto: Produto): Observable<any> {
     const api = `${this.endpoint}/produto/estoque`;
     return this.http.post(api, produto)
       .pipe(

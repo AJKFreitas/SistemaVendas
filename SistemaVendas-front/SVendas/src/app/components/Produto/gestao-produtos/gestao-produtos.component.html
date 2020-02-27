@@ -28,17 +28,19 @@
         <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="codigo">
+      <!-- <ng-container matColumnDef="codigo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
         <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
-      </ng-container>
+      </ng-container> -->
 
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element" class="action-link">
           <a (click)="openModal('Editar',element)" class="btn btn-warning btn-md">Editar</a> |
-          <a (click)="openModal('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
+         <span *appHasRole="['Admin','Funcionario']"> 
+           <a (click)="openModal('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
+         </span> 
         </td>
       </ng-container>
 

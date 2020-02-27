@@ -13,7 +13,7 @@ namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Funcionario,Fornecedor")]
+    [Authorize(Roles = "Admin,Fornecedor,Funcionario,Vendedor")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
@@ -33,7 +33,7 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
+      
         [Route("buscar-todos")]
         public async Task<IEnumerable<Produto>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
         {
@@ -55,13 +55,14 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPost]
         [Route("estoque")]
-        public async Task<ActionResult<long>> CalculaEstoque(Produto produto)
+        public async Task<ActionResult<dynamic>> CalculaEstoque(Produto produto)
         {
             if (produto != null)
             {
-            return await _produtoService.CalcularEstoque(produto.Id);
+               
+                return await _produtoService.CalcularEstoque(produto.Id);
             }
-            return BadRequest("Produto inválido!");
+                return BadRequest("Produto inválido!");
         }
 
 

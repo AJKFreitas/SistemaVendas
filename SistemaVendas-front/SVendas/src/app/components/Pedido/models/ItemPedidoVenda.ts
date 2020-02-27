@@ -1,4 +1,5 @@
 export class ItemPedidoVenda {
+    estoque = 0;
     constructor(
         public id: string,
         public quantidade: number,
@@ -6,5 +7,5 @@ export class ItemPedidoVenda {
         public subTotal: number,
         public idProduto: string,
         public idPedido: string,
-    ){}
+        ){}
 }

@@ -7,61 +7,61 @@
       </div>
 
       <ul class="list-unstyled components">
-          <li class="active">
+          <li class="active" *appHasRole="['Admin','Funcionario','Vendedor']">
               <a href="#pedidoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pedido</a>
               <ul class="collapse list-unstyled" id="pedidoSubmenu">
                   <li>
                       <a routerLinkActive="active" routerLink="/pedido">Novo Pedido</a>
                   </li>
-                  <li>
+                  <!-- <li>
                       <a routerLinkActive="active" href="#">Listar Pedidos</a>
                   </li>
                   <li>
                       <a routerLinkActive="active" href="#">Acompanhar Pedidos</a>
-                  </li>
+                  </li> -->
               </ul>
           </li>
-          <li class="active">
+          <li class="active" *appHasRole="['Admin','Funcionario','Fornecedor']">
               <a href="#produtoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produto</a>
               <ul class="collapse list-unstyled" id="produtoSubmenu">
-                  <li>
+                  <!-- <li>
                       <a routerLinkActive="active" routerLink="/produto">Cadastrar</a>
-                  </li>
+                  </li> -->
                   <li>
                       <a routerLinkActive="active" routerLink="/gestao-produtos">Gestão de Produtos</a>
                   </li>
               </ul>
           </li>
-          <li class="active">
+          <li class="active" *appHasRole="['Admin','Funcionario']">
               <a href="#fornecedorSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Fornecedor</a>
               <ul class="collapse list-unstyled" id="fornecedorSubmenu">
-                <li>
+                <!-- <li>
                   <a routerLinkActive="active" routerLink="/fornecedor">Cadastrar</a>
-              </li>
+              </li> -->
               <li>
                   <a routerLinkActive="active" routerLink="/gestao-fornecedores">Gestão de Fornecedores</a>
               </li>
               </ul>
           </li>
-          <li class="active">
+          <li class="active" *appHasRole="['Admin','Funcionario']">
               <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cliente</a>
               <ul class="collapse list-unstyled" id="clienteSubmenu">
-                <li>
+                <!-- <li>
                   <a routerLinkActive="active" routerLink="/cliente">Cadastrar</a>
-              </li>
+              </li> -->
               <li>
                   <a routerLinkActive="active" href="/gestao-clientes">Gestão de Clientes</a>
               </li>
               </ul>
           </li>
-          <li class="active">
+          <li class="active" *appHasRole="['Admin']">
               <a href="#usuarioSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Usuarios</a>
               <ul class="collapse list-unstyled" id="usuarioSubmenu">
-                <li>
+                <!-- <li>
                   <a routerLinkActive="active" routerLink="/usuario">Cadastrar</a>
-              </li>
+              </li> -->
               <li >
-                  <a routerLinkActive="active" *appHasRole="['Admin']" routerLink="/gestao-usuarios">Gestão de Usuários</a>
+                  <a routerLinkActive="active"  routerLink="/gestao-usuarios">Gestão de Usuários</a>
               </li>
               </ul>
           </li>

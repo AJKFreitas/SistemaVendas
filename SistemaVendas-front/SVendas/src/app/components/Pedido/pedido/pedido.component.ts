@@ -8,7 +8,9 @@ import { ToastService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
 import { ItemPedidoVenda } from '../models/ItemPedidoVenda';
 import { ProdutoService } from '../../Produto/services/produto.service';
-import { Produto } from '../../Produto/model/Produto';
+import { Produto, ProdutoItemPedido } from '../../Produto/model/Produto';
+import { PedidoVenda } from '../models/PedidoVenda';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-pedido',
@@ -16,7 +18,7 @@ import { Produto } from '../../Produto/model/Produto';
   styleUrls: ['./pedido.component.css']
 })
 export class PedidoComponent implements OnInit {
-
+  pedidoVenda: PedidoVenda = new PedidoVenda();
   itemsPedido: ItemPedidoVenda[] = [];
   pedidoForm: FormGroup;
   clientes: Cliente[] = [];
@@ -32,7 +34,7 @@ export class PedidoComponent implements OnInit {
     searchOnKey: 'nome',
     clearOnSelection: false
   };
-  produtos: Produto[] = [];
+  produtos: ProdutoItemPedido[] = [];
   itemsPedidoDeleted: any;
 
   constructor(
@@ -43,10 +45,8 @@ export class PedidoComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService
   ) {
-    this.pedidoForm = this.fb.group({
-      cliente: [''],
-      produto: [''],
-    });
+    this.pedidoVenda.cliente = new Cliente();
+    this.pedidoVenda.itemsPedido = new Array<ItemPedidoVenda>();
   }
 
   ngOnInit(): void {
@@ -54,16 +54,21 @@ export class PedidoComponent implements OnInit {
     this.popularComboProduto();
     this.adicionarItemPedido();
   }
-  selectionChanged($event) {
-  console.log(this.estoqueAtual($event.value));
-   }
-   estoqueAtual(produto: Produto) {
+
+  selectionChanged($event, index) {
+    if (!isNullOrUndefined(index)) {
+      this.itemsPedido[index].estoque = this.estoqueAtual($event.value);
+    }
+  }
+
+  estoqueAtual(produto: Produto): any {
     this.spinnerService.show();
     this.produtoService.estoqueAtual(produto).subscribe(res => {
       if (res) {
-        return  res;
+        console.log(res);
+        this.spinnerService.hide();
+        return res.estoque;
       }
-      this.spinnerService.hide();
     }, err => {
       this.spinnerService.hide();
     });
@@ -96,11 +101,11 @@ export class PedidoComponent implements OnInit {
   }
 
   adicionarItemPedido() {
-    this.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null));
+    this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null));
   }
   removeItemPedido(item: ItemPedidoVenda) {
     if (this.itemsPedido.length <= 1) {
-         return;
+      return;
     } else {
       if (this.itemsPedido.includes(item)) {
         if (item.id) {

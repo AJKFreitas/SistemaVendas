@@ -16,6 +16,6 @@ namespace SistemaVendas.Aplication.InterfaceServices.Produtos
         Task<int> Update(Produto Produto);
         bool ExisteProduto(long codigo);
         Task<int> Delete(Guid Id);
-        Task<long> CalcularEstoque(Guid idproduto);
+        Task<dynamic> CalcularEstoque(Guid idproduto);
     }
 }

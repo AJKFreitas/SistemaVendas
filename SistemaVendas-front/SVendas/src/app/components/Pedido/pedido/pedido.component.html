@@ -5,13 +5,14 @@
 </div>
 <div class="card">
     <div class="card-body ">
-        <form [formGroup]="pedidoForm" #formDirective="ngForm">
+        <form  #formDirective="ngForm">
             <div class="row">
                 <div class="col-5">
 
                     <label for="cliente">Cliente</label>
-                    <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="cliente" [multiple]="false"
-                    [config]="config" [options]="clientes">
+                    <ngx-select-dropdown  [(ngModel)] ="pedidoVenda.cliente" [multiple]="false"
+                    [config]="config" [options]="clientes" name="cliente"
+                    #cliente="ngModel" >
                 </ngx-select-dropdown>
             </div>
             <div class="col-6">&nbsp;</div>
@@ -26,7 +27,7 @@
                 <div class="col-2"><label>Estoque Atual</label></div>
                 <div class="col-2"><label>Valor total</label></div>
             </div>
-            <div class="row col-12" *ngFor="let item of itemsPedido; let in = index">
+            <div class="row col-12" *ngFor="let item of pedidoVenda.itemsPedido; let in = index">
                 <div class="col-1">
                     <button class="btn btn-danger" type="button" (click)="removeItemPedido(item)">
                         &nbsp;-&nbsp;
@@ -34,21 +35,43 @@
                 </div>
                 
                 <div class=" col-4">
-                    <ngx-select-dropdown (change)="selectionChanged($event)" 
-                        [multiple]="false" [config]="config" [options]="produtos" id="produto-{{in}}">
+                    <ngx-select-dropdown (change)="selectionChanged($event,in)" 
+                        [multiple]="false" 
+                        [config]="config" 
+                        [options]="produtos" 
+                        id="produto-{{in}}"
+                        [(ngModel)]="item.idProduto" 
+                        name="produto-{{in}}"
+                        #produto="ngModel" >
                     </ngx-select-dropdown>
                 </div>
                 <div class=" col-1">
-                    <input type="text" class="form-control" id="quantidade-{{in}}">
+                    <input type="text" class="form-control" 
+                    id="quantidade-{{in}}" 
+                    [(ngModel)]="item.quantidade" 
+                    name="quantidade-{{in}}"
+                    #quantidade="ngModel" 
+                    >
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="preco-{{in}}">
+                    <input type="text" class="form-control" id="preco-{{in}}"
+                    [(ngModel)]="item.preco" 
+                    name="preco-{{in}}"
+                    #preco="ngModel"
+                    value="item.idProduto.valor" >
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="estoque-{{in}}">
+                    <input type="text" class="form-control" id="estoque-{{in}}"
+                    [(ngModel)]="item.estoque" 
+                    name="estoque-{{in}}"
+                    #estoque="ngModel">
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="valorTotal-{{in}}">
+                    <input type="text" class="form-control" id="valorTotal-{{in}}"
+                    [(ngModel)]="item.valorTotal" 
+                    name="valorTotal-{{in}}"
+                    #valorTotal="ngModel"
+                    value="item.valor * item.quatidade">
                 </div>
                 <span><br> <hr></span>
             </div>
@@ -70,3 +93,4 @@
         </form>
     </div>
 </div>
+<span> {{pedidoVenda | json}} </span>

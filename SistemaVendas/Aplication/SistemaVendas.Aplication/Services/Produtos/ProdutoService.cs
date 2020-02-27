@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaVendas.Aplication.Services.Produtos
 {
@@ -60,9 +61,18 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public async Task<long> CalcularEstoque(Guid id)
+        public async Task<dynamic> CalcularEstoque(Guid id)
         {
-            return await _repository.CalcularEstoque(id);
+            try
+            {
+                return await _repository.CalcularEstoque(id);
+
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao tentar calcular estoque.");
+            }
         }
 
         public Task<Produto> GetById(Guid Id)

@@ -145,13 +145,25 @@ namespace SistemaVendas.Infra.Data.Repository
 
         }
 
-        public long Calcularestoque(Guid idproduto)
+        public async Task<dynamic> CalcularEstoque(Guid idproduto)
         {
             using (MySqlConnection conexao = new MySqlConnection(_configuration.GetConnectionString("mysqlconnectionstring")))
             {
-                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) " +
-                    $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
-                return  conexao.Query<dynamic>(query).SingleOrDefault();
+                try
+                {
+                    conexao.Open();
+                var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = '{idproduto}') " +
+                    $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = '{idproduto}') estoque";
+                    return await conexao.QueryFirstAsync<dynamic>(query);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    conexao.Close();
+                }
             }
         }
        

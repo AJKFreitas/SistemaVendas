@@ -18,3 +18,12 @@ export class ProdutoVM {
         public fornecedores: Fornecedor[]
     ) { }
 }
+export class ProdutoItemPedido {
+    id: string;
+    nome: string;
+    descricao: string;
+    valor: number;
+    codigo: number;
+    estoqueAtual: number;
+    public fornecedores: Fornecedor[]
+}
