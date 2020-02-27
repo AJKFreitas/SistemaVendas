@@ -25,6 +25,7 @@ export class ProdutoService {
     nome: new FormControl('', Validators.required),
     descricao: new FormControl(''),
     valor: new FormControl('', Validators.required),
+    codigo: new FormControl('', Validators.required),
   });
 
   listarProdutoss(): Observable<any> {
@@ -58,6 +59,7 @@ export class ProdutoService {
       nome: '',
       descricao: '',
       valor: '',
+      codigo: '',
     });
   }
   iserir(produto: ProdutoVM): Observable<any> {
@@ -78,6 +80,16 @@ export class ProdutoService {
     const api = `${this.endpoint}/produto/${produto.id}`;
     return this.http.delete(api)
       .pipe(
+        catchError(this.handleError)
+      );
+  }
+  estoqueAtual(produto: Produto) {
+    const api = `${this.endpoint}/produto/estoque`;
+    return this.http.post(api, produto)
+      .pipe(
+        map((res: Response) => {
+          return res || 0;
+        }),
         catchError(this.handleError)
       );
   }

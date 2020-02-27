@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using MySql.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaVendas.Infra.Data.Repository
 {
@@ -55,13 +56,14 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                return _context.Produtos;
+                return  _context.Produtos;
             }
             catch (MySqlException e)
             {
                 _context.Dispose();
                 throw new Exception(e.Message);
             }
+          
         }
 
         public async Task<Produto> GetById(Guid EntityID)
@@ -145,12 +147,25 @@ namespace SistemaVendas.Infra.Data.Repository
 
         }
 
-        public long Calcularestoque(Guid idproduto)
+        public async Task<long> CalcularEstoque(Guid idproduto)
         {
             using (MySqlConnection conexao = new MySqlConnection(_configuration.GetConnectionString("mysqlconnectionstring")))
             {
-                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) -(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
-                return  conexao.Query<long>(query).SingleOrDefault();
+                try
+                {
+                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idProduto = '{idproduto}') -(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idProduto = '{idproduto}') estoque where 1=1";
+                return  conexao.QueryFirstOrDefault<long>(query);
+
+                }
+                catch (Exception e)
+                {
+
+                    throw new Exception(e.Message);
+                }
+                finally{
+                    conexao.Close();
+
+                }
             }
         }
        

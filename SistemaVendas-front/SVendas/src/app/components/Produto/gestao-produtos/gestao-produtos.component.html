@@ -28,6 +28,11 @@
         <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+        <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+      </ng-container>
+
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>

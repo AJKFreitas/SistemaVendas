@@ -33,7 +33,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
               public service: ProdutoService) { }
 
   dataSource: MatTableDataSource<Produto>;
-  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
+  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'codigo', 'action'];
   produtos: Produto[] = [];
 
 
@@ -86,9 +86,10 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
       nome: produto.nome,
       descricao: produto.descricao,
       valor: produto.valor,
+      codigo: produto.codigo,
       fornecedores: produto.fornecedores
     });
-    this.registerProduto(new ProdutoVM(produto.nome, produto.descricao, produto.valor, produto.fornecedores));
+    this.registerProduto(new ProdutoVM(produto.nome, produto.descricao, produto.valor, produto.codigo, produto.fornecedores));
     this.table.renderRows();
   }
   updateRowData(produto: Produto) {

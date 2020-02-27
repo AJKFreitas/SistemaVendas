@@ -34,6 +34,7 @@ export class ProdutoDialogComponent implements OnInit {
                   nome: new FormControl(this.local_data.nome).value,
                   descricao: new FormControl(this.local_data.descricao).value,
                   valor: new FormControl(this.local_data.valor).value,
+                  codigo: new FormControl(this.local_data.codigo).value,
       });
        this.action = this.local_data.action;
        }

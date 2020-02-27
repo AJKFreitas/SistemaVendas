@@ -39,7 +39,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastSevice.Error('Recurso não encontrado ou não existe!');
             }
             // tslint:disable-next-line:no-debugger
-            debugger;
             if (err.error) {
                 this.toastSevice.Error(err.error);
             }

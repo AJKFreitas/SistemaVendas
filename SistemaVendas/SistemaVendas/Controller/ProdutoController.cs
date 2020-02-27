@@ -23,11 +23,13 @@ namespace SistemaVendas.Api.Controller
             _produtoService = produtoService;
         }
 
-     
+
         [HttpGet]
         public async Task<IEnumerable<Produto>> GetProdutos()
         {
+
             return await _produtoService.GetAll();
+
         }
 
         [HttpPost]
@@ -49,6 +51,17 @@ namespace SistemaVendas.Api.Controller
             }
 
             return produto;
+        }
+
+        [HttpPost]
+        [Route("estoque")]
+        public async Task<ActionResult<long>> CalculaEstoque(Produto produto)
+        {
+            if (produto != null)
+            {
+            return await _produtoService.CalcularEstoque(produto.Id);
+            }
+            return BadRequest("Produto inválido!");
         }
 
 
@@ -79,7 +92,7 @@ namespace SistemaVendas.Api.Controller
         public async Task<ActionResult<Produto>> PostProduto(ProdutoVM produtoVM)
         {
             await _produtoService.Insert(produtoVM);
-            
+
             return CreatedAtAction("GetProduto", new { id = produtoVM.Id }, produtoVM);
         }
 
