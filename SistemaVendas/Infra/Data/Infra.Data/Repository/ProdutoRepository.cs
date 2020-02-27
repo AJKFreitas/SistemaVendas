@@ -149,8 +149,9 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             using (MySqlConnection conexao = new MySqlConnection(_configuration.GetConnectionString("mysqlconnectionstring")))
             {
-                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) -(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
-                return  conexao.Query<long>(query).SingleOrDefault();
+                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) " +
+                    $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
+                return  conexao.Query<dynamic>(query).SingleOrDefault();
             }
         }
        

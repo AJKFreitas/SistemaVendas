@@ -8,6 +8,7 @@ import { ToastService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
 import { ItemPedidoVenda } from '../models/ItemPedidoVenda';
 import { ProdutoService } from '../../Produto/services/produto.service';
+import { Produto } from '../../Produto/model/Produto';
 
 @Component({
   selector: 'app-pedido',
@@ -31,7 +32,7 @@ export class PedidoComponent implements OnInit {
     searchOnKey: 'nome',
     clearOnSelection: false
   };
-  produtos: any;
+  produtos: Produto[] = [];
   itemsPedidoDeleted: any;
 
   constructor(
@@ -44,8 +45,7 @@ export class PedidoComponent implements OnInit {
   ) {
     this.pedidoForm = this.fb.group({
       cliente: [''],
-      cnpj: [''],
-      telefone: ['']
+      produto: [''],
     });
   }
 
@@ -55,9 +55,19 @@ export class PedidoComponent implements OnInit {
     this.adicionarItemPedido();
   }
   selectionChanged($event) {
-    console.log($event);
+  console.log(this.estoqueAtual($event.value));
    }
-
+   estoqueAtual(produto: Produto) {
+    this.spinnerService.show();
+    this.produtoService.estoqueAtual(produto).subscribe(res => {
+      if (res) {
+        return  res;
+      }
+      this.spinnerService.hide();
+    }, err => {
+      this.spinnerService.hide();
+    });
+  }
   popularComboClientes() {
     this.spinnerService.show();
     this.clienteService.listarClientes()

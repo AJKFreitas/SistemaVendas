@@ -5,6 +5,7 @@ export class Produto {
     nome: string;
     descricao: string;
     valor: number;
+    codigo: number;
     fornecedores: Fornecedor[];
 }
 export class ProdutoVM {
@@ -13,6 +14,7 @@ export class ProdutoVM {
         public nome: string,
         public descricao: string,
         public valor: number,
+        public codigo: number,
         public fornecedores: Fornecedor[]
     ) { }
 }

@@ -21,7 +21,7 @@
                 
                 <div class="col-1"><label>-</label></div>
                 <div class="col-4"><label>Produto</label></div>
-                <div class="col-1"><label>Quantidade</label></div>
+                <div class="col-1"><label>Quant.</label></div>
                 <div class="col-2"><label>Preço Venda</label></div>
                 <div class="col-2"><label>Estoque Atual</label></div>
                 <div class="col-2"><label>Valor total</label></div>
@@ -34,7 +34,7 @@
                 </div>
                 
                 <div class=" col-4">
-                    <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="produto"
+                    <ngx-select-dropdown (change)="selectionChanged($event)" 
                         [multiple]="false" [config]="config" [options]="produtos" id="produto-{{in}}">
                     </ngx-select-dropdown>
                 </div>

@@ -8,22 +8,28 @@
         <div class="card-body">
             <form [formGroup]="service.form">
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Nome</label>
+                    <label for="nome">Nome</label>
                     <input type="text" class="form-control" id="nome" formControlName="nome">
                      <mat-error *ngIf="service.form.controls['nome'].invalid && (service.form.controls['nome'].dirty 
                     || service.form.controls['nome'].touched)">* Campo obrigatório.</mat-error>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Descrição</label>
+                    <label for="descricao">Descrição</label>
                     <input type="text" class="form-control" id="descricao" formControlName="descricao">
                     <mat-error *ngIf="service.form.controls['descricao'].invalid && (service.form.controls['descricao'].dirty 
                     || service.form.controls['descricao'].touched)">* Campo obrigatório.</mat-error>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Valor Sugerido</label>
+                    <label for="valor">Valor Sugerido</label>
                     <input type="text" class="form-control" id="valor" formControlName="valor">
                     <mat-error *ngIf="service.form.controls['valor'].invalid && (service.form.controls['valor'].dirty 
                     || service.form.controls['valor'].touched)">* Campo obrigatório.</mat-error>
+                </div>
+                <div class="form-group">
+                    <label for="codigo">Código</label>
+                    <input type="text" class="form-control" id="codigo" formControlName="codigo">
+                    <mat-error *ngIf="service.form.controls['codigo'].invalid && (service.form.controls['codigo'].dirty 
+                    || service.form.controls['codigo'].touched)">* Campo obrigatório.</mat-error>
                 </div>
             </form>
         </div>

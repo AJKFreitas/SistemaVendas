@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Shared.Entities;
-using System.Linq;
 
 namespace SistemaVendas.Aplication.Services.Produtos
 {
@@ -52,9 +51,7 @@ namespace SistemaVendas.Aplication.Services.Produtos
         {
             try
             {
-                IEnumerable <Produto> produtos =  await _repository.GetAll();
-                produtos.Select(p => p.EstoqueAtual = CalcularEstoque(p.Id)).ToList();
-                return  produtos;
+                return await _repository.GetAll();
             }
             catch (Exception e)
             {
@@ -63,9 +60,9 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        private long CalcularEstoque(Guid id)
+        public async Task<long> CalcularEstoque(Guid id)
         {
-            return _repository.Calcularestoque(id);
+            return await _repository.CalcularEstoque(id);
         }
 
         public Task<Produto> GetById(Guid Id)
