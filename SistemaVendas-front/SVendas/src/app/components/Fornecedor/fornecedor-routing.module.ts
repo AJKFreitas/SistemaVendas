@@ -7,7 +7,7 @@ import { ListarFornecedorComponent } from './listar-fornecedor/listar-fornecedor
 
 const routes: Routes = [
   { path: 'fornecedor', component: FornecedorComponent, canActivate: [AuthGuard] },
-  { path: 'fornecedor-listar', component: ListarFornecedorComponent, canActivate: [AuthGuard] },
+  { path: 'gestao-fornecedores', component: ListarFornecedorComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

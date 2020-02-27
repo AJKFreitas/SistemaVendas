@@ -60,6 +60,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
+        public async Task<long> CalcularEstoque(Guid id)
+        {
+            return await _repository.CalcularEstoque(id);
+        }
+
         public Task<Produto> GetById(Guid Id)
         {
             try

@@ -42,7 +42,8 @@ namespace SistemaVendas.Api.Controller
 
         }
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
+       [AllowAnonymous]
         [Route("buscar-todos")]
         public async Task<IEnumerable<Usuario>> GetProdutos([FromQuery]UsuarioParams uparams)
         {

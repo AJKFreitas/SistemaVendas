@@ -12,7 +12,7 @@ namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Funcionario")]
+    [Authorize(Roles = "Admin,Funcionario,Vendedor")]
     public class ClienteController : ControllerBase
     {
         private readonly IClienteService _service;
