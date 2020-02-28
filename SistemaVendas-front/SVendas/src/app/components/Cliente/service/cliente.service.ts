@@ -1,4 +1,4 @@
-import { Params } from './../../../shared/models/Params';
+import { PageParams } from './../../../shared/models/Params';
 import { Injectable } from '@angular/core';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { Observable, throwError } from 'rxjs';
@@ -48,7 +48,7 @@ export class ClienteService {
         catchError(this.handleError)
       );
   }
-  listar(params: Params): Observable<any> {
+  listar(params: PageParams): Observable<any> {
     const api = `${this.endpoint}/cliente/buscar-todos`;
     return this.http.post(api, params).pipe(
       map((res: Response) => {

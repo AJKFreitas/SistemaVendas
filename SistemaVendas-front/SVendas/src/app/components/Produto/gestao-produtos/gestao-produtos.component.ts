@@ -8,7 +8,7 @@ import { Produto, ProdutoVM } from '../model/Produto';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { ProdutoService } from '../services/produto.service';
-import { Params } from 'src/app/shared/models/Params';
+import { PageParams } from 'src/app/shared/models/Params';
 import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.component';
 
 @Component({
@@ -18,44 +18,54 @@ import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.c
 })
 export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
+  // @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+  //   this.paginator = mp;
+  //   this.dataSource.paginator = this.paginator;
+  // }
+
   @ViewChild(MatTable, { static: true }) table: MatTable<Produto>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
 
-  constructor(public dialog: MatDialog,
-              private spinnerService: NgxSpinnerService,
-              private toastSevice: ToastService,
-              public service: ProdutoService) { }
-
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
+    public service: ProdutoService
+  ) { }
+  responseProdutos: { produtos: Produto[], total: number }
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
-
-
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  public pageSize = 0;
-  public currentPage = 0;
-  public totalSize = 0;
+  public pageSize: number;
+  public currentPage: number;
+  public totalSize: number;
+
+
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.produtos);
+    this.listarProdutos(new PageParams(10, 1));
+    this.dataSource = new MatTableDataSource<Produto>(this.produtos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    length = this.produtos.length;
-    this.listarProdutos(new Params(10, 1));
+    this.pageEvent = new PageEvent();
+
+
     this.pageEvent = new PageEvent();
   }
+
+
+
   getPaginatorData(event) {
-    this.listarProdutos(new Params(event.pageSize, event.pageIndex || 1));
+    // console.log(event);
+    debugger;
+    this.listarProdutos(new PageParams(event.pageSize, event.pageIndex), event);
   }
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
@@ -77,7 +87,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.listarProdutos(new PageParams(10, 1));
     });
   }
   addRowData(produto: Produto) {
@@ -90,7 +100,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
       fornecedores: produto.fornecedores
     });
     this.registerProduto(new ProdutoVM(produto.nome, produto.descricao, produto.valor, produto.codigo, produto.fornecedores));
-    
+
     this.table.renderRows();
   }
   updateRowData(produto: Produto) {
@@ -119,21 +129,27 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
   }
 
   buscaPaginada(pageSize, pageIndex) {
-    this.listarProdutos(new Params(pageSize, pageIndex));
+    this.listarProdutos(new PageParams(pageSize, pageIndex));
   }
 
 
-  listarProdutos(params: Params) {
+  listarProdutos(params: PageParams, event?) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.produtos = res;
-        this.dataSource.paginator = this.paginator;
-      }
-      this.produtos = res;
-      this.dataSource = new MatTableDataSource(res);
+      this.responseProdutos = res;
+      this.produtos = res.produtos;
+      this.totalSize = res.total;
+      this.dataSource = new MatTableDataSource(this.produtos);
       this.dataSource.paginator = this.paginator;
+      if (this.dataSource.paginator) {
+        debugger;
+        this.dataSource.paginator.length = res.total;
+        if (event) {
+          this.paginator.pageIndex = event.pageIndex;
+        }
+      }
       this.spinnerService.hide();
+      console.log(this.responseProdutos);
     }, err => {
       this.spinnerService.hide();
     });
@@ -148,10 +164,10 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
       }
       this.toastSevice.Success('Sucesso!', 'Produto cadastrado com sucesso!');
       this.spinnerService.hide();
-      this.listarProdutos(new Params(10, 1));
+      this.listarProdutos(new PageParams(10, 1));
     },
       err => {
-        this.listarProdutos(new Params(10, 1));
+        this.listarProdutos(new PageParams(10, 1));
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar cadastar Produto!');
       }
@@ -164,7 +180,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.listarProdutos(new PageParams(10, 1));
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
     },
@@ -181,7 +197,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.listarProdutos(new PageParams(10, 1));
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
     },

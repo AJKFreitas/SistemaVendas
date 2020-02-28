@@ -9,7 +9,7 @@ namespace SistemaVendas.Aplication.InterfaceServices.Produtos
 {
    public interface IProdutoService
     {
-        Task<PagedList<Produto>> GetAll(ProdutoParams pParams);
+        Task<ResultProdutoQuery> GetAll(ProdutoParams pParams);
         Task<IEnumerable<Produto>> GetAll();
         Task<Produto> GetById(Guid Id);
         Task<int> Insert(ProdutoVM Produto);

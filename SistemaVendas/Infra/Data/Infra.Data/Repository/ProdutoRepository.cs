@@ -28,7 +28,7 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 Produto produto = null;
-                 produto = _context.Produtos.Find(id);
+                produto = _context.Produtos.Find(id);
                 if (produto != null)
                     _context.Remove(produto);
                 return await Save();
@@ -38,12 +38,37 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PagedList<Produto>> GetAll(ProdutoParams prodParams)
+        public async Task<ResultProdutoQuery> GetAll(ProdutoParams prodParams)
         {
             try
             {
                 var query = _context.Produtos;
-                return await PagedList<Produto>.CreateAsync(query, prodParams.PageNumber, prodParams.PageSize);
+
+                var total = query.Count();
+
+                var result = new ResultProdutoQuery
+                {
+                    Total = total,
+                    Produtos = await query.OrderBy(p => p.Nome)
+                    .Skip((prodParams.PageNumber - 1) * prodParams.PageSize)
+                    .Take(prodParams.PageSize)
+                    .ToListAsync()
+                };
+
+                return await Task.FromResult(result);
+
+                //return await
+                //    .Where(
+                //            p => p.Codigo.ToString().Contains(prodParams.Filter) ||
+                //            p.Nome.Contains(prodParams.Filter) ||
+                //            p.Descricao.Contains(prodParams.Filter) ||
+                //            p.Valor.ToString().Contains(prodParams.Filter)
+                //         )
+                //    .OrderBy(p => p.Nome)
+                //    .Skip((prodParams.PageNumber - 1) * prodParams.PageSize)
+                //    .Take(prodParams.PageSize)
+                //    .ToListAsync();
+                //await PagedList<Produto>.CreateAsync(query, prodParams.PageNumber, prodParams.PageSize);
             }
             catch (MySqlException ex)
             {
@@ -152,8 +177,8 @@ namespace SistemaVendas.Infra.Data.Repository
                 try
                 {
                     conexao.Open();
-                var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = '{idproduto}') " +
-                    $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = '{idproduto}') estoque";
+                    var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = '{idproduto}') " +
+                        $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = '{idproduto}') estoque";
                     return await conexao.QueryFirstAsync<dynamic>(query);
                 }
                 catch (Exception e)
@@ -165,7 +190,9 @@ namespace SistemaVendas.Infra.Data.Repository
                     conexao.Close();
                 }
             }
+
+
         }
-       
+
     }
 }

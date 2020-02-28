@@ -13,7 +13,7 @@ namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Fornecedor,Funcionario,Vendedor")]
+   // [Authorize(Roles = "Admin,Fornecedor,Funcionario,Vendedor")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
@@ -32,12 +32,17 @@ namespace SistemaVendas.Api.Controller
 
         }
 
-        [HttpPost]
-      
+        [HttpGet]
         [Route("buscar-todos")]
-        public async Task<IEnumerable<Produto>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
+        [AllowAnonymous]
+        public async Task<ActionResult<ResultProdutoQuery>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
         {
-            return await _produtoService.GetAll(uparams);
+            if (uparams.PageNumber  <= 0 && uparams.PageSize <= 0 )
+            {
+                return Ok(await GetProdutos());
+            }
+            
+            return Ok(await _produtoService.GetAll(uparams));
         }
 
         [HttpGet("{id}")]
@@ -50,7 +55,7 @@ namespace SistemaVendas.Api.Controller
                 return NotFound();
             }
 
-            return produto;
+            return Ok(produto);
         }
 
         [HttpPost]

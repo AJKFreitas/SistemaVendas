@@ -9,7 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { ModalComponent } from '../modal/modal.component';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
-import { Params } from 'src/app/shared/models/Params';
+import { PageParams } from 'src/app/shared/models/Params';
 
 @Component({
   selector: 'app-listar-usuario',
@@ -18,6 +18,7 @@ import { Params } from 'src/app/shared/models/Params';
 })
 export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   isMobile = true;
+
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
     this.dataSource.paginator = this.paginator;
@@ -49,11 +50,11 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.listarUsuarioss(new UsuarioParams(10, 1));
     this.dataSource = new MatTableDataSource(this.usuarios);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     length = this.usuarios.length;
-    this.listarUsuarioss(new UsuarioParams(10, 1));
     this.pageEvent = new PageEvent();
   }
 
@@ -130,10 +131,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   listarUsuarioss(params: UsuarioParams) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.usuarios = res;
-        this.dataSource.paginator = this.paginator;
-      }
       this.usuarios = res;
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;

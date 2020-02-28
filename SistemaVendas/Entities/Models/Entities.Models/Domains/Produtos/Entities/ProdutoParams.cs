@@ -4,5 +4,6 @@ namespace SistemaVendas.Core.Domains.Produtos.Entities
 {
     public class ProdutoParams : Params
     {
+        public string Filter { get; set; }
     }
 }

@@ -1,12 +1,13 @@
 import { Fornecedor } from './../../Fornecedor/model/Fornecedor';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router, Params } from '@angular/router';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { PageParams } from 'src/app/shared/models/Params';
 
 @Injectable({
   providedIn: 'root'
@@ -94,9 +95,9 @@ export class ProdutoService {
       );
   }
 
-  listar(params: Params): Observable<any> {
-    const api = `${this.endpoint}/produto/buscar-todos`;
-    return this.http.post(api, params).pipe(
+  listar(params: PageParams): Observable<any> {
+    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.PageNumber}&PageSize=${params.PageSize}&Filter=${params.Filter}`;
+    return this.http.get(api).pipe(
       map((res: Response) => {
         return res || [];
       }),

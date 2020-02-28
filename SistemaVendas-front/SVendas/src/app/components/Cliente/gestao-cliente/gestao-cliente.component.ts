@@ -9,7 +9,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { ClienteService } from '../service/cliente.service';
-import { Params } from 'src/app/shared/models/Params';
+import { PageParams } from 'src/app/shared/models/Params';
 
 @Component({
   selector: 'app-gestao-cliente',
@@ -53,13 +53,12 @@ export class GestaoClienteComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     length = this.clientes.length;
-    this.listarClientes(new Params(10, 1));
+    this.listarClientes(new PageParams(10, 1));
     this.pageEvent = new PageEvent();
   }
 
   getPaginatorData(event) {
-    console.log(event);
-    this.listarClientes(new Params(event.pageSize, event.pageIndex || 1));
+    this.listarClientes(new PageParams(event.pageSize, event.pageIndex || 1));
   }
 
  
@@ -82,7 +81,7 @@ export class GestaoClienteComponent implements OnInit {
       } else {
         this.service.resetForm();
         this.service.initializeFormGroup();
-        this.listarClientes(new Params(10, 1));
+        this.listarClientes(new PageParams(10, 1));
       }
     });
   }
@@ -115,7 +114,6 @@ export class GestaoClienteComponent implements OnInit {
     this.deleteCliente(cliente);
   }
   applyFilter(event: Event) {
-    console.log('applyFilter', event);
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -124,10 +122,10 @@ export class GestaoClienteComponent implements OnInit {
     }
   }
   buscaPaginada(pageSize, pageIndex) {
-    this.listarClientes(new Params(pageSize, pageIndex));
+    this.listarClientes(new PageParams(pageSize, pageIndex));
   }
 
-  listarClientes(params: Params) {
+  listarClientes(params: PageParams) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
       if (res.result) {
@@ -152,7 +150,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.listarClientes(new PageParams(10, 1));
     },
       err => {
         this.spinnerService.hide();
@@ -170,7 +168,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.listarClientes(new PageParams(10, 1));
     },
       err => {
         this.spinnerService.hide();
@@ -188,7 +186,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.listarClientes(new PageParams(10, 1));
     },
       err => {
         this.spinnerService.hide();

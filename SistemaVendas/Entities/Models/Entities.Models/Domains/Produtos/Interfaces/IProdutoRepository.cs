@@ -9,7 +9,7 @@ namespace SistemaVendas.Core.Domains.Produtos.Interfaces
     public interface IProdutoRepository
     {
         Task<int> Delete(Guid Id);
-        Task<PagedList<Produto>> GetAll(ProdutoParams produtoParams);
+        Task<ResultProdutoQuery> GetAll(ProdutoParams produtoParams);
         Task<IEnumerable<Produto>> GetAll();
         Task<Produto> GetById(Guid Id);
         Task<int> Insert(Produto produto);

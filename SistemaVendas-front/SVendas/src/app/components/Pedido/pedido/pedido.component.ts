@@ -65,7 +65,6 @@ export class PedidoComponent implements OnInit {
     this.spinnerService.show();
     this.produtoService.estoqueAtual(produto).subscribe(res => {
       if (res) {
-        console.log(res);
         this.spinnerService.hide();
         return res.estoque;
       }
