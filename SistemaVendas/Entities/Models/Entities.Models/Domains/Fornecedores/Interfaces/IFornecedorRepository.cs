@@ -10,7 +10,7 @@ namespace SistemaVendas.Core.Domains.Fornecedores.Interfaces
 
     {
         Task<int> Delete(Guid Id);
-        Task<PagedList<Fornecedor>> GetAll(FornecedorParams fornecedorParams);
+        Task<List<Fornecedor>> GetAll(FornecedorParams fornecedorParams);
         Task<IEnumerable<Fornecedor>> GetAll();
         Task<Fornecedor> GetById(Guid Id);
         Task<int> Insert(Fornecedor fornecedor);

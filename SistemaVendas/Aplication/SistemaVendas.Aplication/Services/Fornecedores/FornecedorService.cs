@@ -33,7 +33,7 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
         }
 
 
-        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams)
+        public async Task<List<Fornecedor>> GetAll(FornecedorParams fParams)
         {
             try
             {
@@ -73,12 +73,12 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             }
         }
 
-        public Task<int> Insert(Fornecedor fornecedor)
+        public async Task<int> Insert(Fornecedor fornecedor)
         {
             try
             {
                 
-               return _repository.Insert(fornecedor);
+               return await _repository.Insert(fornecedor);
               
             }
             catch (Exception e)

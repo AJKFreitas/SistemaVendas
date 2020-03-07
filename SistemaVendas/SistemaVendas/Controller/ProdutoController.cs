@@ -8,6 +8,7 @@ using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using System.Net.Mime;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -28,21 +29,27 @@ namespace SistemaVendas.Api.Controller
         public async Task<IEnumerable<Produto>> GetProdutos()
         {
 
-            return await _produtoService.GetAll();
+            return await   _produtoService.GetAll();
 
         }
 
         [HttpGet]
         [Route("buscar-todos")]
         [AllowAnonymous]
-        public async Task<ActionResult<ResultProdutoQuery>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
+        public async Task<IActionResult> GetProdutosFiltro([FromQuery]ProdutoParams uparams)
         {
-            if (uparams.PageNumber  <= 0 && uparams.PageSize <= 0 )
+            PagedList<Produto> data = await _produtoService.GetAll(uparams);
+            var pageData = new
             {
-                return Ok(await GetProdutos());
-            }
-            
-            return Ok(await _produtoService.GetAll(uparams));
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
         }
 
         [HttpGet("{id}")]

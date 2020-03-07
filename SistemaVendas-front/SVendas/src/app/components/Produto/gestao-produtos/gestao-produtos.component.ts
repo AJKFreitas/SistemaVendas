@@ -10,31 +10,32 @@ import { ToastService } from '../../Shared/ToastService';
 import { ProdutoService } from '../services/produto.service';
 import { PageParams } from 'src/app/shared/models/Params';
 import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.component';
+import { merge } from 'rxjs';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gestao-produtos',
   templateUrl: './gestao-produtos.component.html',
   styleUrls: ['./gestao-produtos.component.css']
 })
-export class GestaoProdutosComponent implements OnInit, AfterViewInit {
+export class GestaoProdutosComponent implements OnInit {
 
-  // @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-  //   this.paginator = mp;
-  //   this.dataSource.paginator = this.paginator;
-  // }
-
-  @ViewChild(MatTable, { static: true }) table: MatTable<Produto>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatTable, { static: false }) table: MatTable<Produto>;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
+  private paginator: MatPaginator;
 
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.dataSource.paginator = this.paginator;
+  }
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
     private toastSevice: ToastService,
     public service: ProdutoService
   ) { }
-  responseProdutos: { produtos: Produto[], total: number }
+
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
@@ -45,26 +46,20 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
 
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   ngOnInit(): void {
-    this.listarProdutos(new PageParams(10, 1));
+    this.listarProdutos(new PageParams(10, 0));
     this.dataSource = new MatTableDataSource<Produto>(this.produtos);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.pageEvent = new PageEvent();
-
-
     this.pageEvent = new PageEvent();
   }
 
 
 
   getPaginatorData(event) {
-    // console.log(event);
-    debugger;
+    console.log(event);
+    // debugger;
     this.listarProdutos(new PageParams(event.pageSize, event.pageIndex), event);
   }
   openModal(action, obj) {
@@ -134,22 +129,20 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
 
   listarProdutos(params: PageParams, event?) {
+    debugger;
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
-      this.responseProdutos = res;
-      this.produtos = res.produtos;
-      this.totalSize = res.total;
+      if (res.data && typeof res.pageData == "object") {
+      debugger;
+      this.produtos = res.data;
       this.dataSource = new MatTableDataSource(this.produtos);
       this.dataSource.paginator = this.paginator;
-      if (this.dataSource.paginator) {
-        debugger;
-        this.dataSource.paginator.length = res.total;
-        if (event) {
-          this.paginator.pageIndex = event.pageIndex;
-        }
+      this.pageSize = res.pageData.pageSize;
+      this.currentPage = res.pageData.currentPage;
+      this.totalSize = res.pageData.totalCount;
+      this.spinnerService.hide();
       }
       this.spinnerService.hide();
-      console.log(this.responseProdutos);
     }, err => {
       this.spinnerService.hide();
     });

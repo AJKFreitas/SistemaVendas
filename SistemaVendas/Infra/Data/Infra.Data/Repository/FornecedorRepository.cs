@@ -35,12 +35,16 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams usuarioParams)
+        public async Task<List<Fornecedor>> GetAll(FornecedorParams fornecedorParams)
         {
             try
             {
-                var query = _context.Fornecedores;
-                return await PagedList<Fornecedor>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
+                return await _context.Fornecedores
+                    .OrderBy(p => p.Nome)
+                    .Skip(((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize) < 0 ? 0 : ((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize))
+                    .Take(fornecedorParams.PageSize)
+                    .ToListAsync();
+                 //await PagedList<Fornecedor>.CreateAsync(query, fornecedorParams.PageNumber, fornecedorParams.PageSize);
             }
             catch (MySqlException ex)
             {

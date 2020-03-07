@@ -34,12 +34,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
                 throw e;
             }
         }
-        public async Task<ResultProdutoQuery> GetAll(ProdutoParams prodParams)
+        public async Task<PagedList<Produto>> GetAll(ProdutoParams prodParams)
         {
             try
             {
-
-                return await _repository.GetAll(prodParams);
+               return await _repository.GetAll(prodParams);
             }
             catch (Exception e)
             {

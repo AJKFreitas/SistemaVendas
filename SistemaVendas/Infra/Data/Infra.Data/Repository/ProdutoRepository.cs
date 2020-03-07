@@ -38,24 +38,26 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<ResultProdutoQuery> GetAll(ProdutoParams prodParams)
+        public async Task<PagedList<Produto>> GetAll(ProdutoParams prodParams)
         {
             try
             {
-                var query = _context.Produtos;
+                var prodPaged = await _context.Produtos.OrderBy(prod => prod.Nome).ToListAsync();
+                return PagedList<Produto>.ToPagedList(prodPaged,prodParams.PageNumber,prodParams.PageSize);
+                //var query =  _context.Produtos;
 
-                var total = query.Count();
+                //var total = query.Count();
 
-                var result = new ResultProdutoQuery
-                {
-                    Total = total,
-                    Produtos = await query.OrderBy(p => p.Nome)
-                    .Skip((prodParams.PageNumber - 1) * prodParams.PageSize)
-                    .Take(prodParams.PageSize)
-                    .ToListAsync()
-                };
+                //var result = new ResultProdutoQuery
+                //{
+                //    Total = total,
+                //    Produtos = await query.OrderBy(p => p.Nome)
+                //    .Skip(((prodParams.PageNumber - 1) * prodParams.PageSize) < 0 ? 0 : ((prodParams.PageNumber - 1) * prodParams.PageSize))
+                //    .Take(prodParams.PageSize)
+                //    .ToListAsync()
+                //};
 
-                return await Task.FromResult(result);
+                //return result;
 
                 //return await
                 //    .Where(
