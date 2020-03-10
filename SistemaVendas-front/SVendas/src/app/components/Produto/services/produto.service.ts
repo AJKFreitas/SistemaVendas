@@ -8,6 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { PageParams } from 'src/app/shared/models/Params';
+import { ResponseData } from 'src/app/shared/models/ResponseData';
 
 @Injectable({
   providedIn: 'root'
@@ -95,11 +96,12 @@ export class ProdutoService {
       );
   }
 
-  listar(params: PageParams): Observable<any> {
-    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.PageNumber}&PageSize=${params.PageSize}&Filter=${params.Filter}`;
+  listar(params: PageParams): Observable<ResponseData<Produto>> {
+    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.PageNumber}
+                      &PageSize=${params.PageSize}&Filter=${params.Filter}`;
     return this.http.get(api).pipe(
-      map((res: Response) => {
-        return res || [];
+      map((res: ResponseData<Produto>) => {
+        return res || new ResponseData<Produto>();
       }),
       catchError(this.handleError)
     );

@@ -3,9 +3,8 @@ namespace SistemaVendas.Core.Shared.Entities
     public class Params
     {
 		const int maxPageSize = 50;
-		public int PageNumber { get; set; } = 1;
-
-		private int _pageSize = 10;
+		public int PageNumber { get; set; }
+		private int _pageSize = 5;
 		public int PageSize
 		{
 			get

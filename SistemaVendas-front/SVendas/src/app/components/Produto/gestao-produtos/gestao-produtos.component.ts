@@ -1,40 +1,25 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, AfterContentInit } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { ProdutoService } from '../services/produto.service';
 import { PageParams } from 'src/app/shared/models/Params';
 import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.component';
-import { merge } from 'rxjs';
-import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gestao-produtos',
   templateUrl: './gestao-produtos.component.html',
   styleUrls: ['./gestao-produtos.component.css']
 })
-export class GestaoProdutosComponent implements OnInit {
+export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<Produto>;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(PageEvent) pageEvent: PageEvent;
-  private paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator;
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
-  constructor(
-    public dialog: MatDialog,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
-    public service: ProdutoService
-  ) { }
 
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
@@ -42,25 +27,52 @@ export class GestaoProdutosComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize: number;
   public currentPage: number;
-  public totalSize: number;
+  public length: number;
+  public pageIndex: number;
 
-
-
-
-  ngOnInit(): void {
-    this.listarProdutos(new PageParams(10, 0));
-    this.dataSource = new MatTableDataSource<Produto>(this.produtos);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.pageEvent = new PageEvent();
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
+    public service: ProdutoService
+  ) {
+    this.dataSource = new MatTableDataSource(new Array<Produto>());
   }
 
+  ngOnChanges(): void {
+    console.log('ngOnChanges');
+    this.spinnerService.show();
+    this.service.listar(new PageParams(this.pageSize, this.pageIndex)).subscribe(res => {
+      this.produtos = res.data;
+      this.dataSource = new MatTableDataSource(this.produtos);
+      this.dataSource.paginator = this.paginator;
+      this.length = res.pageData.totalCount;
+      this.pageSize = res.pageData.pageSize;
+      this.dataSource.paginator.length = res.pageData.totalCount;
+      this.dataSource.paginator.pageIndex = res.pageData.currentPage;
+      this.spinnerService.hide();
+    }, err => {
+      this.spinnerService.hide();
+    });
 
+  }
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit');
+    // this.dataSource = new MatTableDataSource(this.produtos);
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit');
+    this.listarProdutos(new PageParams(5, 0));
+  }
+
+  ngAfterContentInit(): void {
+    console.log('ngAfterContentInit');
+  }
 
   getPaginatorData(event) {
     console.log(event);
-    // debugger;
-    this.listarProdutos(new PageParams(event.pageSize, event.pageIndex), event);
+    this.listarProdutos(new PageParams(event.pageSize, event.pageIndex));
   }
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
@@ -82,7 +94,7 @@ export class GestaoProdutosComponent implements OnInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarProdutos(new PageParams(10, 1));
+      this.listarProdutos(new PageParams(this.pageSize, this.pageIndex));
     });
   }
   addRowData(produto: Produto) {
@@ -129,19 +141,18 @@ export class GestaoProdutosComponent implements OnInit {
 
 
   listarProdutos(params: PageParams, event?) {
-    debugger;
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
-      if (res.data && typeof res.pageData == "object") {
-      debugger;
       this.produtos = res.data;
       this.dataSource = new MatTableDataSource(this.produtos);
+      console.log(this.dataSource.data);
+
       this.dataSource.paginator = this.paginator;
+      this.length = res.pageData.totalCount;
+      this.pageIndex = res.pageData.currentPage;
       this.pageSize = res.pageData.pageSize;
-      this.currentPage = res.pageData.currentPage;
-      this.totalSize = res.pageData.totalCount;
-      this.spinnerService.hide();
-      }
+      this.dataSource.paginator.length = res.pageData.totalCount;
+      this.dataSource.paginator.pageIndex = res.pageData.currentPage;
       this.spinnerService.hide();
     }, err => {
       this.spinnerService.hide();
@@ -202,3 +213,4 @@ export class GestaoProdutosComponent implements OnInit {
 
   }
 }
+

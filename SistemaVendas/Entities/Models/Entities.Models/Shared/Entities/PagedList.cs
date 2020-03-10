@@ -31,16 +31,10 @@ namespace SistemaVendas.Core.Shared.Entities
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
 
-        public static PagedList<T> CreateAsync(IEnumerable<T> source, int pageNumber, int pageSize)
+       public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
-        public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
-        {
-            var count = source.Count();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var items = source.Skip((0) * pageSize).Take(pageSize).ToList();
 
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }

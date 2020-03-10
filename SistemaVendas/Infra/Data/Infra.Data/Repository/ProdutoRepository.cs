@@ -44,33 +44,7 @@ namespace SistemaVendas.Infra.Data.Repository
             {
                 var prodPaged = await _context.Produtos.OrderBy(prod => prod.Nome).ToListAsync();
                 return PagedList<Produto>.ToPagedList(prodPaged,prodParams.PageNumber,prodParams.PageSize);
-                //var query =  _context.Produtos;
-
-                //var total = query.Count();
-
-                //var result = new ResultProdutoQuery
-                //{
-                //    Total = total,
-                //    Produtos = await query.OrderBy(p => p.Nome)
-                //    .Skip(((prodParams.PageNumber - 1) * prodParams.PageSize) < 0 ? 0 : ((prodParams.PageNumber - 1) * prodParams.PageSize))
-                //    .Take(prodParams.PageSize)
-                //    .ToListAsync()
-                //};
-
-                //return result;
-
-                //return await
-                //    .Where(
-                //            p => p.Codigo.ToString().Contains(prodParams.Filter) ||
-                //            p.Nome.Contains(prodParams.Filter) ||
-                //            p.Descricao.Contains(prodParams.Filter) ||
-                //            p.Valor.ToString().Contains(prodParams.Filter)
-                //         )
-                //    .OrderBy(p => p.Nome)
-                //    .Skip((prodParams.PageNumber - 1) * prodParams.PageSize)
-                //    .Take(prodParams.PageSize)
-                //    .ToListAsync();
-                //await PagedList<Produto>.CreateAsync(query, prodParams.PageNumber, prodParams.PageSize);
+               
             }
             catch (MySqlException ex)
             {

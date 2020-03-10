@@ -4,7 +4,6 @@ export class PageParams {
     PageNumber: number;
     PageSize: number;
     Filter?;
-    
     constructor(
         pageSize: number,
         pageNumber: number,
