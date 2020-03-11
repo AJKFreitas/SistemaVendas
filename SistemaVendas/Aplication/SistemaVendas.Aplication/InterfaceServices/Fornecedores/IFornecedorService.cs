@@ -8,7 +8,8 @@ namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
 {
    public interface IFornecedorService
     {
-        Task<List<Fornecedor>> GetAll(FornecedorParams fParams);
+        Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams);
+        //Task<List<Fornecedor>> GetAll(FornecedorParams fParams);
         Task<IEnumerable<Fornecedor>> GetAll();
         Task<Fornecedor> GetById(Guid Id);
         Task<int> Insert(Fornecedor fornecedor);

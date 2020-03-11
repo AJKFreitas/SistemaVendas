@@ -1,5 +1,5 @@
 import { Fornecedor, FornecedorVM } from './../model/Fornecedor';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FornecedorService } from '../services/fornecedor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
@@ -10,6 +10,9 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { FornecedorDialogComponent } from '../modal/fornecedor-dialog/fornecedor-dialog.component';
 import { PageParams } from 'src/app/shared/models/Params';
+import { FornecedorDataSource } from '../services/fornecedor.datasource';
+import { fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-fornecedor',
@@ -24,16 +27,11 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   }
   @ViewChild(MatTable, { static: true }) table: MatTable<Fornecedor>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
+  @ViewChild('input') input: ElementRef;
 
-
-  constructor(
-    public dialog: MatDialog,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
-    public service: FornecedorService,
-  ) { }
+  dataSourceF: FornecedorDataSource;
   dataSource: MatTableDataSource<Fornecedor>;
   displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
   fornecedores: Fornecedor[] = [];
@@ -43,13 +41,19 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   public pageSize = 0;
   public currentPage = 0;
   public totalSize = 0;
+  public length: number;
+  public pageIndex: number;
 
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: ToastService,
+    public service: FornecedorService,
+  ) { }
 
   ngOnInit(): void {
+    this.dataSourceF = new FornecedorDataSource(this.service);
+    this.dataSourceF.loadFornecedores();
     this.dataSource = new MatTableDataSource(this.fornecedores);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -58,7 +62,37 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.pageEvent = new PageEvent();
   }
 
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarFornecedores();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarFornecedores())
+      )
+      .subscribe();
+  }
+
+
+  carregarFornecedores() {
+    this.dataSourceF.loadFornecedores(
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
+  }
+
   getPaginatorData(event) {
+    this.dataSourceF.loadFornecedores('', 'asc', event.pageIndex, event.pageSize);
     this.listarFornecedores(new PageParams(event.pageSize, event.pageIndex || 1));
   }
 
@@ -82,6 +116,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
+      this.carregarFornecedores();
       this.listarFornecedores(new PageParams(10, 1));
     });
   }
@@ -153,6 +188,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
       this.spinnerService.hide();
     },
       err => {
+        this.carregarFornecedores();
         this.listarFornecedores(new PageParams(10, 1));
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar cadastar Fornecedor!');
@@ -166,6 +202,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
         this.spinnerService.hide();
       }
+      this.carregarFornecedores();
       this.listarFornecedores(new PageParams(10, 1));
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
@@ -183,6 +220,7 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
         this.spinnerService.hide();
       }
+      this.carregarFornecedores();
       this.listarFornecedores(new PageParams(10, 1));
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');

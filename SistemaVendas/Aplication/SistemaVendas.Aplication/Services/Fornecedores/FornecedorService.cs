@@ -33,19 +33,19 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
         }
 
 
-        public async Task<List<Fornecedor>> GetAll(FornecedorParams fParams)
-        {
-            try
-            {
+        //public async Task<List<Fornecedor>> GetAll(FornecedorParams fParams)
+        //{
+        //    try
+        //    {
 
-                return await _repository.GetAll(fParams);
-            }
-            catch (Exception e)
-            {
+        //        return await _repository.GetAll(fParams);
+        //    }
+        //    catch (Exception e)
+        //    {
 
-                throw new Exception(e.Message);
-            }
-        }
+        //        throw new Exception(e.Message);
+        //    }
+        //}
         public async Task<IEnumerable<Fornecedor>> GetAll()
         {
             try
@@ -100,7 +100,18 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
                 throw new Exception(e.Message);
             }
         }
-                
+        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams prodParams)
+        {
+            try
+            {
+                return await _repository.GetAll(prodParams);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+        }
         public bool ExisteFornecedor(long cnpj)
         {
             try

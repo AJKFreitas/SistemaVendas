@@ -35,16 +35,32 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<List<Fornecedor>> GetAll(FornecedorParams fornecedorParams)
+        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams forParams)
         {
             try
             {
-                return await _context.Fornecedores
-                    .OrderBy(p => p.Nome)
-                    .Skip(((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize) < 0 ? 0 : ((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize))
-                    .Take(fornecedorParams.PageSize)
-                    .ToListAsync();
-                 //await PagedList<Fornecedor>.CreateAsync(query, fornecedorParams.PageNumber, fornecedorParams.PageSize);
+                var prodPaged = _context.Fornecedores.AsQueryable();
+
+
+                if (forParams.Filter != null)
+                {
+                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(forParams.Filter.ToLower())
+                    || x.CNPJ.ToString().ToLower().Contains(forParams.Filter.ToLower())
+                    || x.Telefone.ToLower().Contains(forParams.Filter.ToLower()));
+                }
+                if (forParams.SortOrder.ToLower().Equals("asc"))
+                {
+                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                }
+                if (forParams.SortOrder.ToLower().Equals("desc"))
+                {
+                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                }
+
+                var result = await prodPaged.ToListAsync();
+
+                return PagedList<Fornecedor>.ToPagedList(result, forParams.PageNumber, forParams.PageSize);
+
             }
             catch (MySqlException ex)
             {
@@ -52,6 +68,23 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
+        //public async Task<List<Fornecedor>> GetAll(FornecedorParams fornecedorParams)
+        //{
+        //    try
+        //    {
+        //        return await _context.Fornecedores
+        //            .OrderBy(p => p.Nome)
+        //            .Skip(((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize) < 0 ? 0 : ((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize))
+        //            .Take(fornecedorParams.PageSize)
+        //            .ToListAsync();
+        //         //await PagedList<Fornecedor>.CreateAsync(query, fornecedorParams.PageNumber, fornecedorParams.PageSize);
+        //    }
+        //    catch (MySqlException ex)
+        //    {
+        //        _context.Dispose();
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
         public async Task<IEnumerable<Fornecedor>> GetAll()
         {
             

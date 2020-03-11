@@ -74,7 +74,6 @@ iserirProduto() {
   produto.valor = this.produtoForm.get('valor').value;
   produto.fornecedores = [... this.fornecedorVM.value];
 
-  console.log(produto);
   this.produtoService.iserir(produto).subscribe((res) => {
       if (res.result) {
         this.produtoForm.reset();

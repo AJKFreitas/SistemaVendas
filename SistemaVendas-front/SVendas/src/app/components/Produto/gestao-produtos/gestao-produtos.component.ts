@@ -29,6 +29,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
+  
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize: number;
   public currentPage: number;
@@ -51,7 +52,6 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
   ngOnInit(): void {
     this.dataSourceP = new ProdutoDataSource(this.service);
     this.dataSourceP.loadProdutos();
-    console.log(this.dataSourceP);
   }
 
   ngAfterContentInit(): void {

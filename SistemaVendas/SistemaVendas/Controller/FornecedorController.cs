@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -20,7 +21,24 @@ namespace SistemaVendas.Api.Controller
             _fornecedorService = fornecedorService;
         }
 
-    
+        [HttpGet]
+        [Route("buscar-todos")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BuscarFornecedorPaginado([FromQuery]FornecedorParams fparams)
+        {
+            PagedList<Fornecedor> data = await _fornecedorService.GetAll(fparams);
+            var pageData = new
+            {
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
+        }
         [HttpPost]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
         public async Task<ActionResult<Fornecedor>> RegisterFornecedor(Fornecedor fornecedor)
@@ -43,7 +61,7 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpPost]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        [Route("buscar-todos")]
+        [Route("buscar")]
         public async Task<IEnumerable<Fornecedor>> GetFornecedorFiltro([FromQuery]FornecedorParams uparams)
         {
             return await _fornecedorService.GetAll(uparams);

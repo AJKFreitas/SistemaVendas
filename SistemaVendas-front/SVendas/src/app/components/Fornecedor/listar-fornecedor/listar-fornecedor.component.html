@@ -6,13 +6,16 @@
 
   <mat-form-field>
     <mat-label>Filtrar</mat-label>
-    <input matInput (keyup)="applyFilter($event)">
+    <!-- <input matInput (keyup)="applyFilter($event)"> -->
+    <input matInput #input>
   </mat-form-field>
 
   <div class="mat-elevation-z8">
 
     <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
-    <table mat-table [dataSource]="dataSource" #mytable class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="dataSourceF"
+     #mytable class="mat-elevation-z8" matSort matSortActive="nome"
+     matSortDirection="asc" matSortDisableClear>
 
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
@@ -20,12 +23,12 @@
       </ng-container>
 
       <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+        <th mat-header-cell *matHeaderCellDef> Telefone </th>
         <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
       </ng-container>
 
       <ng-container matColumnDef="cnpj">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> CNPJ </th>
+        <th mat-header-cell *matHeaderCellDef > CNPJ </th>
         <td mat-cell *matCellDef="let element"> {{element.cnpj}} </td>
       </ng-container>
 
@@ -41,8 +44,17 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" 
+  <!-- <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" 
       [showFirstLastButtons]="true" [length]="totalSize"
       [pageIndex]="currentPage" (page)="getPaginatorData($event)">
+</mat-paginator> -->
+  <!-- <div *ngIf="dataSourceF.loading$ | async">
+      <mat-spinner></mat-spinner>
+  </div> -->
+<mat-paginator 
+      [length]="dataSourceF.lenth$ | async" 
+      [pageSizeOptions]="pageSizeOptions" 
+      [showFirstLastButtons]="true" 
+      (page)="getPaginatorData($event)">
 </mat-paginator>
 </div>
