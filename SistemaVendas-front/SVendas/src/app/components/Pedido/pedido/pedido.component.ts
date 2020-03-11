@@ -55,9 +55,14 @@ export class PedidoComponent implements OnInit {
     this.adicionarItemPedido();
   }
 
-  selectionChanged($event, index) {
+  selectionChanged(item: Produto, index) {
+    console.log(item);
+    console.log(index);
+
     if (!isNullOrUndefined(index)) {
-      this.itemsPedido[index].estoque = this.estoqueAtual($event.value);
+      debugger;
+      this.pedidoVenda.itemsPedido[index].estoque = this.estoqueAtual(item);
+      this.pedidoVenda.itemsPedido[index].preco = item.valor;
     }
   }
 
@@ -66,7 +71,7 @@ export class PedidoComponent implements OnInit {
     this.produtoService.estoqueAtual(produto).subscribe(res => {
       if (res) {
         this.spinnerService.hide();
-        return res.estoque;
+        return res.estoque || 0;
       }
     }, err => {
       this.spinnerService.hide();
@@ -100,7 +105,7 @@ export class PedidoComponent implements OnInit {
   }
 
   adicionarItemPedido() {
-    this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null));
+    this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null, 0));
   }
   removeItemPedido(item: ItemPedidoVenda) {
     if ( this.pedidoVenda.itemsPedido.length <= 1) {

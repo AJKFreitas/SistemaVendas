@@ -17,14 +17,13 @@ export class ProdutoComponent implements OnInit {
   config = {
     displayKey: 'nome',
     search: true,
-    height: '150px',
     placeholder: 'Selecione o fornecedor',
     customComparator: () => {},
     moreText: 'more',
     noResultsFound: 'Nenhum Resultado encontrado!',
     searchPlaceholder: 'Buscar',
     searchOnKey: 'nome',
-    clearOnSelection: false
+    clearOnSelection: true
   };
 
   produtoForm: FormGroup;
@@ -62,7 +61,7 @@ export class ProdutoComponent implements OnInit {
       }
       this.fornecedores = res;
       this.spinnerService.hide();
-    }, err =>{
+    }, err => {
       this.spinnerService.hide();
     });
   }

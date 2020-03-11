@@ -127,7 +127,6 @@ export class ProdutoService {
         .set('pageNumber', pageNumber.toString())
         .set('pageSize', pageSize.toString())
     }).pipe(
-      // tslint:disable-next-line:no-string-literal
       map(res => res)
     );
   }

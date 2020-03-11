@@ -1,4 +1,5 @@
 ﻿using SistemaVendas.Core.Domains.Clientes.Entities;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,8 +9,8 @@ namespace SistemaVendas.Aplication.InterfaceServices.Clientes
 {
    public interface IClienteService
     {
-
-        Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams); 
+        Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams);
+        //Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams); 
         Task<IEnumerable<Cliente>> GetAll();
         Task<Cliente> GetById(Guid Id);
         Task<int> Insert(Cliente Cliente);

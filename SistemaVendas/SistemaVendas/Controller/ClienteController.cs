@@ -42,12 +42,32 @@ namespace SistemaVendas.Api.Controller
 
             return cliente;
         }
-        [HttpPost]
+
+        [HttpGet]
         [Route("buscar-todos")]
-        public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
+        [AllowAnonymous]
+        public async Task<IActionResult> GetProdutosFiltro([FromQuery]ClienteParams cliParams)
         {
-            return await _service.GetAll();
+            PagedList<Cliente> data = await _service.GetAll(cliParams);
+            var pageData = new
+            {
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
         }
+
+        //[HttpPost]
+        //[Route("buscar-todos")]
+        //public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
+        //{
+        //    return await _service.GetAll();
+        //}
         [HttpPut]
         public async Task<IActionResult> PutCliente( Cliente cliente)
         {

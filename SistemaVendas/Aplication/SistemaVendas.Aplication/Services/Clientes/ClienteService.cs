@@ -3,6 +3,7 @@ using SistemaVendas.Aplication.InterfaceServices.Clientes;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Clientes.Interfaces;
+using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -50,19 +51,31 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
         }
 
-        public async Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams)
-
+        public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
         {
             try
             {
                 return await _repository.GetAll(clienteParams);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
-                throw new Exception(ex.Message);
+                throw new Exception(e.Message);
             }
         }
+        //public async Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams)
+
+        //{
+        //    try
+        //    {
+        //        return await _repository.GetAll(clienteParams);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
         public async  Task<IEnumerable<Cliente>> GetAll()
         {

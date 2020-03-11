@@ -40,20 +40,54 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
+        public async Task<PagedList<Cliente>> GetAll(ClienteParams clidParams)
         {
             try
             {
-                var query = _context.Clientes;
-                return await PagedList<Cliente>.CreateAsync(query, clienteParams.PageNumber, clienteParams.PageSize);
+                var prodPaged = _context.Clientes.AsQueryable();
+
+
+                if (clidParams.Filter != null)
+                {
+                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(clidParams.Filter.ToLower())
+                    || x.Endereco.ToLower().Contains(clidParams.Filter.ToLower())
+                    || x.CPF.ToString().ToLower().Contains(clidParams.Filter.ToLower())
+                    || x.Telefone.ToLower().Contains(clidParams.Filter.ToLower()));
+                }
+                if (clidParams.SortOrder.ToLower().Equals("asc"))
+                {
+                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                }
+                if (clidParams.SortOrder.ToLower().Equals("desc"))
+                {
+                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                }
+
+                var result = await prodPaged.ToListAsync();
+
+                return PagedList<Cliente>.ToPagedList(result, clidParams.PageNumber, clidParams.PageSize);
+
             }
             catch (MySqlException ex)
             {
                 _context.Dispose();
                 throw new Exception(ex.Message);
-
             }
         }
+        //public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
+        //{
+        //    try
+        //    {
+        //        var query = _context.Clientes;
+        //        return await PagedList<Cliente>.CreateAsync(query, clienteParams.PageNumber, clienteParams.PageSize);
+        //    }
+        //    catch (MySqlException ex)
+        //    {
+        //        _context.Dispose();
+        //        throw new Exception(ex.Message);
+
+        //    }
+        //}
 
         public async Task<IEnumerable<Cliente>> GetAll()
         {

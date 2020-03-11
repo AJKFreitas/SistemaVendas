@@ -1,15 +1,14 @@
 import { UsuarioService } from './../services/usuario.service';
-import { Usuario, UsuarioVM, UsuarioParams } from './../../Auth/shared/models/User';
+import { Usuario, UsuarioVM} from './../../Auth/shared/models/User';
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTable} from '@angular/material/table';
+import { MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { ModalComponent } from '../modal/modal.component';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
-import { PageParams } from 'src/app/shared/models/Params';
 import { UsuarioDataSource } from '../services/usuario.datasource';
 import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -20,10 +19,6 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit, AfterViewInit {
-  isMobile = true;
-
-
-
   @ViewChild(MatTable, { static: true }) table: MatTable<Usuario>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -83,7 +78,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
 
   getPaginatorData(event) {
     this.dataSourceU.loadUsuarios('', 'asc', event.pageIndex, event.pageSize);
-    // this.listarUsuarioss(new UsuarioParams(event.pageSize, event.pageIndex || 1));
   }
 
   openModal(action, obj) {
@@ -107,7 +101,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
         this.service.initializeFormGroup();
       }
       this.carregarUsuarios();
-      // this.listarUsuarioss(new UsuarioParams(10, 1));
     });
   }
 
@@ -140,31 +133,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.deleteUser(usuario);
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
-
-  // buscaPaginada(pageSize, pageIndex) {
-  //   this.listarUsuarioss(new UsuarioParams(pageSize, pageIndex));
-  // }
-
-  // listarUsuarioss(params: UsuarioParams) {
-  //   this.spinnerService.show();
-  //   this.service.listar(params).subscribe(res => {
-  //     this.usuarios = res;
-  //     this.dataSource = new MatTableDataSource(res);
-  //     this.dataSource.paginator = this.paginator;
-  //     this.spinnerService.hide();
-  //   }, err => {
-  //     this.spinnerService.hide();
-  //   });
-  // }
-
   registerUser(usuario: UsuarioVM) {
     this.spinnerService.show();
     this.service.iserir(usuario).subscribe((res) => {
@@ -175,8 +143,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.spinnerService.hide();
       this.carregarUsuarios();
-      // this.listarUsuarioss(new UsuarioParams(10, 1));
-
     },
       err => {
         this.carregarUsuarios();
@@ -195,7 +161,6 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       this.carregarUsuarios();
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
-      // this.listarUsuarioss(new UsuarioParams(10, 1));
     },
       err => {
         this.spinnerService.hide();
@@ -213,14 +178,12 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       this.carregarUsuarios();
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
-      // this.listarUsuarioss(new UsuarioParams(10, 1));
     },
       err => {
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar excluido Usuario!');
       }
     );
-
   }
 
 }

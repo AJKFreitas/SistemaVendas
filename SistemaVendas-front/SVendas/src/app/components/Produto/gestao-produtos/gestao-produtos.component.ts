@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, AfterContentInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { MatPaginator} from '@angular/material/paginator';
@@ -24,7 +24,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
-  
+
   dataSourceP: ProdutoDataSource;
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
@@ -44,8 +44,6 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
   ) {
     this.dataSource = new MatTableDataSource(new Array<Produto>());
   }
-
-
 
 
   ngOnInit(): void {

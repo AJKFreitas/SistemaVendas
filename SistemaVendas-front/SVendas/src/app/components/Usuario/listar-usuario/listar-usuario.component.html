@@ -6,14 +6,13 @@
 
 <mat-form-field>
   <mat-label>Filtrar</mat-label>
-  <!-- <input matInput (keyup)="applyFilter($event)"> -->
   <input matInput #input>
 </mat-form-field>
 
 <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
 <div class="example-container mat-elevation-z8">
 
-  <table mat-table [dataSource]="dataSourceU" #mytable class="mat-elevation-z8" matSort [class.isMobile]='isMobile'
+  <table mat-table [dataSource]="dataSourceU" #mytable class="mat-elevation-z8" matSort 
       class="mat-elevation-z8"  matSort matSortActive="nome"
       matSortDirection="asc" matSortDisableClear>
 
@@ -48,10 +47,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <!-- <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" 
-      [showFirstLastButtons]="true" [length]="totalSize"
-      [pageIndex]="currentPage" (page)="getPaginatorData($event)">
-</mat-paginator> -->
 <mat-paginator 
       [length]="dataSourceU.lenth$ | async" 
       [pageSizeOptions]="pageSizeOptions" 

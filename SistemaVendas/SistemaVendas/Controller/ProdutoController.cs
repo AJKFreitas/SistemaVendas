@@ -51,6 +51,7 @@ namespace SistemaVendas.Api.Controller
 
             return Ok(new { data, pageData });
         }
+
         [HttpGet]
         [Route("buscar")]
         [AllowAnonymous]

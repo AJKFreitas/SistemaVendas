@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -91,5 +91,19 @@ export class ClienteService {
       telefone: '',
       endereco: '',
     });
+  }
+
+  buscarClientes(filter = '', sortOrder = 'asc',
+                 pageNumber = 0, pageSize = 5): Observable<any> {
+    const api = `${this.endpoint}/cliente/buscar-todos`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    }).pipe(
+      map(res => res)
+    );
   }
 }

@@ -11,6 +11,7 @@
 
                     <label for="cliente">Cliente</label>
                     <ngx-select-dropdown  [(ngModel)] ="pedidoVenda.cliente" [multiple]="false"
+                    
                     [config]="config" [options]="clientes" name="cliente"
                     #cliente="ngModel" >
                 </ngx-select-dropdown>
@@ -35,12 +36,12 @@
                 </div>
                 
                 <div class=" col-4">
-                    <ngx-select-dropdown (change)="selectionChanged($event,in)" 
+                    <ngx-select-dropdown (change)="selectionChanged(item.produto,in)" 
                         [multiple]="false" 
                         [config]="config" 
                         [options]="produtos" 
                         id="produto-{{in}}"
-                        [(ngModel)]="item.idProduto" 
+                        [(ngModel)]="item.produto" 
                         name="produto-{{in}}"
                         #produto="ngModel" >
                     </ngx-select-dropdown>
@@ -58,7 +59,7 @@
                     [(ngModel)]="item.preco" 
                     name="preco-{{in}}"
                     #preco="ngModel"
-                    value="item.idProduto.valor" >
+                    >
                 </div>
                 <div class=" col-2">
                     <input type="text" class="form-control" id="estoque-{{in}}"

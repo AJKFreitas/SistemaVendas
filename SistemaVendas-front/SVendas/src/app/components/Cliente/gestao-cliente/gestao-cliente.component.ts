@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
@@ -9,19 +9,32 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { ClienteService } from '../service/cliente.service';
-import { PageParams } from 'src/app/shared/models/Params';
+import { ClienteDataSource } from '../service/cliente.datasource';
+import { fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gestao-cliente',
   templateUrl: './gestao-cliente.component.html',
   styleUrls: ['./gestao-cliente.component.css']
 })
-export class GestaoClienteComponent implements OnInit {
+export class GestaoClienteComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
+  @ViewChild(MatTable, { static: false }) table: MatTable<Cliente>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') input: ElementRef;
+
+  dataSourceC: ClienteDataSource;
+  dataSource: MatTableDataSource<Cliente>;
+  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco', 'action'];
+  clientes: Cliente[] = [];
+
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  public pageSize: number;
+  public currentPage: number;
+  public length: number;
+  public pageIndex: number;
 
   constructor(
     public dialog: MatDialog,
@@ -29,36 +42,40 @@ export class GestaoClienteComponent implements OnInit {
     private toastSevice: ToastService,
     public service: ClienteService,
   ) { }
-  dataSource: MatTableDataSource<Cliente>;
-  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco', 'action'];
-  clientes: Cliente[] = [];
-
-  @ViewChild(MatTable, { static: true }) table: MatTable<Cliente>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(PageEvent) pageEvent: PageEvent;
-
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  public pageSize = 0;
-  public currentPage = 0;
-  public totalSize = 0;
-
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.clientes);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    length = this.clientes.length;
-    this.listarClientes(new PageParams(10, 1));
-    this.pageEvent = new PageEvent();
+    this.dataSourceC = new ClienteDataSource(this.service);
+    this.dataSourceC.loadClientes();
+  }
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarClientes();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarClientes())
+      )
+      .subscribe();
+  }
+  carregarClientes() {
+    this.dataSourceC.loadClientes(
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
   }
 
   getPaginatorData(event) {
-    this.listarClientes(new PageParams(event.pageSize, event.pageIndex || 1));
+    this.dataSourceC.loadClientes('', 'asc', event.pageIndex, event.pageSize);
   }
 
  
@@ -81,7 +98,8 @@ export class GestaoClienteComponent implements OnInit {
       } else {
         this.service.resetForm();
         this.service.initializeFormGroup();
-        this.listarClientes(new PageParams(10, 1));
+        this.carregarClientes();
+        // this.listarClientes(new PageParams(10, 1));
       }
     });
   }
@@ -113,33 +131,33 @@ export class GestaoClienteComponent implements OnInit {
     });
     this.deleteCliente(cliente);
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  buscaPaginada(pageSize, pageIndex) {
-    this.listarClientes(new PageParams(pageSize, pageIndex));
-  }
+  //   if (this.dataSource.paginator) {
+  //     this.dataSource.paginator.firstPage();
+  //   }
+  // }
+  // buscaPaginada(pageSize, pageIndex) {
+  //   this.listarClientes(new PageParams(pageSize, pageIndex));
+  // }
 
-  listarClientes(params: PageParams) {
-    this.spinnerService.show();
-    this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.clientes = res;
-        this.dataSource.paginator = this.paginator;
-      }
-      this.clientes = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    }, err =>{
-      this.spinnerService.hide();
-    });
-  }
+  // listarClientes(params: PageParams) {
+  //   this.spinnerService.show();
+  //   this.service.listar(params).subscribe(res => {
+  //     if (res.result) {
+  //       this.clientes = res;
+  //       this.dataSource.paginator = this.paginator;
+  //     }
+  //     this.clientes = res;
+  //     this.dataSource = new MatTableDataSource(res);
+  //     this.dataSource.paginator = this.paginator;
+  //     this.spinnerService.hide();
+  //   }, err =>{
+  //     this.spinnerService.hide();
+  //   });
+  // }
 
   registerCliente(cliente: ClienteVM) {
     this.spinnerService.show();
@@ -150,7 +168,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new PageParams(10, 1));
+      this.carregarClientes();
     },
       err => {
         this.spinnerService.hide();
@@ -168,7 +186,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new PageParams(10, 1));
+      this.carregarClientes();
     },
       err => {
         this.spinnerService.hide();
@@ -186,7 +204,7 @@ export class GestaoClienteComponent implements OnInit {
       }
       this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
       this.spinnerService.hide();
-      this.listarClientes(new PageParams(10, 1));
+      this.carregarClientes();
     },
       err => {
         this.spinnerService.hide();
