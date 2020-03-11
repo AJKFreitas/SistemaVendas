@@ -20,7 +20,7 @@ export class FornecedorDataSource implements DataSource<Fornecedor> {
 
     }
 
-    loadFornecedores(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5){
+    loadFornecedores(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5) {
 
         this.loadingSubject.next(true);
 

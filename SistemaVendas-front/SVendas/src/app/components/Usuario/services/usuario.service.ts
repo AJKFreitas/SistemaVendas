@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Router, Params } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -85,6 +85,19 @@ export class UsuarioService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
+  }
+  buscarUsuarios(filter = '', sortOrder = 'asc',
+                 pageNumber = 0, pageSize = 5): Observable<any> {
+    const api = `${this.endpoint}/usuario/buscar-todos`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    }).pipe(
+      map(res => res)
+    );
   }
 
 }

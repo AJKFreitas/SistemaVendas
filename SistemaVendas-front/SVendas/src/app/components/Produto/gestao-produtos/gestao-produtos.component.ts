@@ -18,7 +18,7 @@ import { merge, fromEvent } from 'rxjs';
   templateUrl: './gestao-produtos.component.html',
   styleUrls: ['./gestao-produtos.component.css']
 })
-export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit {
+export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<Produto>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,7 +29,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
-  
+
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize: number;
   public currentPage: number;
@@ -45,8 +45,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
     this.dataSource = new MatTableDataSource(new Array<Produto>());
   }
 
-  ngOnChanges(): void {
-  }
+
 
 
   ngOnInit(): void {
@@ -54,8 +53,6 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
     this.dataSourceP.loadProdutos();
   }
 
-  ngAfterContentInit(): void {
-  }
 
   ngAfterViewInit() {
 

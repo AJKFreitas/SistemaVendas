@@ -41,20 +41,52 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-
-        public async Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams)
+        public async Task<PagedList<Usuario>> GetAll(UsuarioParams userParams)
         {
             try
             {
-                var query = _context.Usuarios;   
-                return  await PagedList<Usuario>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
+                var prodPaged = _context.Usuarios.AsQueryable();
+
+
+                if (userParams.Filter != null)
+                {
+                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(userParams.Filter.ToLower())
+                    || x.Email.ToLower().Contains(userParams.Filter.ToLower())
+                    || x.Role.ToLower().Contains(userParams.Filter.ToLower()));
+                }
+                if (userParams.SortOrder.ToLower().Equals("asc"))
+                {
+                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                }
+                if (userParams.SortOrder.ToLower().Equals("desc"))
+                {
+                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                }
+
+                var result = await prodPaged.ToListAsync();
+
+                return PagedList<Usuario>.ToPagedList(result, userParams.PageNumber, userParams.PageSize);
+
             }
             catch (MySqlException ex)
             {
                 _context.Dispose();
                 throw new Exception(ex.Message);
             }
-        } 
+        }
+        //public async Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams)
+        //{
+        //    try
+        //    {
+        //        var query = _context.Usuarios;   
+        //        return  await PagedList<Usuario>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
+        //    }
+        //    catch (MySqlException ex)
+        //    {
+        //        _context.Dispose();
+        //        throw new Exception(ex.Message);
+        //    }
+        //} 
         public async Task<IEnumerable<Usuario>> GetAll()
         {
             try
@@ -87,13 +119,13 @@ namespace SistemaVendas.Infra.Data.Repository
             {
 
 
-                Usuario usuario = new Usuario(
+                Usuario newUsuario = new Usuario(
                     Usuario.Nome,
                     Usuario.Email,
                     Usuario.Senha,
                     Usuario.Role
                     );
-                _context.Usuarios.Add(usuario);
+                _context.Usuarios.Add(newUsuario);
                 return await Save();
 
             }

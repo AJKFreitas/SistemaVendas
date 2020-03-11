@@ -1,5 +1,6 @@
 ﻿using SistemaVendas.Aplication.InterfaceServices.Auth;
 using SistemaVendas.Core.Domains.Auth.Entities;
+using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -43,20 +44,32 @@ namespace SistemaVendas.Aplication.Services.Auth
                 throw new Exception (ex.Message);
             }
         }
-
-        public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
+        public async Task<PagedList<Usuario>> GetAll(UsuarioParams userParams)
         {
             try
             {
-                
-                return await  _repository.GetAll(uparams);
+                return await _repository.GetAll(userParams);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
 
-                throw new Exception(ex.Message);
+                throw new Exception(e.Message);
             }
-        } 
+        }
+
+        //public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
+        //{
+        //    try
+        //    {
+
+        //        return await  _repository.GetAll(uparams);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        throw new Exception(ex.Message);
+        //    }
+        //} 
         public async Task<IEnumerable<Usuario>> GetAll()
         {
             try

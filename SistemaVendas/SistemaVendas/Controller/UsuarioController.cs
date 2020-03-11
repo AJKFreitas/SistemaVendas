@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Auth;
 using SistemaVendas.Core.Domains.Auth.Entities;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -20,36 +21,54 @@ namespace SistemaVendas.Api.Controller
             _usuarioService = usuarioService;
         }
 
-      
+        [HttpGet]
+        [Route("buscar-todos")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UsuariosPaginado([FromQuery]UsuarioParams uparams)
+        {
+            PagedList<Usuario> data = await _usuarioService.GetAll(uparams);
+            var pageData = new
+            {
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
+        }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Usuario>> RegisterUser(Usuario usuario)
         {
-            if (usuarioValido(usuario))
+
+            try
             {
-                if (_usuarioService.ExisteUsuario(usuario.Email))
+                if (usuarioValido(usuario))
                 {
-                    return BadRequest("Já existe Usuário com esse email cadastrado");
+                    if (_usuarioService.ExisteUsuario(usuario.Email))
+                    {
+                        return BadRequest("Já existe Usuário com esse email cadastrado");
+                    }
+                    await _usuarioService.Insert(usuario);
+                    return Ok(usuario);
+
                 }
-                await _usuarioService.Insert(usuario);
-                return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
-
+                else
+                {
+                    return BadRequest("Usuário invalido, verifique os dados inseridos.");
+                }
             }
-            else
+            catch (Exception e)
             {
-                  return BadRequest("Usuário invalido, verifique os dados inseridos.");
+                Console.WriteLine(e);
+                return BadRequest("Erro ao cadastrar Usuário");
             }
 
         }
-        [HttpPost]
-       // [Authorize(Roles = "Admin")]
-       [AllowAnonymous]
-        [Route("buscar-todos")]
-        public async Task<IEnumerable<Usuario>> GetProdutos([FromQuery]UsuarioParams uparams)
-        {
-            return await _usuarioService.GetAll(uparams);
-        }
-
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Usuario>> Get(Guid id)
