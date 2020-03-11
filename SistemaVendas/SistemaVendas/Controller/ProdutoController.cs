@@ -51,6 +51,24 @@ namespace SistemaVendas.Api.Controller
 
             return Ok(new { data, pageData });
         }
+        [HttpGet]
+        [Route("buscar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetProdutos([FromQuery]ProdutoParams uparams)
+        {
+            PagedList<Produto> produtos = await _produtoService.GetAll(uparams);
+            var pageData = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+            List<Produto> list = new List<Produto>(produtos);
+            return Ok(list);
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Produto>> GetProduto(Guid id)

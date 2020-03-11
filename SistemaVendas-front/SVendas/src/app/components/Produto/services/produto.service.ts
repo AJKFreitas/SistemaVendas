@@ -117,4 +117,20 @@ export class ProdutoService {
     );
   }
 
+  buscarProdutos(filter = '', sortOrder = 'asc',
+                 pageNumber = 0, pageSize = 5): Observable<any> {
+    const api = `${this.endpoint}/produto/buscar-todos`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    }).pipe(
+      // tslint:disable-next-line:no-string-literal
+      map(res => res)
+    );
+  }
 }
+
+

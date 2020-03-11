@@ -1,0 +1,6 @@
+.mat-spinner {
+    position: relative;
+    margin-left: 45%;
+    margin-right: 45%;
+    z-index: 10000;
+}

@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnChanges, AfterContentInit, ElementRef } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastService } from '../../Shared/ToastService';
 import { ProdutoService } from '../services/produto.service';
-import { PageParams } from 'src/app/shared/models/Params';
 import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.component';
+import { ProdutoDataSource } from '../services/produto.datasource';
+import { tap, debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import { MatSort } from '@angular/material/sort';
+import { merge, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-gestao-produtos',
@@ -18,9 +21,11 @@ import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.c
 export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<Produto>;
-  @ViewChild(MatPaginator) paginator;
-
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') input: ElementRef;
+  
+  dataSourceP: ProdutoDataSource;
   dataSource: MatTableDataSource<Produto>;
   displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
@@ -40,40 +45,50 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
   }
 
   ngOnChanges(): void {
-    console.log('ngOnChanges');
-    this.spinnerService.show();
-    this.service.listar(new PageParams(this.pageSize, this.pageIndex)).subscribe(res => {
-      this.produtos = res.data;
-      this.dataSource = new MatTableDataSource(this.produtos);
-      this.dataSource.paginator = this.paginator;
-      this.length = res.pageData.totalCount;
-      this.pageSize = res.pageData.pageSize;
-      this.dataSource.paginator.length = res.pageData.totalCount;
-      this.dataSource.paginator.pageIndex = res.pageData.currentPage;
-      this.spinnerService.hide();
-    }, err => {
-      this.spinnerService.hide();
-    });
+  }
 
-  }
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit');
-    // this.dataSource = new MatTableDataSource(this.produtos);
-  }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
-    this.listarProdutos(new PageParams(5, 0));
+    this.dataSourceP = new ProdutoDataSource(this.service);
+    this.dataSourceP.loadProdutos();
+    console.log(this.dataSourceP);
   }
 
   ngAfterContentInit(): void {
-    console.log('ngAfterContentInit');
   }
 
-  getPaginatorData(event) {
-    console.log(event);
-    this.listarProdutos(new PageParams(event.pageSize, event.pageIndex));
+  ngAfterViewInit() {
+
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarProdutos();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarProdutos())
+      )
+      .subscribe();
   }
+
+  carregarProdutos() {
+    this.dataSourceP.loadProdutos(
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
+  }
+  getPaginatorData(event) {
+    this.dataSourceP.loadProdutos('', 'asc', event.pageIndex, event.pageSize);
+  }
+
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -94,7 +109,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarProdutos(new PageParams(this.pageSize, this.pageIndex));
+      this.carregarProdutos();
     });
   }
   addRowData(produto: Produto) {
@@ -135,30 +150,6 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
     }
   }
 
-  buscaPaginada(pageSize, pageIndex) {
-    this.listarProdutos(new PageParams(pageSize, pageIndex));
-  }
-
-
-  listarProdutos(params: PageParams, event?) {
-    this.spinnerService.show();
-    this.service.listar(params).subscribe(res => {
-      this.produtos = res.data;
-      this.dataSource = new MatTableDataSource(this.produtos);
-      console.log(this.dataSource.data);
-
-      this.dataSource.paginator = this.paginator;
-      this.length = res.pageData.totalCount;
-      this.pageIndex = res.pageData.currentPage;
-      this.pageSize = res.pageData.pageSize;
-      this.dataSource.paginator.length = res.pageData.totalCount;
-      this.dataSource.paginator.pageIndex = res.pageData.currentPage;
-      this.spinnerService.hide();
-    }, err => {
-      this.spinnerService.hide();
-    });
-  }
-
   registerProduto(produto: ProdutoVM) {
     this.spinnerService.show();
     this.service.iserir(produto).subscribe((res) => {
@@ -168,10 +159,10 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
       }
       this.toastSevice.Success('Sucesso!', 'Produto cadastrado com sucesso!');
       this.spinnerService.hide();
-      this.listarProdutos(new PageParams(10, 1));
+      this.carregarProdutos();
     },
       err => {
-        this.listarProdutos(new PageParams(10, 1));
+        this.carregarProdutos();
         this.spinnerService.hide();
         this.toastSevice.Error('Erro ao tentar cadastar Produto!');
       }
@@ -184,7 +175,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
         this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new PageParams(10, 1));
+      this.carregarProdutos();
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
     },
@@ -201,7 +192,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
         this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new PageParams(10, 1));
+      this.carregarProdutos();
       this.spinnerService.hide();
       this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
     },
@@ -212,5 +203,6 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit, OnChanges
     );
 
   }
+
 }
 

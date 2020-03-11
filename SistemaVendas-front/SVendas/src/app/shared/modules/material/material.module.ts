@@ -11,7 +11,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import { MatSortModule } from '@angular/material/sort';
+import {  MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
 
   imports: [
@@ -26,7 +27,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatGridListModule,
@@ -42,6 +45,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatPaginatorModule,
     MatTooltipModule,
     MatRadioGroup,
+    MatSortModule,
+    MatProgressSpinnerModule
   ], providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'accent' },
   }]
