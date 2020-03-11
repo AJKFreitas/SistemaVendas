@@ -1,27 +1,6 @@
 version: '3.1'
+
 services:
-    app: 
-        image: nginx:alpine 
-        container_name: app-vendas
-        ports:
-           - "5080:80" 
-           - "5443:443"
-        volumes: 
-           - ./nginx/:/etc/nginx/conf.d/
-           - ./code:/var/www
-        networks:
-            - lan
-    api:
-        build:
-            context: ./api-vendas
-        container_name: api-vendas
-        environment: 
-            ASPNETCORE_ENVIRONMENT: "Sandbox"
-        ports:
-            - "5550:80"
-            - "5551:443"
-        networks:
-            - lan
     db_vendas:
         image: mysql:8
         command: --default-authentication-plugin=mysql_native_password
@@ -32,14 +11,44 @@ services:
             MYSQL_USER: sysadm
             MYSQL_PASSWORD: Stefa9@2020
             MYSQL_DATABASE: db_vendas
- #       volumes:
-  #          - ./db-data:/var/lib/mysql
+#  volumes:
+# - ./db-data:/var/lib/mysql
         ports:
-            - 3306:3306 
+          - 3306:3306 
         networks:
-            - lan
+          - lan
+    api:
+        build:
+            context: ./api-vendas
+        container_name: api-vendas
+        environment: 
+            ASPNETCORE_ENVIRONMENT: "Sandbox"
+        ports:
+          - "5550:80"
+          - "5551:443"
+        links:
+          - db_vendas
+        networks:
+          - lan
+        depends_on:
+          - db_vendas
+    app: 
+        image: nginx:alpine 
+        container_name: app-vendas
+        ports:
+          - "5080:80" 
+          - "5443:443"
+        volumes: 
+          - ./nginx/:/etc/nginx/conf.d/
+          - ./code:/var/www
+        links:
+          - api
+          - db_vendas
+        networks:
+          - lan
+        depends_on: 
+          - api
 networks:
     lan:
 #        driver: "bridge"
-    
-            
+
