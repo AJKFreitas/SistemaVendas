@@ -13,4 +13,9 @@
     <ProjectReference Include="..\..\Entities\Models\Entities.Models\SistemaVendas.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="InterfaceServices\Pedidos\" />
+    <Folder Include="Services\Pedidos\" />
+  </ItemGroup>
+
 </Project>

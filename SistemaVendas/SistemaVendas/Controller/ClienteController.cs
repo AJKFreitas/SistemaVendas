@@ -62,13 +62,7 @@ namespace SistemaVendas.Api.Controller
             return Ok(new { data, pageData });
         }
 
-        //[HttpPost]
-        //[Route("buscar-todos")]
-        //public async Task<IEnumerable<Cliente>> GetClientes([FromQuery]Params uparams)
-        //{
-        //    return await _service.GetAll();
-        //}
-        [HttpPut]
+       [HttpPut]
         public async Task<IActionResult> PutCliente( Cliente cliente)
         {
             if (cliente == null)

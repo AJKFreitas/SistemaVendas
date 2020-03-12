@@ -7,8 +7,6 @@ import { AuthInterceptor } from './components/Auth/shared/config/authconfig.inte
 import { SigninComponent } from './components/Auth/signin/signin.component';
 import { AuthGuard } from './components/Auth/shared/guard/auth.guard';
 import { AuthService } from './components/Auth/shared/services/auth.service';
-import { PedidoComponent } from './components/Pedido/pedido/pedido.component';
-import { PerfilComponent } from './components/Perfil/perfil/perfil.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
@@ -35,7 +33,6 @@ registerLocaleData(localeFr, 'pt-BR');
   declarations: [
     AppComponent,
     SigninComponent,
-    PerfilComponent,
   ],
   imports: [
     BrowserModule,

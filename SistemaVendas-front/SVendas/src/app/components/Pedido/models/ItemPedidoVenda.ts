@@ -6,8 +6,9 @@ export class ItemPedidoVenda {
         public quantidade: number,
         public preco: number,
         public subTotal: number,
-        public produto: Produto,
+        public produto: Produto = new Produto(),
         public idPedido: string,
-        public estoque?: number
+        public estoque?: number,
+        public idProduto?: string,
         ){}
 }

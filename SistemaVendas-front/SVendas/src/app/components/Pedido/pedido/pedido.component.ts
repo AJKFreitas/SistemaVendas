@@ -1,5 +1,5 @@
 import { Cliente } from './../../Cliente/model/Cliente';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { ProdutoService } from '../../Produto/services/produto.service';
 import { Produto, ProdutoItemPedido } from '../../Produto/model/Produto';
 import { PedidoVenda } from '../models/PedidoVenda';
 import { isNullOrUndefined } from 'util';
+import { NgxSelectOption } from 'ngx-select-ex';
 
 @Component({
   selector: 'app-pedido',
@@ -18,6 +19,10 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./pedido.component.css']
 })
 export class PedidoComponent implements OnInit {
+
+
+  @ViewChild('input') input: ElementRef;
+
   pedidoVenda: PedidoVenda = new PedidoVenda();
   itemsPedido: ItemPedidoVenda[] = [];
   pedidoForm: FormGroup;
@@ -36,7 +41,7 @@ export class PedidoComponent implements OnInit {
   };
   produtos: ProdutoItemPedido[] = [];
   itemsPedidoDeleted: any;
-
+  desconto = 0;
   constructor(
     public fb: FormBuilder,
     public clienteService: ClienteService,
@@ -55,14 +60,15 @@ export class PedidoComponent implements OnInit {
     this.adicionarItemPedido();
   }
 
-  selectionChanged(item: Produto, index) {
-    console.log(item);
+  selectionChanged(event: NgxSelectOption, index) {
+    console.log(event[0]);
     console.log(index);
-
+    debugger;
+    const produtoSelecionado = event[0].data;
     if (!isNullOrUndefined(index)) {
-      debugger;
-      this.pedidoVenda.itemsPedido[index].estoque = this.estoqueAtual(item);
-      this.pedidoVenda.itemsPedido[index].preco = item.valor;
+      this.pedidoVenda.itemsPedido[index].estoque = this.estoqueAtual(produtoSelecionado);
+      this.pedidoVenda.itemsPedido[index].preco = produtoSelecionado.valor;
+      this.pedidoVenda.itemsPedido[index].produto = produtoSelecionado;
     }
   }
 

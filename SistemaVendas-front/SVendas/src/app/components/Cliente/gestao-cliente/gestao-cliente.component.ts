@@ -78,7 +78,6 @@ export class GestaoClienteComponent implements OnInit, AfterViewInit {
     this.dataSourceC.loadClientes('', 'asc', event.pageIndex, event.pageSize);
   }
 
- 
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -113,7 +112,7 @@ export class GestaoClienteComponent implements OnInit, AfterViewInit {
     });
     this.registerCliente(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
     this.table.renderRows();
-
+    this.carregarClientes();
   }
   updateRowData(cliente: Cliente) {
     this.dataSource.data = this.dataSource.data.filter((value, key) => {
