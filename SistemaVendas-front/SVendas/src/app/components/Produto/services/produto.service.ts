@@ -1,12 +1,14 @@
 import { Fornecedor } from './../../Fornecedor/model/Fornecedor';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Router, Params } from '@angular/router';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { PageParams } from 'src/app/shared/models/Params';
+import { ResponseData } from 'src/app/shared/models/ResponseData';
 
 @Injectable({
   providedIn: 'root'
@@ -83,7 +85,7 @@ export class ProdutoService {
         catchError(this.handleError)
       );
   }
-  estoqueAtual(produto: Produto) {
+  estoqueAtual(produto: Produto): Observable<any> {
     const api = `${this.endpoint}/produto/estoque`;
     return this.http.post(api, produto)
       .pipe(
@@ -94,11 +96,12 @@ export class ProdutoService {
       );
   }
 
-  listar(params: Params): Observable<any> {
-    const api = `${this.endpoint}/produto/buscar-todos`;
-    return this.http.post(api, params).pipe(
-      map((res: Response) => {
-        return res || [];
+  listar(params: PageParams): Observable<ResponseData<Produto>> {
+    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.PageNumber}
+                      &PageSize=${params.PageSize}&Filter=${params.Filter}`;
+    return this.http.get(api).pipe(
+      map((res: ResponseData<Produto>) => {
+        return res || new ResponseData<Produto>();
       }),
       catchError(this.handleError)
     );
@@ -108,10 +111,25 @@ export class ProdutoService {
     const api = `${this.endpoint}/produto`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
-        return res || []
+        return res || [];
       }),
       catchError(this.handleError)
     );
   }
 
+  buscarProdutos(filter = '', sortOrder = 'asc',
+                 pageNumber = 0, pageSize = 5): Observable<any> {
+    const api = `${this.endpoint}/produto/buscar-todos`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    }).pipe(
+      map(res => res)
+    );
+  }
 }
+
+

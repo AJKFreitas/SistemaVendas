@@ -17,28 +17,11 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
         {
             _repository = repository;
         }
-
-        public async Task<int> Delete(Guid EntityID)
+        public async Task<PagedList<Fornecedor>> BuscarPorFiltroComPaginacao(FornecedorParams prodParams)
         {
             try
             {
-
-                return await _repository.Delete(EntityID);
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-        }
-
-
-        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams)
-        {
-            try
-            {
-
-                return await _repository.GetAll(fParams);
+                return await _repository.BuscarPorFiltroComPaginacao(prodParams);
             }
             catch (Exception e)
             {
@@ -46,12 +29,12 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
                 throw new Exception(e.Message);
             }
         }
-        public async Task<IEnumerable<Fornecedor>> GetAll()
+        public async Task<IEnumerable<Fornecedor>> BuscarTodos()
         {
             try
             {
 
-                return await _repository.GetAll();
+                return await _repository.BuscarTodos();
             }
             catch (Exception e)
             {
@@ -60,11 +43,11 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             }
         }
 
-        public Task<Fornecedor> GetById(Guid Id)
+        public Task<Fornecedor> BuscarPorId(Guid Id)
         {
             try
             {
-                return _repository.GetById(Id);
+                return _repository.BuscarPorId(Id);
             }
             catch (Exception e)
             {
@@ -73,12 +56,14 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             }
         }
 
-        public Task<int> Insert(Fornecedor fornecedor)
+
+
+        public async Task<int> Inserir(Fornecedor fornecedor)
         {
             try
             {
                 
-               return _repository.Insert(fornecedor);
+               return await _repository.Inserir(fornecedor);
               
             }
             catch (Exception e)
@@ -87,11 +72,11 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
             }
         }
 
-        public Task<int> Update(Fornecedor fornecedor)
+        public Task<int> Editar(Fornecedor fornecedor)
         {
             try
             {
-                return _repository.Update(fornecedor);
+                return _repository.Editar(fornecedor);
 
             }
             catch (Exception e)
@@ -100,7 +85,19 @@ namespace SistemaVendas.Aplication.Services.Fornecedores
                 throw new Exception(e.Message);
             }
         }
-                
+        public async Task<int> Excluir(Guid EntityID)
+        {
+            try
+            {
+
+                return await _repository.Excluir(EntityID);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
         public bool ExisteFornecedor(long cnpj)
         {
             try

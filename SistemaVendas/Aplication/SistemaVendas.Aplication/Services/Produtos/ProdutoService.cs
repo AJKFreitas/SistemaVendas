@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace SistemaVendas.Aplication.Services.Produtos
 {
@@ -20,11 +21,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             _mapper = mapper;
         }
 
-        public async Task<int> Delete(Guid Id)
+        public async Task<int> Excluir(Guid Id)
         {
             try
             {
-             return await _repository.Delete(Id);
+             return await _repository.Excluir(Id);
 
             }
             catch (Exception e)
@@ -33,12 +34,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
                 throw e;
             }
         }
-        public async Task<PagedList<Produto>> GetAll(ProdutoParams fParams)
+        public async Task<PagedList<Produto>> BuscarPorFiltroComPaginacao(ProdutoParams prodParams)
         {
             try
             {
-
-                return await _repository.GetAll(fParams);
+               return await _repository.BuscarPorFiltroComPaginacao(prodParams);
             }
             catch (Exception e)
             {
@@ -47,11 +47,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public async Task<IEnumerable<Produto>> GetAll()
+        public async Task<IEnumerable<Produto>> BuscarTodos()
         {
             try
             {
-                return await _repository.GetAll();
+                return await _repository.BuscarTodos();
             }
             catch (Exception e)
             {
@@ -60,16 +60,25 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public async Task<long> CalcularEstoque(Guid id)
-        {
-            return await _repository.CalcularEstoque(id);
-        }
-
-        public Task<Produto> GetById(Guid Id)
+        public async Task<dynamic> CalcularEstoque(Guid id)
         {
             try
             {
-                return _repository.GetById(Id);
+                return await _repository.CalcularEstoque(id);
+
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Erro ao tentar calcular estoque.");
+            }
+        }
+
+        public Task<Produto> BuscarPorId(Guid Id)
+        {
+            try
+            {
+                return _repository.BuscarPorId(Id);
             }
             catch (Exception e)
             {
@@ -78,12 +87,12 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public Task<int> Insert(ProdutoVM ProdutoVM)
+        public Task<int> Inserir(ProdutoVM ProdutoVM)
         {
             try
             {
                 var prod = _mapper.Map<ProdutoVM, Produto>(ProdutoVM);
-                return _repository.Insert(prod);
+                return _repository.Inserir(prod);
             }
             catch (Exception e)
             {
@@ -92,11 +101,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public Task<int> Update(Produto Produto)
+        public Task<int> Editar(Produto Produto)
         {
             try
             {
-                return _repository.Update(Produto);
+                return _repository.Editar(Produto);
 
             }
             catch (Exception e)

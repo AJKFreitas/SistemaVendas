@@ -9,13 +9,13 @@ namespace SistemaVendas.Aplication.InterfaceServices.Produtos
 {
    public interface IProdutoService
     {
-        Task<PagedList<Produto>> GetAll(ProdutoParams pParams);
-        Task<IEnumerable<Produto>> GetAll();
-        Task<Produto> GetById(Guid Id);
-        Task<int> Insert(ProdutoVM Produto);
-        Task<int> Update(Produto Produto);
+        Task<PagedList<Produto>> BuscarPorFiltroComPaginacao(ProdutoParams pParams);
+        Task<IEnumerable<Produto>> BuscarTodos();
+        Task<Produto> BuscarPorId(Guid Id);
+        Task<int> Inserir(ProdutoVM Produto);
+        Task<int> Editar(Produto Produto);
+        Task<int> Excluir(Guid Id);
         bool ExisteProduto(long codigo);
-        Task<int> Delete(Guid Id);
-        Task<long> CalcularEstoque(Guid idproduto);
+        Task<dynamic> CalcularEstoque(Guid idproduto);
     }
 }

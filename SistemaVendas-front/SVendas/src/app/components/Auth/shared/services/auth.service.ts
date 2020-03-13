@@ -48,7 +48,6 @@ export class AuthService {
     this.SpinnerService.show();
     return this.http.post<any>(`${this.endpoint}/login`, user)
       .subscribe((res: any) => {
-        console.log(res);
         localStorage.setItem('access_token', res.accessToken);
         this.SpinnerService.hide();
         this.router.navigate(['dashboard'], { relativeTo: this.route }).then(nav => {

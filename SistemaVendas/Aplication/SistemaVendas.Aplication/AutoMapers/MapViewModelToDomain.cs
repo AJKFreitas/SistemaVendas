@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
+using SistemaVendas.Core.Domains.Pedidos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using System.Linq;
 
@@ -37,7 +38,9 @@ namespace SistemaVendas.Core.AutoMapers
                 .ForPath(x => x.Produto, opt => opt.MapFrom(x => x))
                 .ForPath(x => x.IdProduto, opt => opt.MapFrom(x => x.Id));
 
-                
+            CreateMap<PedidoVendaVM, PedidoVenda>()
+                .ForPath(dest => dest.ItemPedidos, opt => opt.MapFrom(src => src.ItemPedidosVM));
+
 
 
 

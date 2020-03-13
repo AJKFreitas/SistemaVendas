@@ -17,6 +17,9 @@ using SistemaVendas.Aplication.Services.Produtos;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using SistemaVendas.Aplication.Services.Fornecedores;
 using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
+using SistemaVendas.Aplication.InterfaceServices.Pedidos;
+using SistemaVendas.Aplication.Services.Pedidos;
+using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 
 namespace SistemaVendas.Infra.IoC
 {
@@ -37,7 +40,9 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IProdutoRepository, ProdutoRepository>();  
             services.AddScoped<IProdutoService, ProdutoService>();  
             services.AddScoped<IClienteRepository, ClienteRepository>();  
-            services.AddScoped<IClienteService, ClienteService>();  
+            services.AddScoped<IClienteService, ClienteService>();
+            services.AddScoped<IPedidoVendaService, PedidoVendaService>();
+            services.AddScoped<IPedidoVendaRepository, PedidoVendaRepository>();
 
 
         }

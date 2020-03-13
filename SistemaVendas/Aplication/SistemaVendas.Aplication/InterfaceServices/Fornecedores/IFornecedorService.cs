@@ -8,12 +8,12 @@ namespace SistemaVendas.Aplication.InterfaceServices.Fornecedores
 {
    public interface IFornecedorService
     {
-        Task<PagedList<Fornecedor>> GetAll(FornecedorParams fParams);
-        Task<IEnumerable<Fornecedor>> GetAll();
-        Task<Fornecedor> GetById(Guid Id);
-        Task<int> Insert(Fornecedor fornecedor);
-        Task<int> Update(Fornecedor fornecedor);
+        Task<PagedList<Fornecedor>> BuscarPorFiltroComPaginacao(FornecedorParams fParams);
+        Task<IEnumerable<Fornecedor>> BuscarTodos();
+        Task<Fornecedor> BuscarPorId(Guid Id);
+        Task<int> Inserir(Fornecedor fornecedor);
+        Task<int> Editar(Fornecedor fornecedor);
+        Task<int> Excluir(Guid Id);
         bool ExisteFornecedor(long cnpj);
-        Task<int> Delete(Guid Id);
     }
 }

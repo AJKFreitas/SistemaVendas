@@ -8,14 +8,14 @@ namespace SistemaVendas.Core.Domains.Produtos.Interfaces
 {
     public interface IProdutoRepository
     {
-        Task<int> Delete(Guid Id);
-        Task<PagedList<Produto>> GetAll(ProdutoParams produtoParams);
-        Task<IEnumerable<Produto>> GetAll();
-        Task<Produto> GetById(Guid Id);
-        Task<int> Insert(Produto produto);
-        Task<int> Save();
-        Task<int> Update(Produto produto);
+        Task<PagedList<Produto>> BuscarPorFiltroComPaginacao(ProdutoParams produtoParams);
+        Task<IEnumerable<Produto>> BuscarTodos();
+        Task<Produto> BuscarPorId(Guid Id);
+        Task<int> Inserir(Produto produto);
+        Task<int> Editar(Produto produto);
+        Task<int> Excluir(Guid Id);
+        Task<int> SalvarCommit();
         bool ExisteProduto(long codigo);
-        Task<long> CalcularEstoque(Guid idproduto);
+        Task<dynamic> CalcularEstoque(Guid idproduto);
     }
 }

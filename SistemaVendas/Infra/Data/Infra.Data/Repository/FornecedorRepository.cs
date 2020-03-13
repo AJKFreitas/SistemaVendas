@@ -20,11 +20,11 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<int> Delete(Guid EntityID)
+        public async Task<int> Excluir(Guid EntityID)
         {
-            Fornecedor fornecedor = null;
             try
             {
+                Fornecedor fornecedor = null;
                  fornecedor = _context.Fornecedores.Find(EntityID);
                 if (fornecedor != null)
                     _context.Remove(fornecedor);
@@ -35,12 +35,32 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams usuarioParams)
+        public async Task<PagedList<Fornecedor>> BuscarPorFiltroComPaginacao(FornecedorParams parametros)
         {
             try
             {
-                var query = _context.Fornecedores;
-                return await PagedList<Fornecedor>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
+                var paginaDeFoenecedores = _context.Fornecedores.AsQueryable();
+
+
+                if (parametros.Filter != null)
+                {
+                    paginaDeFoenecedores = paginaDeFoenecedores.Where(x => x.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.CNPJ.ToString().ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Telefone.ToLower().Contains(parametros.Filter.ToLower()));
+                }
+                if (parametros.SortOrder.ToLower().Equals("asc"))
+                {
+                    paginaDeFoenecedores = paginaDeFoenecedores.OrderBy(prod => prod.Nome);
+                }
+                if (parametros.SortOrder.ToLower().Equals("desc"))
+                {
+                    paginaDeFoenecedores = paginaDeFoenecedores.OrderByDescending(prod => prod.Nome);
+                }
+
+                var result = await paginaDeFoenecedores.ToListAsync();
+
+                return PagedList<Fornecedor>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
+
             }
             catch (MySqlException ex)
             {
@@ -48,7 +68,24 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<IEnumerable<Fornecedor>> GetAll()
+        //public async Task<List<Fornecedor>> GetAll(FornecedorParams fornecedorParams)
+        //{
+        //    try
+        //    {
+        //        return await _context.Fornecedores
+        //            .OrderBy(p => p.Nome)
+        //            .Skip(((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize) < 0 ? 0 : ((fornecedorParams.PageNumber - 1) * fornecedorParams.PageSize))
+        //            .Take(fornecedorParams.PageSize)
+        //            .ToListAsync();
+        //         //await PagedList<Fornecedor>.CreateAsync(query, fornecedorParams.PageNumber, fornecedorParams.PageSize);
+        //    }
+        //    catch (MySqlException ex)
+        //    {
+        //        _context.Dispose();
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
+        public async Task<IEnumerable<Fornecedor>> BuscarTodos()
         {
             
             try
@@ -62,7 +99,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Fornecedor> GetById(Guid EntityID)
+        public async Task<Fornecedor> BuscarPorId(Guid EntityID)
         {
             try
             {
@@ -75,7 +112,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Insert(Fornecedor fornecedor)
+        public async Task<int> Inserir(Fornecedor fornecedor)
         {
             try
             {
@@ -110,7 +147,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Update(Fornecedor fornecedor)
+        public async Task<int> Editar(Fornecedor fornecedor)
         {
             try
             {

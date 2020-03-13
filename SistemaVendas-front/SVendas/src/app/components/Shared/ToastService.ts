@@ -5,23 +5,21 @@ import { Message } from './Message';
 declare var toastr: any;
 
 @Injectable()
-export class ToastService {
+export class MensagemPopUPService {
     constructor() { }
 
-    Success(title: string, meassage?: string) {
-        toastr.success(title, meassage);
+    Sucesso(titulo: string, mensagem?: string) {
+        toastr.success(mensagem, titulo);
     }
-    Warning(title: string, meassage?: string) {
-        toastr.warning(title, meassage);
-    }
-
-    Error(title: string, meassage?: string) {
-        toastr.error(title, meassage);
+    Aviso(titulo: string, mensagem?: string) {
+        toastr.warning(mensagem, titulo);
     }
 
-    Info(meassage: string) {
-        toastr.info(meassage);
+    Erro(titulo: string, mensagem?: string) {
+        toastr.error(mensagem, titulo);
     }
 
-
+    Informacao(mensagem: string) {
+        toastr.info(mensagem);
+    }
 }

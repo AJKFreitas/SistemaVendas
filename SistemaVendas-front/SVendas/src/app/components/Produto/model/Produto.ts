@@ -15,6 +15,16 @@ export class ProdutoVM {
         public descricao: string,
         public valor: number,
         public codigo: number,
-        public fornecedores: Fornecedor[]
+        public fornecedores: Fornecedor[],
+        public estoqueAtual?: number,
     ) { }
+}
+export class ProdutoItemPedido {
+    id: string;
+    nome: string;
+    descricao: string;
+    valor: number;
+    codigo: number;
+    estoqueAtual: number;
+    public fornecedores: Fornecedor[];
 }

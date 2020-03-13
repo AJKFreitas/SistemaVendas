@@ -4,7 +4,7 @@ import { AuthService } from '../../Auth/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { UsuarioService } from '../services/usuario.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
@@ -27,7 +27,7 @@ export class UsuarioComponent implements OnInit {
     public service: UsuarioService,
     public router: Router,
     private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService
+    private toastSevice: MensagemPopUPService
   ) {
     this.signupForm = this.fb.group({
       nome: [''],
@@ -43,16 +43,16 @@ export class UsuarioComponent implements OnInit {
     this.spinnerService.show();
     this.service.iserir(this.signupForm.value).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.submitForm(formData, formDirective);
       this.spinnerService.hide();
     },
     err => {
       this.spinnerService.hide();
-      this.toastSevice.Error('Erro ao tentar cadastar Usuario!');
+      this.toastSevice.Erro('Erro ao tentar cadastar Usuario!');
     }
     );
   }

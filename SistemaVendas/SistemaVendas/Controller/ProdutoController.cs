@@ -8,12 +8,13 @@ using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Aplication.InterfaceServices.Produtos;
 using System.Net.Mime;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
     [Route("svendas/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin,Funcionario,Fornecedor")]
+    [Authorize(Roles = "Admin,Fornecedor,Funcionario,Vendedor")]
     public class ProdutoController : ControllerBase
     {
         private readonly IProdutoService _produtoService;
@@ -25,52 +26,83 @@ namespace SistemaVendas.Api.Controller
 
 
         [HttpGet]
-        public async Task<IEnumerable<Produto>> GetProdutos()
+        public async Task<IEnumerable<Produto>> BuscarTodos()
         {
 
-            return await _produtoService.GetAll();
+            return await   _produtoService.BuscarTodos();
 
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
+        [HttpGet]
         [Route("buscar-todos")]
-        public async Task<IEnumerable<Produto>> GetFornecedorFiltro([FromQuery]ProdutoParams uparams)
+        [AllowAnonymous]
+        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]ProdutoParams parametros)
         {
-            return await _produtoService.GetAll(uparams);
+            PagedList<Produto> data = await _produtoService.BuscarPorFiltroComPaginacao(parametros);
+            var pageData = new
+            {
+                data.TotalCount,
+                data.PageSize,
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
+        }
+
+        [HttpGet]
+        [Route("buscar")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BuscarPorFiltroComPaginacaoList([FromQuery]ProdutoParams parametros)
+        {
+            PagedList<Produto> produtos = await _produtoService.BuscarPorFiltroComPaginacao(parametros);
+            var pageData = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+            List<Produto> list = new List<Produto>(produtos);
+            return Ok(list);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Produto>> GetProduto(Guid id)
+        public async Task<ActionResult<Produto>> BuscarPorId(Guid id)
         {
-            var produto = await _produtoService.GetById(id);
+            var produto = await _produtoService.BuscarPorId(id);
 
             if (produto == null)
             {
                 return NotFound();
             }
 
-            return produto;
+            return Ok(produto);
         }
 
         [HttpPost]
         [Route("estoque")]
-        public async Task<ActionResult<long>> CalculaEstoque(Produto produto)
+        public async Task<ActionResult<dynamic>> CalculaEstoque(Produto produto)
         {
             if (produto != null)
             {
-            return await _produtoService.CalcularEstoque(produto.Id);
+               
+                return await _produtoService.CalcularEstoque(produto.Id);
             }
-            return BadRequest("Produto inválido!");
+                return BadRequest("Produto inválido!");
         }
 
 
         [HttpPut]
-        public async Task<IActionResult> PutProduto(Produto produto)
+        public async Task<IActionResult> Editar(Produto produto)
         {
             try
             {
-                await _produtoService.Update(produto);
+                await _produtoService.Editar(produto);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -89,9 +121,9 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<Produto>> PostProduto(ProdutoVM produtoVM)
+        public async Task<ActionResult<Produto>> Inserir(ProdutoVM produtoVM)
         {
-            await _produtoService.Insert(produtoVM);
+            await _produtoService.Inserir(produtoVM);
 
             return CreatedAtAction("GetProduto", new { id = produtoVM.Id }, produtoVM);
         }
@@ -99,21 +131,21 @@ namespace SistemaVendas.Api.Controller
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Produto>> DeleteProduto(Guid id)
+        public async Task<ActionResult<Produto>> Excluir(Guid id)
         {
-            var produto = await _produtoService.GetById(id);
+            var produto = await _produtoService.BuscarPorId(id);
             if (produto == null)
             {
                 return NotFound();
             }
 
-            await _produtoService.Delete(produto.Id);
+            await _produtoService.Excluir(produto.Id);
             return produto;
         }
 
         private bool ProdutoExists(Guid id)
         {
-            if (_produtoService.GetById(id) != null)
+            if (_produtoService.BuscarPorId(id) != null)
             {
                 return true;
             }

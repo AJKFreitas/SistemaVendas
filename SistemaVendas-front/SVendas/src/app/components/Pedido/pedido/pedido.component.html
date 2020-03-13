@@ -1,20 +1,38 @@
 <div class="card">
     <div class="card-body titulo" id="titulo">
-        Cadastrar Pedido
+        Lançar Pedido - Venda
     </div>
 </div>
 <div class="card">
+    <!-- <span> {{pedidoVenda | json}} </span> -->
+
     <div class="card-body ">
-        <form [formGroup]="pedidoForm" #formDirective="ngForm">
+        <form  #formDirective="ngForm">
             <div class="row">
                 <div class="col-5">
 
                     <label for="cliente">Cliente</label>
-                    <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="cliente" [multiple]="false"
-                    [config]="config" [options]="clientes">
-                </ngx-select-dropdown>
+                   <ngx-select [items]="clientes"
+                            [(ngModel)]="pedidoVenda.cliente"
+                            name="cliente" #cliente="ngModel">
+                    </ngx-select>
             </div>
-            <div class="col-6">&nbsp;</div>
+                <div class="col-2">
+                    <label for="desconto">Desconto</label>
+                        <input class="form-control" id="desconto" 
+                                      name="desconto" type="number" 
+                                      [(ngModel)]="desconto" >
+                </div>
+                <div class="col-2">
+                    <label for="valorTotal">Valor Total do Pedido</label>
+                        <input #input class="form-control" id="valorTotal" 
+                                      name="valorTotal" type="number" #valorTotal="ngModel"
+                                      [(ngModel)]="pedidoVenda.valorTotal" disabled>
+                </div>
+                <div class="col-1">
+                    <label for="valorTotal">&nbsp;</label>
+                    <button class="btn btn-primary form-control">Calcular</button>
+                </div>
         </div>
         <span><br> <hr></span>
             <div class="row col-12">
@@ -24,9 +42,9 @@
                 <div class="col-1"><label>Quant.</label></div>
                 <div class="col-2"><label>Preço Venda</label></div>
                 <div class="col-2"><label>Estoque Atual</label></div>
-                <div class="col-2"><label>Valor total</label></div>
+                <div class="col-2"><label>Sub-total</label></div>
             </div>
-            <div class="row col-12" *ngFor="let item of itemsPedido; let in = index">
+            <div class="row col-12" *ngFor="let item of pedidoVenda.itemsPedido; let in = index">
                 <div class="col-1">
                     <button class="btn btn-danger" type="button" (click)="removeItemPedido(item)">
                         &nbsp;-&nbsp;
@@ -34,21 +52,50 @@
                 </div>
                 
                 <div class=" col-4">
-                    <ngx-select-dropdown (change)="selectionChanged($event)" 
-                        [multiple]="false" [config]="config" [options]="produtos" id="produto-{{in}}">
-                    </ngx-select-dropdown>
+                    <!-- <ngx-select-dropdown (change)="selectionChanged(item.produto,in)" 
+                        [multiple]="false" 
+                        [config]="config" 
+                        [options]="produtos" 
+                        id="produto-{{in}}"
+                        [(ngModel)]="item.produto" 
+                        name="produto-{{in}}"
+                        #produto="ngModel" >
+                    </ngx-select-dropdown> -->
+                    <ngx-select (selectionChanges)="selectionChanged($event,in)"
+                            [items]="produtos" 
+                            id="produto-{{in}}"
+                            [(ngModel)]="item.idProduto"
+                            name="produto-{{in}}"
+                            #produto="ngModel">
+                    </ngx-select>
                 </div>
                 <div class=" col-1">
-                    <input type="text" class="form-control" id="quantidade-{{in}}">
+                    <input type="number" class="form-control" 
+                    id="quantidade-{{in}}" 
+                    [(ngModel)]="item.quantidade" 
+                    name="quantidade-{{in}}"
+                    #quantidade="ngModel" 
+                    >
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="preco-{{in}}">
+                    <input type="number" class="form-control" id="preco-{{in}}"
+                    [(ngModel)]="item.preco" 
+                    name="preco-{{in}}"
+                    #preco="ngModel"
+                    >
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="estoque-{{in}}">
+                    <input type="number" class="form-control" id="estoque-{{in}}"
+                    [(ngModel)]="item.estoque" 
+                    name="estoque-{{in}}"
+                    #estoque="ngModel">
                 </div>
                 <div class=" col-2">
-                    <input type="text" class="form-control" id="valorTotal-{{in}}">
+                    <input type="number" class="form-control" id="subTotal-{{in}}"
+                    [(ngModel)]="item.subTotal" 
+                    name="subTotal-{{in}}"
+                    #subTotal="ngModel"
+                    value="{{item.preco * item.quatidade}}">
                 </div>
                 <span><br> <hr></span>
             </div>
@@ -70,3 +117,4 @@
         </form>
     </div>
 </div>
+<!-- <span> {{pedidoVenda | json}} </span> -->

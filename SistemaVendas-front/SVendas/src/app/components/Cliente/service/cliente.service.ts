@@ -1,9 +1,9 @@
-import { Params } from './../../../shared/models/Params';
+import { PageParams } from './../../../shared/models/Params';
 import { Injectable } from '@angular/core';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -19,7 +19,7 @@ export class ClienteService {
     private http: HttpClient,
     public router: Router) { }
 
-  public form: FormGroup = new FormGroup({
+  public clienteFormGroup: FormGroup = new FormGroup({
     id: new FormControl(''),
     nome: new FormControl('', Validators.required),
     cpf: new FormControl('', Validators.required),
@@ -48,7 +48,7 @@ export class ClienteService {
         catchError(this.handleError)
       );
   }
-  listar(params: Params): Observable<any> {
+  listar(params: PageParams): Observable<any> {
     const api = `${this.endpoint}/cliente/buscar-todos`;
     return this.http.post(api, params).pipe(
       map((res: Response) => {
@@ -80,16 +80,30 @@ export class ClienteService {
     return throwError(msg);
   }
   public resetForm() {
-    this.form.reset();
-    this.form.setErrors = null;
+    this.clienteFormGroup.reset();
+    this.clienteFormGroup.setErrors = null;
   }
   initializeFormGroup() {
-    this.form.setValue({
+    this.clienteFormGroup.setValue({
       id: '',
       nome: '',
       cpf: '',
       telefone: '',
       endereco: '',
     });
+  }
+
+  buscarClientes(filter = '', sortOrder = 'asc',
+                 pageNumber = 0, pageSize = 5): Observable<any> {
+    const api = `${this.endpoint}/cliente/buscar-todos`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filter)
+        .set('sortOrder', sortOrder)
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    }).pipe(
+      map(res => res)
+    );
   }
 }

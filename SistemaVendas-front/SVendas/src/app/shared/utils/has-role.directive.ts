@@ -21,7 +21,6 @@ export class HasRoleDirective implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('access_token')) {
       this.userRoles = this.jwtHelper.decodeToken(localStorage.getItem('access_token')).role as Array<string>;
-      console.log(this.userRoles);
     }
     // const userRoles = UsuarioService.decodedToken.role as Array<string>;   "role": "Admin"
     // if no roles clear viewcontainerref

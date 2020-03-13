@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -20,10 +21,27 @@ namespace SistemaVendas.Api.Controller
             _fornecedorService = fornecedorService;
         }
 
-    
+        [HttpGet]
+        [Route("buscar-todos")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BuscarFornecedorPaginado([FromQuery]FornecedorParams parametros)
+        {
+            PagedList<Fornecedor> data = await _fornecedorService.BuscarPorFiltroComPaginacao(parametros);
+            var pageData = new
+            {
+                data.TotalCount,
+                data.PageSize,       
+                data.CurrentPage,
+                data.TotalPages,
+                data.HasNext,
+                data.HasPrevious
+            };
+
+            return Ok(new { data, pageData });
+        }
         [HttpPost]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        public async Task<ActionResult<Fornecedor>> RegisterFornecedor(Fornecedor fornecedor)
+        public async Task<ActionResult<Fornecedor>> Inserir(Fornecedor fornecedor)
         {
             if (fornecedorValido(fornecedor))
             {
@@ -31,7 +49,7 @@ namespace SistemaVendas.Api.Controller
                 {
                     return BadRequest("Já existe Fornecedor com esse email cadastrado");
                 }
-                await _fornecedorService.Insert(fornecedor);
+                await _fornecedorService.Inserir(fornecedor);
                 return CreatedAtAction("GetFornecedor", new { id = fornecedor.Id }, fornecedor);
 
             }
@@ -43,25 +61,25 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpPost]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        [Route("buscar-todos")]
-        public async Task<IEnumerable<Fornecedor>> GetFornecedorFiltro([FromQuery]FornecedorParams uparams)
+        [Route("buscar")]
+        public async Task<IEnumerable<Fornecedor>> BuscarPorFiltroComPaginacao([FromQuery]FornecedorParams uparams)
         {
-            return await _fornecedorService.GetAll(uparams);
+            return await _fornecedorService.BuscarPorFiltroComPaginacao(uparams);
         }  
 
 
         [HttpGet]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        public async Task<IEnumerable<Fornecedor>> Get()
+        public async Task<IEnumerable<Fornecedor>> BuscarTodos()
         {
-            return await _fornecedorService.GetAll();
+            return await _fornecedorService.BuscarTodos();
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        public async Task<ActionResult<Fornecedor>> Get(Guid id)
+        public async Task<ActionResult<Fornecedor>> BuscarPorId(Guid id)
         {
-            var fornecedor = await _fornecedorService.GetById(id);
+            var fornecedor = await _fornecedorService.BuscarPorId(id);
 
             if (fornecedor == null)
             {
@@ -73,7 +91,7 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPut]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        public async Task<IActionResult> Put(Fornecedor fornecedor)
+        public async Task<IActionResult> Editar(Fornecedor fornecedor)
         {
             if (!fornecedorValido(fornecedor))
             {
@@ -81,7 +99,7 @@ namespace SistemaVendas.Api.Controller
             }
             try
             {
-                await _fornecedorService.Update(fornecedor);
+                await _fornecedorService.Editar(fornecedor);
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -100,7 +118,7 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Fornecedor,Funcionario")]
-        public async Task<ActionResult<Fornecedor>> Delete(Guid id)
+        public async Task<ActionResult<Fornecedor>> Excluir(Guid id)
         {
             if (id == null)
             {
@@ -109,7 +127,7 @@ namespace SistemaVendas.Api.Controller
             try
             {
 
-                return Ok(await _fornecedorService.Delete(id));
+                return Ok(await _fornecedorService.Excluir(id));
             }
             catch (Exception e)
             {
@@ -126,7 +144,7 @@ namespace SistemaVendas.Api.Controller
             try
             {
                 Fornecedor user = null;
-                user = await _fornecedorService.GetById(id);
+                user = await _fornecedorService.BuscarPorId(id);
                 return user != null;
 
             }

@@ -1,10 +1,14 @@
+import { Produto } from '../../Produto/model/Produto';
+
 export class ItemPedidoVenda {
     constructor(
         public id: string,
         public quantidade: number,
         public preco: number,
         public subTotal: number,
-        public idProduto: string,
+        public produto: Produto = new Produto(),
         public idPedido: string,
-    ){}
+        public estoque?: number,
+        public idProduto?: string,
+        ){}
 }

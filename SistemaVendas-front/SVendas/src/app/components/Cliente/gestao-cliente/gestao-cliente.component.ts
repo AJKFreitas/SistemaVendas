@@ -1,198 +1,156 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ClienteDialogComponent } from '../modal/cliente-dialog/cliente-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { ClienteService } from '../service/cliente.service';
-import { Params } from 'src/app/shared/models/Params';
+import { ClienteDataSource } from '../service/cliente.datasource';
+import { fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-gestao-cliente',
   templateUrl: './gestao-cliente.component.html',
   styleUrls: ['./gestao-cliente.component.css']
 })
-export class GestaoClienteComponent implements OnInit {
+export class GestaoClienteComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
+  @ViewChild(MatTable, { static: false }) table: MatTable<Cliente>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('filtroTabela') filtroTabela: ElementRef;
+
+  fonteDeDadosDeClientes: ClienteDataSource;
+  cabecalhoTabelaClientes: string[] = ['nome', 'cpf', 'telefone', 'endereco', 'action'];
+
+  tamanhosDePagina: number[] = [5, 10, 25, 100];
 
   constructor(
-    public dialog: MatDialog,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
+    public modalCliente: MatDialog,
+    private servicoDeLoading: NgxSpinnerService,
+    private mensagemPopUp: MensagemPopUPService,
     public service: ClienteService,
   ) { }
-  dataSource: MatTableDataSource<Cliente>;
-  displayedColumns: string[] = ['nome', 'cpf', 'telefone', 'endereco', 'action'];
-  clientes: Cliente[] = [];
-
-  @ViewChild(MatTable, { static: true }) table: MatTable<Cliente>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(PageEvent) pageEvent: PageEvent;
-
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  public pageSize = 0;
-  public currentPage = 0;
-  public totalSize = 0;
-
-  // tslint:disable-next-line:use-lifecycle-interface
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.clientes);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    length = this.clientes.length;
-    this.listarClientes(new Params(10, 1));
-    this.pageEvent = new PageEvent();
+    this.fonteDeDadosDeClientes = new ClienteDataSource(this.service);
+    this.fonteDeDadosDeClientes.CarregarClientes();
+  }
+  ngAfterViewInit() {
+    fromEvent(this.filtroTabela.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarClientes();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarClientes())
+      )
+      .subscribe();
+  }
+  carregarClientes() {
+    this.fonteDeDadosDeClientes.CarregarClientes(
+      this.filtroTabela.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
   }
 
   getPaginatorData(event) {
-    console.log(event);
-    this.listarClientes(new Params(event.pageSize, event.pageIndex || 1));
+    this.fonteDeDadosDeClientes.CarregarClientes('', 'asc', event.pageIndex, event.pageSize);
   }
 
- 
-  openModal(action, obj) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    dialogConfig.data = obj;
-    obj.action = action;
-    const dialogRef = this.dialog.open(ClienteDialogComponent, dialogConfig);
+  abrirModalCliente(acao, objeto) {
+    const configuracaoModalCliente = new MatDialogConfig();
+    configuracaoModalCliente.disableClose = true;
+    configuracaoModalCliente.autoFocus = true;
+    configuracaoModalCliente.width = '60%';
+    configuracaoModalCliente.data = objeto;
+    objeto.action = acao;
+    const respostaModalCliente = this.modalCliente.open(ClienteDialogComponent, configuracaoModalCliente);
 
-    dialogRef.afterClosed().subscribe(result => {
+    respostaModalCliente.afterClosed().subscribe(result => {
       if (result.event === Action.Adicionar) {
-        this.addRowData(result.data.value);
+        this.adicionarCliente(result.data.value);
       } else if (result.event === Action.Editar) {
-        this.updateRowData(result.data.value);
+        this.editar(result.data.value);
       } else if (result.event === Action.Excluir) {
-        this.deleteRowData(result.data.value);
+        this.excluir(result.data.value);
       } else {
         this.service.resetForm();
         this.service.initializeFormGroup();
-        this.listarClientes(new Params(10, 1));
+        this.carregarClientes();
       }
     });
   }
-  addRowData(cliente: Cliente) {
-    this.dataSource.data.push({
-      id: '',
-      nome: cliente.nome,
-      cpf: cliente.cpf,
-      endereco: cliente.endereco,
-      telefone: cliente.telefone
-    });
-    this.registerCliente(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
+  adicionarCliente(cliente: Cliente) {
+    this.registrar(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
     this.table.renderRows();
-
-  }
-  updateRowData(cliente: Cliente) {
-    this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      if (value.id === cliente.id) {
-        value.nome = cliente.nome;
-      }
-      return true;
-    });
-    this.updateCliente(cliente);
+    this.carregarClientes();
   }
 
-  deleteRowData(cliente: Cliente) {
-    this.dataSource.data = this.dataSource.data.filter((value, key) => {
-      return value.id !== cliente.id;
-    });
-    this.deleteCliente(cliente);
-  }
-  applyFilter(event: Event) {
-    console.log('applyFilter', event);
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  buscaPaginada(pageSize, pageIndex) {
-    this.listarClientes(new Params(pageSize, pageIndex));
-  }
-
-  listarClientes(params: Params) {
-    this.spinnerService.show();
-    this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.clientes = res;
-        this.dataSource.paginator = this.paginator;
-      }
-      this.clientes = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    }, err =>{
-      this.spinnerService.hide();
-    });
-  }
-
-  registerCliente(cliente: ClienteVM) {
-    this.spinnerService.show();
+  registrar(cliente: ClienteVM) {
+    this.servicoDeLoading.show();
     this.service.iserir(cliente).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
-        this.spinnerService.hide();
+        this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente cadastrado com sucesso!');
+        this.servicoDeLoading.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Cliente cadastrado com sucesso!');
-      this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente cadastrado com sucesso!');
+      this.servicoDeLoading.hide();
+      this.carregarClientes();
     },
       err => {
-        this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar cadastar Usuario!');
+        this.servicoDeLoading.hide();
+        this.mensagemPopUp.Erro('Erro ao tentar cadastar Usuario!');
       }
     );
   }
 
-  updateCliente(cliente: Cliente) {
-    this.spinnerService.show();
+  editar(cliente: Cliente) {
+    this.servicoDeLoading.show();
     this.service.editar(cliente).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
-        this.spinnerService.hide();
+        this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente alterado com sucesso!');
+        this.servicoDeLoading.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Cliente alterado com sucesso!');
-      this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente alterado com sucesso!');
+      this.servicoDeLoading.hide();
+      this.carregarClientes();
     },
       err => {
-        this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar alterado Usuario!');
+        this.servicoDeLoading.hide();
+        this.mensagemPopUp.Erro('Erro ao tentar alterado Usuario!');
       }
     );
   }
 
-  deleteCliente(cliente: Cliente) {
-    this.spinnerService.show();
+  excluir(cliente: Cliente) {
+    this.servicoDeLoading.show();
     this.service.deletar(cliente).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
-        this.spinnerService.hide();
+        this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente excluido com sucesso!');
+        this.servicoDeLoading.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Cliente excluido com sucesso!');
-      this.spinnerService.hide();
-      this.listarClientes(new Params(10, 1));
+      this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente excluido com sucesso!');
+      this.servicoDeLoading.hide();
+      this.carregarClientes();
     },
       err => {
-        this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar excluido Usuario!');
+        this.servicoDeLoading.hide();
+        this.mensagemPopUp.Erro('Erro ao tentar excluido Usuario!');
       }
     );
 

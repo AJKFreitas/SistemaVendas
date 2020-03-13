@@ -1,14 +1,17 @@
 import { Cliente } from './../../Cliente/model/Cliente';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
 import { ItemPedidoVenda } from '../models/ItemPedidoVenda';
 import { ProdutoService } from '../../Produto/services/produto.service';
-import { Produto } from '../../Produto/model/Produto';
+import { Produto, ProdutoItemPedido } from '../../Produto/model/Produto';
+import { PedidoVenda } from '../models/PedidoVenda';
+import { isNullOrUndefined } from 'util';
+import { NgxSelectOption } from 'ngx-select-ex';
 
 @Component({
   selector: 'app-pedido',
@@ -17,6 +20,10 @@ import { Produto } from '../../Produto/model/Produto';
 })
 export class PedidoComponent implements OnInit {
 
+
+  @ViewChild('input') input: ElementRef;
+
+  pedidoVenda: PedidoVenda = new PedidoVenda();
   itemsPedido: ItemPedidoVenda[] = [];
   pedidoForm: FormGroup;
   clientes: Cliente[] = [];
@@ -32,21 +39,19 @@ export class PedidoComponent implements OnInit {
     searchOnKey: 'nome',
     clearOnSelection: false
   };
-  produtos: Produto[] = [];
+  produtos: ProdutoItemPedido[] = [];
   itemsPedidoDeleted: any;
-
+  desconto = 0;
   constructor(
     public fb: FormBuilder,
     public clienteService: ClienteService,
     public produtoService: ProdutoService,
     public router: Router,
     private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService
+    private toastSevice: MensagemPopUPService
   ) {
-    this.pedidoForm = this.fb.group({
-      cliente: [''],
-      produto: [''],
-    });
+    this.pedidoVenda.cliente = new Cliente();
+    this.pedidoVenda.itemsPedido = new Array<ItemPedidoVenda>();
   }
 
   ngOnInit(): void {
@@ -54,16 +59,26 @@ export class PedidoComponent implements OnInit {
     this.popularComboProduto();
     this.adicionarItemPedido();
   }
-  selectionChanged($event) {
-  console.log(this.estoqueAtual($event.value));
-   }
-   estoqueAtual(produto: Produto) {
+
+  selectionChanged(event: NgxSelectOption, index) {
+    console.log(event[0]);
+    console.log(index);
+    debugger;
+    const produtoSelecionado = event[0].data;
+    if (!isNullOrUndefined(index)) {
+      this.pedidoVenda.itemsPedido[index].estoque = this.estoqueAtual(produtoSelecionado);
+      this.pedidoVenda.itemsPedido[index].preco = produtoSelecionado.valor;
+      this.pedidoVenda.itemsPedido[index].produto = produtoSelecionado;
+    }
+  }
+
+  estoqueAtual(produto: Produto): any {
     this.spinnerService.show();
     this.produtoService.estoqueAtual(produto).subscribe(res => {
       if (res) {
-        return  res;
+        this.spinnerService.hide();
+        return res.estoque || 0;
       }
-      this.spinnerService.hide();
     }, err => {
       this.spinnerService.hide();
     });
@@ -96,21 +111,21 @@ export class PedidoComponent implements OnInit {
   }
 
   adicionarItemPedido() {
-    this.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null));
+    this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null, 0));
   }
   removeItemPedido(item: ItemPedidoVenda) {
-    if (this.itemsPedido.length <= 1) {
-         return;
+    if ( this.pedidoVenda.itemsPedido.length <= 1) {
+      return;
     } else {
-      if (this.itemsPedido.includes(item)) {
+      if (  this.pedidoVenda.itemsPedido.includes(item)) {
         if (item.id) {
           this.itemsPedidoDeleted.push(item);
         }
-        const ITEMPEDIDO = this.itemsPedido.findIndex(
+        const ITEMPEDIDO =  this.pedidoVenda.itemsPedido.findIndex(
           resultado => resultado === item
         );
-        this.itemsPedido.splice(ITEMPEDIDO, 1);
-        this.itemsPedido = [...this.itemsPedido];
+        this.pedidoVenda.itemsPedido.splice(ITEMPEDIDO, 1);
+        this.pedidoVenda.itemsPedido = [... this.pedidoVenda.itemsPedido];
       }
     }
   }

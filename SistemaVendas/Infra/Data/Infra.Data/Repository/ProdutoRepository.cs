@@ -23,27 +23,48 @@ namespace SistemaVendas.Infra.Data.Repository
             _configuration = configuration;
         }
 
-        public async Task<int> Delete(Guid id)
+        public async Task<int> Excluir(Guid id)
         {
             try
             {
                 Produto produto = null;
-                 produto = _context.Produtos.Find(id);
+                produto = _context.Produtos.Find(id);
                 if (produto != null)
                     _context.Remove(produto);
-                return await Save();
+                return await SalvarCommit();
             }
             catch (MySqlException e)
             {
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PagedList<Produto>> GetAll(ProdutoParams prodParams)
+        public async Task<PagedList<Produto>> BuscarPorFiltroComPaginacao(ProdutoParams prodParams)
         {
             try
             {
-                var query = _context.Produtos;
-                return await PagedList<Produto>.CreateAsync(query, prodParams.PageNumber, prodParams.PageSize);
+                var prodPaged =  _context.Produtos.AsQueryable();
+
+
+                if (prodParams.Filter != null)
+                {
+                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(prodParams.Filter.ToLower()) 
+                    || x.Descricao.ToLower().Contains(prodParams.Filter.ToLower()) 
+                    || x.Valor.ToString().ToLower().Contains(prodParams.Filter.ToLower()) 
+                    || x.Codigo.ToString().ToLower().Contains(prodParams.Filter.ToLower()));
+                }
+                if (prodParams.SortOrder.ToLower().Equals("asc"))
+                {
+                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                }
+                if (prodParams.SortOrder.ToLower().Equals("desc"))
+                {
+                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                }
+
+                var result = await prodPaged.ToListAsync();
+
+                return PagedList<Produto>.ToPagedList(result, prodParams.NumeroDaPaginaAtual,prodParams.TamanhoDaPagina);
+               
             }
             catch (MySqlException ex)
             {
@@ -51,7 +72,7 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<IEnumerable<Produto>> GetAll()
+        public async Task<IEnumerable<Produto>> BuscarTodos()
         {
             try
             {
@@ -64,7 +85,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Produto> GetById(Guid EntityID)
+        public async Task<Produto> BuscarPorId(Guid EntityID)
         {
             try
             {
@@ -77,7 +98,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Insert(Produto Produto)
+        public async Task<int> Inserir(Produto Produto)
         {
             try
             {
@@ -89,7 +110,7 @@ namespace SistemaVendas.Infra.Data.Repository
                     Produto.ProdutoFornecedores
                     );
                 _context.Produtos.Add(produto);
-                return await Save();
+                return await SalvarCommit();
 
             }
             catch (MySqlException e)
@@ -98,7 +119,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Save()
+        public async Task<int> SalvarCommit()
         {
             try
             {
@@ -115,13 +136,13 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Update(Produto Produto)
+        public async Task<int> Editar(Produto Produto)
         {
             try
             {
                 _context.Entry(Produto).State = EntityState.Modified;
                 _context.Produtos.Update(Produto);
-                return await Save();
+                return await SalvarCommit();
             }
             catch (MySqlException e)
             {
@@ -145,15 +166,29 @@ namespace SistemaVendas.Infra.Data.Repository
 
         }
 
-        public long Calcularestoque(Guid idproduto)
+        public async Task<dynamic> CalcularEstoque(Guid idproduto)
         {
             using (MySqlConnection conexao = new MySqlConnection(_configuration.GetConnectionString("mysqlconnectionstring")))
             {
-                 var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = {idproduto}) " +
-                    $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = {idproduto}) estoque";
-                return  conexao.Query<dynamic>(query).SingleOrDefault();
+                try
+                {
+                    conexao.Open();
+                    var query = $"SELECT (SELECT ifnull(SUM(quantidade),0) from tb_itemordemcompra where idproduto = '{idproduto}') " +
+                        $"-(SELECT ifnull(SUM(quantidade), 0) from TB_ItemPedido where idproduto = '{idproduto}') estoque";
+                    return await conexao.QueryFirstAsync<dynamic>(query);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
+                finally
+                {
+                    conexao.Close();
+                }
             }
+
+
         }
-       
+
     }
 }

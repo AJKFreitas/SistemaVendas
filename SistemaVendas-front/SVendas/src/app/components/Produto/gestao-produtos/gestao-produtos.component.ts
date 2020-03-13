@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ProdutoService } from '../services/produto.service';
-import { Params } from 'src/app/shared/models/Params';
 import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.component';
+import { ProdutoDataSource } from '../services/produto.datasource';
+import { tap, debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import { MatSort } from '@angular/material/sort';
+import { merge, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-gestao-produtos',
@@ -18,45 +20,70 @@ import { ProdutoDialogComponent } from '../modal/produto-dialog/produto-dialog.c
 })
 export class GestaoProdutosComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
-    this.paginator = mp;
-    this.dataSource.paginator = this.paginator;
-  }
-  @ViewChild(MatTable, { static: true }) table: MatTable<Produto>;
+  @ViewChild(MatTable, { static: false }) table: MatTable<Produto>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(PageEvent) pageEvent: PageEvent;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input') input: ElementRef;
 
-  constructor(public dialog: MatDialog,
-              private spinnerService: NgxSpinnerService,
-              private toastSevice: ToastService,
-              public service: ProdutoService) { }
-
+  dataSourceP: ProdutoDataSource;
   dataSource: MatTableDataSource<Produto>;
-  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'codigo', 'action'];
+  displayedColumns: string[] = ['nome', 'descricao', 'valor', 'action'];
   produtos: Produto[] = [];
 
-
   pageSizeOptions: number[] = [5, 10, 25, 100];
-  public pageSize = 0;
-  public currentPage = 0;
-  public totalSize = 0;
+  public pageSize: number;
+  public currentPage: number;
+  public length: number;
+  public pageIndex: number;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: MensagemPopUPService,
+    public service: ProdutoService
+  ) {
+    this.dataSource = new MatTableDataSource(new Array<Produto>());
   }
+
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.produtos);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    length = this.produtos.length;
-    this.listarProdutos(new Params(10, 1));
-    this.pageEvent = new PageEvent();
+    this.dataSourceP = new ProdutoDataSource(this.service);
+    this.dataSourceP.loadProdutos();
+  }
+
+
+  ngAfterViewInit() {
+
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarProdutos();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarProdutos())
+      )
+      .subscribe();
+  }
+
+  carregarProdutos() {
+    this.dataSourceP.loadProdutos(
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
   }
   getPaginatorData(event) {
-    this.listarProdutos(new Params(event.pageSize, event.pageIndex || 1));
+    this.dataSourceP.loadProdutos('', 'asc', event.pageIndex, event.pageSize);
   }
+
   openModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -77,7 +104,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.carregarProdutos();
     });
   }
   addRowData(produto: Produto) {
@@ -90,6 +117,7 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
       fornecedores: produto.fornecedores
     });
     this.registerProduto(new ProdutoVM(produto.nome, produto.descricao, produto.valor, produto.codigo, produto.fornecedores));
+
     this.table.renderRows();
   }
   updateRowData(produto: Produto) {
@@ -117,41 +145,21 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  buscaPaginada(pageSize, pageIndex) {
-    this.listarProdutos(new Params(pageSize, pageIndex));
-  }
-
-
-  listarProdutos(params: Params) {
-    this.spinnerService.show();
-    this.service.listar(params).subscribe(res => {
-      if (res.result) {
-        this.produtos = res;
-        this.dataSource.paginator = this.paginator;
-      }
-      this.produtos = res;
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.spinnerService.hide();
-    }, err => {
-      this.spinnerService.hide();
-    });
-  }
-
   registerProduto(produto: ProdutoVM) {
     this.spinnerService.show();
     this.service.iserir(produto).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Produto cadastrado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Produto cadastrado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Produto cadastrado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Produto cadastrado com sucesso!');
       this.spinnerService.hide();
+      this.carregarProdutos();
     },
       err => {
-        this.listarProdutos(new Params(10, 1));
+        this.carregarProdutos();
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar cadastar Produto!');
+        this.toastSevice.Erro('Erro ao tentar cadastar Produto!');
       }
     );
   }
@@ -159,16 +167,16 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.editar(produto).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Produto alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.carregarProdutos();
       this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Produto alterado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Produto alterado com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar alterado Produto!');
+        this.toastSevice.Erro('Erro ao tentar alterado Produto!');
       }
     );
   }
@@ -176,18 +184,20 @@ export class GestaoProdutosComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.deletar(produto).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Produto excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarProdutos(new Params(10, 1));
+      this.carregarProdutos();
       this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Produto excluido com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Produto excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar excluido Produto!');
+        this.toastSevice.Erro('Erro ao tentar excluido Produto!');
       }
     );
 
   }
+
 }
+

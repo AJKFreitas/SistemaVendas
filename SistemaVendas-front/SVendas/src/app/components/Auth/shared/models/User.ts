@@ -1,4 +1,4 @@
-import { Params } from 'src/app/shared/models/Params';
+import { PageParams } from 'src/app/shared/models/Params';
 
 export class Usuario {
     id: string;
@@ -16,7 +16,7 @@ export class UsuarioVM {
         public role: string) { }
 
 }
-export class UsuarioParams extends Params {
+export class UsuarioParams extends PageParams {
     constructor(
         public pageSize: number,
         public pageNumber: number

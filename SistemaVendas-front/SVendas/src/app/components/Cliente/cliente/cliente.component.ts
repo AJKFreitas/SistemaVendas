@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../Shared/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
 import { ClienteService } from '../service/cliente.service';
 
@@ -18,8 +18,8 @@ export class ClienteComponent implements OnInit {
 
   constructor(
     public formbuilder: FormBuilder,
-    public spinnerService: NgxSpinnerService,
-    public toastSevice: ToastService,
+    public servicoDeLoading: NgxSpinnerService,
+    public servicoDeMensagemPopUp: MensagemPopUPService,
     public clienteService: ClienteService
   ) {
     this.clienteForm = this.formbuilder.group({
@@ -35,18 +35,18 @@ export class ClienteComponent implements OnInit {
   }
 
   inserirCliente() {
-    this.spinnerService.show();
+    this.servicoDeLoading.show();
     this.clienteService.iserir(this.clienteForm.value).subscribe((res) => {
       if (res.result) {
         this.clienteForm.reset();
         this.formbuilder = new FormBuilder();
-        this.toastSevice.Success('Sucesso!', 'Cliente incluido com Sucesso!');
+        this.servicoDeMensagemPopUp.Sucesso('Sucesso!', 'Cliente incluido com Sucesso!');
       }
-      this.spinnerService.hide();
+      this.servicoDeLoading.hide();
     },
       err => {
-        this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar cadastar Cliente!');
+        this.servicoDeLoading.hide();
+        this.servicoDeMensagemPopUp.Erro('Erro ao tentar cadastar Cliente!');
       },
       () => console.log('HTTP request completed.'));
   }

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { FornecedorService } from '../services/fornecedor.service';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 
 @Component({
   selector: 'app-fornecedor',
@@ -19,7 +19,7 @@ export class FornecedorComponent implements OnInit {
     public fornecedorService: FornecedorService,
     public router: Router,
     private SpinnerService: NgxSpinnerService,
-    private toastSevice: ToastService
+    private toastSevice: MensagemPopUPService
   ) {
     this.fornecedorForm = this.fb.group({
       nome: [''],
@@ -37,13 +37,13 @@ export class FornecedorComponent implements OnInit {
       if (res.result) {
         this.fornecedorForm.reset();
         this.fb = new  FormBuilder();
-        this.toastSevice.Success('Sucesso!', 'Fonecedor incluido com Sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Fonecedor incluido com Sucesso!');
       }
       this.SpinnerService.hide();
     },
     err => {
       this.SpinnerService.hide();
-      this.toastSevice.Error('Erro ao tentar cadastar Fonecedor!');
+      this.toastSevice.Erro('Erro ao tentar cadastar Fonecedor!');
     },
    ()  => console.log('HTTP request completed.'));
   }

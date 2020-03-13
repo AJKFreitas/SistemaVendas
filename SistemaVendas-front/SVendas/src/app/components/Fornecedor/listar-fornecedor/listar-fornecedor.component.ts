@@ -1,15 +1,18 @@
 import { Fornecedor, FornecedorVM } from './../model/Fornecedor';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FornecedorService } from '../services/fornecedor.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { FornecedorDialogComponent } from '../modal/fornecedor-dialog/fornecedor-dialog.component';
-import { Params } from 'src/app/shared/models/Params';
+import { PageParams } from 'src/app/shared/models/Params';
+import { FornecedorDataSource } from '../services/fornecedor.datasource';
+import { fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-fornecedor',
@@ -24,16 +27,11 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   }
   @ViewChild(MatTable, { static: true }) table: MatTable<Fornecedor>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild(PageEvent) pageEvent: PageEvent;
+  @ViewChild('input') input: ElementRef;
 
-
-  constructor(
-    public dialog: MatDialog,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
-    public service: FornecedorService,
-  ) { }
+  dataSourceF: FornecedorDataSource;
   dataSource: MatTableDataSource<Fornecedor>;
   displayedColumns: string[] = ['nome', 'telefone', 'cnpj', 'action'];
   fornecedores: Fornecedor[] = [];
@@ -43,23 +41,59 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
   public pageSize = 0;
   public currentPage = 0;
   public totalSize = 0;
+  public length: number;
+  public pageIndex: number;
 
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
+  constructor(
+    public dialog: MatDialog,
+    private spinnerService: NgxSpinnerService,
+    private toastSevice: MensagemPopUPService,
+    public service: FornecedorService,
+  ) { }
 
   ngOnInit(): void {
+    this.dataSourceF = new FornecedorDataSource(this.service);
+    this.dataSourceF.loadFornecedores();
     this.dataSource = new MatTableDataSource(this.fornecedores);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     length = this.fornecedores.length;
-    this.listarFornecedores(new Params(10, 1));
+    this.listarFornecedores(new PageParams(10, 1));
     this.pageEvent = new PageEvent();
   }
 
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+    .pipe(
+        debounceTime(350),
+        distinctUntilChanged(),
+        tap(() => {
+            this.paginator.pageIndex = 0;
+            this.carregarFornecedores();
+        })
+    )
+    .subscribe();
+
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+          .pipe(
+           tap(() => this.carregarFornecedores())
+      )
+      .subscribe();
+  }
+
+
+  carregarFornecedores() {
+    this.dataSourceF.loadFornecedores(
+      this.input.nativeElement.value,
+      this.sort.direction,
+      this.paginator.pageIndex,
+      this.paginator.pageSize);
+  }
+
   getPaginatorData(event) {
-    this.listarFornecedores(new Params(event.pageSize, event.pageIndex || 1));
+    this.dataSourceF.loadFornecedores('', 'asc', event.pageIndex, event.pageSize);
+    this.listarFornecedores(new PageParams(event.pageSize, event.pageIndex || 1));
   }
 
   openModal(action, obj) {
@@ -82,7 +116,8 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
         this.service.resetForm();
         this.service.initializeFormGroup();
       }
-      this.listarFornecedores(new Params(10, 1));
+      this.carregarFornecedores();
+      this.listarFornecedores(new PageParams(10, 1));
     });
   }
 
@@ -122,11 +157,11 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     }
   }
   buscaPaginada(pageSize, pageIndex) {
-    this.listarFornecedores(new Params(pageSize, pageIndex));
+    this.listarFornecedores(new PageParams(pageSize, pageIndex));
   }
 
 
-  listarFornecedores(params: Params) {
+  listarFornecedores(params: PageParams) {
     this.spinnerService.show();
     this.service.listar(params).subscribe(res => {
       if (res.result) {
@@ -146,16 +181,17 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.iserir(fornecedor).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Fornecedor cadastrado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Fornecedor cadastrado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Fornecedor cadastrado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Fornecedor cadastrado com sucesso!');
       this.spinnerService.hide();
     },
       err => {
-        this.listarFornecedores(new Params(10, 1));
+        this.carregarFornecedores();
+        this.listarFornecedores(new PageParams(10, 1));
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar cadastar Fornecedor!');
+        this.toastSevice.Erro('Erro ao tentar cadastar Fornecedor!');
       }
     );
   }
@@ -163,16 +199,17 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.editar(fornecedor).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Fornecedor alterado com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarFornecedores(new Params(10, 1));
+      this.carregarFornecedores();
+      this.listarFornecedores(new PageParams(10, 1));
       this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Fornecedor alterado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Fornecedor alterado com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar alterado Fornecedor!');
+        this.toastSevice.Erro('Erro ao tentar alterado Fornecedor!');
       }
     );
   }
@@ -180,16 +217,17 @@ export class ListarFornecedorComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.deletar(fornecedor).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Fornecedor excluido com sucesso!');
         this.spinnerService.hide();
       }
-      this.listarFornecedores(new Params(10, 1));
+      this.carregarFornecedores();
+      this.listarFornecedores(new PageParams(10, 1));
       this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Fornecedor excluido com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Fornecedor excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar excluido Fornecedor!');
+        this.toastSevice.Erro('Erro ao tentar excluido Fornecedor!');
       }
     );
 

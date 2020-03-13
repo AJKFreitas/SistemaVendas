@@ -11,33 +11,32 @@ import { ClienteService } from '../../service/cliente.service';
   styleUrls: ['./cliente-dialog.component.css']
 })
 export class ClienteDialogComponent implements OnInit {
-  action: string;
-  // tslint:disable-next-line:variable-name
-  local_data: any;
+  acaoModal: string;
+  dadosLocais: any;
   clienteForm: FormGroup;
   isSubmitted = false;
     constructor(
       public dialogRef: MatDialogRef<ClienteDialogComponent>,
       @Optional()
       @Inject(MAT_DIALOG_DATA)
-      public data: Cliente,
+      public cliente: Cliente,
       public service: ClienteService) {
-      this.local_data = { ...data };
-      this.service.form.setValue({
-        id: new FormControl(this.local_data.id).value,
-        nome: new FormControl(this.local_data.nome).value,
-        cpf: new FormControl(this.local_data.cpf).value,
-        telefone: new FormControl(this.local_data.telefone).value,
-        endereco: new FormControl(this.local_data.endereco).value
+      this.dadosLocais = { ...cliente };
+      this.service.clienteFormGroup.setValue({
+        id: new FormControl(this.dadosLocais.id).value,
+        nome: new FormControl(this.dadosLocais.nome).value,
+        cpf: new FormControl(this.dadosLocais.cpf).value,
+        telefone: new FormControl(this.dadosLocais.telefone).value,
+        endereco: new FormControl(this.dadosLocais.endereco).value
       });
-      this.action = this.local_data.action;
+      this.acaoModal = this.dadosLocais.action;
     }
 
   ngOnInit(): void {
-    this.clienteForm = this.service.form;
+    this.clienteForm = this.service.clienteFormGroup;
   }
   doAction() {
-    this.dialogRef.close({ event: this.action, data: this.service.form });
+    this.dialogRef.close({ event: this.acaoModal, data: this.service.clienteFormGroup });
   }
 
   closeDialog() {

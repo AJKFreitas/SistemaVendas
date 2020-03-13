@@ -2,7 +2,9 @@
 
 namespace SistemaVendas.Core.Domains.Auth.Entities
 {
-    public class UsuarioParams : Params
+    public class UsuarioParams : Parametros
     {
+        public string Filter { get; set; }
+        public string SortOrder { get; set; } = "asc";
     }
 }
