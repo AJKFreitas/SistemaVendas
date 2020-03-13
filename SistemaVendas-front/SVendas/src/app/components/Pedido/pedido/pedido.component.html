@@ -53,15 +53,6 @@
                 </div>
                 
                 <div class=" col-3">
-                    <!-- <ngx-select-dropdown (change)="selectionChanged(item.produto,in)" 
-                        [multiple]="false" 
-                        [config]="config" 
-                        [options]="produtos" 
-                        id="produto-{{in}}"
-                        [(ngModel)]="item.produto" 
-                        name="produto-{{in}}"
-                        #produto="ngModel" >
-                    </ngx-select-dropdown> -->
                     <ngx-select (selectionChanges)="selectionChanged($event,in)"
                             [items]="produtos" 
                             id="produto-{{in}}"
