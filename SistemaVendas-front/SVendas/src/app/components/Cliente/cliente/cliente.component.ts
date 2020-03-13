@@ -36,7 +36,7 @@ export class ClienteComponent implements OnInit {
 
   inserirCliente() {
     this.servicoDeLoading.show();
-    this.clienteService.iserir(this.clienteForm.value).subscribe((res) => {
+    this.clienteService.inserir(this.clienteForm.value).subscribe((res) => {
       if (res.result) {
         this.clienteForm.reset();
         this.formbuilder = new FormBuilder();

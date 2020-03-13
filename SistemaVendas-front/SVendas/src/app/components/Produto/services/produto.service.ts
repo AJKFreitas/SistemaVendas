@@ -7,7 +7,7 @@ import { Produto, ProdutoVM } from '../model/Produto';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { PageParams } from 'src/app/shared/models/Params';
+import { Parametros } from 'src/app/shared/models/Params';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
 
 @Injectable({
@@ -96,9 +96,9 @@ export class ProdutoService {
       );
   }
 
-  listar(params: PageParams): Observable<ResponseData<Produto>> {
-    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.PageNumber}
-                      &PageSize=${params.PageSize}&Filter=${params.Filter}`;
+  listar(params: Parametros): Observable<ResponseData<Produto>> {
+    const api = `${this.endpoint}/produto/buscar-todos?PageNumber=${params.NumeroDaPaginaAtual}
+                      &PageSize=${params.TamanhoDaPagina}&Filter=${params.Filter}`;
     return this.http.get(api).pipe(
       map((res: ResponseData<Produto>) => {
         return res || new ResponseData<Produto>();
@@ -124,8 +124,8 @@ export class ProdutoService {
       params: new HttpParams()
         .set('filter', filter)
         .set('sortOrder', sortOrder)
-        .set('pageNumber', pageNumber.toString())
-        .set('pageSize', pageSize.toString())
+        .set('NumeroDaPaginaAtual', pageNumber.toString())
+        .set('TamanhoDaPagina', pageSize.toString())
     }).pipe(
       map(res => res)
     );

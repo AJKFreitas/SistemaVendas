@@ -1,4 +1,4 @@
-import { PageParams } from './../../../shared/models/Params';
+import { Parametros } from './../../../shared/models/Params';
 import { Injectable } from '@angular/core';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { Observable, throwError } from 'rxjs';
@@ -27,7 +27,7 @@ export class ClienteService {
     endereco: new FormControl('', Validators.required),
   });
 
-  iserir(cliente: ClienteVM): Observable<any> {
+  inserir(cliente: ClienteVM): Observable<any> {
     const api = `${this.endpoint}/cliente`;
     return this.http.post(api, cliente)
       .pipe(
@@ -48,7 +48,7 @@ export class ClienteService {
         catchError(this.handleError)
       );
   }
-  listar(params: PageParams): Observable<any> {
+  listar(params: Parametros): Observable<any> {
     const api = `${this.endpoint}/cliente/buscar-todos`;
     return this.http.post(api, params).pipe(
       map((res: Response) => {
@@ -100,8 +100,8 @@ export class ClienteService {
       params: new HttpParams()
         .set('filter', filter)
         .set('sortOrder', sortOrder)
-        .set('pageNumber', pageNumber.toString())
-        .set('pageSize', pageSize.toString())
+        .set('NumeroDaPaginaAtual', pageNumber.toString())
+        .set('TamanhoDaPagina', pageSize.toString())
     }).pipe(
       map(res => res)
     );
