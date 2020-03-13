@@ -47,6 +47,6 @@
     
   <button mat-button (click)="closeDialog() " class="btn btn-secondary btn-md">Cancelar</button>
   <!-- <button mat-button  cdkFocusInitial  class="btn btn-success btn-md" (click)="doAction()">Salvar</button> -->
-  <button mat-button (click)="doAction()" class="btn btn-success btn-md">{{action}}</button>
+  <button mat-button (click)="doAction()" [disabled]="!service.form.valid" class="btn btn-success btn-md">{{action}}</button>
   
 </div>

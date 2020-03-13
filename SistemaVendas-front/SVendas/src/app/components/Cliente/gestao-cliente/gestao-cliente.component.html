@@ -5,12 +5,14 @@
 </div>
 <mat-form-field>
   <mat-label>Filtrar</mat-label>
-  <input matInput #input>
+  <input matInput #filtroTabela>
 </mat-form-field>
+<p>
+<button mat-button (click)="abrirModalCliente('Adicionar',{})" mat-flat-button color="primary">Novo Cliente</button>
+</p>
 <div class="mat-elevation-z8">
 
-  <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
-  <table mat-table [dataSource]="dataSourceC"  
+  <table mat-table [dataSource]="fonteDeDadosDeClientes"  
       class="mat-elevation-z8" matSort
       matSortActive="nome" matSortDirection="asc" matSortDisableClear>
 
@@ -38,23 +40,19 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef> Action </th>
       <td mat-cell *matCellDef="let element" class="action-link">
-        <a (click)="openModal('Editar',element)" class="btn btn-warning btn-md">Editar</a> |
-        <a (click)="openModal('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
+        <a (click)="abrirModalCliente('Editar',element)" class="btn btn-warning btn-md">Editar</a> |
+        <a (click)="abrirModalCliente('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-header-row *matHeaderRowDef="cabecalhoTabelaClientes"></tr>
+    <tr mat-row *matRowDef="let row; columns: cabecalhoTabelaClientes;"></tr>
   </table>
 
   <mat-paginator 
-      [length]="dataSourceC.lenth$ | async" 
-      [pageSizeOptions]="pageSizeOptions" 
+      [length]="fonteDeDadosDeClientes.numeroTotalDeRegistros$ | async" 
+      [pageSizeOptions]="tamanhosDePagina" 
       [showFirstLastButtons]="true" 
       (page)="getPaginatorData($event)">
 </mat-paginator>
-  <!-- <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true"
-    [length]="totalSize" [pageIndex]="currentPage" (page)="getPaginatorData($event)">
-  </mat-paginator> -->
-
 </div>

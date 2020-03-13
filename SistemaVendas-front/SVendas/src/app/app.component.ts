@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './components/Auth/shared/services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
-import { ToastService } from './components/Shared/ToastService';
+import { MensagemPopUPService } from './components/Shared/ToastService';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +20,14 @@ export class AppComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public jwtHelper: JwtHelperService,
-    private toasteSevice: ToastService) {
+    private toasteSevice: MensagemPopUPService) {
     this.token = this.jwtHelper.decodeToken(this.authService.getToken());
     }
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
       this.authService.setProfileContext(JSON.parse(this.token.Data).Nome);
     } else {
-      this.toasteSevice.Error('Usuario e senha invalidos!');
+      this.toasteSevice.Erro('Usuario e senha invalidos!');
       this.logout();
     }
     this.authService.mostrarMenuEmitter.subscribe(

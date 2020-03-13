@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
 import { ItemPedidoVenda } from '../models/ItemPedidoVenda';
 import { ProdutoService } from '../../Produto/services/produto.service';
@@ -48,7 +48,7 @@ export class PedidoComponent implements OnInit {
     public produtoService: ProdutoService,
     public router: Router,
     private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService
+    private toastSevice: MensagemPopUPService
   ) {
     this.pedidoVenda.cliente = new Cliente();
     this.pedidoVenda.itemsPedido = new Array<ItemPedidoVenda>();

@@ -1,7 +1,7 @@
 <div mat-dialog-content>
     <div class="card" >
         <div class="card-body titulo" id="titulo">
-            <h1 mat-dialog-title> {{action}} Cliente</h1>
+            <h1 mat-dialog-title> {{acaoModal}} Cliente</h1>
         </div>
     </div>
     <div class="card">
@@ -37,6 +37,6 @@
     
   <button mat-button (click)="closeDialog() " class="btn btn-secondary btn-md">Cancelar</button>
   <!-- <button mat-button  cdkFocusInitial  class="btn btn-success btn-md" (click)="doAction()">Salvar</button> -->
-  <button mat-button (click)="doAction()" class="btn btn-success btn-md">{{action}}</button>
+  <button mat-button (click)="doAction()" class="btn btn-success btn-md">{{acaoModal}}</button>
   
 </div>

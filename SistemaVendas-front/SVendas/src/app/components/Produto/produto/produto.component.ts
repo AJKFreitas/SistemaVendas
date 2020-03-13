@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, FormGroupDirective, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
 import { Produto } from '../model/Produto';
 
@@ -33,7 +33,7 @@ export class ProdutoComponent implements OnInit {
     public router: Router,
     public fornecedorService: FornecedorService,
     private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
+    private toastSevice: MensagemPopUPService,
     private produtoService: ProdutoService
   ) {
     this.produtoForm = this.formBuilder.group({
@@ -77,13 +77,13 @@ iserirProduto() {
       if (res.result) {
         this.produtoForm.reset();
         this.formBuilder = new  FormBuilder();
-        this.toastSevice.Success('Sucesso!', 'Produto incluido com Sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Produto incluido com Sucesso!');
       }
       this.spinnerService.hide();
     },
     err => {
       this.spinnerService.hide();
-      this.toastSevice.Error('Erro ao tentar cadastar Produto!');
+      this.toastSevice.Erro('Erro ao tentar cadastar Produto!');
     },
    ()  => console.log('HTTP request completed.'));
 }

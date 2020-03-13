@@ -18,7 +18,7 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public Task<int> Delete(Guid id)
+        public async Task<int> Delete(Guid id)
         {
             try
             {

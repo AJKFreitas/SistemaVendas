@@ -10,7 +10,7 @@ import { AuthService } from './components/Auth/shared/services/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
-import { ToastService } from './components/Shared/ToastService';
+import { MensagemPopUPService } from './components/Shared/ToastService';
 import { ErrorInterceptor } from './components/Auth/shared/config/authconfigerror.Interceptor';
 import { registerLocaleData } from '@angular/common';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
@@ -77,7 +77,7 @@ registerLocaleData(localeFr, 'pt-BR');
 
     AuthGuard,
     AuthService,
-    ToastService,
+    MensagemPopUPService,
     UsuarioService
   ],
   bootstrap: [AppComponent]

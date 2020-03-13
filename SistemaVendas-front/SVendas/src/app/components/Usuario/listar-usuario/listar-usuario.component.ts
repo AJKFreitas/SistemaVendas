@@ -6,7 +6,7 @@ import { MatTable} from '@angular/material/table';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastService } from '../../Shared/ToastService';
+import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ModalComponent } from '../modal/modal.component';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { UsuarioDataSource } from '../services/usuario.datasource';
@@ -38,7 +38,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
-    private toastSevice: ToastService,
+    private toastSevice: MensagemPopUPService,
     public service: UsuarioService,
 
   ) { }
@@ -137,17 +137,17 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.iserir(usuario).subscribe((res) => {
       if (res.result) {
-        this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
         this.spinnerService.hide();
       }
-      this.toastSevice.Success('Sucesso!', 'Usuario cadastrado com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.spinnerService.hide();
       this.carregarUsuarios();
     },
       err => {
         this.carregarUsuarios();
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar cadastar Usuario!');
+        this.toastSevice.Erro('Erro ao tentar cadastar Usuario!');
       }
     );
   }
@@ -155,16 +155,14 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.editar(usuario).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Usuario alterado com sucesso!');
         this.spinnerService.hide();
+        this.carregarUsuarios();
       }
-      this.carregarUsuarios();
-      this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Usuario alterado com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar alterado Usuario!');
+        this.toastSevice.Erro('Erro ao tentar alterar  Usuario!');
       }
     );
   }
@@ -172,16 +170,16 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     this.spinnerService.show();
     this.service.deletar(usuario).subscribe((res) => {
       if (res) {
-        this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
+        this.toastSevice.Sucesso('Sucesso!', 'Usuario excluido com sucesso!');
         this.spinnerService.hide();
       }
       this.carregarUsuarios();
       this.spinnerService.hide();
-      this.toastSevice.Success('Sucesso!', 'Usuario excluido com sucesso!');
+      this.toastSevice.Sucesso('Sucesso!', 'Usuario excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Error('Erro ao tentar excluido Usuario!');
+        this.toastSevice.Erro('Erro ao tentar excluido Usuario!');
       }
     );
   }

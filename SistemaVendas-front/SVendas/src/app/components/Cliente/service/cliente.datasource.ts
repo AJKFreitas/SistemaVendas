@@ -11,27 +11,27 @@ export class ClienteDataSource implements DataSource<Cliente> {
     private clientesSubject = new BehaviorSubject<Cliente[]>([]);
 
     private loadingSubject = new BehaviorSubject<boolean>(false);
-    private loadingLenthSubject = new BehaviorSubject<number>(5);
+    private numeroTotalDeRegistrosSubject = new BehaviorSubject<number>(5);
 
     public loading$ = this.loadingSubject.asObservable();
-    public lenth$ = this.loadingLenthSubject.asObservable();
+    public numeroTotalDeRegistros$ = this.numeroTotalDeRegistrosSubject.asObservable();
 
     constructor(private clienteService: ClienteService) {
 
     }
 
-    loadClientes(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5){
+    CarregarClientes(filtro = '', ordenarcao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5){
 
         this.loadingSubject.next(true);
 
-        this.clienteService.buscarClientes(filter, sortDirection,
-            pageIndex, pageSize).pipe(
+        this.clienteService.buscarClientes(filtro, ordenarcao,
+            paginaAtual, tamanhoDaPagina).pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))
             )
             .subscribe(clientes => {
                 this.clientesSubject.next(clientes.data);
-                this.loadingLenthSubject.next(clientes.pageData.totalCount);
+                this.numeroTotalDeRegistrosSubject.next(clientes.pageData.totalCount);
             });
     }
 
