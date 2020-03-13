@@ -8,13 +8,13 @@ namespace SistemaVendas.Infra.Data.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Task<int> Delete(Guid Id);
-        Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams);
-        Task<IEnumerable<Usuario>> GetAll();
-        Task<Usuario> GetById(Guid Id);
-        Task<int> Insert(Usuario usuario);
-        Task<int> Save();
-        Task<int> Update(Usuario usuario);
+        Task<PagedList<Usuario>> BuscarPorFiltroComPaginacao(UsuarioParams parametros);
+        Task<Usuario> BuscarPorId(Guid Id);
+        Task<IEnumerable<Usuario>> BuscarTodos();
+        Task<int> Inserir(Usuario usuario);
+        Task<int> Editar(Usuario usuario);
+        Task<int> Excluir(Guid Id);
+        Task<int> SalvarCommit();
         bool ExisteUsuario(string email);
     }
 }

@@ -9,13 +9,12 @@ namespace SistemaVendas.Aplication.InterfaceServices.Auth
 {
     public interface IUsuarioService
     {
-        Task<PagedList<Usuario>> GetAll(UsuarioParams uParams);
-        //Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams);
-        Task<IEnumerable<Usuario>> GetAll();
-        Task<Usuario> GetById(Guid Id);
-        Task<int> Insert(Usuario Usuario);
-        Task<int> Update(Usuario Usuario);
+        Task<PagedList<Usuario>> BuscarPorFiltroComPaginacao(UsuarioParams parametros);
+        Task<Usuario> BuscarPorId(Guid Id);
+        Task<IEnumerable<Usuario>> BuscarTodos();
+        Task<int> Inserir(Usuario Usuario);
+        Task<int> Editar(Usuario Usuario);
+        Task<int> Excluir(Guid Id);
         bool ExisteUsuario(string email);
-        Task<int> Delete(Guid Id);
     }
 }

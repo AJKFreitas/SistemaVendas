@@ -20,11 +20,11 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<int> Delete(Guid EntityID)
+        public async Task<int> Excluir(Guid EntityID)
         {
-            Fornecedor fornecedor = null;
             try
             {
+                Fornecedor fornecedor = null;
                  fornecedor = _context.Fornecedores.Find(EntityID);
                 if (fornecedor != null)
                     _context.Remove(fornecedor);
@@ -35,31 +35,31 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(e.Message);
             }
         }
-        public async Task<PagedList<Fornecedor>> GetAll(FornecedorParams forParams)
+        public async Task<PagedList<Fornecedor>> BuscarPorFiltroComPaginacao(FornecedorParams parametros)
         {
             try
             {
-                var prodPaged = _context.Fornecedores.AsQueryable();
+                var paginaDeFoenecedores = _context.Fornecedores.AsQueryable();
 
 
-                if (forParams.Filter != null)
+                if (parametros.Filter != null)
                 {
-                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(forParams.Filter.ToLower())
-                    || x.CNPJ.ToString().ToLower().Contains(forParams.Filter.ToLower())
-                    || x.Telefone.ToLower().Contains(forParams.Filter.ToLower()));
+                    paginaDeFoenecedores = paginaDeFoenecedores.Where(x => x.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.CNPJ.ToString().ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Telefone.ToLower().Contains(parametros.Filter.ToLower()));
                 }
-                if (forParams.SortOrder.ToLower().Equals("asc"))
+                if (parametros.SortOrder.ToLower().Equals("asc"))
                 {
-                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                    paginaDeFoenecedores = paginaDeFoenecedores.OrderBy(prod => prod.Nome);
                 }
-                if (forParams.SortOrder.ToLower().Equals("desc"))
+                if (parametros.SortOrder.ToLower().Equals("desc"))
                 {
-                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                    paginaDeFoenecedores = paginaDeFoenecedores.OrderByDescending(prod => prod.Nome);
                 }
 
-                var result = await prodPaged.ToListAsync();
+                var result = await paginaDeFoenecedores.ToListAsync();
 
-                return PagedList<Fornecedor>.ToPagedList(result, forParams.PageNumber, forParams.PageSize);
+                return PagedList<Fornecedor>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
 
             }
             catch (MySqlException ex)
@@ -85,7 +85,7 @@ namespace SistemaVendas.Infra.Data.Repository
         //        throw new Exception(ex.Message);
         //    }
         //}
-        public async Task<IEnumerable<Fornecedor>> GetAll()
+        public async Task<IEnumerable<Fornecedor>> BuscarTodos()
         {
             
             try
@@ -99,7 +99,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Fornecedor> GetById(Guid EntityID)
+        public async Task<Fornecedor> BuscarPorId(Guid EntityID)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Insert(Fornecedor fornecedor)
+        public async Task<int> Inserir(Fornecedor fornecedor)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Update(Fornecedor fornecedor)
+        public async Task<int> Editar(Fornecedor fornecedor)
         {
             try
             {

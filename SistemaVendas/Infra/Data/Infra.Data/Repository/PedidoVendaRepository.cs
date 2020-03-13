@@ -54,14 +54,41 @@ namespace SistemaVendas.Infra.Data.Repository
             throw new NotImplementedException();
         }
 
-        public Task<int> Insert(PedidoVenda produto)
+        public async Task<int> Insert(PedidoVenda pedido)
         {
-            throw new NotImplementedException();
+            try
+            {
+                PedidoVenda pedidoVenda = new PedidoVenda(
+                    pedido.Moment,
+                    pedido.IdCliente,
+                    pedido.ItemPedidos,
+                    pedido.ValorTotal
+                    );
+                _context.Pedidos.Add(pedidoVenda);
+                return await Save();
+
+            }
+            catch (MySqlException e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<int> Save()
+        public async Task<int> Save()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.SaveChangesAsync();
+
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                _context.Dispose();
+            }
         }
 
         public Task<int> Update(PedidoVenda produto)

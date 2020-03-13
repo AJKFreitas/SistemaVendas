@@ -25,15 +25,15 @@ namespace SistemaVendas.Infra.Data.Repository
 
 
 
-        public async Task<int> Delete(Guid EntityID)
+        public async Task<int> Excluir(Guid IdUsuario)
         {
             try
             {
                 Usuario usuario = null;
-                 usuario = _context.Usuarios.Find(EntityID);
+                 usuario = _context.Usuarios.Find(IdUsuario);
                 if (usuario != null)
                  _context.Usuarios.Remove(usuario);
-                 return await Save();
+                 return await SalvarCommit();
                 
             }
             catch (MySqlException ex)
@@ -41,31 +41,31 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public async Task<PagedList<Usuario>> GetAll(UsuarioParams userParams)
+        public async Task<PagedList<Usuario>> BuscarPorFiltroComPaginacao(UsuarioParams parametros)
         {
             try
             {
                 var prodPaged = _context.Usuarios.AsQueryable();
 
 
-                if (userParams.Filter != null)
+                if (parametros.Filter != null)
                 {
-                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(userParams.Filter.ToLower())
-                    || x.Email.ToLower().Contains(userParams.Filter.ToLower())
-                    || x.Role.ToLower().Contains(userParams.Filter.ToLower()));
+                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Email.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Role.ToLower().Contains(parametros.Filter.ToLower()));
                 }
-                if (userParams.SortOrder.ToLower().Equals("asc"))
+                if (parametros.SortOrder.ToLower().Equals("asc"))
                 {
                     prodPaged = prodPaged.OrderBy(prod => prod.Nome);
                 }
-                if (userParams.SortOrder.ToLower().Equals("desc"))
+                if (parametros.SortOrder.ToLower().Equals("desc"))
                 {
                     prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
                 }
 
                 var result = await prodPaged.ToListAsync();
 
-                return PagedList<Usuario>.ToPagedList(result, userParams.PageNumber, userParams.PageSize);
+                return PagedList<Usuario>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
 
             }
             catch (MySqlException ex)
@@ -74,20 +74,7 @@ namespace SistemaVendas.Infra.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-        //public async Task<PagedList<Usuario>> GetAll(UsuarioParams usuarioParams)
-        //{
-        //    try
-        //    {
-        //        var query = _context.Usuarios;   
-        //        return  await PagedList<Usuario>.CreateAsync(query, usuarioParams.PageNumber, usuarioParams.PageSize);
-        //    }
-        //    catch (MySqlException ex)
-        //    {
-        //        _context.Dispose();
-        //        throw new Exception(ex.Message);
-        //    }
-        //} 
-        public async Task<IEnumerable<Usuario>> GetAll()
+       public async Task<IEnumerable<Usuario>> BuscarTodos()
         {
             try
             {
@@ -100,7 +87,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Usuario> GetById(Guid EntityID)
+        public async Task<Usuario> BuscarPorId(Guid EntityID)
         {
             try
             {
@@ -113,7 +100,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Insert(Usuario Usuario)
+        public async Task<int> Inserir(Usuario Usuario)
         {
             try
             {
@@ -126,7 +113,7 @@ namespace SistemaVendas.Infra.Data.Repository
                     Usuario.Role
                     );
                 _context.Usuarios.Add(newUsuario);
-                return await Save();
+                return await SalvarCommit();
 
             }
             catch (MySqlException ex)
@@ -135,7 +122,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Save()
+        public async Task<int> SalvarCommit()
         {
             try
             {
@@ -151,7 +138,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Update(Usuario usuario)
+        public async Task<int> Editar(Usuario usuario)
         {
             try
             {

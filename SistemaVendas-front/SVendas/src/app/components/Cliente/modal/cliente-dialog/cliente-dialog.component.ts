@@ -19,10 +19,10 @@ export class ClienteDialogComponent implements OnInit {
       public dialogRef: MatDialogRef<ClienteDialogComponent>,
       @Optional()
       @Inject(MAT_DIALOG_DATA)
-      public data: Cliente,
+      public cliente: Cliente,
       public service: ClienteService) {
-      this.dadosLocais = { ...data };
-      this.service.form.setValue({
+      this.dadosLocais = { ...cliente };
+      this.service.clienteFormGroup.setValue({
         id: new FormControl(this.dadosLocais.id).value,
         nome: new FormControl(this.dadosLocais.nome).value,
         cpf: new FormControl(this.dadosLocais.cpf).value,
@@ -33,10 +33,10 @@ export class ClienteDialogComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.clienteForm = this.service.form;
+    this.clienteForm = this.service.clienteFormGroup;
   }
   doAction() {
-    this.dialogRef.close({ event: this.acaoModal, data: this.service.form });
+    this.dialogRef.close({ event: this.acaoModal, data: this.service.clienteFormGroup });
   }
 
   closeDialog() {

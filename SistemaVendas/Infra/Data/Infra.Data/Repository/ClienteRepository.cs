@@ -25,13 +25,13 @@ namespace SistemaVendas.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<int> Delete(Guid clienteId)
+        public async Task<int> Excluir(Guid clienteId)
         {
             try
             {
                 var cliente = _context.Clientes.Find(clienteId);
                 _context.Remove(cliente);
-                return await Save();
+                return await SalvarCommit();
             }
             catch (MySqlException e)
             {
@@ -40,32 +40,32 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<PagedList<Cliente>> GetAll(ClienteParams clidParams)
+        public async Task<PagedList<Cliente>> BuscarPorFiltroComPaginacao(ClienteParams parametros)
         {
             try
             {
-                var prodPaged = _context.Clientes.AsQueryable();
+                var paginaClientes = _context.Clientes.AsQueryable();
 
 
-                if (clidParams.Filter != null)
+                if (parametros.Filter != null)
                 {
-                    prodPaged = prodPaged.Where(x => x.Nome.ToLower().Contains(clidParams.Filter.ToLower())
-                    || x.Endereco.ToLower().Contains(clidParams.Filter.ToLower())
-                    || x.CPF.ToString().ToLower().Contains(clidParams.Filter.ToLower())
-                    || x.Telefone.ToLower().Contains(clidParams.Filter.ToLower()));
+                    paginaClientes = paginaClientes.Where(x => x.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Endereco.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.CPF.ToString().ToLower().Contains(parametros.Filter.ToLower())
+                    || x.Telefone.ToLower().Contains(parametros.Filter.ToLower()));
                 }
-                if (clidParams.SortOrder.ToLower().Equals("asc"))
+                if (parametros.SortOrder.ToLower().Equals("asc"))
                 {
-                    prodPaged = prodPaged.OrderBy(prod => prod.Nome);
+                    paginaClientes = paginaClientes.OrderBy(prod => prod.Nome);
                 }
-                if (clidParams.SortOrder.ToLower().Equals("desc"))
+                if (parametros.SortOrder.ToLower().Equals("desc"))
                 {
-                    prodPaged = prodPaged.OrderByDescending(prod => prod.Nome);
+                    paginaClientes = paginaClientes.OrderByDescending(prod => prod.Nome);
                 }
 
-                var result = await prodPaged.ToListAsync();
+                var result = await paginaClientes.ToListAsync();
 
-                return PagedList<Cliente>.ToPagedList(result, clidParams.PageNumber, clidParams.PageSize);
+                return PagedList<Cliente>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
 
             }
             catch (MySqlException ex)
@@ -89,7 +89,7 @@ namespace SistemaVendas.Infra.Data.Repository
         //    }
         //}
 
-        public async Task<IEnumerable<Cliente>> GetAll()
+        public async Task<IEnumerable<Cliente>> BuscarTodos()
         {
             try
             {
@@ -102,7 +102,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<Cliente> GetById(Guid clienteId)
+        public async Task<Cliente> BuscarPorId(Guid clienteId)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Insert(Cliente cliente)
+        public async Task<int> Inserir(Cliente cliente)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace SistemaVendas.Infra.Data.Repository
                     cliente.Endereco
                     );
                 _context.Clientes.Add(newCliente);
-                return await Save();
+                return await SalvarCommit();
 
             }
             catch (MySqlException e)
@@ -136,7 +136,7 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Save()
+        public async Task<int> SalvarCommit()
         {
             try
             {
@@ -154,13 +154,13 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public async Task<int> Update(Cliente cliente)
+        public async Task<int> Editar(Cliente cliente)
         {
             try
             {
                 _context.Entry(cliente).State = EntityState.Modified;
                 _context.Clientes.Update(cliente);
-                return await Save();
+                return await SalvarCommit();
             }
             catch (MySqlException ex)
             {

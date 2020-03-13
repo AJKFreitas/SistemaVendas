@@ -24,9 +24,9 @@ namespace SistemaVendas.Api.Controller
         [HttpGet]
         [Route("buscar-todos")]
         [AllowAnonymous]
-        public async Task<IActionResult> UsuariosPaginado([FromQuery]UsuarioParams uparams)
+        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]UsuarioParams uparams)
         {
-            PagedList<Usuario> data = await _usuarioService.GetAll(uparams);
+            PagedList<Usuario> data = await _usuarioService.BuscarPorFiltroComPaginacao(uparams);
             var pageData = new
             {
                 data.TotalCount,
@@ -42,18 +42,18 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Usuario>> RegisterUser(Usuario usuario)
+        public async Task<ActionResult<Usuario>> Inserir(Usuario usuario)
         {
 
             try
             {
-                if (usuarioValido(usuario))
+                if (UsuarioValido(usuario))
                 {
                     if (_usuarioService.ExisteUsuario(usuario.Email))
                     {
                         return BadRequest("Já existe Usuário com esse email cadastrado");
                     }
-                    await _usuarioService.Insert(usuario);
+                    await _usuarioService.Inserir(usuario);
                     return Ok(usuario);
 
                 }
@@ -71,9 +71,9 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Usuario>> Get(Guid id)
+        public async Task<ActionResult<Usuario>> BuscarPorId(Guid id)
         {
-            var produto = await _usuarioService.GetById(id);
+            var produto = await _usuarioService.BuscarPorId(id);
 
             if (produto == null)
             {
@@ -83,15 +83,15 @@ namespace SistemaVendas.Api.Controller
             return produto;
         }
         [HttpPut]
-        public async Task<IActionResult> Put(Usuario usuario)
+        public async Task<IActionResult> Editar(Usuario usuario)
         {
-            if (!usuarioValido(usuario))
+            if (!UsuarioValido(usuario))
             {
                 return BadRequest("Usuário invalido, verifique os dados inseridos.");
             }
             try
             {
-                await _usuarioService.Update(usuario);
+                await _usuarioService.Editar(usuario);
             }
             catch (DbUpdateConcurrencyException e)
             {
@@ -110,7 +110,7 @@ namespace SistemaVendas.Api.Controller
         }
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Usuario>> Delete(Guid id)
+        public async Task<ActionResult<Usuario>> Excluir(Guid id)
         {
             if (id == null)
             {
@@ -119,7 +119,7 @@ namespace SistemaVendas.Api.Controller
             try
             {
 
-            return Ok(await _usuarioService.Delete(id));
+            return Ok(await _usuarioService.Excluir(id));
             }
             catch (Exception e)
             {
@@ -127,7 +127,7 @@ namespace SistemaVendas.Api.Controller
               return BadRequest(e);
             }
         }
-        private bool usuarioValido(Usuario usuario)
+        private bool UsuarioValido(Usuario usuario)
         {
             return usuario.Email != null && usuario.Nome != null && usuario.Senha != null & usuario.Role != null;
         }
@@ -136,7 +136,7 @@ namespace SistemaVendas.Api.Controller
             Usuario user = null;
             try
             {
-                user = await _usuarioService.GetById(id);
+                user = await _usuarioService.BuscarPorId(id);
                 return user != null;
 
             }

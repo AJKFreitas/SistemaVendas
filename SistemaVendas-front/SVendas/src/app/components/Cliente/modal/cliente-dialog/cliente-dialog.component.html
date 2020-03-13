@@ -6,28 +6,34 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <form [formGroup]="service.form">
+            <form [formGroup]="service.clienteFormGroup">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nome</label>
                     <input type="text" class="form-control" id="nome" formControlName="nome">
-                     <mat-error *ngIf="service.form.controls['nome'].invalid && (service.form.controls['nome'].dirty || service.form.controls['nome'].touched)">* Campo obrigatório.</mat-error>
+                     <mat-error *ngIf="service.clienteFormGroup.controls['nome'].invalid 
+                     && (service.clienteFormGroup.controls['nome'].dirty 
+                     || service.clienteFormGroup.controls['nome'].touched)">* Campo obrigatório.</mat-error>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">CPF</label>
                     <input type="number" class="form-control" id="cpf" formControlName="cpf">
-                    <mat-error *ngIf="service.form.controls['cpf'].invalid && (service.form.controls['cpf'].dirty || service.form.controls['cpf'].touched)">* Campo obrigatório.</mat-error>
+                    <mat-error *ngIf="service.clienteFormGroup.controls['cpf'].invalid 
+                    && (service.clienteFormGroup.controls['cpf'].dirty 
+                    || service.clienteFormGroup.controls['cpf'].touched)">* Campo obrigatório.</mat-error>
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefone</label>
                     <input type="text" class="form-control" id="telefone" formControlName="telefone">
-                    <mat-error *ngIf="service.form.controls['telefone'].invalid && (service.form.controls['telefone'].dirty 
-                    || service.form.controls['telefone'].touched)">* Campo obrigatório.</mat-error>
+                    <mat-error *ngIf="service.clienteFormGroup.controls['telefone'].invalid 
+                    && (service.clienteFormGroup.controls['telefone'].dirty 
+                    || service.clienteFormGroup.controls['telefone'].touched)">* Campo obrigatório.</mat-error>
                 </div>
                 <div class="form-group">
                     <label for= "exampleFormControlInput1">Endereço</label>
                     <input type="text" class="form-control" id="endereco" formControlName="endereco">
-                    <mat-error *ngIf="service.form.controls['endereco'].invalid && (service.form.controls['endereco'].dirty 
-                    || service.form.controls['endereco'].touched)">* Campo obrigatório</mat-error>
+                    <mat-error *ngIf="service.clienteFormGroup.controls['endereco'].invalid 
+                    && (service.clienteFormGroup.controls['endereco'].dirty 
+                    || service.clienteFormGroup.controls['endereco'].touched)">* Campo obrigatório</mat-error>
                 </div>
             </form>
         </div>

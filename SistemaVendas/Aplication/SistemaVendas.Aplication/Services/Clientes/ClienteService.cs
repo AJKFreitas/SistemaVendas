@@ -24,11 +24,11 @@ namespace SistemaVendas.Aplication.Services.Clientes
             
         }
 
-        public async Task<int> Delete(Guid Id)
+        public async Task<int> Excluir(Guid Id)
         {
             try
             {
-                return await _repository.Delete(Id);
+                return await _repository.Excluir(Id);
 
             }
             catch (Exception ex)
@@ -51,11 +51,11 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
         }
 
-        public async Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams)
+        public async Task<PagedList<Cliente>> BuscarPorFiltroComPaginacao(ClienteParams clienteParams)
         {
             try
             {
-                return await _repository.GetAll(clienteParams);
+                return await _repository.BuscarPorFiltroComPaginacao(clienteParams);
             }
             catch (Exception e)
             {
@@ -77,11 +77,11 @@ namespace SistemaVendas.Aplication.Services.Clientes
         //    }
         //}
 
-        public async  Task<IEnumerable<Cliente>> GetAll()
+        public async  Task<IEnumerable<Cliente>> BuscarTodos()
         {
             try
             {
-                return await _repository.GetAll();
+                return await _repository.BuscarTodos();
             }
             catch (Exception ex)
             {
@@ -90,11 +90,11 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
         }
 
-        public async Task<Cliente> GetById(Guid Id)
+        public async Task<Cliente> BuscarPorId(Guid Id)
         {
             try
             {
-                return await _repository.GetById(Id);
+                return await _repository.BuscarPorId(Id);
             }
             catch (Exception ex)
             {
@@ -102,22 +102,22 @@ namespace SistemaVendas.Aplication.Services.Clientes
             }
             
         }
-        public Task<int> Insert(Cliente cliente)
+        public Task<int> Inserir(Cliente cliente)
         {
             try
             {
-                return _repository.Insert(cliente);
+                return _repository.Inserir(cliente);
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-        public Task<int> Update(Cliente cliente)
+        public Task<int> Editar(Cliente cliente)
         {
             try
             {
-                return _repository.Update(cliente);
+                return _repository.Editar(cliente);
             }
             catch (Exception ex)
             {

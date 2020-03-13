@@ -17,11 +17,11 @@ namespace SistemaVendas.Aplication.Services.Auth
         {
             _repository = repository;
         }
-        public async Task<int> Delete(Guid id)
+        public async Task<int> Excluir(Guid id)
         {
             try
             {
-                return await _repository.Delete(id);
+                return await _repository.Excluir(id);
 
             }
             catch (Exception ex)
@@ -44,11 +44,11 @@ namespace SistemaVendas.Aplication.Services.Auth
                 throw new Exception (ex.Message);
             }
         }
-        public async Task<PagedList<Usuario>> GetAll(UsuarioParams userParams)
+        public async Task<PagedList<Usuario>> BuscarPorFiltroComPaginacao(UsuarioParams userParams)
         {
             try
             {
-                return await _repository.GetAll(userParams);
+                return await _repository.BuscarPorFiltroComPaginacao(userParams);
             }
             catch (Exception e)
             {
@@ -56,26 +56,12 @@ namespace SistemaVendas.Aplication.Services.Auth
                 throw new Exception(e.Message);
             }
         }
-
-        //public async Task<IEnumerable<Usuario>> GetAll(UsuarioParams uparams)
-        //{
-        //    try
-        //    {
-
-        //        return await  _repository.GetAll(uparams);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw new Exception(ex.Message);
-        //    }
-        //} 
-        public async Task<IEnumerable<Usuario>> GetAll()
+        public async Task<IEnumerable<Usuario>> BuscarTodos()
         {
             try
             {
                 
-                return await _repository.GetAll();
+                return await _repository.BuscarTodos();
             }
             catch (Exception ex)
             {
@@ -84,11 +70,11 @@ namespace SistemaVendas.Aplication.Services.Auth
             }
         }
 
-        public Task<Usuario> GetById(Guid Id)
+        public Task<Usuario> BuscarPorId(Guid Id)
         {
             try
             {
-                return _repository.GetById(Id);
+                return _repository.BuscarPorId(Id);
             }
             catch (Exception ex)
             {
@@ -97,12 +83,12 @@ namespace SistemaVendas.Aplication.Services.Auth
             }
         }
 
-        public Task<int> Insert(Usuario usuario)
+        public Task<int> Inserir(Usuario usuario)
         {
             try
             {
                              
-                return _repository.Insert(usuario);
+                return _repository.Inserir(usuario);
             }
             catch (Exception ex)
             {
@@ -113,11 +99,11 @@ namespace SistemaVendas.Aplication.Services.Auth
 
  
 
-        public Task<int> Update(Usuario usuario)
+        public Task<int> Editar(Usuario usuario)
         {
             try
             {
-            return _repository.Update(usuario);
+            return _repository.Editar(usuario);
 
             }
             catch (Exception ex)

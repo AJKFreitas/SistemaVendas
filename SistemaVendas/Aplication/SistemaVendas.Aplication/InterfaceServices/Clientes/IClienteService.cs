@@ -9,14 +9,13 @@ namespace SistemaVendas.Aplication.InterfaceServices.Clientes
 {
    public interface IClienteService
     {
-        Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams);
-        //Task<IEnumerable<Cliente>> GetALL(ClienteParams clienteParams); 
-        Task<IEnumerable<Cliente>> GetAll();
-        Task<Cliente> GetById(Guid Id);
-        Task<int> Insert(Cliente Cliente);
-        Task<int> Update(Cliente Cliente);
+        Task<PagedList<Cliente>> BuscarPorFiltroComPaginacao(ClienteParams clienteParams);
+        Task<IEnumerable<Cliente>> BuscarTodos();
+        Task<Cliente> BuscarPorId(Guid Id);
+        Task<int> Inserir(Cliente Cliente);
+        Task<int> Editar(Cliente Cliente);
         bool ExisteCliente(long cpf);
-        Task<int> Delete(Guid Id);
+        Task<int> Excluir(Guid Id);
     }
        
         

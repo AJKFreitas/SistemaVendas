@@ -8,13 +8,13 @@ namespace SistemaVendas.Core.Domains.Clientes.Interfaces
 {
     public interface IClienteRepository
     {
-        Task<int> Delete(Guid Id);
-        Task<PagedList<Cliente>> GetAll(ClienteParams clienteParams);
-        Task<IEnumerable<Cliente>> GetAll();
-        Task<Cliente> GetById(Guid Id);
-        Task<int> Insert(Cliente cliente);
-        Task<int> Save();
-        Task<int> Update(Cliente cliente);
+        Task<PagedList<Cliente>> BuscarPorFiltroComPaginacao(ClienteParams clienteParams);
+        Task<Cliente> BuscarPorId(Guid Id);
+        Task<IEnumerable<Cliente>> BuscarTodos();
+        Task<int> Inserir(Cliente cliente);
+        Task<int> Editar(Cliente cliente);
+        Task<int> Excluir(Guid Id);
+        Task<int> SalvarCommit();
         bool ExisteCliente(long cpf);
 
     }

@@ -25,15 +25,15 @@ namespace SistemaVendas.Api.Controller
 
 
         [HttpGet]
-        public async Task<IEnumerable<Cliente>> GetClientes()
+        public async Task<IEnumerable<Cliente>> BuscarTodos()
         {
-            return await _service.GetAll();
+            return await _service.BuscarTodos();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cliente>> GetCliente(Guid id)
+        public async Task<ActionResult<Cliente>> BuscarPorId(Guid id)
         {
-            var cliente = await _service.GetById(id);
+            var cliente = await _service.BuscarPorId(id);
 
             if (cliente == null)
             {
@@ -46,9 +46,9 @@ namespace SistemaVendas.Api.Controller
         [HttpGet]
         [Route("buscar-todos")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetProdutosFiltro([FromQuery]ClienteParams cliParams)
+        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]ClienteParams cliParams)
         {
-            PagedList<Cliente> data = await _service.GetAll(cliParams);
+            PagedList<Cliente> data = await _service.BuscarPorFiltroComPaginacao(cliParams);
             var pageData = new
             {
                 data.TotalCount,
@@ -62,58 +62,56 @@ namespace SistemaVendas.Api.Controller
             return Ok(new { data, pageData });
         }
 
-       [HttpPut]
-        public async Task<IActionResult> PutCliente( Cliente cliente)
+        [HttpPut]
+        public async Task<IActionResult> Editar(Cliente cliente)
         {
-            if (cliente == null)
-            {
-                return BadRequest();
-            }
             try
             {
-                await _service.Update(cliente);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClienteExists(cliente.Id))
+                if (cliente == null)
+                {
+                    return BadRequest();
+                }
+                if (!ExisteCliente(cliente.Id))
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                return Ok(await _service.Editar(cliente));
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+
+                return BadRequest(new Exception(e.Message));
+
             }
 
-            return NoContent();
         }
 
         [HttpPost]
-        public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
+        public async Task<ActionResult<Cliente>> Inserir(Cliente cliente)
         {
-           
-            await _service.Insert(cliente);
+
+            await _service.Inserir(cliente);
 
             return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Cliente>> DeleteCliente(Guid id)
+        public async Task<ActionResult<Cliente>> Excluir(Guid id)
         {
-            var cliente = await _service.GetById(id);
+            var cliente = await _service.BuscarPorId(id);
             if (cliente == null)
             {
                 return NotFound();
             }
-            await _service.Delete(cliente.Id);
+            await _service.Excluir(cliente.Id);
 
             return cliente;
         }
 
-        private bool ClienteExists(Guid id)
+        private bool ExisteCliente(Guid id)
         {
-            if (_service.GetById(id) != null)
+            if (_service.BuscarPorId(id) != null)
             {
                 return true;
             }

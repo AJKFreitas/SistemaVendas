@@ -23,7 +23,7 @@ namespace SistemaVendas.Aplication.Services.Auth
             var password = loginUser?.Senha ?? "";
 
             var result = new BaseResult<IUsuario>();
-            var userResult = await _usuarioService.GetAll();
+            var userResult = await _usuarioService.BuscarTodos();
             var user =  
                 userResult.ToList()
                 .Where(u => u.Email.ToLower() == loginOrEmail.ToLower()

@@ -19,7 +19,7 @@ export class ClienteService {
     private http: HttpClient,
     public router: Router) { }
 
-  public form: FormGroup = new FormGroup({
+  public clienteFormGroup: FormGroup = new FormGroup({
     id: new FormControl(''),
     nome: new FormControl('', Validators.required),
     cpf: new FormControl('', Validators.required),
@@ -80,11 +80,11 @@ export class ClienteService {
     return throwError(msg);
   }
   public resetForm() {
-    this.form.reset();
-    this.form.setErrors = null;
+    this.clienteFormGroup.reset();
+    this.clienteFormGroup.setErrors = null;
   }
   initializeFormGroup() {
-    this.form.setValue({
+    this.clienteFormGroup.setValue({
       id: '',
       nome: '',
       cpf: '',
