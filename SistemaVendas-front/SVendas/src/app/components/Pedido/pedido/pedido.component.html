@@ -31,17 +31,18 @@
                 </div>
                 <div class="col-1">
                     <label for="valorTotal">&nbsp;</label>
-                    <button class="btn btn-primary form-control">Calcular</button>
+                    <button class="btn btn-primary form-control" (click)="calcularValorTotalDaVenda()">Calcular</button>
                 </div>
         </div>
         <span><br> <hr></span>
             <div class="row col-12">
                 
-                <div class="col-1"><label>-</label></div>
-                <div class="col-4"><label>Produto</label></div>
+                <div class="col-1"><label>&nbsp;</label></div>
+                <div class="col-3"><label>Produto</label></div>
                 <div class="col-1"><label>Quant.</label></div>
+                <div class="col-2"><label>Preço Compra</label></div>
                 <div class="col-2"><label>Preço Venda</label></div>
-                <div class="col-2"><label>Estoque Atual</label></div>
+                <div class="col-1"><label>Estoque Atual</label></div>
                 <div class="col-2"><label>Sub-total</label></div>
             </div>
             <div class="row col-12" *ngFor="let item of pedidoVenda.itemsPedido; let in = index">
@@ -51,7 +52,7 @@
                     </button>
                 </div>
                 
-                <div class=" col-4">
+                <div class=" col-3">
                     <!-- <ngx-select-dropdown (change)="selectionChanged(item.produto,in)" 
                         [multiple]="false" 
                         [config]="config" 
@@ -75,6 +76,16 @@
                     [(ngModel)]="item.quantidade" 
                     name="quantidade-{{in}}"
                     #quantidade="ngModel" 
+                    (change)="calcularSubTotalDaLinha(in)"
+                    >
+                </div>
+                <div class=" col-2">
+                    <input type="number" class="form-control" id="precoCompra-{{in}}"
+                    [(ngModel)]="item.precoCompra" 
+                    name="precoCompra-{{in}}"
+                    #preco="ngModel"
+                    (change)="calcularSubTotalDaLinha(in)"
+                    disabled
                     >
                 </div>
                 <div class=" col-2">
@@ -82,9 +93,10 @@
                     [(ngModel)]="item.preco" 
                     name="preco-{{in}}"
                     #preco="ngModel"
+                    (change)="calcularSubTotalDaLinha(in)"
                     >
                 </div>
-                <div class=" col-2">
+                <div class=" col-1">
                     <input type="number" class="form-control" id="estoque-{{in}}"
                     [(ngModel)]="item.estoque" 
                     name="estoque-{{in}}"
@@ -95,7 +107,7 @@
                     [(ngModel)]="item.subTotal" 
                     name="subTotal-{{in}}"
                     #subTotal="ngModel"
-                    value="{{item.preco * item.quatidade}}">
+                    disabled>
                 </div>
                 <span><br> <hr></span>
             </div>

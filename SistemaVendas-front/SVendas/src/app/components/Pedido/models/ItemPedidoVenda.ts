@@ -1,6 +1,7 @@
 import { Produto } from '../../Produto/model/Produto';
 
 export class ItemPedidoVenda {
+     precoCompra;
     constructor(
         public id: string,
         public quantidade: number,

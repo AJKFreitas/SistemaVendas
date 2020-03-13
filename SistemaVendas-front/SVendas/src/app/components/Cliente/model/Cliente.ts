@@ -14,6 +14,9 @@ export class ClienteVM {
         public nome: string,
         public cpf: number,
         public telefone: string,
-        public endereco: string) { }
+        public endereco: string,
+        public Pedidos: PedidoVenda [] = []
+        ) { }
 
 }
+

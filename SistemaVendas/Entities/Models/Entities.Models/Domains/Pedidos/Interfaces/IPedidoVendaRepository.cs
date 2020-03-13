@@ -2,20 +2,19 @@
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Core.Domains.Pedidos.Interfaces
 {
    public interface IPedidoVendaRepository
     {
-        Task<int> Delete(Guid Id);
-        Task<PagedList<PedidoVenda>> GetAll(PedidoVendaParams produtoParams);
-        Task<IEnumerable<PedidoVenda>> GetAll();
-        Task<PedidoVenda> GetById(Guid Id);
-        Task<int> Insert(PedidoVenda produto);
-        Task<int> Save();
-        Task<int> Update(PedidoVenda produto);
+        Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams parametros);
+        Task<IEnumerable<PedidoVenda>> BuscarTodos();
+        Task<PedidoVenda> BuscarPorId(Guid id);
+        Task<int> Inserir(PedidoVenda pedido);
+        Task<int> Editar(PedidoVenda pedido);
+        Task<int> Excluir(Guid id);
+        Task<int> SalvarCommit();
         bool ExistePedido(long codigo);
     }
 }

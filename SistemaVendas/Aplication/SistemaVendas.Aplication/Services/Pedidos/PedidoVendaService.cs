@@ -1,6 +1,8 @@
-﻿using SistemaVendas.Aplication.InterfaceServices.Pedidos;
+﻿using AutoMapper;
+using SistemaVendas.Aplication.InterfaceServices.Pedidos;
 using SistemaVendas.Aplication.ViewModels;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
+using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,39 +13,57 @@ namespace SistemaVendas.Aplication.Services.Pedidos
 {
     public class PedidoVendaService : IPedidoVendaService
     {
-      
 
-        public Task<int> Delete(Guid Id)
+        private readonly IPedidoVendaRepository _repository;
+        private readonly IMapper _mapper;
+
+        public PedidoVendaService(IPedidoVendaRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public Task<int> Excluir(Guid Id)
         {
             throw new NotImplementedException();
         }
 
-        public bool ExisteProduto(long codigo)
+        public bool ExistePedidoVenda(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PagedList<PedidoVenda>> GetAll(PedidoVendaParams pParams)
+        public Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams pParams)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<PedidoVenda>> GetAll()
+        public Task<IEnumerable<PedidoVenda>> BuscarTodos()
         {
             throw new NotImplementedException();
         }
 
-        public Task<PedidoVenda> GetById(Guid Id)
+        public Task<PedidoVenda> BuscarPorId(Guid Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<int> Insert(PedidoVendaVM PedidoVenda)
+        public async Task<int> Inserir(PedidoVendaVM pedidoVendaVM)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var novoPedido = _mapper.Map<PedidoVenda>(pedidoVendaVM);
+                return  await  _repository.Inserir(novoPedido);
+                
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<int> Update(PedidoVenda PedidoVenda)
+        public Task<int> Editar(PedidoVenda PedidoVenda)
         {
             throw new NotImplementedException();
         }
