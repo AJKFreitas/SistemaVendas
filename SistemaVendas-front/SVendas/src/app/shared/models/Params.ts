@@ -1,16 +1,16 @@
 import { isNullOrUndefined } from 'util';
 
-export class PageParams {
-    PageNumber: number;
-    PageSize: number;
+export class Parametros {
+    NumeroDaPaginaAtual: number;
+    TamanhoDaPagina: number;
     Filter?;
     constructor(
-        pageSize: number,
-        pageNumber: number,
+        tamanhoDaPagina: number,
+        numeroDaPaginaAtual: number,
         filter?,
     ) {
-        this.PageNumber = pageNumber;
-        this.PageSize = pageSize;
+        this.NumeroDaPaginaAtual = numeroDaPaginaAtual;
+        this.TamanhoDaPagina = tamanhoDaPagina;
         if (!(isNullOrUndefined(filter) || '')) {
             this.Filter = filter;
         }

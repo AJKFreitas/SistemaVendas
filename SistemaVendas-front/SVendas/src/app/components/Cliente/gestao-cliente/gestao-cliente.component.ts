@@ -1,12 +1,12 @@
+import { MensagemPopUPService } from 'src/app/components/Shared/ToastService';
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
+import { MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Action } from 'src/app/shared/modules/material/actionEnum';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ClienteDialogComponent } from '../modal/cliente-dialog/cliente-dialog.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MensagemPopUPService } from '../../Shared/ToastService';
 import { Cliente, ClienteVM } from '../model/Cliente';
 import { ClienteService } from '../service/cliente.service';
 import { ClienteDataSource } from '../service/cliente.datasource';
@@ -96,14 +96,14 @@ export class GestaoClienteComponent implements OnInit, AfterViewInit {
     });
   }
   adicionarCliente(cliente: Cliente) {
-    this.registrar(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
+    this.inserir(new ClienteVM(cliente.nome, cliente.cpf, cliente.telefone, cliente.endereco));
     this.table.renderRows();
     this.carregarClientes();
   }
 
-  registrar(cliente: ClienteVM) {
+  inserir(cliente: ClienteVM) {
     this.servicoDeLoading.show();
-    this.service.iserir(cliente).subscribe((res) => {
+    this.service.inserir(cliente).subscribe((res) => {
       if (res.result) {
         this.mensagemPopUp.Sucesso('Sucesso!', 'Cliente cadastrado com sucesso!');
         this.servicoDeLoading.hide();

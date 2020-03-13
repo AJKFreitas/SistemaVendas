@@ -102,8 +102,8 @@ export class FornecedorService {
       params: new HttpParams()
         .set('filter', filter)
         .set('sortOrder', sortOrder)
-        .set('pageNumber', pageNumber.toString())
-        .set('pageSize', pageSize.toString())
+        .set('NumeroDaPaginaAtual', pageNumber.toString())
+        .set('TamanhoDaPagina', pageSize.toString())
     }).pipe(
       map(res => res)
     );
