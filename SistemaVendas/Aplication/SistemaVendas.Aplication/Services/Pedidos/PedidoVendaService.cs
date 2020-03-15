@@ -52,7 +52,8 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
-                var novoPedido = _mapper.Map<PedidoVenda>(pedidoVendaVM);
+                var novoPedido = _mapper.Map<PedidoVendaVM,PedidoVenda>(pedidoVendaVM);
+
                 return  await  _repository.Inserir(novoPedido);
                 
             }

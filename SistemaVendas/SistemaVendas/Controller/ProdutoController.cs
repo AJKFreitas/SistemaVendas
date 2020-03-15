@@ -123,9 +123,9 @@ namespace SistemaVendas.Api.Controller
         [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<Produto>> Inserir(ProdutoVM produtoVM)
         {
-            await _produtoService.Inserir(produtoVM);
+           
 
-            return CreatedAtAction("GetProduto", new { id = produtoVM.Id }, produtoVM);
+            return Ok(await _produtoService.Inserir(produtoVM));
         }
 
 

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using SistemaVendas.Aplication.ViewModels;
+using SistemaVendas.Core.Domains.Auth.Entities;
+using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
 using SistemaVendas.Core.Domains.Produtos.Entities;
+using System;
 using System.Linq;
 
 namespace SistemaVendas.Core.AutoMapers
@@ -39,8 +42,23 @@ namespace SistemaVendas.Core.AutoMapers
                 .ForPath(x => x.IdProduto, opt => opt.MapFrom(x => x.Id));
 
             CreateMap<PedidoVendaVM, PedidoVenda>()
-                .ForPath(dest => dest.ItemPedidos, opt => opt.MapFrom(src => src.ItemPedidosVM));
+                .ForMember(pvm => pvm.ItemPedidos, opt => opt
+                .MapFrom(pv => pv.ItemPedidosVM.Select(i => new ItemPedidoVenda {
+                                Id = Guid.NewGuid(),
+                                Quantidade = i.Quantidade,
+                                Preco = i.Preco,
+                                SubTotal = i.SubTotal,
+                                IdProduto = i.IdProduto,
+                                IdPedido = pv.Id
+                                }
+                ).ToList()));
 
+
+            CreateMap<ItemPedidoVendaVM, ItemPedidoVenda>();
+            CreateMap<ClienteVM, Cliente>();
+            CreateMap<OrdemCompraVM, OrdemCompra>();
+            CreateMap<ItemOrdemCompraVM, ItemOrdemCompra>();
+            CreateMap<UsuarioVM, Usuario>();
 
 
 

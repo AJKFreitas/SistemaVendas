@@ -87,11 +87,11 @@ namespace SistemaVendas.Aplication.Services.Produtos
             }
         }
 
-        public Task<int> Inserir(ProdutoVM ProdutoVM)
+        public Task<int> Inserir(ProdutoVM produtoVM)
         {
             try
             {
-                var prod = _mapper.Map<ProdutoVM, Produto>(ProdutoVM);
+                var prod = _mapper.Map<ProdutoVM, Produto>(produtoVM);
                 return _repository.Inserir(prod);
             }
             catch (Exception e)

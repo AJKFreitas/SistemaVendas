@@ -4,6 +4,7 @@ using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,17 +60,30 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 PedidoVenda pedidoVenda = new PedidoVenda(
-                    pedido.Moment,
+                    pedido.DataVenda,
                     pedido.IdCliente,
                     pedido.ItemPedidos,
                     pedido.ValorTotal
                     );
+                var itemsPedidos = pedido.ItemPedidos.Select(i => new ItemPedidoVenda
+                {
+                    Id = Guid.NewGuid(),
+                    Quantidade = i.Quantidade,
+                    Preco = i.Preco,
+                    SubTotal = i.SubTotal,
+                    IdProduto = i.IdProduto,
+                    IdPedido = pedidoVenda.Id
+                }).ToList();
+
+                pedidoVenda.ItemPedidos = itemsPedidos;
+
                 _context.Pedidos.Add(pedidoVenda);
                 return await SalvarCommit();
 
             }
             catch (MySqlException e)
             {
+                _context.Dispose();
                 throw new Exception(e.Message);
             }
         }

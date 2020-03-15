@@ -1,13 +1,14 @@
 ﻿using SistemaVendas.Core.Domains.Clientes.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SistemaVendas.Core.Domains.Pedidos.Entities
 {
     public class PedidoVenda
     {
         public Guid Id { get; set; }
-        public DateTime Moment { get; set; }
+        public DateTime DataVenda { get; set; }
         public virtual Cliente Cliente { get; set; }
         public Guid IdCliente { get; set; }
         public virtual IEnumerable<ItemPedidoVenda> ItemPedidos { get; set; } = new List<ItemPedidoVenda>();
@@ -17,21 +18,20 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         {
 
         }
-        public PedidoVenda(Guid id, DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
+        public PedidoVenda(Guid id, DateTime dataVenda, Cliente cliente, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
         {
             Id = id;
-            Moment = moment;
+            DataVenda = dataVenda;
             Cliente = cliente;
             IdCliente = idCliente;
             ItemPedidos = itemPedidos;
             ValorTotal = valorTotal;
         }
 
-        public PedidoVenda(DateTime moment, Cliente cliente, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
+        public PedidoVenda( Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
         {
             Id = Guid.NewGuid();
-            Moment = moment;
-            Cliente = cliente;
+            DataVenda = DateTime.UtcNow;
             IdCliente = idCliente;
             ItemPedidos = itemPedidos;
             ValorTotal = valorTotal;
@@ -47,12 +47,20 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             return sum;
         }
 
-        public PedidoVenda(DateTime moment, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
+        public PedidoVenda(DateTime dataVenda, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
         {
             Id = Guid.NewGuid();
-            Moment = moment;
+            DataVenda = dataVenda;
             IdCliente = idCliente;
             ItemPedidos = itemPedidos;
+            ValorTotal = valorTotal;
+        }
+
+        public PedidoVenda(Guid idCliente, double valorTotal)
+        {
+            Id = Guid.NewGuid();
+            DataVenda = DateTime.Now;
+            IdCliente = idCliente;
             ValorTotal = valorTotal;
         }
     }

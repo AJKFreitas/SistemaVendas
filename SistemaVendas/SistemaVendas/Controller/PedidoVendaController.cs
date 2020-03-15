@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Pedidos;
@@ -9,8 +11,9 @@ using SistemaVendas.Core.Domains.Pedidos.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
-    [Route("api/[controller]")]
+    [Route("svendas/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin,Funcionario,Vendedor")]
     public class PedidoVendaController : ControllerBase
     {
         private readonly IPedidoVendaService _pedidoVendaService;
@@ -58,10 +61,9 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpPost]
+        [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<PedidoVenda>> Inserir(PedidoVendaVM pedidoVendaVM)
         {
-
-
             return Ok(await _pedidoVendaService.Inserir(pedidoVendaVM));
         }
 

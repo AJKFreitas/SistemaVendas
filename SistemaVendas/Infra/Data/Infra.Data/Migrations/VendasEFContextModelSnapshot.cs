@@ -201,11 +201,11 @@ namespace SistemaVendas.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<DateTime>("DataVenda")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<Guid>("IdCliente")
                         .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("Moment")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<double>("ValorTotal")
                         .HasColumnType("double");

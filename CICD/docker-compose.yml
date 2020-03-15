@@ -27,7 +27,6 @@ services:
           - "5550:80"
           - "5551:443"
         links:
-          - app
           - db_vendas
         networks:
           - lan
@@ -44,7 +43,6 @@ services:
           - ./code:/var/www
         links:
           - api
-          - db_vendas
         networks:
           - lan
         depends_on: 
