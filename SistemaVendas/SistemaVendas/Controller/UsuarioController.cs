@@ -24,9 +24,9 @@ namespace SistemaVendas.Api.Controller
         [HttpGet]
         [Route("buscar-todos")]
         [AllowAnonymous]
-        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]UsuarioParams uparams)
+        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]UsuarioParams parametros)
         {
-            PagedList<Usuario> data = await _usuarioService.BuscarPorFiltroComPaginacao(uparams);
+            PagedList<Usuario> data = await _usuarioService.BuscarPorFiltroComPaginacao(parametros);
             var pageData = new
             {
                 data.TotalCount,

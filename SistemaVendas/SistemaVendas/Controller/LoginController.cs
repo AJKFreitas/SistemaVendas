@@ -21,7 +21,7 @@ namespace SistemaVendas.Api.Controller
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] LoginUser loginUser)
+        public async Task<IActionResult> Loguin([FromBody] LoginUser loginUser)
         {
             var authorization = await _authorizationService.AuthorizeAsync(loginUser);
             if (!authorization.Success)

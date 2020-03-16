@@ -13,7 +13,7 @@
 
                     <label for="cliente">Cliente</label>
                    <ngx-select [items]="clientes"
-                            [(ngModel)]="pedidoVenda.cliente"
+                            [(ngModel)]="pedidoVenda.cliente.id"
                             name="cliente" #cliente="ngModel">
                     </ngx-select>
             </div>
@@ -31,17 +31,18 @@
                 </div>
                 <div class="col-1">
                     <label for="valorTotal">&nbsp;</label>
-                    <button class="btn btn-primary form-control">Calcular</button>
+                    <button class="btn btn-primary form-control" (click)="calcularValorTotalDaVenda()">Calcular</button>
                 </div>
         </div>
         <span><br> <hr></span>
             <div class="row col-12">
                 
-                <div class="col-1"><label>-</label></div>
-                <div class="col-4"><label>Produto</label></div>
+                <div class="col-1"><label>&nbsp;</label></div>
+                <div class="col-3"><label>Produto</label></div>
                 <div class="col-1"><label>Quant.</label></div>
+                <div class="col-2"><label>Preço Compra</label></div>
                 <div class="col-2"><label>Preço Venda</label></div>
-                <div class="col-2"><label>Estoque Atual</label></div>
+                <div class="col-1"><label>Estoque Atual</label></div>
                 <div class="col-2"><label>Sub-total</label></div>
             </div>
             <div class="row col-12" *ngFor="let item of pedidoVenda.itemsPedido; let in = index">
@@ -51,16 +52,7 @@
                     </button>
                 </div>
                 
-                <div class=" col-4">
-                    <!-- <ngx-select-dropdown (change)="selectionChanged(item.produto,in)" 
-                        [multiple]="false" 
-                        [config]="config" 
-                        [options]="produtos" 
-                        id="produto-{{in}}"
-                        [(ngModel)]="item.produto" 
-                        name="produto-{{in}}"
-                        #produto="ngModel" >
-                    </ngx-select-dropdown> -->
+                <div class=" col-3">
                     <ngx-select (selectionChanges)="selectionChanged($event,in)"
                             [items]="produtos" 
                             id="produto-{{in}}"
@@ -75,6 +67,16 @@
                     [(ngModel)]="item.quantidade" 
                     name="quantidade-{{in}}"
                     #quantidade="ngModel" 
+                    (change)="calcularSubTotalDaLinha(in)"
+                    >
+                </div>
+                <div class=" col-2">
+                    <input type="number" class="form-control" id="precoCompra-{{in}}"
+                    [(ngModel)]="item.precoCompra" 
+                    name="precoCompra-{{in}}"
+                    #preco="ngModel"
+                    (change)="calcularSubTotalDaLinha(in)"
+                    disabled
                     >
                 </div>
                 <div class=" col-2">
@@ -82,9 +84,10 @@
                     [(ngModel)]="item.preco" 
                     name="preco-{{in}}"
                     #preco="ngModel"
+                    (change)="calcularSubTotalDaLinha(in)"
                     >
                 </div>
-                <div class=" col-2">
+                <div class=" col-1">
                     <input type="number" class="form-control" id="estoque-{{in}}"
                     [(ngModel)]="item.estoque" 
                     name="estoque-{{in}}"
@@ -95,7 +98,7 @@
                     [(ngModel)]="item.subTotal" 
                     name="subTotal-{{in}}"
                     #subTotal="ngModel"
-                    value="{{item.preco * item.quatidade}}">
+                    disabled>
                 </div>
                 <span><br> <hr></span>
             </div>
@@ -107,7 +110,7 @@
            
             <div class="form-group float-right row">
                 <div class="form-check-inline">
-                    <button type="submit" class="btn btn-success btn-md">Salvar</button>
+                    <button type="submit" class="btn btn-success btn-md" (click)="lancarPedidoVenda()">Salvar</button>
                 </div>
                 <div class="form-check-inline">
                     <button type="button" class="btn btn-secondary btn-md">Cancelar</button>
@@ -117,4 +120,4 @@
         </form>
     </div>
 </div>
-<!-- <span> {{pedidoVenda | json}} </span> -->
+<span> {{pedidoVenda | json}} </span>

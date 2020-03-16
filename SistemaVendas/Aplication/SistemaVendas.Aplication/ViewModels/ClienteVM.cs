@@ -11,6 +11,6 @@ namespace SistemaVendas.Aplication.ViewModels
         public long CPF { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
-        public virtual IEnumerable<PedidoVendaVM> Pedidos { get; set; } = new List<PedidoVendaVM>();
+        public IEnumerable<PedidoVendaVM> Pedidos { get; set; } = new List<PedidoVendaVM>();
     }
 }

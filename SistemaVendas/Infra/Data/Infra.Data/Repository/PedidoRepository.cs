@@ -80,7 +80,7 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 PedidoVenda newPedido = new PedidoVenda(
-                        pedido.Moment,
+                        pedido.DataVenda,
                         pedido.IdCliente,
                         pedido.ItemPedidos,
                         pedido.ValorTotal

@@ -40,7 +40,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
             // tslint:disable-next-line:no-debugger
             if (err.error) {
-                this.toastSevice.Erro(err.error);
+                console.log(err.error);
             }
             const error = err.error.message || err.statusText;
             return throwError(error);

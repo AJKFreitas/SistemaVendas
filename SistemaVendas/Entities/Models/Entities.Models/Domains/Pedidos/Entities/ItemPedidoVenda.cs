@@ -42,6 +42,16 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             IdPedido = idPedido;
         }
 
+        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal, Guid idProduto, Guid idPedido)
+        {
+            Id = id;
+            Quantidade = quantidade;
+            Preco = preco;
+            SubTotal = subTotal;
+            IdProduto = idProduto;
+            IdPedido = idPedido;
+        }
+
         public double CalcSubTotal()
         {
             return Quantidade * Preco;

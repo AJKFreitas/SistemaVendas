@@ -14,8 +14,8 @@ namespace SistemaVendas.Aplication.InterfaceServices.Clientes
         Task<Cliente> BuscarPorId(Guid Id);
         Task<int> Inserir(Cliente Cliente);
         Task<int> Editar(Cliente Cliente);
-        bool ExisteCliente(long cpf);
         Task<int> Excluir(Guid Id);
+        bool ExisteCliente(long cpf);
     }
        
         
