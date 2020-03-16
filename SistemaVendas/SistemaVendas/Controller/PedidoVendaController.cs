@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaVendas.Aplication.InterfaceServices.Pedidos;
 using SistemaVendas.Aplication.ViewModels;
+using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
+using SistemaVendas.Core.Domains.Produtos.Entities;
+using SistemaVendas.Core.Shared.Entities;
 
 namespace SistemaVendas.Api.Controller
 {
@@ -41,7 +45,26 @@ namespace SistemaVendas.Api.Controller
 
             return pedidoVenda;
         }
+        [HttpGet]
+        [Route("buscar-pagina")]
+        [AllowAnonymous]
+        public async Task<IActionResult> BuscarPorFiltroComPaginacao([FromQuery]PedidoVendaParams parametros)
+        {
+            PagedList<PedidoVenda> pagina = await _pedidoVendaService.BuscarPorFiltroComPaginacao(parametros);
+       
 
+            var pageData = new
+            {
+                pagina.TotalCount,
+                pagina.PageSize,
+                pagina.CurrentPage,
+                pagina.TotalPages,
+                pagina.HasNext,
+                pagina.HasPrevious
+            };
+
+            return Ok(new { pagina, pageData });
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(PedidoVenda pedidoVenda)
         {

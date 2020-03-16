@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using SistemaVendas.Aplication.Dtos;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
@@ -40,9 +42,42 @@ namespace SistemaVendas.Infra.Data.Repository
             throw new NotImplementedException();
         }
 
-        public Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams produtoParams)
+        public async Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams parametros)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var pedidos = _context.Pedidos
+                    .Include(p => p.Cliente)
+                    .Include(p => p.ItemPedidos)
+                    .ThenInclude(i => i.Produto).AsQueryable();
+
+                
+                if (parametros.Filter != null)
+                {
+                    pedidos = pedidos.Where(x => x.Cliente.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    || x.ValorTotal.ToString().ToLower().Contains(parametros.Filter.ToLower())
+                    || x.DataVenda.ToString().ToLower().Contains(parametros.Filter.ToLower())
+                    );
+                }
+                if (parametros.SortOrder.ToLower().Equals("asc"))
+                {
+                    pedidos = pedidos.OrderBy(pedido => pedido.Cliente.Nome);
+                }
+                if (parametros.SortOrder.ToLower().Equals("desc"))
+                {
+                    pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
+                }
+
+                var result = await pedidos.ToListAsync();
+
+                return PagedList<PedidoVenda>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
+
+            }
+            catch (MySqlException ex)
+            {
+                _context.Dispose();
+                throw new Exception(ex.Message);
+            }
         }
 
         public Task<IEnumerable<PedidoVenda>> BuscarTodos()

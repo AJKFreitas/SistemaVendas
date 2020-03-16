@@ -2,7 +2,7 @@ import { Cliente } from './../../Cliente/model/Cliente';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
-import { Router } from '@angular/router';
+import { Router, Route } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
@@ -49,8 +49,9 @@ export class PedidoComponent implements OnInit {
     public produtoService: ProdutoService,
     public pedidoVendaService: PedidoVendaService,
     public router: Router,
-    private spinnerService: NgxSpinnerService,
-    private toastSevice: MensagemPopUPService
+    public spinnerService: NgxSpinnerService,
+    private toastSevice: MensagemPopUPService,
+    private route: Router
   ) {
     this.pedidoVenda.cliente = new Cliente();
     this.pedidoVenda.itemsPedido = new Array<ItemPedidoVenda>();
@@ -156,7 +157,10 @@ export class PedidoComponent implements OnInit {
       }
     }
   }
-
+  cancelar() {
+        this.pedidoVenda = new PedidoVenda();
+        this.route.navigate(['/listar-pedido-venda']);
+  }
   lancarPedidoVenda() {
     this.calcularValorTotalDaVenda();
     this.spinnerService.show();
@@ -173,8 +177,10 @@ export class PedidoComponent implements OnInit {
       this.pedidoVenda.valorTotal);
     this.pedidoVendaService.iserir(pedidoVendaVm).subscribe((res) => {
       if (res) {
+        debugger;
         this.spinnerService.hide();
         this.pedidoVenda = new PedidoVenda();
+        this.route.navigate(['/listar-pedido-venda']);
         this.toastSevice.Sucesso('Sucesso!', 'Pedido lançado com sucesso!');
       }
       this.spinnerService.hide();

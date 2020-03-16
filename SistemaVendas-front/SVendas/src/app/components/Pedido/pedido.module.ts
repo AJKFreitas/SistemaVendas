@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PedidoRoutingModule } from './pedido-routing.module';
 import { PedidoComponent } from './pedido/pedido.component';
 import { NgxSelectModule, INgxSelectOptions } from 'ngx-select-ex';
+import { ListarPedidoVendaComponent } from './listar-pedido-venda/listar-pedido-venda.component';
 
 const CustomSelectOptions: INgxSelectOptions = {
   keepSelectedItems: true, // Check the interface for more options
@@ -12,7 +13,8 @@ const CustomSelectOptions: INgxSelectOptions = {
 };
 @NgModule({
   declarations: [
-    PedidoComponent
+    PedidoComponent,
+    ListarPedidoVendaComponent
   ],
   imports: [
     CommonModule,

@@ -10,9 +10,11 @@
     <input matInput #input>
   </mat-form-field>
 
+  <p>
+    <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Novo Fornecedor</button>
+  </p>
   <div class="mat-elevation-z8">
 
-    <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
     <table mat-table [dataSource]="dataSourceF"
      #mytable class="mat-elevation-z8" matSort matSortActive="nome"
      matSortDirection="asc" matSortDisableClear>

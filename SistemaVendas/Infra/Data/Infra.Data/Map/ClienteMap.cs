@@ -21,6 +21,7 @@ namespace SistemaVendas.Infra.Data.Map
             builder.HasMany(cliente => cliente.Pedidos)
                     .WithOne(pedido => pedido.Cliente)
                     .HasForeignKey(pedido => pedido.IdCliente);
+
         }
     }
 }

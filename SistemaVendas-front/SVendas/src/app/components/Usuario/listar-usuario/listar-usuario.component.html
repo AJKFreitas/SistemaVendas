@@ -8,8 +8,10 @@
   <mat-label>Filtrar</mat-label>
   <input matInput #input>
 </mat-form-field>
+<p>
+  <button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Novo Usuário</button>
+</p>
 
-<button mat-button (click)="openModal('Adicionar',{})" mat-flat-button color="primary">Adicionar</button>
 <div class="example-container mat-elevation-z8">
 
   <table mat-table [dataSource]="dataSourceU" #mytable class="mat-elevation-z8" matSort 

@@ -18,5 +18,24 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
 
         }
 
+        public ItemOrdemCompra(Guid id, double preco, long quantidade, Produto produto, Guid idProduto, OrdemCompra ordemCompra, Guid idOrdemCompra)
+        {
+            Id = id;
+            Preco = preco;
+            Quantidade = quantidade;
+            Produto = produto;
+            IdProduto = idProduto;
+            OrdemCompra = ordemCompra;
+            IdOrdemCompra = idOrdemCompra;
+        }
+
+        public ItemOrdemCompra(Guid id, double preco, long quantidade, Guid idProduto, Guid idOrdemCompra)
+        {
+            Id = id;
+            Preco = preco;
+            Quantidade = quantidade;
+            IdProduto = idProduto;
+            IdOrdemCompra = idOrdemCompra;
+        }
     }
 }

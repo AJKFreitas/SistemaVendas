@@ -56,7 +56,17 @@ namespace SistemaVendas.Core.AutoMapers
 
             CreateMap<ItemPedidoVendaVM, ItemPedidoVenda>();
             CreateMap<ClienteVM, Cliente>();
-            CreateMap<OrdemCompraVM, OrdemCompra>();
+            CreateMap<OrdemCompraVM, OrdemCompra>()
+                .ForMember(pvm => pvm.ItemsOrdemCompra, opt => opt
+                .MapFrom(pv => pv.ItemsOrdemCompraVM.Select(i => new ItemOrdemCompra
+                {
+                    Id = Guid.NewGuid(),
+                    Quantidade = i.Quantidade,
+                    Preco = i.Preco,
+                    IdProduto = i.IdProduto,
+                    IdOrdemCompra = pv.Id
+                }
+                ).ToList()));
             CreateMap<ItemOrdemCompraVM, ItemOrdemCompra>();
             CreateMap<UsuarioVM, Usuario>();
 

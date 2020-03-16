@@ -8,17 +8,19 @@
 
       <ul class="list-unstyled components">
           <li class="active" *appHasRole="['Admin','Funcionario','Vendedor']">
-              <a href="#pedidoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pedido</a>
+              <a href="#pedidoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pedido Venda</a>
               <ul class="collapse list-unstyled" id="pedidoSubmenu">
                   <li>
                       <a routerLinkActive="active" routerLink="/pedido">Novo Pedido</a>
                   </li>
-                  <!-- <li>
-                      <a routerLinkActive="active" href="#">Listar Pedidos</a>
+                  <li>
+                      <a routerLinkActive="active" routerLink="/listar-pedido-venda">Listar Pedidos</a>
                   </li>
+                <!--
                   <li>
                       <a routerLinkActive="active" href="#">Acompanhar Pedidos</a>
-                  </li> -->
+                    </li> 
+                -->
               </ul>
           </li>
           <li class="active" *appHasRole="['Admin','Funcionario','Fornecedor']">
@@ -98,8 +100,7 @@
                         <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">{{this.authService.getProfileContext}}</a>
                       </li>
                       <li class="nav-item">
-                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign
-                          in</a>
+                        <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign in</a>
                       </li>
                       <li class="nav-item">
                         <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active"

@@ -90,9 +90,7 @@ namespace SistemaVendas.Api.Controller
         public async Task<ActionResult<Cliente>> Inserir(Cliente cliente)
         {
 
-            await _service.Inserir(cliente);
-
-            return CreatedAtAction("GetCliente", new { id = cliente.Id }, cliente);
+            return Ok(await _service.Inserir(cliente));
         }
 
         [HttpDelete("{id}")]
