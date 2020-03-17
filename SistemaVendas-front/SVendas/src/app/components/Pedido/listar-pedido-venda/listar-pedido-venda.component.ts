@@ -15,11 +15,20 @@ import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ClienteDataSource } from '../../Cliente/service/cliente.datasource';
 import { PedidoVendaService } from '../service/pedido-venda.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ItemPedidoVenda } from '../models/ItemPedidoVenda';
 
 @Component({
   selector: 'app-listar-pedido-venda',
   templateUrl: './listar-pedido-venda.component.html',
-  styleUrls: ['./listar-pedido-venda.component.css']
+  styleUrls: ['./listar-pedido-venda.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
 
@@ -31,6 +40,7 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
   fonteDeDadosDeVendas: PedidoVendaDataSource;
   displayedColumns: string[] = ['cliente', 'dataVenda', 'valorTotal', 'action'];
   pedidos: PedidoVenda[] = [];
+  expandedElement: PedidoVenda | null;
 
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
@@ -83,4 +93,6 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
   novoPedido() {
     this.route.navigate(['/pedido']);
   }
+
+ 
 }

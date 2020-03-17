@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using SistemaVendas.Aplication.Dtos;
+using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Interfaces;
+using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
@@ -68,7 +70,38 @@ namespace SistemaVendas.Infra.Data.Repository
                     pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
                 }
 
-                var result = await pedidos.ToListAsync();
+                var result = await pedidos.Select(
+                    p => new PedidoVenda
+                    {
+                        Id = p.Id,
+                        DataVenda = p.DataVenda,
+                        ValorTotal = p.ValorTotal,
+                        Cliente = new Cliente
+                        {
+                            Id = p.Cliente.Id,
+                            Nome = p.Cliente.Nome,
+                            CPF = p.Cliente.CPF,
+                            Endereco = p.Cliente.Endereco,
+                            Telefone = p.Cliente.Telefone,
+                            Pedidos = new List<PedidoVenda>()
+                        },
+                        ItemPedidos = p.ItemPedidos.Select(ip => new ItemPedidoVenda
+                        {
+                            Id = ip.Id,
+                            IdPedido = ip.IdPedido,
+                            IdProduto = ip.IdProduto,
+                            Preco = ip.Preco,
+                            Quantidade = ip.Quantidade,
+                            SubTotal = ip.SubTotal,
+                            Produto = new Produto
+                            {
+                                Id = ip.Produto.Id,
+                                Nome = ip.Produto.Nome,
+                                Descricao = ip.Produto.Descricao,
+                                Valor = ip.Produto.Valor
+                            }
+                        }).ToList()
+                    }).ToListAsync();
 
                 return PagedList<PedidoVenda>.ToPagedList(result, parametros.NumeroDaPaginaAtual, parametros.TamanhoDaPagina);
 

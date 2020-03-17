@@ -177,7 +177,6 @@ export class PedidoComponent implements OnInit {
       this.pedidoVenda.valorTotal);
     this.pedidoVendaService.iserir(pedidoVendaVm).subscribe((res) => {
       if (res) {
-        debugger;
         this.spinnerService.hide();
         this.pedidoVenda = new PedidoVenda();
         this.route.navigate(['/listar-pedido-venda']);

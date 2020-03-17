@@ -40,41 +40,9 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
-                var pedidos = await _repository.BuscarPorFiltroComPaginacao(parametros);
-                var data =  pedidos.Select(
-                    p => new PedidoVenda
-                    {
-                        Id = p.Id,
-                        DataVenda = p.DataVenda,
-                        Cliente = new Cliente
-                        {
-                            Id = p.Cliente.Id,
-                            Nome = p.Cliente.Nome,
-                            CPF = p.Cliente.CPF,
-                            Endereco = p.Cliente.Endereco,
-                            Telefone = p.Cliente.Telefone,
-                            Pedidos = new List<PedidoVenda>()
-                        },
-                        ItemPedidos = p.ItemPedidos.Select(ip => new ItemPedidoVenda
-                        {
-                            Id = ip.Id,
-                            IdPedido = ip.IdPedido,
-                            IdProduto = ip.IdProduto,
-                            Preco = ip.Preco,
-                            Quantidade = ip.Quantidade,
-                            SubTotal = ip.SubTotal,
-                            Produto = new Produto
-                            {
-                                Id = ip.Produto.Id,
-                                Nome = ip.Produto.Nome,
-                                Descricao = ip.Produto.Descricao,
-                                Valor = ip.Produto.Valor
-                            }
-                        }).ToList(),
-                        ValorTotal = p.ValorTotal,
-                    }).ToList();
+                
 
-                return new PagedList<PedidoVenda>(data, pedidos.Count, pedidos.CurrentPage, pedidos.PageSize);
+                return await _repository.BuscarPorFiltroComPaginacao(parametros);
             }
             catch (Exception e)
             {

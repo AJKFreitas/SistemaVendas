@@ -18,8 +18,8 @@
     <div class="mat-elevation-z8">
 
       <table mat-table [dataSource]="fonteDeDadosDeVendas" class="mat-elevation-z8" matSort matSortActive="cliente"
-        matSortDirection="asc" matSortDisableClear>
-        
+        matSortDirection="asc" matSortDisableClear multiTemplateDataRows>
+
         <ng-container matColumnDef="valorTotal">
           <th mat-header-cell *matHeaderCellDef> Valor Total do Pedido</th>
           <td mat-cell *matCellDef="let element"> {{element.valorTotal | currency:'BRL':'symbol':'1.2-2'}} </td>
@@ -34,30 +34,51 @@
           <th mat-header-cell *matHeaderCellDef> Data da Venda </th>
           <td mat-cell *matCellDef="let element"> {{element.dataVenda | date:"dd/MM/yyyy HH:mm:ss" }} </td>
         </ng-container>
-        <!-- 
-              <ng-container matColumnDef="codigo">
-                <th mat-header-cell *matHeaderCellDef > Código </th>
-                <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
-              </ng-container> -->
 
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let element" class="action-link">
-            <a (click)="openModal('Editar',element)" class="btn btn-warning btn-md">Visualizar</a> |
-            <!-- <span *appHasRole="['Admin','Funcionario']"> 
-                   <a (click)="openModal('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
-                 </span>  -->
+            <a (click)="expandedElement = expandedElement === element ? null : element"
+              class="btn btn-warning btn-md">Detalhes do pedido</a>
+            <!-- |
+            <span *appHasRole="['Admin','Funcionario']">
+              <a (click)="openModal('Excluir',element)" class="btn btn-secondary btn-md">Deletar</a>
+            </span> -->
           </td>
         </ng-container>
 
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <table class="table table-striped">
+                <thead class="table-primary">
+                  <tr>
+                    <th scope="col">Produto</th>
+                    <th scope="col">Preço Compra</th>
+                    <th scope="col">Preço Venda</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Sub Total</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of element.itemPedidos; index as i">
+                  <tr>
+                    <td scope="row">{{item.produto.nome}} </td>
+                    <td scope="row">{{item.produto.valor | currency:'BRL':'symbol':'1.2-2'}} </td>
+                    <td scope="row">{{item.preco | currency:'BRL':'symbol':'1.2-2'}} </td>
+                    <td scope="row">{{item.quantidade}} </td>
+                    <td scope="row">{{item.subTotal | currency:'BRL':'symbol':'1.2-2'}} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+          [class.expanded-row]="expandedElement === element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>
-      <!-- <div *ngIf="dataSourceP.loading$ | async">
-              <mat-spinner></mat-spinner>
-          </div> -->
-      <!-- #paginator -->
       <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="fonteDeDadosDeVendas.lenth$ | async"
         [showFirstLastButtons]="true" (page)="getPaginatorData($event)">
       </mat-paginator>
