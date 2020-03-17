@@ -45,6 +45,7 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
+
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
@@ -94,5 +95,28 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
     this.route.navigate(['/pedido']);
   }
 
- 
+ editar(pedidoVenda: PedidoVenda ) {
+  this.route.navigateByUrl('/pedido', {
+    // tslint:disable-next-line:object-literal-shorthand
+    state: { pedidoVenda: pedidoVenda }
+    });
+ }
+  excluir(produto: PedidoVenda) {
+    this.spinnerService.show();
+    this.service.excluir(produto).subscribe((res) => {
+      if (res) {
+        this.toastSevice.Sucesso('Sucesso!', 'Pedido excluido com sucesso!');
+        this.spinnerService.hide();
+      }
+      this.CarregarVendas();
+      this.spinnerService.hide();
+      this.toastSevice.Sucesso('Sucesso!', 'Pedido excluido com sucesso!');
+    },
+      err => {
+        this.spinnerService.hide();
+        this.toastSevice.Erro('Erro ao tentar excluido Pedido!');
+      }
+    );
+
+  }
 }

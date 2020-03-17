@@ -26,9 +26,18 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             _mapper = mapper;
         }
 
-        public Task<int> Excluir(Guid Id)
+        public async Task<int> Excluir(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Excluir(Id);
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
         public bool ExistePedidoVenda(Guid id)
@@ -40,8 +49,6 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
-                
-
                 return await _repository.BuscarPorFiltroComPaginacao(parametros);
             }
             catch (Exception e)
@@ -51,14 +58,30 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             }
         }
 
-        public Task<IEnumerable<PedidoVenda>> BuscarTodos()
+        public async Task<IEnumerable<PedidoVenda>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.BuscarTodos();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
         public Task<PedidoVenda> BuscarPorId(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _repository.BuscarPorId(Id);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<int> Inserir(PedidoVendaVM pedidoVendaVM)
@@ -79,7 +102,16 @@ namespace SistemaVendas.Aplication.Services.Pedidos
 
         public Task<int> Editar(PedidoVenda PedidoVenda)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _repository.Editar(PedidoVenda);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }

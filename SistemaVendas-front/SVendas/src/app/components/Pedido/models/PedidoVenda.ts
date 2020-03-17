@@ -2,11 +2,11 @@ import { ItemPedidoVenda, ItemPedidoVendaVM } from './ItemPedidoVenda';
 import { Cliente, ClienteVM } from '../../Cliente/model/Cliente';
 
 export class PedidoVenda {
-    Id: string;
+    id: string;
     dataVenda: any;
     cliente: Cliente;
     idCliente: string;
-    itemsPedido = new Array<ItemPedidoVenda>();
+    itemPedidos = new Array<ItemPedidoVenda>();
     valorTotal: number;
 }
 export class PedidoVendaVM {

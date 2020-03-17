@@ -267,7 +267,7 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
                         .WithMany("ItemOrdemCompras")
                         .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -276,13 +276,13 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.PedidoVenda", "Pedido")
                         .WithMany("ItemPedidos")
                         .HasForeignKey("IdPedido")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
                         .WithMany("ItemPedidos")
                         .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
