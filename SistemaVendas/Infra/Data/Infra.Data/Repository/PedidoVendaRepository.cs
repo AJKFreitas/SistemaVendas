@@ -221,6 +221,11 @@ namespace SistemaVendas.Infra.Data.Repository
                     IdProduto = i.IdProduto,
                     IdPedido = pedidoVenda.Id
                 }).ToList();
+                var itensPedidosDatabase = await _context.ItemsPedidos.Where(i => i.IdPedido == pedido.Id).ToListAsync();
+                var itensPedidosAPI = pedido.ItemPedidos;
+                var itensPedidosParaExclusao = itensPedidosDatabase.Where(itens => !itensPedidosAPI.Contains(itens))?.ToList();
+               
+                itensPedidosParaExclusao.ForEach(item => _context.ItemsPedidos.Remove(item));
 
                 pedidoVenda.ItemPedidos = itemsPedidos;
                 _context.Entry(pedidoVenda).State = EntityState.Modified;
