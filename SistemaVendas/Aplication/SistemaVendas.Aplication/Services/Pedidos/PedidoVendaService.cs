@@ -101,8 +101,12 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
+<<<<<<< HEAD
                 var novoPedido = _mapper.Map<PedidoVendaVM, PedidoVenda>(pedidoVendaVM);
                 return _repository.Editar(novoPedido);
+=======
+                return _repository.Editar(PedidoVenda);
+>>>>>>> 24128dffbc3a5fe87a5836e34a3db5a48c8c99d4
 
             }
             catch (Exception e)
