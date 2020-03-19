@@ -65,19 +65,17 @@ namespace SistemaVendas.Api.Controller
 
             return Ok(new { pagina, pageData });
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Editar(PedidoVenda pedidoVenda)
+        [HttpPut]
+        public async Task<IActionResult> Editar(PedidoVendaVM pedidoVenda)
         {
-            
             try
             {
               return Ok(await _pedidoVendaService.Editar(pedidoVenda));
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
                 
-            return NoContent();
-                    throw;
+                return BadRequest( new Exception( e.Message));
              
             }
 
@@ -91,7 +89,8 @@ namespace SistemaVendas.Api.Controller
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PedidoVenda>> DeletePedidoVenda(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<PedidoVenda>> Excluir(Guid id)
         {
             var pedidoVenda = await _pedidoVendaService.BuscarPorId(id);
             if (pedidoVenda == null)
@@ -99,7 +98,8 @@ namespace SistemaVendas.Api.Controller
                 return NotFound();
             }
 
-            return Ok(_pedidoVendaService.Excluir(id));
+            return Ok(await _pedidoVendaService.Excluir(pedidoVenda.Id));
+             
         }
 
         private bool PedidoVendaExists(Guid id)

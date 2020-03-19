@@ -9,7 +9,6 @@ using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
@@ -28,7 +27,7 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 PedidoVenda pedidoVenda = null;
-                pedidoVenda = _context.Pedidos.Find(id);
+                pedidoVenda = await BuscarPorId(id);
                 if (pedidoVenda != null)
                     _context.Remove(pedidoVenda);
                 return await SalvarCommit();
@@ -39,9 +38,19 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public bool ExistePedido(long codigo)
+        public bool ExistePedido(Guid id)
         {
-            throw new NotImplementedException();
+            PedidoVenda pedidoVenda = null;
+
+            try
+            {
+                pedidoVenda = _context.Pedidos.Where(x => x.Id == id).FirstOrDefault();
+                return pedidoVenda != null;
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams parametros)
@@ -113,14 +122,30 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public Task<IEnumerable<PedidoVenda>> BuscarTodos()
+        public async Task<IEnumerable<PedidoVenda>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Pedidos.ToListAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<PedidoVenda> BuscarPorId(Guid Id)
+        public async Task<PedidoVenda> BuscarPorId(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Pedidos.AsNoTracking().Where(p => p.Id == Id).FirstOrDefaultAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<int> Inserir(PedidoVenda pedido)
@@ -173,9 +198,44 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public Task<int> Editar(PedidoVenda produto)
+        public async Task<int> Editar(PedidoVenda pedido)
         {
-            throw new NotImplementedException();
+            try
+            {
+                PedidoVenda pedidoVenda = await BuscarPorId(pedido.Id);
+                
+
+                pedidoVenda.Id = pedido.Id;
+                pedidoVenda.DataVenda = pedido.DataVenda;
+                pedidoVenda.IdCliente = pedido.IdCliente;
+                pedidoVenda.ItemPedidos = pedido.ItemPedidos;
+                pedidoVenda.ValorTotal = pedido.ValorTotal;
+               
+                 
+                var itemsPedidos = pedido.ItemPedidos.Select(i => new ItemPedidoVenda
+                {
+                    Id = i.Id,
+                    Quantidade = i.Quantidade,
+                    Preco = i.Preco,
+                    SubTotal = i.SubTotal,
+                    IdProduto = i.IdProduto,
+                    IdPedido = pedidoVenda.Id
+                }).ToList();
+                var itensPedidosDatabase = await _context.ItemsPedidos.Where(i => i.IdPedido == pedido.Id).ToListAsync();
+                var itensPedidosAPI = pedido.ItemPedidos;
+                var itensPedidosParaExclusao = itensPedidosDatabase.Where(itens => !itensPedidosAPI.Contains(itens))?.ToList();
+               
+                itensPedidosParaExclusao.ForEach(item => _context.ItemsPedidos.Remove(item));
+
+                pedidoVenda.ItemPedidos = itemsPedidos;
+                _context.Entry(pedidoVenda).State = EntityState.Modified;
+                _context.Pedidos.Update(pedidoVenda);
+                return await SalvarCommit();
+            }
+            catch (MySqlException e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

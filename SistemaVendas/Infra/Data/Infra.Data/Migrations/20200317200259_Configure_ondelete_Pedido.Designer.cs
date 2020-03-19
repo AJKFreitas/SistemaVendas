@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaVendas.Infra.Data;
 
 namespace SistemaVendas.Infra.Data.Migrations
 {
     [DbContext(typeof(VendasEFContext))]
-    partial class VendasEFContextModelSnapshot : ModelSnapshot
+    [Migration("20200317200259_Configure_ondelete_Pedido")]
+    partial class Configure_ondelete_Pedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

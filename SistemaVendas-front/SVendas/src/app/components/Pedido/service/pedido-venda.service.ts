@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PedidoVendaVM } from '../models/PedidoVenda';
+import { PedidoVendaVM, PedidoVenda } from '../models/PedidoVenda';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +25,20 @@ export class PedidoVendaService {
         catchError(this.handleError)
       );
   }
+  editar(pedidoVenda: PedidoVenda): Observable<any> {
+    const api = `${this.endpoint}/PedidoVenda`;
+    return this.http.put(api, pedidoVenda)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
-  handleError(error: HttpErrorResponse) {
-    let msg = '';
-    if (error.error instanceof ErrorEvent) {
-      msg = error.error.message;
-    } else {
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    return throwError(msg);
+  excluir(pedido: PedidoVenda): Observable<any> {
+    const api = `${this.endpoint}/PedidoVenda/${pedido.id}`;
+    return this.http.delete(api)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   buscarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5): Observable<any> {
@@ -47,5 +52,15 @@ export class PedidoVendaService {
     }).pipe(
       map(res => res)
     );
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      msg = error.error.message;
+    } else {
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(msg);
   }
 }

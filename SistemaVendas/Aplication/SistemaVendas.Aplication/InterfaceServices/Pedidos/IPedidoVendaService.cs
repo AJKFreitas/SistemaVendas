@@ -13,7 +13,7 @@ namespace SistemaVendas.Aplication.InterfaceServices.Pedidos
         Task<IEnumerable<PedidoVenda>> BuscarTodos();
         Task<PedidoVenda> BuscarPorId(Guid id);
         Task<int> Inserir(PedidoVendaVM pedidoVM);
-        Task<int> Editar(PedidoVenda pedidoVM);
+        Task<int> Editar(PedidoVendaVM pedidoVM);
         Task<int> Excluir(Guid id);
         bool ExistePedidoVenda(Guid id);
       

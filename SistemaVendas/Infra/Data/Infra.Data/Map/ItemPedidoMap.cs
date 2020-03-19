@@ -17,7 +17,8 @@ namespace SistemaVendas.Infra.Data.Map
 
             builder.HasOne(itemPedido => itemPedido.Pedido)
                     .WithMany(pedido => pedido.ItemPedidos)
-                    .HasForeignKey(itemPedido => itemPedido.IdPedido);
+                    .HasForeignKey(itemPedido => itemPedido.IdPedido)
+                    .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }
