@@ -31,7 +31,7 @@ export class PedidoVendaDataSource implements DataSource<PedidoVenda> {
             )
             .subscribe(pedidoVenda => {
                 this.pedidoVendaSubject.next(pedidoVenda.pagina);
-                this.loadingLenthSubject.next(pedidoVenda.pageData.totalCount);
+                this.loadingLenthSubject.next(pedidoVenda.pageData.TotalCount);
             });
     }
 

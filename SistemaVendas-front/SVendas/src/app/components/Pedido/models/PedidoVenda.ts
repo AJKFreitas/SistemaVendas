@@ -11,10 +11,12 @@ export class PedidoVenda {
 }
 export class PedidoVendaVM {
     constructor(
-        // public  dataVenda = new Date().toJSON,
         public  idCliente: string ,
         public  itemPedidosVM  = new Array<ItemPedidoVendaVM>(),
-        public  valorTotal: number
+        public  valorTotal: number,
+        public  dataVenda?,
+        public  id?,
+
     ) {
 
     }

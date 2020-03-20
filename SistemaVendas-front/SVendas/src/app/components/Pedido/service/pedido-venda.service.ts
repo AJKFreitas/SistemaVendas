@@ -20,12 +20,12 @@ export class PedidoVendaService {
 
   iserir(pedidoVenda: PedidoVendaVM): Observable<any> {
     const api = `${this.endpoint}/PedidoVenda`;
-    return this.http.post(api, pedidoVenda)
+    return this.http.post<PedidoVendaVM>(api, pedidoVenda)
       .pipe(
         catchError(this.handleError)
       );
   }
-  editar(pedidoVenda: PedidoVenda): Observable<any> {
+  editar(pedidoVenda: PedidoVendaVM): Observable<any> {
     const api = `${this.endpoint}/PedidoVenda`;
     return this.http.put(api, pedidoVenda)
       .pipe(

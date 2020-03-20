@@ -81,11 +81,11 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             }
         }
 
-        public async Task<int> Inserir(PedidoVendaVM pedidoVendaVM)
+        public async Task<int> Inserir(LancarPedidoVendaVM pedidoVendaVM)
         {
             try
             {
-                var novoPedido = _mapper.Map<PedidoVendaVM, PedidoVenda>(pedidoVendaVM);
+                var novoPedido = _mapper.Map<LancarPedidoVendaVM, PedidoVenda>(pedidoVendaVM);
 
                 return await _repository.Inserir(novoPedido);
 
@@ -101,7 +101,19 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
-                var novoPedido = _mapper.Map<PedidoVendaVM, PedidoVenda>(pedidoVendaVM);
+                //(Guid id, DateTime dataVenda, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal
+                 var itemsPedidos = new List<ItemPedidoVenda>();
+                foreach (var item in pedidoVendaVM.ItemPedidosVM)
+                {
+                    var idItemPedido = Guid.NewGuid();
+                       if( item.Id != Guid.Empty || item.Id != null)
+                    {
+                        idItemPedido = item.Id.GetValueOrDefault();
+                    }
+
+                    itemsPedidos.Add(new ItemPedidoVenda( idItemPedido, item.Quantidade, item.Preco, item.SubTotal, item.IdProduto, pedidoVendaVM.Id ));
+                }  
+                var novoPedido = new PedidoVenda(pedidoVendaVM.Id, pedidoVendaVM.DataVenda.Value, pedidoVendaVM.IdCliente, itemsPedidos,pedidoVendaVM.ValorTotal);
                 return _repository.Editar(novoPedido);
 
             }

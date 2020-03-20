@@ -1,5 +1,5 @@
 import { PedidoVendaDataSource } from './../service/pedido-venda.datasource';
-import { PedidoVenda } from './../models/PedidoVenda';
+import { PedidoVenda, PedidoVendaVM } from './../models/PedidoVenda';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../Produto/model/Produto';
@@ -95,7 +95,7 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
     this.route.navigate(['/pedido']);
   }
 
- editar(pedidoVenda: PedidoVenda ) {
+ editar(pedidoVenda: PedidoVendaVM ) {
   this.route.navigateByUrl('/pedido', {
     // tslint:disable-next-line:object-literal-shorthand
     state: { pedidoVenda: pedidoVenda }

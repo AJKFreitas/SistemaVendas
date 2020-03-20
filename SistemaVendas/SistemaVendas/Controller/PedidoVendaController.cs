@@ -83,7 +83,7 @@ namespace SistemaVendas.Api.Controller
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<PedidoVenda>> Inserir(PedidoVendaVM pedidoVendaVM)
+        public async Task<ActionResult<PedidoVenda>> Inserir([FromBody]LancarPedidoVendaVM pedidoVendaVM)
         {
             return Ok(await _pedidoVendaService.Inserir(pedidoVendaVM));
         }

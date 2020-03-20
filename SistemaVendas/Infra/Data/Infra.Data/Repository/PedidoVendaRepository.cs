@@ -139,7 +139,11 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                return await _context.Pedidos.AsNoTracking().Where(p => p.Id == Id).FirstOrDefaultAsync();
+                return await _context.Pedidos.AsNoTracking()
+                    .Include(p => p.ItemPedidos)
+                    .ThenInclude(i => i.Produto)
+                    .Where(p => p.Id == Id)
+                    .FirstOrDefaultAsync();
             }
             catch (MySqlException e)
             {
@@ -203,7 +207,17 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 PedidoVenda pedidoVenda = await BuscarPorId(pedido.Id);
-                
+                var ItensDaTela = pedido.ItemPedidos.ToList();
+                var ItensDoBanco = pedidoVenda.ItemPedidos.ToList();
+
+
+
+                var ItensParaAtualizar = ItensDoBanco.Where(itemBD =>  ItensDaTela.Select(itemTela => itemTela.Id == itemBD.Id).First()).ToList();
+
+                foreach (var item in ItensParaAtualizar)
+                {
+                    _context.ItemsPedidos.Remove(item);
+                }
 
                 pedidoVenda.Id = pedido.Id;
                 pedidoVenda.DataVenda = pedido.DataVenda;

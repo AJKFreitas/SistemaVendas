@@ -208,10 +208,24 @@ export class PedidoComponent implements OnInit {
     }
   }
   editarPedidoVenda(pedidoVenda: PedidoVenda) {
-    debugger;
-    pedidoVenda.idCliente = pedidoVenda.cliente.id;
     this.spinnerService.show();
-    this.pedidoVendaService.editar(pedidoVenda).subscribe((res) => {
+    debugger;
+    const itemPedidoVendaVM = pedidoVenda.itemPedidos
+      .map(x => new ItemPedidoVendaVM(
+        x.quantidade,
+        x.preco,
+        x.subTotal,
+        x.idProduto,
+        x.idPedido,
+        x.id));
+    const pedidoVendaVm = new PedidoVendaVM(
+      this.pedidoVenda.cliente.id,
+      itemPedidoVendaVM,
+      this.pedidoVenda.valorTotal,
+      this.pedidoVenda.dataVenda,
+      this.pedidoVenda.id);
+
+    this.pedidoVendaService.editar(pedidoVendaVm).subscribe((res) => {
       this.spinnerService.hide();
       this.toastSevice.Sucesso('Sucesso!', 'Pedido alterado com sucesso!');
       this.route.navigate(['/listar-pedido-venda']);

@@ -19,6 +19,7 @@ export class ItemPedidoVendaVM {
         public preco: number,
         public subTotal: number,
         public idProduto: string,
-        public idPedido: string,
+        public idPedido?: string,
+        public id?: string,
     ) { }
 }

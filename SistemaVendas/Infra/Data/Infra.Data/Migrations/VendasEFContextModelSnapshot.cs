@@ -276,14 +276,12 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasOne("SistemaVendas.Core.Domains.Pedidos.Entities.PedidoVenda", "Pedido")
                         .WithMany("ItemPedidos")
                         .HasForeignKey("IdPedido")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SistemaVendas.Core.Domains.Produtos.Entities.Produto", "Produto")
                         .WithMany("ItemPedidos")
                         .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SistemaVendas.Core.Domains.Pedidos.Entities.OrdemCompra", b =>
@@ -300,7 +298,7 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.HasOne("SistemaVendas.Core.Domains.Clientes.Entities.Cliente", "Cliente")
                         .WithMany("Pedidos")
                         .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
