@@ -43,8 +43,8 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IPedidoVendaService, PedidoVendaService>();
             services.AddScoped<IPedidoVendaRepository, PedidoVendaRepository>();
-
-
+            services.AddScoped<IOrdemCompraRepository, OrdemCompraRepository>();
+            services.AddScoped<IOrdemCompraService, OrdemCompraService>();
         }
     }
 }

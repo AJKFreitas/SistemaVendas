@@ -64,14 +64,12 @@ namespace SistemaVendas.Core.AutoMapers
                     Quantidade = i.Quantidade,
                     Preco = i.Preco,
                     IdProduto = i.IdProduto,
-                    IdOrdemCompra = pv.Id
+                    IdOrdemCompra = pv.Id,
+                    SubTotal = i.SubTotal
                 }
                 ).ToList()));
             CreateMap<ItemOrdemCompraVM, ItemOrdemCompra>();
             CreateMap<UsuarioVM, Usuario>();
-
-
-
 
         }
     }
