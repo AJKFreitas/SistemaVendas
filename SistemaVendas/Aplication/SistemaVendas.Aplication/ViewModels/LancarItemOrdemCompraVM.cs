@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SistemaVendas.Aplication.ViewModels
+{
+  public class LancarItemOrdemCompraVM
+    {
+        public Guid? Id { get; set; }
+        public Guid IdProduto { get; set; }
+        public Guid? IdOrdemCompra { get; set; }
+        public double Preco { get; set; }
+        public long Quantidade { get; set; }
+        public object SubTotal { get; set; }
+    }
+}

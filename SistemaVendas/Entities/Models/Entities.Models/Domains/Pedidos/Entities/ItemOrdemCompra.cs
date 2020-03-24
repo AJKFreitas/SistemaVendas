@@ -12,13 +12,13 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         public Guid IdProduto { get; set; }
         public virtual OrdemCompra OrdemCompra { get; set; }
         public Guid IdOrdemCompra { get; set; }
+        public double SubTotal { get; set; }
 
         public ItemOrdemCompra()
         {
-
         }
 
-        public ItemOrdemCompra(Guid id, double preco, long quantidade, Produto produto, Guid idProduto, OrdemCompra ordemCompra, Guid idOrdemCompra)
+        public ItemOrdemCompra(Guid id, double preco, long quantidade, Produto produto, Guid idProduto, OrdemCompra ordemCompra, Guid idOrdemCompra, double subTotal)
         {
             Id = id;
             Preco = preco;
@@ -27,15 +27,28 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             IdProduto = idProduto;
             OrdemCompra = ordemCompra;
             IdOrdemCompra = idOrdemCompra;
+            SubTotal = subTotal;
         }
-
-        public ItemOrdemCompra(Guid id, double preco, long quantidade, Guid idProduto, Guid idOrdemCompra)
+        public ItemOrdemCompra(double preco, long quantidade, Produto produto, Guid idProduto, OrdemCompra ordemCompra, Guid idOrdemCompra, double subTotal)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Preco = preco;
             Quantidade = quantidade;
+            Produto = produto;
             IdProduto = idProduto;
+            OrdemCompra = ordemCompra;
             IdOrdemCompra = idOrdemCompra;
+            SubTotal = subTotal;
+        }
+
+        public ItemOrdemCompra(Guid id, long quantidade, double preco, double subTotal, Guid idProduto, Guid idOrdem)
+        {
+            Id = id == null ? Guid.NewGuid() : id;
+            Quantidade = quantidade;
+            Preco = preco;
+            SubTotal = subTotal;
+            IdProduto = idProduto;
+            IdOrdemCompra = idOrdem;
         }
     }
 }

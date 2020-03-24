@@ -7,8 +7,8 @@ namespace SistemaVendas.Aplication.ViewModels
     public class PedidoVendaVM
     {
         public Guid Id { get; set; }
-        public DateTime? DataVenda { get; set; }  = DateTime.UtcNow;
         public Guid IdCliente { get; set; }
+        public DateTime? DataVenda { get; set; }  = DateTime.UtcNow;
         public IEnumerable<ItemPedidoVendaVM> ItemPedidosVM { get; set; } = new List<ItemPedidoVendaVM>();
         public double ValorTotal { get; set; }
     }

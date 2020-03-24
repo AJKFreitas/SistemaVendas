@@ -1,0 +1,14 @@
+﻿using SistemaVendas.Core.Shared.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SistemaVendas.Core.Domains.Pedidos.Entities
+{
+   public class OrdemCompraParams : Parametros
+    {
+        public string Filter { get; set; }
+        public string SortOrder { get; set; } = "asc";
+        public string OrdenarPor { get; set; } = "fornecedor";
+    }
+}
