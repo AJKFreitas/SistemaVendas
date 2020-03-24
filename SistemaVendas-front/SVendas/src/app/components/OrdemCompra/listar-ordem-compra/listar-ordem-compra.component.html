@@ -1,0 +1,91 @@
+<div class="card">
+    <div class="card-body titulo" id="titulo">
+      Listar Ordens - Compra
+    </div>
+  </div>
+  <div class="card">
+    <!-- <span> {{pedidoVenda | json}} </span> -->
+  
+    <div class="card-body ">
+      <mat-form-field>
+        <mat-label>Filtrar</mat-label>
+        <input matInput #filtroTabela>
+  
+      </mat-form-field>
+      <p>
+        <button mat-button mat-flat-button color="primary" (click)="novaOrdem()">Novo Ordem</button>
+      </p>
+      <div class="mat-elevation-z8">
+  
+        <table mat-table [dataSource]="fonteDeDadosDeOrdens" class="mat-elevation-z8" matSort matSortActive="cliente"
+          matSortDirection="asc" matSortDisableClear multiTemplateDataRows>
+  
+          <ng-container matColumnDef="valorTotal">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Total da Ordem</th>
+            <td mat-cell *matCellDef="let element"> {{element.valorTotal | currency:'BRL':'symbol':'1.2-2'}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="fornecedor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fornecedor </th>
+            <td mat-cell *matCellDef="let element"> {{element.fornecedor?.nome}} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="dataEntrada">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Data da Compra </th>
+            <td mat-cell *matCellDef="let element"> {{element.dataEntrada | date:"dd/MM/yyyy HH:mm:ss" }} </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element" class="action-link">
+              <a (click)="expandedElement = expandedElement === element ? null : element"
+                class="btn btn-info btn-md">Detalhes</a>
+                |
+                <span *appHasRole="['Admin','Funcionario']">
+                  <a (click)="excluir(element)" class="btn btn-secondary btn-md">Deletar</a>
+                </span> 
+                |
+                <span *appHasRole="['Admin','Funcionario']">
+                  <a (click)="editar(element)" class="btn btn-warning btn-md">Editar</a>
+                </span> 
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <table class="table table-striped">
+                  <thead class="table-primary">
+                    <tr>
+                      <th scope="col">Produto</th>
+                      <th scope="col">Preço Compra</th>
+                      <th scope="col">Preço Venda</th>
+                      <th scope="col">Quantidade</th>
+                      <th scope="col">Sub Total</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of element.itemPedidos; index as i">
+                    <tr>
+                      <td scope="row">{{item.produto.nome}} </td>
+                      <td scope="row">{{item.produto.valor | currency:'BRL':'symbol':'1.2-2'}} </td>
+                      <td scope="row">{{item.preco | currency:'BRL':'symbol':'1.2-2'}} </td>
+                      <td scope="row">{{item.quantidade}} </td>
+                      <td scope="row">{{item.subTotal | currency:'BRL':'symbol':'1.2-2'}} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+            [class.expanded-row]="expandedElement === element">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="fonteDeDadosDeOrdens.lenth$ | async"
+          [showFirstLastButtons]="true" (page)="getPaginatorData($event)">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>

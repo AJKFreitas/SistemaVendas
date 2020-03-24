@@ -25,6 +25,7 @@ import { RelatoriosModule } from './components/Relatorios/relatorios.module';
 import localeFr from '@angular/common/locales/br';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrdemCompraModule } from './components/OrdemCompra/ordem-compra.module';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -64,6 +65,7 @@ registerLocaleData(localeFr, 'pt-BR');
     UsuarioModule,
     RelatoriosModule,
     PedidoModule,
+    OrdemCompraModule
   ], exports: [
 
 

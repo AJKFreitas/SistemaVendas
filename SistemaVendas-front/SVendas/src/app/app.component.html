@@ -25,6 +25,22 @@
                 -->
               </ul>
           </li>
+          <li class="active" *appHasRole="['Admin','Funcionario','Vendedor']">
+              <a href="#ordemSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ordem de Compra</a>
+              <ul class="collapse list-unstyled" id="ordemSubmenu">
+                  <li>
+                      <a routerLinkActive="active" routerLink="/ordem">Novo Ordem</a>
+                  </li>
+                  <li>
+                      <a routerLinkActive="active" routerLink="/listar-ordem-compra">Listar Ordems</a>
+                  </li>
+                <!--
+                  <li>
+                      <a routerLinkActive="active" href="#">Acompanhar Pedidos</a>
+                    </li> 
+                -->
+              </ul>
+          </li>
           <li class="active" *appHasRole="['Admin','Funcionario','Fornecedor']">
               <a href="#produtoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produto</a>
               <ul class="collapse list-unstyled" id="produtoSubmenu">
@@ -69,13 +85,13 @@
               </li>
               </ul>
           </li>
-          <!-- <li>
+           <li>
               <a routerLinkActive="active" routerLink="/relatorio">Relatorios</a>
           </li>
           <li>
               <a routerLinkActive="active" routerLink="/dashboard">Dashboard</a>
           </li>
-         -->
+         
       </ul>
 
      
