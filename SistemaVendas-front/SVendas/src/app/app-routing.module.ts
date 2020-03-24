@@ -7,13 +7,6 @@ import { AuthGuard } from './components/Auth/shared/guard/auth.guard';
 const routes: Routes = [
   { path: '', redirectTo: '/log-in', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'log-in', component: SigninComponent },
-  // { path: 'usuario', loadChildren: () => import('./components/Usuario/usuario.module').then(m => m.UsuarioModule) },
-  // { path: 'gestao-usuarios', loadChildren: () => import('./components/Usuario/usuario.module').then(m => m.UsuarioModule) },
-  //  { path: 'dashboard', loadChildren: () => import('./components/Dashboard/dashboard.module').then(dm => dm.DashboardModule) },
-  //  { path: 'gestao-produtos', loadChildren: () => import('./components/Produto/produto.module').then(pm => pm.ProdutoModule) },
-  //  { path: 'gestao-clientes', loadChildren: () => import('./components/Cliente/cliente.module').then(cm => cm.ClienteModule) },
-  //  { path: 'gestao-fornecedores', loadChildren: () => import('./components/Fornecedor/fornecedor.module').then(fm => fm.FornecedorModule)},
-
 ];
 
 @NgModule({
