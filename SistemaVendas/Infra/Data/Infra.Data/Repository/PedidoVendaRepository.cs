@@ -62,21 +62,44 @@ namespace SistemaVendas.Infra.Data.Repository
                     .Include(p => p.ItemPedidos)
                     .ThenInclude(i => i.Produto).AsQueryable();
 
-                
+
                 if (parametros.Filter != null)
                 {
-                    pedidos = pedidos.Where(x => x.Cliente.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    pedidos = pedidos.Where(x =>
+                       x.Cliente.Nome.ToLower().Contains(parametros.Filter.ToLower())
                     || x.ValorTotal.ToString().ToLower().Contains(parametros.Filter.ToLower())
                     || x.DataVenda.ToString().ToLower().Contains(parametros.Filter.ToLower())
                     );
                 }
                 if (parametros.SortOrder.ToLower().Equals("asc"))
                 {
-                    pedidos = pedidos.OrderBy(pedido => pedido.Cliente.Nome);
+                    if (parametros.OrdenarPor.ToLower().Equals("cliente"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.Cliente.Nome);
+                    } 
+                    if (parametros.OrdenarPor.ToLower().Equals("dataVenda"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.DataVenda);
+                    } 
+                    if (parametros.OrdenarPor.ToLower().Equals("valorTotal"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.ValorTotal);
+                    }
                 }
                 if (parametros.SortOrder.ToLower().Equals("desc"))
                 {
-                    pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
+                    if (parametros.OrdenarPor.Equals("cliente"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
+                    }
+                    if (parametros.OrdenarPor.Equals("dataVenda"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.DataVenda);
+                    }
+                    if (parametros.OrdenarPor.Equals("valorTotal"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.ValorTotal);
+                    }
                 }
 
                 var result = await pedidos.Select(
@@ -210,33 +233,53 @@ namespace SistemaVendas.Infra.Data.Repository
                 var ItensDaTela = pedido.ItemPedidos.ToList();
                 var ItensDoBanco = pedidoVenda.ItemPedidos.ToList();
 
-
-
-                var ItensParaAtualizar = ItensDoBanco.Where(itemBD =>  ItensDaTela.Select(itemTela => itemTela.Id == itemBD.Id).First()).ToList();
-
-                foreach (var item in ItensParaAtualizar)
+                var ItensParaRemover = ItensDoBanco.Where(itemBanco => !ItensDaTela.Exists(itemTela => itemTela.Id == itemBanco.Id)).ToList();
+                if (ItensParaRemover.Count() > 0)
                 {
-                    _context.ItemsPedidos.Remove(item);
+                    foreach (var item in ItensParaRemover)
+                    {
+                        _context.ItemsPedidos.Remove(item);
+                    }
                 }
+
+                var ItensParaAtualizar = ItensDoBanco.Where(itemBanco => ItensDaTela.Exists(itemTela => itemTela.Id == itemBanco.Id)).ToList();
+                if (ItensParaAtualizar.Count() > 0)
+                {
+                    foreach (var item in ItensParaAtualizar)
+                    {
+                        ItensDaTela.ForEach(it =>
+                        {
+                            if (it.Id == item.Id)
+                            {
+                                item.Preco = it.Preco;
+                                item.Pedido = it.Pedido;
+                                item.Produto = it.Produto;
+                                item.SubTotal = it.SubTotal;
+                                item.IdPedido = it.IdPedido;
+                                item.IdProduto = it.IdProduto;
+                                item.Quantidade = it.Quantidade;
+                                _context.ItemsPedidos.Update(item);
+                            }
+                        });
+                    }
+                }
+
+                var ItensParaAdicionar = ItensDaTela.Where(itemTela => !ItensDoBanco.Exists(itemBanco => itemBanco.Id == itemTela.Id)).ToList();
+                if (ItensParaAdicionar.Count() > 0)
+                {
+                    foreach (var item in ItensParaAdicionar)
+                    {
+                        await _context.ItemsPedidos.AddAsync(item);
+                    }
+                }
+
 
                 pedidoVenda.Id = pedido.Id;
                 pedidoVenda.DataVenda = pedido.DataVenda;
                 pedidoVenda.IdCliente = pedido.IdCliente;
                 pedidoVenda.ItemPedidos = pedido.ItemPedidos;
                 pedidoVenda.ValorTotal = pedido.ValorTotal;
-               
-                 
-                var itemsPedidos = pedido.ItemPedidos.Select(i => new ItemPedidoVenda
-                {
-                    Id = i.Id,
-                    Quantidade = i.Quantidade,
-                    Preco = i.Preco,
-                    SubTotal = i.SubTotal,
-                    IdProduto = i.IdProduto,
-                    IdPedido = pedidoVenda.Id
-                }).ToList();
 
-                pedidoVenda.ItemPedidos = itemsPedidos;
                 _context.Entry(pedidoVenda).State = EntityState.Modified;
                 _context.Pedidos.Update(pedidoVenda);
                 return await SalvarCommit();

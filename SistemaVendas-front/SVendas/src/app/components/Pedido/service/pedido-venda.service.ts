@@ -41,7 +41,7 @@ export class PedidoVendaService {
       );
   }
 
-  buscarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5): Observable<any> {
+  buscarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5, ordenarPor?): Observable<any> {
     const api = `${this.endpoint}/pedidoVenda/buscar-pagina`;
     return this.http.get(api, {
       params: new HttpParams()
@@ -49,6 +49,7 @@ export class PedidoVendaService {
         .set('sortOrder', ordenacao)
         .set('NumeroDaPaginaAtual', paginaAtual.toString())
         .set('TamanhoDaPagina', tamanhoDaPagina.toString())
+        .set('OrdenarPor', ordenarPor)
     }).pipe(
       map(res => res)
     );

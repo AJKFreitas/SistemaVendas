@@ -79,14 +79,17 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
   CarregarVendas() {
+    console.log(this.sort);
     this.fonteDeDadosDeVendas.CarregarVendas(
       this.filtroTabela.nativeElement.value,
       this.sort.direction,
       this.paginator.pageIndex,
-      this.paginator.pageSize);
+      this.paginator.pageSize,
+      this.sort.active);
   }
 
   getPaginatorData(event) {
+    console.log(event);
     this.fonteDeDadosDeVendas.CarregarVendas('', 'asc', event.pageIndex, event.pageSize);
   }
 
@@ -109,8 +112,6 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
         this.spinnerService.hide();
       }
       this.CarregarVendas();
-      this.spinnerService.hide();
-      this.toastSevice.Sucesso('Sucesso!', 'Pedido excluido com sucesso!');
     },
       err => {
         this.spinnerService.hide();
