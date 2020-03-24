@@ -33,7 +33,6 @@ namespace SistemaVendas.Infra.Data
         {
         }
 
-        //ççç
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

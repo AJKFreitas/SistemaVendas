@@ -6,11 +6,8 @@ using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using SistemaVendas.Aplication.Dtos;
-using SistemaVendas.Core.Domains.Clientes.Entities;
-using SistemaVendas.Core.Domains.Produtos.Entities;
+using System.Threading.Tasks;
 
 namespace SistemaVendas.Aplication.Services.Pedidos
 {
@@ -26,9 +23,18 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             _mapper = mapper;
         }
 
-        public Task<int> Excluir(Guid Id)
+        public async Task<int> Excluir(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Excluir(Id);
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
         public bool ExistePedidoVenda(Guid id)
@@ -40,8 +46,6 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
-                
-
                 return await _repository.BuscarPorFiltroComPaginacao(parametros);
             }
             catch (Exception e)
@@ -51,21 +55,37 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             }
         }
 
-        public Task<IEnumerable<PedidoVenda>> BuscarTodos()
+        public async Task<IEnumerable<PedidoVenda>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.BuscarTodos();
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
         public Task<PedidoVenda> BuscarPorId(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _repository.BuscarPorId(Id);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
 
-        public async Task<int> Inserir(PedidoVendaVM pedidoVendaVM)
+        public async Task<int> Inserir(LancarPedidoVendaVM pedidoVendaVM)
         {
             try
             {
-                var novoPedido = _mapper.Map<PedidoVendaVM, PedidoVenda>(pedidoVendaVM);
+                var novoPedido = _mapper.Map<LancarPedidoVendaVM, PedidoVenda>(pedidoVendaVM);
 
                 return await _repository.Inserir(novoPedido);
 
@@ -77,9 +97,36 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             }
         }
 
-        public Task<int> Editar(PedidoVenda PedidoVenda)
+        public Task<int> Editar(PedidoVendaVM pedidoVendaVM)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //(Guid id, DateTime dataVenda, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal
+                var itemsPedidos = new List<ItemPedidoVenda>();
+                foreach (var item in pedidoVendaVM.ItemPedidosVM)
+                {
+                    Guid idItemPedido;
+
+                    if (item.Id == Guid.Empty || item.Id == null)
+                    {
+                        idItemPedido = Guid.NewGuid();
+                    }
+                    else
+                    {
+                        idItemPedido = item.Id.GetValueOrDefault();
+                    }
+
+                    itemsPedidos.Add(new ItemPedidoVenda(idItemPedido, item.Quantidade, item.Preco, item.SubTotal, item.IdProduto, pedidoVendaVM.Id));
+                }
+                var novoPedido = new PedidoVenda(pedidoVendaVM.Id, pedidoVendaVM.DataVenda.Value, pedidoVendaVM.IdCliente, itemsPedidos, pedidoVendaVM.ValorTotal);
+                return _repository.Editar(novoPedido);
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }

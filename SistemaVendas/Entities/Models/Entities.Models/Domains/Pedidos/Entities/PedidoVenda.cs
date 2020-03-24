@@ -63,6 +63,15 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             IdCliente = idCliente;
             ValorTotal = valorTotal;
         }
+
+        public PedidoVenda(Guid id, DateTime dataVenda, Guid idCliente, IEnumerable<ItemPedidoVenda> itemPedidos, double valorTotal)
+        {
+            Id = id;
+            DataVenda = dataVenda;
+            IdCliente = idCliente;
+            ItemPedidos = itemPedidos;
+            ValorTotal = valorTotal;
+        }
     }
 }
 //SELECT(

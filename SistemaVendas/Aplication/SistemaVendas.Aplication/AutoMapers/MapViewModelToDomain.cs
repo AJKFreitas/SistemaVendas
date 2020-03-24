@@ -41,7 +41,7 @@ namespace SistemaVendas.Core.AutoMapers
                 .ForPath(x => x.Produto, opt => opt.MapFrom(x => x))
                 .ForPath(x => x.IdProduto, opt => opt.MapFrom(x => x.Id));
 
-            CreateMap<PedidoVendaVM, PedidoVenda>()
+            CreateMap <LancarPedidoVendaVM, PedidoVenda>()
                 .ForMember(pvm => pvm.ItemPedidos, opt => opt
                 .MapFrom(pv => pv.ItemPedidosVM.Select(i => new ItemPedidoVenda {
                                 Id = Guid.NewGuid(),
@@ -54,7 +54,7 @@ namespace SistemaVendas.Core.AutoMapers
                 ).ToList()));
 
 
-            CreateMap<ItemPedidoVendaVM, ItemPedidoVenda>();
+            CreateMap<LancarItemPedidoVendaVM, ItemPedidoVenda>();
             CreateMap<ClienteVM, Cliente>();
             CreateMap<OrdemCompraVM, OrdemCompra>()
                 .ForMember(pvm => pvm.ItemsOrdemCompra, opt => opt

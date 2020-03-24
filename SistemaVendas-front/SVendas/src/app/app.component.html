@@ -5,7 +5,9 @@
       <div class="sidebar-header">
           <h3>SVendas</h3>
       </div>
-
+      <div class="sidebar-header">
+          <span *ngIf="this.authService.isLoggedIn" class="p-2">{{this.authService.getProfileContext}}</span>
+      </div>
       <ul class="list-unstyled components">
           <li class="active" *appHasRole="['Admin','Funcionario','Vendedor']">
               <a href="#pedidoSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pedido Venda</a>

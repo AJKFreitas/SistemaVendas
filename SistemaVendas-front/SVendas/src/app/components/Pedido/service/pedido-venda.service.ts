@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PedidoVendaVM } from '../models/PedidoVenda';
+import { PedidoVendaVM, PedidoVenda } from '../models/PedidoVenda';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,39 @@ export class PedidoVendaService {
 
   iserir(pedidoVenda: PedidoVendaVM): Observable<any> {
     const api = `${this.endpoint}/PedidoVenda`;
-    return this.http.post(api, pedidoVenda)
+    return this.http.post<PedidoVendaVM>(api, pedidoVenda)
       .pipe(
         catchError(this.handleError)
       );
+  }
+  editar(pedidoVenda: PedidoVendaVM): Observable<any> {
+    const api = `${this.endpoint}/PedidoVenda`;
+    return this.http.put(api, pedidoVenda)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  excluir(pedido: PedidoVenda): Observable<any> {
+    const api = `${this.endpoint}/PedidoVenda/${pedido.id}`;
+    return this.http.delete(api)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  buscarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5, ordenarPor?): Observable<any> {
+    const api = `${this.endpoint}/pedidoVenda/buscar-pagina`;
+    return this.http.get(api, {
+      params: new HttpParams()
+        .set('filter', filtro)
+        .set('sortOrder', ordenacao)
+        .set('NumeroDaPaginaAtual', paginaAtual.toString())
+        .set('TamanhoDaPagina', tamanhoDaPagina.toString())
+        .set('OrdenarPor', ordenarPor)
+    }).pipe(
+      map(res => res)
+    );
   }
 
   handleError(error: HttpErrorResponse) {
@@ -34,18 +63,5 @@ export class PedidoVendaService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
-  }
-
-  buscarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5): Observable<any> {
-    const api = `${this.endpoint}/pedidoVenda/buscar-pagina`;
-    return this.http.get(api, {
-      params: new HttpParams()
-        .set('filter', filtro)
-        .set('sortOrder', ordenacao)
-        .set('NumeroDaPaginaAtual', paginaAtual.toString())
-        .set('TamanhoDaPagina', tamanhoDaPagina.toString())
-    }).pipe(
-      map(res => res)
-    );
   }
 }

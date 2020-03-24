@@ -10,11 +10,14 @@ namespace SistemaVendas.Infra.Data.Map
         {
             builder.HasMany(pedido => pedido.ItemPedidos)
                    .WithOne(intemPedido => intemPedido.Pedido)
-                   .HasForeignKey(itemPedido => itemPedido.IdPedido);
+                   .HasForeignKey(itemPedido => itemPedido.IdPedido)
+                   .IsRequired(false)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(pedido => pedido.Cliente)
                 .WithMany(cliente => cliente.Pedidos)
-                .HasForeignKey(pedido  => pedido.IdCliente);
+                .HasForeignKey(pedido  => pedido.IdCliente)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

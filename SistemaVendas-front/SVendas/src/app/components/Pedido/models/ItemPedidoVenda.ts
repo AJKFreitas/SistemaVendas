@@ -1,7 +1,7 @@
 import { Produto } from '../../Produto/model/Produto';
 
 export class ItemPedidoVenda {
-    precoCompra: number;
+    precoCompra?: number;
     constructor(
         public id: string,
         public quantidade: number,
@@ -19,6 +19,7 @@ export class ItemPedidoVendaVM {
         public preco: number,
         public subTotal: number,
         public idProduto: string,
-        public idPedido: string,
+        public idPedido?: string,
+        public id?: string,
     ) { }
 }

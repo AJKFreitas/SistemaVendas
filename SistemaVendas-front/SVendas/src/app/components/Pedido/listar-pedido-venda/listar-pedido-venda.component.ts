@@ -1,5 +1,5 @@
 import { PedidoVendaDataSource } from './../service/pedido-venda.datasource';
-import { PedidoVenda } from './../models/PedidoVenda';
+import { PedidoVenda, PedidoVendaVM } from './../models/PedidoVenda';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../Produto/model/Produto';
@@ -45,6 +45,7 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
 
+
   constructor(
     public dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
@@ -78,14 +79,17 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
   CarregarVendas() {
+    console.log(this.sort);
     this.fonteDeDadosDeVendas.CarregarVendas(
       this.filtroTabela.nativeElement.value,
       this.sort.direction,
       this.paginator.pageIndex,
-      this.paginator.pageSize);
+      this.paginator.pageSize,
+      this.sort.active);
   }
 
   getPaginatorData(event) {
+    console.log(event);
     this.fonteDeDadosDeVendas.CarregarVendas('', 'asc', event.pageIndex, event.pageSize);
   }
 
@@ -94,5 +98,26 @@ export class ListarPedidoVendaComponent implements OnInit, AfterViewInit {
     this.route.navigate(['/pedido']);
   }
 
- 
+ editar(pedidoVenda: PedidoVendaVM ) {
+  this.route.navigateByUrl('/pedido', {
+    // tslint:disable-next-line:object-literal-shorthand
+    state: { pedidoVenda: pedidoVenda }
+    });
+ }
+  excluir(produto: PedidoVenda) {
+    this.spinnerService.show();
+    this.service.excluir(produto).subscribe((res) => {
+      if (res) {
+        this.toastSevice.Sucesso('Sucesso!', 'Pedido excluido com sucesso!');
+        this.spinnerService.hide();
+      }
+      this.CarregarVendas();
+    },
+      err => {
+        this.spinnerService.hide();
+        this.toastSevice.Erro('Erro ao tentar excluido Pedido!');
+      }
+    );
+
+  }
 }

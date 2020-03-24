@@ -18,15 +18,13 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
         {
 
         }
-        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, PedidoVenda pedido, Guid idPedido)
+        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal,  Guid idProduto, Guid idPedido)
         {
-            Id = id;
+            Id = id == null? Guid.NewGuid(): id;
             Quantidade = quantidade;
             Preco = preco;
             SubTotal = subTotal;
-            Produto = produto;
             IdProduto = idProduto;
-            Pedido = pedido;
             IdPedido = idPedido;
         }
 
@@ -42,13 +40,17 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
             IdPedido = idPedido;
         }
 
-        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal, Guid idProduto, Guid idPedido)
+
+    
+        public ItemPedidoVenda(Guid id, long quantidade, double preco, double subTotal, Produto produto, Guid idProduto, PedidoVenda pedido, Guid idPedido)
         {
             Id = id;
             Quantidade = quantidade;
             Preco = preco;
             SubTotal = subTotal;
+            Produto = produto;
             IdProduto = idProduto;
+            Pedido = pedido;
             IdPedido = idPedido;
         }
 

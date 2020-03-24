@@ -9,6 +9,7 @@ namespace SistemaVendas.Core.Domains.Pedidos.Entities
     {
         public string Filter { get; set; }
         public string SortOrder { get; set; } = "asc";
+        public string OrdenarPor { get; set; } = "cliente";
     }
 
 }

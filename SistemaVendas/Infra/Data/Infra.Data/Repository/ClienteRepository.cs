@@ -106,7 +106,7 @@ namespace SistemaVendas.Infra.Data.Repository
         {
             try
             {
-                return await _context.Clientes.FindAsync(clienteId);
+                return await _context.Clientes.AsNoTracking().Where(c => c.Id == clienteId).FirstOrDefaultAsync();
             }
             catch (MySqlException e)
             {

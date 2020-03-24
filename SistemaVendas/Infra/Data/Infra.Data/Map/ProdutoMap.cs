@@ -16,11 +16,13 @@ namespace SistemaVendas.Infra.Data.Map
 
             builder.HasMany(produto => produto.ItemPedidos)
                    .WithOne(intemPedido => intemPedido.Produto)
-                   .HasForeignKey(itemPedido => itemPedido.IdProduto);
+                   .HasForeignKey(itemPedido => itemPedido.IdProduto)
+                   .OnDelete(DeleteBehavior.Restrict); 
 
             builder.HasMany(produto => produto.ItemOrdemCompras)
                   .WithOne(itemOrdemCompras => itemOrdemCompras.Produto)
-                  .HasForeignKey(itemOrdemCompras => itemOrdemCompras.IdProduto);
+                  .HasForeignKey(itemOrdemCompras => itemOrdemCompras.IdProduto)
+                  .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }

@@ -20,12 +20,12 @@ export class PedidoVendaDataSource implements DataSource<PedidoVenda> {
 
     }
 
-    CarregarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5) {
+    CarregarVendas(filtro = '', ordenacao = 'asc', paginaAtual = 0, tamanhoDaPagina = 5, ordenarPor?) {
 
         this.loadingSubject.next(true);
 
         this.pedidoVendaService.buscarVendas(filtro, ordenacao,
-            paginaAtual, tamanhoDaPagina).pipe(
+            paginaAtual, tamanhoDaPagina, ordenarPor).pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))
             )

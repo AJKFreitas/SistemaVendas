@@ -9,7 +9,6 @@ using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
@@ -28,7 +27,7 @@ namespace SistemaVendas.Infra.Data.Repository
             try
             {
                 PedidoVenda pedidoVenda = null;
-                pedidoVenda = _context.Pedidos.Find(id);
+                pedidoVenda = await BuscarPorId(id);
                 if (pedidoVenda != null)
                     _context.Remove(pedidoVenda);
                 return await SalvarCommit();
@@ -39,9 +38,19 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public bool ExistePedido(long codigo)
+        public bool ExistePedido(Guid id)
         {
-            throw new NotImplementedException();
+            PedidoVenda pedidoVenda = null;
+
+            try
+            {
+                pedidoVenda = _context.Pedidos.Where(x => x.Id == id).FirstOrDefault();
+                return pedidoVenda != null;
+            }
+            catch (MySqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams parametros)
@@ -53,21 +62,44 @@ namespace SistemaVendas.Infra.Data.Repository
                     .Include(p => p.ItemPedidos)
                     .ThenInclude(i => i.Produto).AsQueryable();
 
-                
+
                 if (parametros.Filter != null)
                 {
-                    pedidos = pedidos.Where(x => x.Cliente.Nome.ToLower().Contains(parametros.Filter.ToLower())
+                    pedidos = pedidos.Where(x =>
+                       x.Cliente.Nome.ToLower().Contains(parametros.Filter.ToLower())
                     || x.ValorTotal.ToString().ToLower().Contains(parametros.Filter.ToLower())
                     || x.DataVenda.ToString().ToLower().Contains(parametros.Filter.ToLower())
                     );
                 }
                 if (parametros.SortOrder.ToLower().Equals("asc"))
                 {
-                    pedidos = pedidos.OrderBy(pedido => pedido.Cliente.Nome);
+                    if (parametros.OrdenarPor.ToLower().Equals("cliente"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.Cliente.Nome);
+                    } 
+                    if (parametros.OrdenarPor.ToLower().Equals("dataVenda"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.DataVenda);
+                    } 
+                    if (parametros.OrdenarPor.ToLower().Equals("valorTotal"))
+                    {
+                        pedidos = pedidos.OrderBy(pedido => pedido.ValorTotal);
+                    }
                 }
                 if (parametros.SortOrder.ToLower().Equals("desc"))
                 {
-                    pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
+                    if (parametros.OrdenarPor.Equals("cliente"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.Cliente.Nome);
+                    }
+                    if (parametros.OrdenarPor.Equals("dataVenda"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.DataVenda);
+                    }
+                    if (parametros.OrdenarPor.Equals("valorTotal"))
+                    {
+                        pedidos = pedidos.OrderByDescending(pedido => pedido.ValorTotal);
+                    }
                 }
 
                 var result = await pedidos.Select(
@@ -113,14 +145,34 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public Task<IEnumerable<PedidoVenda>> BuscarTodos()
+        public async Task<IEnumerable<PedidoVenda>> BuscarTodos()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Pedidos.ToListAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw new Exception(e.Message);
+            }
         }
 
-        public Task<PedidoVenda> BuscarPorId(Guid Id)
+        public async Task<PedidoVenda> BuscarPorId(Guid Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Pedidos.AsNoTracking()
+                    .Include(p => p.ItemPedidos)
+                    .ThenInclude(i => i.Produto)
+                    .Where(p => p.Id == Id)
+                    .FirstOrDefaultAsync();
+            }
+            catch (MySqlException e)
+            {
+                _context.Dispose();
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<int> Inserir(PedidoVenda pedido)
@@ -173,9 +225,69 @@ namespace SistemaVendas.Infra.Data.Repository
             }
         }
 
-        public Task<int> Editar(PedidoVenda produto)
+        public async Task<int> Editar(PedidoVenda pedido)
         {
-            throw new NotImplementedException();
+            try
+            {
+                PedidoVenda pedidoVenda = await BuscarPorId(pedido.Id);
+                var ItensDaTela = pedido.ItemPedidos.ToList();
+                var ItensDoBanco = pedidoVenda.ItemPedidos.ToList();
+
+                var ItensParaRemover = ItensDoBanco.Where(itemBanco => !ItensDaTela.Exists(itemTela => itemTela.Id == itemBanco.Id)).ToList();
+                if (ItensParaRemover.Count() > 0)
+                {
+                    foreach (var item in ItensParaRemover)
+                    {
+                        _context.ItemsPedidos.Remove(item);
+                    }
+                }
+
+                var ItensParaAtualizar = ItensDoBanco.Where(itemBanco => ItensDaTela.Exists(itemTela => itemTela.Id == itemBanco.Id)).ToList();
+                if (ItensParaAtualizar.Count() > 0)
+                {
+                    foreach (var item in ItensParaAtualizar)
+                    {
+                        ItensDaTela.ForEach(it =>
+                        {
+                            if (it.Id == item.Id)
+                            {
+                                item.Preco = it.Preco;
+                                item.Pedido = it.Pedido;
+                                item.Produto = it.Produto;
+                                item.SubTotal = it.SubTotal;
+                                item.IdPedido = it.IdPedido;
+                                item.IdProduto = it.IdProduto;
+                                item.Quantidade = it.Quantidade;
+                                _context.ItemsPedidos.Update(item);
+                            }
+                        });
+                    }
+                }
+
+                var ItensParaAdicionar = ItensDaTela.Where(itemTela => !ItensDoBanco.Exists(itemBanco => itemBanco.Id == itemTela.Id)).ToList();
+                if (ItensParaAdicionar.Count() > 0)
+                {
+                    foreach (var item in ItensParaAdicionar)
+                    {
+                        await _context.ItemsPedidos.AddAsync(item);
+                    }
+                }
+
+
+                pedidoVenda.Id = pedido.Id;
+                pedidoVenda.DataVenda = pedido.DataVenda;
+                pedidoVenda.IdCliente = pedido.IdCliente;
+                pedidoVenda.ItemPedidos = pedido.ItemPedidos;
+                pedidoVenda.ValorTotal = pedido.ValorTotal;
+
+                _context.Entry(pedidoVenda).State = EntityState.Modified;
+                _context.Pedidos.Update(pedidoVenda);
+                return await SalvarCommit();
+            }
+            catch (MySqlException e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

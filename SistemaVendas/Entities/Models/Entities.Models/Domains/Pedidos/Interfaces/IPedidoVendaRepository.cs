@@ -15,6 +15,6 @@ namespace SistemaVendas.Core.Domains.Pedidos.Interfaces
         Task<int> Editar(PedidoVenda pedido);
         Task<int> Excluir(Guid id);
         Task<int> SalvarCommit();
-        bool ExistePedido(long codigo);
+        bool ExistePedido(Guid id);
     }
 }

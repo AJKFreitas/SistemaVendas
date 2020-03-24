@@ -1,8 +1,7 @@
 import { Cliente } from './../../Cliente/model/Cliente';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
-import { Router, Route } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
 import { ClienteService } from '../../Cliente/service/cliente.service';
@@ -41,7 +40,7 @@ export class PedidoComponent implements OnInit {
     clearOnSelection: false
   };
   produtos: ProdutoItemPedido[] = [];
-  itemsPedidoDeleted: any;
+  itemsPedidoDeleted: Array<ItemPedidoVenda>;
   desconto = 0;
   constructor(
     public fb: FormBuilder,
@@ -54,27 +53,34 @@ export class PedidoComponent implements OnInit {
     private route: Router
   ) {
     this.pedidoVenda.cliente = new Cliente();
-    this.pedidoVenda.itemsPedido = new Array<ItemPedidoVenda>();
+    this.pedidoVenda.itemPedidos = new Array<ItemPedidoVenda>();
+    this.itemsPedidoDeleted = new Array<ItemPedidoVenda>();
+    const nav = this.router.getCurrentNavigation();
+    if (!isNullOrUndefined(nav.extras.state)) {
+      this.pedidoVenda = nav.extras.state.pedidoVenda;
+    }
   }
 
   ngOnInit(): void {
     this.popularComboClientes();
     this.popularComboProduto();
-    this.adicionarItemPedido();
+    if (isNullOrUndefined(this.pedidoVenda.id)) {
+      this.adicionarItemPedido();
+    } else {
+      this.carregarItemsPedido(this.pedidoVenda.itemPedidos);
+    }
   }
 
   selectionChanged(event: NgxSelectOption, index) {
-    console.log(event[0]);
-    console.log(index);
     const produtoSelecionado = event[0].data;
     if (!isNullOrUndefined(index)) {
-      this.pedidoVenda.itemsPedido[index].estoque = this.estoqueAtual(produtoSelecionado);
-      this.pedidoVenda.itemsPedido[index].preco = produtoSelecionado.valor;
-      this.pedidoVenda.itemsPedido[index].precoCompra = produtoSelecionado.valor;
-      this.pedidoVenda.itemsPedido[index].produto = produtoSelecionado;
-      const quantidade = this.iniciarQuantidade(this.pedidoVenda.itemsPedido[index].quantidade);
-      this.pedidoVenda.itemsPedido[index].quantidade = quantidade;
-      this.pedidoVenda.itemsPedido[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
+      this.pedidoVenda.itemPedidos[index].estoque = this.estoqueAtual(produtoSelecionado);
+      this.pedidoVenda.itemPedidos[index].preco = produtoSelecionado.valor;
+      this.pedidoVenda.itemPedidos[index].precoCompra = produtoSelecionado.valor;
+      this.pedidoVenda.itemPedidos[index].produto = produtoSelecionado;
+      const quantidade = this.iniciarQuantidade(this.pedidoVenda.itemPedidos[index].quantidade);
+      this.pedidoVenda.itemPedidos[index].quantidade = quantidade;
+      this.pedidoVenda.itemPedidos[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
       this.calcularValorTotalDaVenda();
     }
   }
@@ -82,12 +88,12 @@ export class PedidoComponent implements OnInit {
     return quantidade * preco;
   }
   calcularSubTotalDaLinha(index) {
-    this.pedidoVenda.itemsPedido[index].subTotal = this.calcularSubTotal(
-      this.pedidoVenda.itemsPedido[index].quantidade,
-      this.pedidoVenda.itemsPedido[index].preco);
+    this.pedidoVenda.itemPedidos[index].subTotal = this.calcularSubTotal(
+      this.pedidoVenda.itemPedidos[index].quantidade,
+      this.pedidoVenda.itemPedidos[index].preco);
   }
   calcularValorTotalDaVenda() {
-    this.pedidoVenda.valorTotal = this.pedidoVenda.itemsPedido
+    this.pedidoVenda.valorTotal = this.pedidoVenda.itemPedidos
       .map(p => p.subTotal)
       .reduce((subTotal1, subTotal2) => subTotal1 + subTotal2) - this.desconto;
   }
@@ -139,54 +145,94 @@ export class PedidoComponent implements OnInit {
   }
 
   adicionarItemPedido() {
-    this.pedidoVenda.itemsPedido.push(new ItemPedidoVenda(null, 0, 0, 0, null, null, 0));
+    this.pedidoVenda.itemPedidos.push(new ItemPedidoVenda(null, 0, 0, 0, null, null, 0));
+  }
+  carregarItemsPedido(itemsPedido: ItemPedidoVenda[]) {
+    this.pedidoVenda.itemPedidos = [...itemsPedido];
   }
   removeItemPedido(item: ItemPedidoVenda) {
-    if (this.pedidoVenda.itemsPedido.length <= 1) {
+    debugger;
+    if (this.pedidoVenda.itemPedidos.length <= 1) {
       return;
     } else {
-      if (this.pedidoVenda.itemsPedido.includes(item)) {
+      if (this.pedidoVenda.itemPedidos.includes(item)) {
         if (item.id) {
           this.itemsPedidoDeleted.push(item);
         }
-        const ITEMPEDIDO = this.pedidoVenda.itemsPedido.findIndex(
+        const ITEMPEDIDO = this.pedidoVenda.itemPedidos.findIndex(
           resultado => resultado === item
         );
-        this.pedidoVenda.itemsPedido.splice(ITEMPEDIDO, 1);
-        this.pedidoVenda.itemsPedido = [... this.pedidoVenda.itemsPedido];
+        this.pedidoVenda.itemPedidos.splice(ITEMPEDIDO, 1);
+        this.pedidoVenda.itemPedidos = [... this.pedidoVenda.itemPedidos];
       }
     }
   }
   cancelar() {
-        this.pedidoVenda = new PedidoVenda();
-        this.route.navigate(['/listar-pedido-venda']);
+    this.pedidoVenda = new PedidoVenda();
+    this.route.navigate(['/listar-pedido-venda']);
   }
   lancarPedidoVenda() {
+
     this.calcularValorTotalDaVenda();
+    if (this.pedidoVenda.id) {
+      this.editarPedidoVenda(this.pedidoVenda);
+    } else {
+
+      this.spinnerService.show();
+      const itemPedidoVendaVM = this.pedidoVenda.itemPedidos
+        .map(x => new ItemPedidoVendaVM(
+          x.quantidade,
+          x.preco,
+          x.subTotal,
+          x.idProduto,
+          x.idPedido));
+      const pedidoVendaVm = new PedidoVendaVM(
+        this.pedidoVenda.cliente.id,
+        itemPedidoVendaVM,
+        this.pedidoVenda.valorTotal);
+
+      this.pedidoVendaService.iserir(pedidoVendaVm).subscribe((res) => {
+        if (res) {
+          this.spinnerService.hide();
+          this.pedidoVenda = new PedidoVenda();
+          this.route.navigate(['/listar-pedido-venda']);
+          this.toastSevice.Sucesso('Sucesso!', 'Pedido lançado com sucesso!');
+        }
+        this.spinnerService.hide();
+      },
+        err => {
+          this.spinnerService.hide();
+          this.toastSevice.Erro('Erro ao tentar lançar Pedido!');
+        }
+      );
+    }
+  }
+  editarPedidoVenda(pedidoVenda: PedidoVenda) {
     this.spinnerService.show();
-    const itemPedidoVendaVM = this.pedidoVenda.itemsPedido
+    debugger;
+    const itemPedidoVendaVM = pedidoVenda.itemPedidos
       .map(x => new ItemPedidoVendaVM(
         x.quantidade,
         x.preco,
         x.subTotal,
         x.idProduto,
-        x.idPedido));
+        x.idPedido,
+        x.id));
     const pedidoVendaVm = new PedidoVendaVM(
       this.pedidoVenda.cliente.id,
       itemPedidoVendaVM,
-      this.pedidoVenda.valorTotal);
-    this.pedidoVendaService.iserir(pedidoVendaVm).subscribe((res) => {
-      if (res) {
-        this.spinnerService.hide();
-        this.pedidoVenda = new PedidoVenda();
-        this.route.navigate(['/listar-pedido-venda']);
-        this.toastSevice.Sucesso('Sucesso!', 'Pedido lançado com sucesso!');
-      }
+      this.pedidoVenda.valorTotal,
+      this.pedidoVenda.dataVenda,
+      this.pedidoVenda.id);
+
+    this.pedidoVendaService.editar(pedidoVendaVm).subscribe((res) => {
       this.spinnerService.hide();
+      this.toastSevice.Sucesso('Sucesso!', 'Pedido alterado com sucesso!');
+      this.route.navigate(['/listar-pedido-venda']);
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Erro('Erro ao tentar lançar Pedido!');
+        this.toastSevice.Erro('Erro ao tentar alterado Pedido!');
       }
     );
   }
