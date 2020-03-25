@@ -64,7 +64,7 @@
                       <th scope="col">Sub Total</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let item of element.itemPedidos; index as i">
+                  <tbody *ngFor="let item of element.itemsOrdemCompra; index as i">
                     <tr>
                       <td scope="row">{{item.produto.nome}} </td>
                       <td scope="row">{{item.produto.valor | currency:'BRL':'symbol':'1.2-2'}} </td>

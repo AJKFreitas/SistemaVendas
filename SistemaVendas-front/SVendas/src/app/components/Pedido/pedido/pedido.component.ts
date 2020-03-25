@@ -73,16 +73,22 @@ export class PedidoComponent implements OnInit {
 
   selectionChanged(event: NgxSelectOption, index) {
     const produtoSelecionado = event[0].data;
-    if (!isNullOrUndefined(index)) {
-      this.pedidoVenda.itemPedidos[index].estoque = this.estoqueAtual(produtoSelecionado);
-      this.pedidoVenda.itemPedidos[index].preco = produtoSelecionado.valor;
-      this.pedidoVenda.itemPedidos[index].precoCompra = produtoSelecionado.valor;
-      this.pedidoVenda.itemPedidos[index].produto = produtoSelecionado;
-      const quantidade = this.iniciarQuantidade(this.pedidoVenda.itemPedidos[index].quantidade);
-      this.pedidoVenda.itemPedidos[index].quantidade = quantidade;
-      this.pedidoVenda.itemPedidos[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
-      this.calcularValorTotalDaVenda();
-    }
+    this.produtoService.estoqueAtual(produtoSelecionado).subscribe(res => {
+      this.spinnerService.hide();
+      if (!isNullOrUndefined(index)) {
+        this.pedidoVenda.itemPedidos[index].estoque = res;
+        this.pedidoVenda.itemPedidos[index].preco = produtoSelecionado.valor;
+        this.pedidoVenda.itemPedidos[index].precoCompra = produtoSelecionado.valor;
+        this.pedidoVenda.itemPedidos[index].produto = produtoSelecionado;
+        const quantidade = this.iniciarQuantidade(this.pedidoVenda.itemPedidos[index].quantidade);
+        this.pedidoVenda.itemPedidos[index].quantidade = quantidade;
+        this.pedidoVenda.itemPedidos[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
+        this.calcularValorTotalDaVenda();
+      }
+  }, err => {
+    this.spinnerService.hide();
+    return 0;
+  });
   }
   calcularSubTotal(quantidade: number, preco: number): number {
     return quantidade * preco;
@@ -105,15 +111,16 @@ export class PedidoComponent implements OnInit {
       return quantidade;
     }
   }
-  estoqueAtual(produto: Produto): any {
+  estoqueAtual(produto: Produto) {
     this.spinnerService.show();
+    let resEstoqueAtual = 0;
     this.produtoService.estoqueAtual(produto).subscribe(res => {
-      if (res) {
         this.spinnerService.hide();
-        return res.estoque || 0;
-      }
+        resEstoqueAtual = res;
+        return resEstoqueAtual;
     }, err => {
       this.spinnerService.hide();
+      return 0;
     });
   }
   popularComboClientes() {

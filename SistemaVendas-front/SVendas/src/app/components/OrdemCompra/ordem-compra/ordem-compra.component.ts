@@ -63,10 +63,10 @@ export class OrdemCompraComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.popularComboClientes();
+    this.popularComboFornecedores();
     this.popularComboProduto();
     if (isNullOrUndefined(this.ordemCompra.id)) {
-      this.adicionaritemOrdemCompra();
+      this.adicionarItemOrdemCompra();
     } else {
       this.carregarItemsOrdemCompra(this.ordemCompra.itemsOrdemCompra);
     }
@@ -74,16 +74,20 @@ export class OrdemCompraComponent implements OnInit {
 
   selectionChanged(event: NgxSelectOption, index) {
     const produtoSelecionado = event[0].data;
-    if (!isNullOrUndefined(index)) {
-      this.ordemCompra.itemsOrdemCompra[index].estoque = this.estoqueAtual(produtoSelecionado);
-      this.ordemCompra.itemsOrdemCompra[index].preco = produtoSelecionado.valor;
-      this.ordemCompra.itemsOrdemCompra[index].preco = produtoSelecionado.valor;
-      this.ordemCompra.itemsOrdemCompra[index].produto = produtoSelecionado;
-      const quantidade = this.iniciarQuantidade(this.ordemCompra.itemsOrdemCompra[index].quantidade);
-      this.ordemCompra.itemsOrdemCompra[index].quantidade = quantidade;
-      this.ordemCompra.itemsOrdemCompra[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
-      this.calcularValorTotalDaVenda();
-    }
+    console.log(produtoSelecionado);
+    this.produtoService.estoqueAtual(produtoSelecionado).subscribe(estoqueAtual => {
+      if (!isNullOrUndefined(index)) {
+        this.ordemCompra.itemsOrdemCompra[index].estoque = estoqueAtual;
+        this.ordemCompra.itemsOrdemCompra[index].preco = produtoSelecionado.valor;
+        this.ordemCompra.itemsOrdemCompra[index].produto = produtoSelecionado;
+        const quantidade = this.iniciarQuantidade(this.ordemCompra.itemsOrdemCompra[index].quantidade);
+        this.ordemCompra.itemsOrdemCompra[index].quantidade = quantidade;
+        this.ordemCompra.itemsOrdemCompra[index].subTotal = this.calcularSubTotal(quantidade, produtoSelecionado.valor);
+        this.calcularValorTotalDaVenda();
+      }
+    }, err => {
+      this.spinnerService.hide();
+    });
   }
   calcularSubTotal(quantidade: number, preco: number): number {
     return quantidade * preco;
@@ -117,7 +121,7 @@ export class OrdemCompraComponent implements OnInit {
       this.spinnerService.hide();
     });
   }
-  popularComboClientes() {
+  popularComboFornecedores() {
     this.spinnerService.show();
     this.fornecedoService.listarFornecedores()
       .subscribe(res => {
@@ -145,7 +149,7 @@ export class OrdemCompraComponent implements OnInit {
       });
   }
 
-  adicionaritemOrdemCompra() {
+  adicionarItemOrdemCompra() {
     this.ordemCompra.itemsOrdemCompra.push(new ItemOrdemCompra(null, null, null, 0, 0, 0, null, null));
   }
   carregarItemsOrdemCompra(itemsOrdemCompra: ItemOrdemCompra[]) {
@@ -171,7 +175,7 @@ export class OrdemCompraComponent implements OnInit {
     this.ordemCompra = new OrdemCompra();
     this.route.navigate(['/listar-pedido-venda']);
   }
-  lancarPedidoVenda() {
+  lancarOrdemCompra() {
 
     this.calcularValorTotalDaVenda();
     if (this.ordemCompra.id) {
@@ -183,8 +187,8 @@ export class OrdemCompraComponent implements OnInit {
         .map(x => new ItemOrdemCompraVM(
           x.idProduto,
           x.idOrdemCompra,
-          x.quantidade,
           x.preco,
+          x.quantidade,
           x.subTotal,
         ));
       const ordemCompraVm = new OrdemCompraVM(
@@ -196,14 +200,14 @@ export class OrdemCompraComponent implements OnInit {
         if (res) {
           this.spinnerService.hide();
           this.ordemCompra = new OrdemCompra();
-          this.route.navigate(['/listar-pedido-venda']);
-          this.toastSevice.Sucesso('Sucesso!', 'Pedido lançado com sucesso!');
+          this.route.navigate(['/listar-ordem-compra']);
+          this.toastSevice.Sucesso('Sucesso!', 'Ordem de Compra lançada com sucesso!');
         }
         this.spinnerService.hide();
       },
         err => {
           this.spinnerService.hide();
-          this.toastSevice.Erro('Erro ao tentar lançar Pedido!');
+          this.toastSevice.Erro('Erro ao tentar lançar Ordem de Compra!');
         }
       );
     }
@@ -228,12 +232,12 @@ export class OrdemCompraComponent implements OnInit {
 
     this.ordemCompraService.editar(ordemCompraVm).subscribe((res) => {
       this.spinnerService.hide();
-      this.toastSevice.Sucesso('Sucesso!', 'Pedido alterado com sucesso!');
-      this.route.navigate(['/listar-pedido-venda']);
+      this.toastSevice.Sucesso('Sucesso!', 'Ordem de Compra alterada com sucesso!');
+      this.route.navigate(['/listar-ordem-compra']);
     },
       err => {
         this.spinnerService.hide();
-        this.toastSevice.Erro('Erro ao tentar alterado Pedido!');
+        this.toastSevice.Erro('Erro ao tentar alter Ordem de Compra!');
       }
     );
   }

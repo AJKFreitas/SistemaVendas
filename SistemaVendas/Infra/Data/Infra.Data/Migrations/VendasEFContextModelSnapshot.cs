@@ -131,6 +131,9 @@ namespace SistemaVendas.Infra.Data.Migrations
                     b.Property<long>("Quantidade")
                         .HasColumnType("bigint");
 
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("double");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdOrdemCompra");
