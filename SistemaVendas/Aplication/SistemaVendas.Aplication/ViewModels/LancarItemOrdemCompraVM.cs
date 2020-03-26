@@ -11,6 +11,6 @@ namespace SistemaVendas.Aplication.ViewModels
         public Guid? IdOrdemCompra { get; set; }
         public double Preco { get; set; }
         public long Quantidade { get; set; }
-        public object SubTotal { get; set; }
+        public double SubTotal { get; set; }
     }
 }

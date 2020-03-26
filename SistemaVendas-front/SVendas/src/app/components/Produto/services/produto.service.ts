@@ -89,8 +89,8 @@ export class ProdutoService {
     const api = `${this.endpoint}/produto/estoque`;
     return this.http.post(api, produto)
       .pipe(
-        map((res: Response) => {
-          return res || 0;
+        map((res: Estoque) => {
+          return res.estoque || 0;
         }),
         catchError(this.handleError)
       );
@@ -133,3 +133,6 @@ export class ProdutoService {
 }
 
 
+export interface Estoque {
+  estoque: number;
+}

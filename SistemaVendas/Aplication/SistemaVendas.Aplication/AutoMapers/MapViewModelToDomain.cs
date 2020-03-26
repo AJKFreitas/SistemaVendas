@@ -68,7 +68,20 @@ namespace SistemaVendas.Core.AutoMapers
                     SubTotal = i.SubTotal
                 }
                 ).ToList()));
+            CreateMap<LancarItemOrdemCompraVM, ItemOrdemCompra>();
             CreateMap<ItemOrdemCompraVM, ItemOrdemCompra>();
+            CreateMap<LancarOrdemCompraVM, OrdemCompra>()
+               .ForMember(pvm => pvm.ItemsOrdemCompra, opt => opt
+               .MapFrom(pv => pv.ItemsOrdemCompraVM.Select(i => new ItemOrdemCompra
+               {
+                   Id = Guid.NewGuid(),
+                   IdProduto = i.IdProduto,
+                   IdOrdemCompra = pv.Id,
+                   Preco = i.Preco,
+                   Quantidade = i.Quantidade,
+                   SubTotal = i.SubTotal,
+               }
+               ).ToList()));
             CreateMap<UsuarioVM, Usuario>();
 
         }

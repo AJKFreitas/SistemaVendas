@@ -20,6 +20,9 @@ using SistemaVendas.Aplication.InterfaceServices.Fornecedores;
 using SistemaVendas.Aplication.InterfaceServices.Pedidos;
 using SistemaVendas.Aplication.Services.Pedidos;
 using SistemaVendas.Core.Domains.Pedidos.Interfaces;
+using SistemaVendas.Aplication.Services.DashBoard;
+using SistemaVendas.Aplication.InterfaceServices.Dashboard;
+using SistemaVendas.Core.Domains.Dashboard;
 
 namespace SistemaVendas.Infra.IoC
 {
@@ -45,6 +48,8 @@ namespace SistemaVendas.Infra.IoC
             services.AddScoped<IPedidoVendaRepository, PedidoVendaRepository>();
             services.AddScoped<IOrdemCompraRepository, OrdemCompraRepository>();
             services.AddScoped<IOrdemCompraService, OrdemCompraService>();
+            services.AddScoped<IDashBoardService, DashBoardService>();
+            services.AddScoped<IDashBoardRepository, DashBoardRepository>();
         }
     }
 }

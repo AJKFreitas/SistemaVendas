@@ -20,7 +20,6 @@ namespace SistemaVendas.Api.Controller
     [Authorize(Roles = "Admin,Funcionario,Vendedor")]
     public class OrdemCompraController : ControllerBase
     {
-        private readonly VendasEFContext _context;
         private readonly IOrdemCompraService _ordemCompraService;
 
         public OrdemCompraController(IOrdemCompraService ordemCompraService)
@@ -103,9 +102,6 @@ namespace SistemaVendas.Api.Controller
 
         }
 
-        private bool OrdemCompraExists(Guid id)
-        {
-            return _context.OrdemCompras.Any(e => e.Id == id);
-        }
+        
     }
 }
