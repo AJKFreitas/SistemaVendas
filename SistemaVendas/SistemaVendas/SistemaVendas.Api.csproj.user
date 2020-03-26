@@ -15,7 +15,7 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_DbContextTypeFullName>SistemaVendas.Infra.Data.VendasEFContext</WebStackScaffolding_DbContextTypeFullName>
-    <Controller_SelectedScaffolderID>ApiControllerWithContextScaffolder</Controller_SelectedScaffolderID>
+    <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Controller</Controller_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_DbContextDialogWidth>600</WebStackScaffolding_DbContextDialogWidth>
   </PropertyGroup>
