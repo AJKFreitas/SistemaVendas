@@ -18,50 +18,6 @@ export class DashboardComponent implements OnInit {
   title = 'Os 10 produtos mais vendidos do mês';
   type = 'PieChart';
   data: Array<any>;
-  
-
-  data2 = [
-    [
-      "Caneta laser",
-      103
-    ],
-    [
-      "Agulhas de acupuntura",
-      83
-    ],
-    [
-      "Cabides não metálicos para vestuário",
-      56
-    ],
-    [
-      "Bainhas de couro para molas",
-      30
-    ],
-    [
-      "Bulbos de flores",
-      30
-    ],
-    [
-      "Cabides de metal para vestuário",
-      11
-    ],
-    [
-      "Escadas de corda",
-      10
-    ],
-    [
-      "Galax",
-      10
-    ],
-    [
-      "Bicicleta eletrica",
-      9
-    ],
-    [
-      "Detergentes para uso em processos de manufatura",
-      8
-    ]
-  ];
   columnNames = ['Produto', '%'];
   options = {
   };
