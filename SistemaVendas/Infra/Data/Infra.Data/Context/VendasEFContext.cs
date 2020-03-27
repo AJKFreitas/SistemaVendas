@@ -6,6 +6,7 @@ using SistemaVendas.Core.Domains.Fornecedores.Entities;
 using SistemaVendas.Core.Domains.Produtos.Entities;
 using SistemaVendas.Core.Domains.Clientes.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
+using System;
 
 namespace SistemaVendas.Infra.Data
 {
@@ -53,7 +54,7 @@ namespace SistemaVendas.Infra.Data
 
             modelBuilder.Entity<ItemPedidoVenda>().ToTable("TB_ItemPedido");
             modelBuilder.ApplyConfiguration(new ItemPedidoMap());
-            
+
             modelBuilder.Entity<OrdemCompra>().ToTable("TB_OrdemCompra");
             modelBuilder.ApplyConfiguration(new OrdemCompraMap());
 
@@ -71,6 +72,9 @@ namespace SistemaVendas.Infra.Data
                 .HasOne(pf => pf.Fornecedor)
                 .WithMany(f => f.ProdutosFornecidos)
                 .HasForeignKey(pf => pf.IdFornecedor);
+
         }
     }
+
+
 }

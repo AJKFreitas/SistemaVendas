@@ -17,6 +17,9 @@ namespace SistemaVendas.Infra.Data.Map
             builder.Property(Usuario => Usuario.Email).HasColumnName("Email");
             builder.Property(Usuario => Usuario.Senha).HasColumnName("Senha");
             builder.Property(Usuario => Usuario.Role).HasColumnName("Role");
+
         }
+       
+        
     }
 }

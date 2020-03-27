@@ -85,7 +85,8 @@ namespace SistemaVendas.Api.Controller
         [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<PedidoVenda>> Inserir([FromBody]LancarPedidoVendaVM pedidoVendaVM)
         {
-            return Ok(await _pedidoVendaService.Inserir(pedidoVendaVM));
+            string Token = Request.Headers["authorization"];
+            return Ok(await _pedidoVendaService.Inserir(pedidoVendaVM, Token));
         }
 
         [HttpDelete("{id}")]

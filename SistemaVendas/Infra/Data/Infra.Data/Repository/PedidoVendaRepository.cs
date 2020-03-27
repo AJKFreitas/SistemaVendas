@@ -183,7 +183,8 @@ namespace SistemaVendas.Infra.Data.Repository
                     pedido.DataVenda,
                     pedido.IdCliente,
                     pedido.ItemPedidos,
-                    pedido.ValorTotal
+                    pedido.ValorTotal,
+                    pedido.IdUsuarioLogado
                     );
                 var itemsPedidos = pedido.ItemPedidos.Select(i => new ItemPedidoVenda
                 {

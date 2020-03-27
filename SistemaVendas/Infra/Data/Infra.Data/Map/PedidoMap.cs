@@ -18,6 +18,10 @@ namespace SistemaVendas.Infra.Data.Map
                 .WithMany(cliente => cliente.Pedidos)
                 .HasForeignKey(pedido  => pedido.IdCliente)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(pedido => pedido.Usuario)
+            .WithMany(usuario => usuario.Pedidos)
+            .HasForeignKey(pedido => pedido.IdUsuarioLogado);
         }
     }
 }

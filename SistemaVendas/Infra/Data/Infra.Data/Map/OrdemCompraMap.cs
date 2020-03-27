@@ -18,6 +18,10 @@ namespace SistemaVendas.Infra.Data.Map
             builder.HasOne(ordemCompra => ordemCompra.Fornecedor)
                 .WithMany(fornecedor => fornecedor.OrdemCompras)
                 .HasForeignKey(ordemCompra => ordemCompra.IdFornecedor);
+            
+            builder.HasOne(ordemCompra => ordemCompra.UsuarioLogado)
+                .WithMany(usuario => usuario.OrdemCompras)
+                .HasForeignKey(ordemCompra => ordemCompra.IdUsuarioLogado);
         }
 
        
