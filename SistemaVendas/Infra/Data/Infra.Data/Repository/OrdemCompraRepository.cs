@@ -248,7 +248,7 @@ namespace SistemaVendas.Infra.Data.Repository
                     ordem.IdFornecedor,
                     ordem.ItemsOrdemCompra,
                     ordem.ValorTotal,
-                    Guid.NewGuid()
+                    ordem.IdUsuarioLogado
                     );
                 var itemsOrdem = ordem.ItemsOrdemCompra.Select(i => new ItemOrdemCompra
                 {

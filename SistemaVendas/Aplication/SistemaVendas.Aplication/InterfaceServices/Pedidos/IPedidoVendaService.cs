@@ -12,7 +12,7 @@ namespace SistemaVendas.Aplication.InterfaceServices.Pedidos
         Task<PagedList<PedidoVenda>> BuscarPorFiltroComPaginacao(PedidoVendaParams parametros);
         Task<IEnumerable<PedidoVenda>> BuscarTodos();
         Task<PedidoVenda> BuscarPorId(Guid id);
-        Task<int> Inserir(LancarPedidoVendaVM pedidoVM);
+        Task<int> Inserir(LancarPedidoVendaVM pedidoVM, string Token);
         Task<int> Editar(PedidoVendaVM pedidoVM);
         Task<int> Excluir(Guid id);
         bool ExistePedidoVenda(Guid id);

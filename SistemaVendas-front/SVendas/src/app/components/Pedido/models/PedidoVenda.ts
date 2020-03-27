@@ -16,6 +16,7 @@ export class PedidoVendaVM {
         public  valorTotal: number,
         public  dataVenda?,
         public  id?,
+        public  IdUsuarioLogado?,
 
     ) {
 

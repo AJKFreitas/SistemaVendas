@@ -114,17 +114,15 @@ namespace SistemaVendas.Aplication.Services.Pedidos
         {
             try
             {
+                var novaOrdem = _mapper.Map<LancarOrdemCompraVM, OrdemCompra>(lancarOrdemVM);
+
                 var jwt = Token.Replace("Bearer ", string.Empty);
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadToken(jwt) as JwtSecurityToken;
-
-                var novaOrdem = _mapper.Map<LancarOrdemCompraVM, OrdemCompra>(lancarOrdemVM);
-
-
                 var usuarioJson = token.Claims.First(claim => claim.Type == "Data").Value;
-                
                 var usuarioLogado = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
                 novaOrdem.IdUsuarioLogado = usuarioLogado.Id;
+                
                 return await _repository.Inserir(novaOrdem);
 
             }

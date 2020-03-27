@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using SistemaVendas.Aplication.InterfaceServices.Pedidos;
 using SistemaVendas.Aplication.ViewModels;
+using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Entities;
 using SistemaVendas.Core.Domains.Pedidos.Interfaces;
 using SistemaVendas.Core.Shared.Entities;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -81,11 +84,17 @@ namespace SistemaVendas.Aplication.Services.Pedidos
             }
         }
 
-        public async Task<int> Inserir(LancarPedidoVendaVM pedidoVendaVM)
+        public async Task<int> Inserir(LancarPedidoVendaVM pedidoVendaVM, string Token)
         {
             try
             {
                 var novoPedido = _mapper.Map<LancarPedidoVendaVM, PedidoVenda>(pedidoVendaVM);
+                var jwt = Token.Replace("Bearer ", string.Empty);
+                var handler = new JwtSecurityTokenHandler();
+                var token = handler.ReadToken(jwt) as JwtSecurityToken;
+                var usuarioJson = token.Claims.First(claim => claim.Type == "Data").Value;
+                var usuarioLogado = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+                novoPedido.IdUsuarioLogado = usuarioLogado.Id;
 
                 return await _repository.Inserir(novoPedido);
 
@@ -118,7 +127,13 @@ namespace SistemaVendas.Aplication.Services.Pedidos
 
                     itemsPedidos.Add(new ItemPedidoVenda(idItemPedido, item.Quantidade, item.Preco, item.SubTotal, item.IdProduto, pedidoVendaVM.Id));
                 }
-                var novoPedido = new PedidoVenda(pedidoVendaVM.Id, pedidoVendaVM.DataVenda.Value, pedidoVendaVM.IdCliente, itemsPedidos, pedidoVendaVM.ValorTotal, Guid.NewGuid());
+                var novoPedido = new PedidoVenda(
+                    pedidoVendaVM.Id,
+                    pedidoVendaVM.DataVenda.Value,
+                    pedidoVendaVM.IdCliente,
+                    itemsPedidos,
+                    pedidoVendaVM.ValorTotal,
+                   pedidoVendaVM.IdUsuarioLogado);
                 return _repository.Editar(novoPedido);
 
             }
