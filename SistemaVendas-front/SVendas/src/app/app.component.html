@@ -29,7 +29,7 @@
               <a href="#ordemSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ordem de Compra</a>
               <ul class="collapse list-unstyled" id="ordemSubmenu">
                   <li>
-                      <a routerLinkActive="active" routerLink="/ordem">Novo Ordem</a>
+                      <a routerLinkActive="active" routerLink="/ordem">Nova Ordem</a>
                   </li>
                   <li>
                       <a routerLinkActive="active" routerLink="/listar-ordem-compra">Listar Ordems</a>
@@ -114,9 +114,9 @@
 
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="nav navbar-nav ml-auto">
-                      <li class="nav-item active">
+                      <!-- <li class="nav-item active">
                         <a *ngIf="this.authService.isLoggedIn" class="p-2 text-dark">{{this.authService.getProfileContext}}</a>
-                      </li>
+                      </li> -->
                       <li class="nav-item">
                         <a *ngIf="!this.authService.isLoggedIn" class="btn btn-outline-primary" routerLinkActive="active" routerLink="/log-in">Sign in</a>
                       </li>

@@ -24,16 +24,17 @@ namespace SistemaVendas.Aplication.Services.Auth
             _config = config;
         }
 
-        public async Task<AuthenticationResult> AuthenticateAsync(IUsuario user)
+        public async Task<AuthenticationResult> AuthenticateAsync(IUsuario usuario)
         {
             var claims = new List<Claim>
         {
-                new Claim(ClaimTypes.Name, user.Nome),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("IdUsuario", usuario.Id.ToString()),
+                new Claim(ClaimTypes.Name, usuario.Nome),
+                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Role, usuario.Role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                new Claim(JwtRegisteredClaimNames.UniqueName, user.Id.ToString()),
-                new Claim("Data", ToJson(user))
+                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Id.ToString()),
+                new Claim("Data", ToJson(usuario))
         };
 
             var identity = new ClaimsIdentity(claims);

@@ -85,7 +85,12 @@ namespace SistemaVendas.Api.Controller
         [Consumes(MediaTypeNames.Application.Json)]
         public async Task<ActionResult<OrdemCompra>> Inserir([FromBody]LancarOrdemCompraVM ordemCompraVM)
         {
-            return Ok(await _ordemCompraService.Inserir(ordemCompraVM));
+
+           
+            var re = Request;
+            var headers = re.Headers;
+            string Token = Request.Headers["authorization"];
+            return Ok(await _ordemCompraService.Inserir(ordemCompraVM, Token));
         }
 
         [HttpDelete("{id}")]

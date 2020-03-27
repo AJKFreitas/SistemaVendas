@@ -49,8 +49,7 @@ namespace SistemaVendas.Api.Controller
                 {
                     return BadRequest("Já existe Fornecedor com esse email cadastrado");
                 }
-                await _fornecedorService.Inserir(fornecedor);
-                return CreatedAtAction("GetFornecedor", new { id = fornecedor.Id }, fornecedor);
+                return Ok( await _fornecedorService.Inserir(fornecedor));
 
             }
             else

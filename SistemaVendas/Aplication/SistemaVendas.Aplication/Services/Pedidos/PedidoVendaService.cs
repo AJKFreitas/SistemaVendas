@@ -118,7 +118,7 @@ namespace SistemaVendas.Aplication.Services.Pedidos
 
                     itemsPedidos.Add(new ItemPedidoVenda(idItemPedido, item.Quantidade, item.Preco, item.SubTotal, item.IdProduto, pedidoVendaVM.Id));
                 }
-                var novoPedido = new PedidoVenda(pedidoVendaVM.Id, pedidoVendaVM.DataVenda.Value, pedidoVendaVM.IdCliente, itemsPedidos, pedidoVendaVM.ValorTotal);
+                var novoPedido = new PedidoVenda(pedidoVendaVM.Id, pedidoVendaVM.DataVenda.Value, pedidoVendaVM.IdCliente, itemsPedidos, pedidoVendaVM.ValorTotal, Guid.NewGuid());
                 return _repository.Editar(novoPedido);
 
             }

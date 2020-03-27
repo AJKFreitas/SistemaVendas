@@ -1,5 +1,7 @@
 ﻿using SistemaVendas.Core.Domains.Auth.Interfaces;
+using SistemaVendas.Core.Domains.Pedidos.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace SistemaVendas.Core.Domains.Auth.Entities
 {
@@ -12,7 +14,8 @@ namespace SistemaVendas.Core.Domains.Auth.Entities
         public string Email { get; set; }
         public string Senha { get; set; }
         public string Role { get; set; }
-
+        public virtual IEnumerable<OrdemCompra> OrdemCompras { get; set; } = new List<OrdemCompra>();
+        public virtual IEnumerable<PedidoVenda> Pedidos { get; set; } = new List<PedidoVenda>();
         public Usuario()
         {
         }
