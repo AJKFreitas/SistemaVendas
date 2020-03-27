@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
+using SistemaVendas.Aplication.Services.Auth;
 using SistemaVendas.Core.Domains.Auth.Entities;
 using SistemaVendas.Core.Shared.Entities;
 using SistemaVendas.Infra.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace SistemaVendas.Infra.Data.Repository
@@ -102,15 +105,16 @@ namespace SistemaVendas.Infra.Data.Repository
 
         public async Task<int> Inserir(Usuario Usuario)
         {
+            var hash = new CriptografiaHash(SHA512.Create());
             try
             {
 
 
                 Usuario newUsuario = new Usuario(
-                    Usuario.Nome,
-                    Usuario.Email,
-                    Usuario.Senha,
-                    Usuario.Role
+                        Usuario.Nome,
+                        Usuario.Email,
+                        hash.CriptografarSenha(Usuario.Senha),
+                        Usuario.Role
                     );
                 _context.Usuarios.Add(newUsuario);
                 return await SalvarCommit();
