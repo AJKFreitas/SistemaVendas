@@ -28,6 +28,4 @@ Requisitos:
 #ASP NET Core 3,
 #MySql ,
 
-login inicial do sistema 
-Email :adm@adm.com
-Senha :123456
+
