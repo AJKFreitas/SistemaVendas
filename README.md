@@ -23,10 +23,10 @@ https://localhost:6001/swagger/index.html
 
 
 Requisitos:
-Node 
-Angular cli
-ASP NET Core 3
-MySql 
+#Node ,
+#Angular cli,
+#ASP NET Core 3,
+#MySql ,
 
 login inicial do sistema 
 Email :adm@adm.com
