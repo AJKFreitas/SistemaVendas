@@ -5,7 +5,7 @@
 </div>
 <div class="card">
     <div class="card-body ">
-        <form [formGroup]="signupForm" (ngSubmit)="registerUser(signupForm,formDirective)" #formDirective="ngForm" autocomplete="off">
+        <form [formGroup]="signupForm" (ngSubmit)="inserir(signupForm,formDirective)" #formDirective="ngForm" autocomplete="off">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nome</label>
                 <input type="text" class="form-control" id="nome" formControlName="nome">

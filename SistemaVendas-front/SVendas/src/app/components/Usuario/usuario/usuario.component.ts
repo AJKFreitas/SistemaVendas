@@ -39,16 +39,12 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit() { }
 
-  registerUser(formData: any, formDirective: FormGroupDirective) {
+  inserir(formData: any, formDirective: FormGroupDirective) {
     this.spinnerService.show();
     this.service.iserir(this.signupForm.value).subscribe((res) => {
-      if (res.result) {
-        this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
-        this.spinnerService.hide();
-      }
+      this.spinnerService.hide();
       this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.submitForm(formData, formDirective);
-      this.spinnerService.hide();
     },
     err => {
       this.spinnerService.hide();

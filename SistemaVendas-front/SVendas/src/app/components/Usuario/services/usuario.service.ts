@@ -43,7 +43,7 @@ export class UsuarioService {
         catchError(this.handleError)
       );
   }
-  deletar(usuario: Usuario) {
+  excluir(usuario: Usuario) {
     const api = `${this.endpoint}/usuario/${usuario.id}`;
     return this.http.delete(api)
       .pipe(

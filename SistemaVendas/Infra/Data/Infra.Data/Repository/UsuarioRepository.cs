@@ -144,8 +144,10 @@ namespace SistemaVendas.Infra.Data.Repository
 
         public async Task<int> Editar(Usuario usuario)
         {
+            var hash = new CriptografiaHash(SHA512.Create());
             try
             {
+                 usuario.Senha = hash.CriptografarSenha(usuario.Senha);
                 _context.Entry(usuario).State = EntityState.Modified;
                 _context.Usuarios.Update(usuario);
                 return await _context.SaveChangesAsync();
