@@ -179,7 +179,7 @@ export class OrdemCompraComponent implements OnInit {
 
     this.calcularValorTotalDaVenda();
     if (this.ordemCompra.id) {
-      this.editarPedidoVenda(this.ordemCompra);
+      this.editar(this.ordemCompra);
     } else {
 
       this.spinnerService.show();
@@ -212,7 +212,7 @@ export class OrdemCompraComponent implements OnInit {
       );
     }
   }
-  editarPedidoVenda(ordemCompra: OrdemCompra) {
+  editar(ordemCompra: OrdemCompra) {
     this.spinnerService.show();
     const itemOrdemCompraVM = ordemCompra.itemsOrdemCompra
       .map(x => new ItemOrdemCompraVM(

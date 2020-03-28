@@ -4,6 +4,7 @@ using SistemaVendas.Core.Domains.Auth.Interfaces;
 using System.Threading.Tasks;
 using System.Linq;
 using SistemaVendas.Aplication.InterfaceServices.Auth;
+using System.Security.Cryptography;
 
 namespace SistemaVendas.Aplication.Services.Auth
 {
@@ -18,20 +19,20 @@ namespace SistemaVendas.Aplication.Services.Auth
 
         public async Task<BaseResult<IUsuario>> AuthorizeAsync(LoginUser loginUser)
         {
-
+            var hash = new CriptografiaHash(SHA512.Create());
             var loginOrEmail = loginUser?.Email ?? "";
-            var password = loginUser?.Senha ?? "";
-
+            var password =  hash.CriptografarSenha(loginUser?.Senha ?? "");
             var result = new BaseResult<IUsuario>();
             var userResult = await _usuarioService.BuscarTodos();
-            var user =  
+            var user =
                 userResult.ToList()
                 .Where(u => u.Email.ToLower() == loginOrEmail.ToLower()
                            && u.Senha == password).FirstOrDefault();
-            if (user != null)
+            if (user != null )
             {
+
                 result.Success = true;
-                result.Message = "User authorized!";
+                result.Message = "Usuário não Autorizado!";
                 result.Data = new Usuario
                 {
                     Id = user.Id,

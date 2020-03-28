@@ -20,10 +20,8 @@ export class ProdutoDataSource implements DataSource<Produto> {
 
     }
 
-    loadProdutos(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5){
-
+    carregarProdutos(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5){
         this.loadingSubject.next(true);
-
         this.produtoService.buscarProdutos(filter, sortDirection,
             pageIndex, pageSize).pipe(
                 catchError(() => of([])),

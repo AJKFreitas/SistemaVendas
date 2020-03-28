@@ -19,13 +19,13 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
   styleUrls: ['./listar-usuario.component.css']
 })
 export class ListarUsuarioComponent implements OnInit, AfterViewInit {
+  
   @ViewChild(MatTable, { static: true }) table: MatTable<Usuario>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
 
-  // dataSource: MatTableDataSource<Usuario>;
-  dataSourceU: UsuarioDataSource;
+  fonteDadosUsuarios: UsuarioDataSource;
   displayedColumns: string[] = ['nome', 'email', 'role', 'action'];
   usuarios: Usuario[] = [];
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -44,8 +44,8 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-     this.dataSourceU = new UsuarioDataSource(this.service);
-     this.dataSourceU.loadUsuarios();
+     this.fonteDadosUsuarios = new UsuarioDataSource(this.service);
+     this.fonteDadosUsuarios.loadUsuarios();
   }
 
   ngAfterViewInit() {
@@ -69,7 +69,7 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   carregarUsuarios() {
-    this.dataSourceU.loadUsuarios(
+    this.fonteDadosUsuarios.loadUsuarios(
       this.input.nativeElement.value,
       this.sort.direction,
       this.paginator.pageIndex,
@@ -77,10 +77,10 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
   }
 
   getPaginatorData(event) {
-    this.dataSourceU.loadUsuarios('', 'asc', event.pageIndex, event.pageSize);
+    this.fonteDadosUsuarios.loadUsuarios('', 'asc', event.pageIndex, event.pageSize);
   }
 
-  openModal(action, obj) {
+  abrirModal(action, obj) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -91,11 +91,11 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.event === Action.Adicionar) {
-        this.addRowData(result.data.value);
+        this.adicionar(result.data.value);
       } else if (result.event === Action.Editar) {
-        this.updateRowData(result.data.value);
+        this.atualizar(result.data.value);
       } else if (result.event === Action.Excluir) {
-        this.deleteRowData(result.data.value);
+        this.remover(result.data.value);
       } else {
         this.service.resetForm();
         this.service.initializeFormGroup();
@@ -104,42 +104,21 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
     });
   }
 
-  addRowData(usuario: Usuario) {
-    // this.dataSource.data.push({
-    //   id: '',
-    //   nome: usuario.nome,
-    //   email: usuario.email,
-    //   senha: usuario.senha,
-    //   role: usuario.role
-    // });
-    this.registerUser(new UsuarioVM(usuario.nome, usuario.email, usuario.senha, usuario.role));
-    this.table.renderRows();
+  adicionar(usuario: Usuario) {
+    this.inserir(new UsuarioVM(usuario.nome, usuario.email, usuario.senha, usuario.role));
 
   }
-  updateRowData(usuario: Usuario) {
-    // this.dataSource.data = this.dataSource.data.filter((value, key) => {
-    //   if (value.id === usuario.id) {
-    //     value.nome = usuario.nome;
-    //   }
-    //   return true;
-    // });
-    this.updateUser(usuario);
+  atualizar(usuario: Usuario) {
+    this.editar(usuario);
   }
 
-  deleteRowData(usuario: Usuario) {
-    // this.dataSource.data = this.dataSource.data.filter((value, key) => {
-    //   return value.id !== usuario.id;
-    // });
-    this.deleteUser(usuario);
+  remover(usuario: Usuario) {
+      this.excluir(usuario);
   }
 
-  registerUser(usuario: UsuarioVM) {
+  inserir(usuario: UsuarioVM) {
     this.spinnerService.show();
     this.service.iserir(usuario).subscribe((res) => {
-      if (res.result) {
-        this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
-        this.spinnerService.hide();
-      }
       this.toastSevice.Sucesso('Sucesso!', 'Usuario cadastrado com sucesso!');
       this.spinnerService.hide();
       this.carregarUsuarios();
@@ -151,14 +130,12 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  updateUser(usuario: Usuario) {
+  editar(usuario: Usuario) {
     this.spinnerService.show();
     this.service.editar(usuario).subscribe((res) => {
-      if (res) {
-        this.toastSevice.Sucesso('Sucesso!', 'Usuario alterado com sucesso!');
         this.spinnerService.hide();
+        this.toastSevice.Sucesso('Sucesso!', 'Usuario alterado com sucesso!');
         this.carregarUsuarios();
-      }
     },
       err => {
         this.spinnerService.hide();
@@ -166,16 +143,12 @@ export class ListarUsuarioComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  deleteUser(usuario: Usuario) {
+  excluir(usuario: Usuario) {
     this.spinnerService.show();
-    this.service.deletar(usuario).subscribe((res) => {
-      if (res) {
-        this.toastSevice.Sucesso('Sucesso!', 'Usuario excluido com sucesso!');
-        this.spinnerService.hide();
-      }
-      this.carregarUsuarios();
+    this.service.excluir(usuario).subscribe((res) => {
       this.spinnerService.hide();
       this.toastSevice.Sucesso('Sucesso!', 'Usuario excluido com sucesso!');
+      this.carregarUsuarios();
     },
       err => {
         this.spinnerService.hide();

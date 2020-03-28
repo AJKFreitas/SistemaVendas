@@ -41,14 +41,13 @@ export class FornecedorService {
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
-      // client-side error
       msg = error.error.message;
     } else {
-      // server-side error
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
   }
+  
   public resetForm() {
     this.form.reset();
     this.form.setErrors = null;
@@ -78,7 +77,7 @@ export class FornecedorService {
         catchError(this.handleError)
       );
   }
-  deletar(fornecedor: Fornecedor) {
+  excluir(fornecedor: Fornecedor) {
     const api = `${this.endpoint}/fornecedor/${fornecedor.id}`;
     return this.http.delete(api)
       .pipe(
