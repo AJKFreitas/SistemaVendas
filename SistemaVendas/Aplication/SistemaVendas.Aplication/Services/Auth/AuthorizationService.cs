@@ -21,13 +21,7 @@ namespace SistemaVendas.Aplication.Services.Auth
         {
             var hash = new CriptografiaHash(SHA512.Create());
             var loginOrEmail = loginUser?.Email ?? "";
-            var password = (loginUser?.Senha ?? "");
-            if (!loginUser.Email.Equals("adm@adm.com"))
-            {
-                 password = hash.CriptografarSenha(loginUser?.Senha ?? "");
-
-            }
-
+            var password =  hash.CriptografarSenha(loginUser?.Senha ?? "");
             var result = new BaseResult<IUsuario>();
             var userResult = await _usuarioService.BuscarTodos();
             var user =
@@ -38,7 +32,7 @@ namespace SistemaVendas.Aplication.Services.Auth
             {
 
                 result.Success = true;
-                result.Message = "User authorized!";
+                result.Message = "Usuário não Autorizado!";
                 result.Data = new Usuario
                 {
                     Id = user.Id,
