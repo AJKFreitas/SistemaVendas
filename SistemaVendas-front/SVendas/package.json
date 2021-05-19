@@ -39,7 +39,7 @@
     "ngx-spinner": "^8.1.0",
     "ngx-toastr": "^12.0.0",
     "rxjs": "~6.5.4",
-    "tslib": "^1.10.0",
+    "tslib": "^1.14.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
