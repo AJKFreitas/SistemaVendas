@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormGroupDirective } from '@angular/forms';
 import { AuthService } from '../../Auth/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { error } from '@angular/compiler/src/util';
@@ -18,12 +18,12 @@ interface DialogData {
 })
 export class UsuarioComponent implements OnInit {
 
-  signupForm: FormGroup;
+  signupForm: UntypedFormGroup;
   role: string;
   roles: string[] = ['Funcionario', 'Fornecedor', 'Vendedor'];
  
   constructor(
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public service: UsuarioService,
     public router: Router,
     private spinnerService: NgxSpinnerService,

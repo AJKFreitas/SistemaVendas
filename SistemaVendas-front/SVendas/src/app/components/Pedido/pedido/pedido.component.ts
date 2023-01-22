@@ -1,6 +1,6 @@
 import { Cliente } from './../../Cliente/model/Cliente';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
@@ -25,7 +25,7 @@ export class PedidoComponent implements OnInit {
 
   pedidoVenda: PedidoVenda = new PedidoVenda();
   itemsPedido: ItemPedidoVenda[] = [];
-  pedidoForm: FormGroup;
+  pedidoForm: UntypedFormGroup;
   clientes: Cliente[] = [];
   config = {
     displayKey: 'nome',
@@ -43,7 +43,7 @@ export class PedidoComponent implements OnInit {
   itemsPedidoDeleted: Array<ItemPedidoVenda>;
   desconto = 0;
   constructor(
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public clienteService: ClienteService,
     public produtoService: ProdutoService,
     public pedidoVendaService: PedidoVendaService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormGroupDirective } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { FornecedorService } from '../services/fornecedor.service';
@@ -12,10 +12,10 @@ import { MensagemPopUPService } from '../../Shared/ToastService';
 })
 export class FornecedorComponent implements OnInit {
 
-  fornecedorForm: FormGroup;
+  fornecedorForm: UntypedFormGroup;
 
   constructor(
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public fornecedorService: FornecedorService,
     public router: Router,
     private SpinnerService: NgxSpinnerService,
@@ -36,7 +36,7 @@ export class FornecedorComponent implements OnInit {
     this.fornecedorService.iserir(this.fornecedorForm.value).subscribe((res) => {
       if (res.result) {
         this.fornecedorForm.reset();
-        this.fb = new  FormBuilder();
+        this.fb = new  UntypedFormBuilder();
         this.toastSevice.Sucesso('Sucesso!', 'Fonecedor incluido com Sucesso!');
       }
       this.SpinnerService.hide();

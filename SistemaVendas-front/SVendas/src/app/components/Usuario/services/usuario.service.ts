@@ -5,7 +5,7 @@ import { Router, Params } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Usuario, UsuarioVM } from '../../Auth/shared/models/User';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +19,12 @@ export class UsuarioService {
     public router: Router
   ) { }
 
-  public form: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.email, Validators.required]),
-    senha: new FormControl('', Validators.required),
-    role: new FormControl('', Validators.required),
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    nome: new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', [Validators.email, Validators.required]),
+    senha: new UntypedFormControl('', Validators.required),
+    role: new UntypedFormControl('', Validators.required),
   });
 
 

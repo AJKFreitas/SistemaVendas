@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, map } from 'rxjs/operators';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +19,12 @@ export class ClienteService {
     private http: HttpClient,
     public router: Router) { }
 
-  public clienteFormGroup: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl('', Validators.required),
-    cpf: new FormControl('', Validators.required),
-    telefone: new FormControl('', Validators.required),
-    endereco: new FormControl('', Validators.required),
+  public clienteFormGroup: UntypedFormGroup = new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    nome: new UntypedFormControl('', Validators.required),
+    cpf: new UntypedFormControl('', Validators.required),
+    telefone: new UntypedFormControl('', Validators.required),
+    endereco: new UntypedFormControl('', Validators.required),
   });
 
   inserir(cliente: ClienteVM): Observable<any> {

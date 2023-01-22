@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Fornecedor, FornecedorVM } from '../model/Fornecedor';
 import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormArray } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class FornecedorService {
     public router: Router
   ) { }
 
-  public form: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl('', Validators.required),
-    telefone: new FormControl(''),
-    cnpj: new FormControl('', Validators.required),
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    nome: new UntypedFormControl('', Validators.required),
+    telefone: new UntypedFormControl(''),
+    cnpj: new UntypedFormControl('', Validators.required),
   });
 
   // grid

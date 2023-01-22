@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Produto, ProdutoVM } from '../model/Produto';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormArray } from '@angular/forms';
 import { Parametros } from 'src/app/shared/models/Params';
 import { ResponseData } from 'src/app/shared/models/ResponseData';
 
@@ -22,12 +22,12 @@ export class ProdutoService {
     public router: Router
   ) { }
 
-  public form: FormGroup = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl('', Validators.required),
-    descricao: new FormControl(''),
-    valor: new FormControl('', Validators.required),
-    codigo: new FormControl('', Validators.required),
+  public form: UntypedFormGroup = new UntypedFormGroup({
+    id: new UntypedFormControl(''),
+    nome: new UntypedFormControl('', Validators.required),
+    descricao: new UntypedFormControl(''),
+    valor: new UntypedFormControl('', Validators.required),
+    codigo: new UntypedFormControl('', Validators.required),
   });
 
   listarProdutoss(): Observable<any> {

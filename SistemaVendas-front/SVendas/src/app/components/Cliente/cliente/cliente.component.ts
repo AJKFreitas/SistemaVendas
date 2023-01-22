@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../Shared/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
-import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormGroupDirective } from '@angular/forms';
 import { ClienteService } from '../service/cliente.service';
 
 @Component({
@@ -14,10 +14,10 @@ import { ClienteService } from '../service/cliente.service';
 
 export class ClienteComponent implements OnInit {
 
-  clienteForm: FormGroup;
+  clienteForm: UntypedFormGroup;
 
   constructor(
-    public formbuilder: FormBuilder,
+    public formbuilder: UntypedFormBuilder,
     public servicoDeLoading: NgxSpinnerService,
     public servicoDeMensagemPopUp: MensagemPopUPService,
     public clienteService: ClienteService
@@ -39,7 +39,7 @@ export class ClienteComponent implements OnInit {
     this.clienteService.inserir(this.clienteForm.value).subscribe((res) => {
       if (res.result) {
         this.clienteForm.reset();
-        this.formbuilder = new FormBuilder();
+        this.formbuilder = new UntypedFormBuilder();
         this.servicoDeMensagemPopUp.Sucesso('Sucesso!', 'Cliente incluido com Sucesso!');
       }
       this.servicoDeLoading.hide();

@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProdutoService } from '../../services/produto.service';
 import { Produto } from '../../model/Produto';
@@ -14,7 +14,7 @@ export class ProdutoDialogComponent implements OnInit {
   action: string;
   // tslint:disable-next-line:variable-name
   local_data: any;
-  produtoForm: FormGroup;
+  produtoForm: UntypedFormGroup;
   isSubmitted = false;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
@@ -30,11 +30,11 @@ export class ProdutoDialogComponent implements OnInit {
     public service: ProdutoService) {
        this.local_data = { ...data };
        this.service.form.setValue({
-                  id: new FormControl(this.local_data.id).value,
-                  nome: new FormControl(this.local_data.nome).value,
-                  descricao: new FormControl(this.local_data.descricao).value,
-                  valor: new FormControl(this.local_data.valor).value,
-                  codigo: new FormControl(this.local_data.codigo).value,
+                  id: new UntypedFormControl(this.local_data.id).value,
+                  nome: new UntypedFormControl(this.local_data.nome).value,
+                  descricao: new UntypedFormControl(this.local_data.descricao).value,
+                  valor: new UntypedFormControl(this.local_data.valor).value,
+                  codigo: new UntypedFormControl(this.local_data.codigo).value,
       });
        this.action = this.local_data.action;
        }

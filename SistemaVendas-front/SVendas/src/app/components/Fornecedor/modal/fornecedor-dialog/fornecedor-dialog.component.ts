@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Fornecedor } from '../../model/Fornecedor';
 import { FornecedorService } from '../../services/fornecedor.service';
@@ -14,7 +14,7 @@ export class FornecedorDialogComponent implements OnInit {
   action: string;
   // tslint:disable-next-line:variable-name
   local_data: any;
-  fornecedorForm: FormGroup;
+  fornecedorForm: UntypedFormGroup;
   isSubmitted  =  false;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   public pageSize = 0;
@@ -30,10 +30,10 @@ export class FornecedorDialogComponent implements OnInit {
               public service: FornecedorService) {
                  this.local_data = { ...data };
                  this.service.form.setValue({
-                            id: new FormControl(this.local_data.id).value,
-                            nome: new FormControl(this.local_data.nome).value,
-                            cnpj: new FormControl(this.local_data.cnpj).value,
-                            telefone: new FormControl(this.local_data.telefone).value
+                            id: new UntypedFormControl(this.local_data.id).value,
+                            nome: new UntypedFormControl(this.local_data.nome).value,
+                            cnpj: new UntypedFormControl(this.local_data.cnpj).value,
+                            telefone: new UntypedFormControl(this.local_data.telefone).value
                 });
                  this.action = this.local_data.action;
                  }

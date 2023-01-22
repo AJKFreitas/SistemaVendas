@@ -1,7 +1,7 @@
 import { ProdutoService } from './../services/produto.service';
 import { Fornecedor } from './../../Fornecedor/model/Fornecedor';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, FormGroupDirective, FormControl } from '@angular/forms';
+import { FormArray, UntypedFormGroup, UntypedFormBuilder, FormGroupDirective, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
@@ -26,10 +26,10 @@ export class ProdutoComponent implements OnInit {
     clearOnSelection: true
   };
 
-  produtoForm: FormGroup;
+  produtoForm: UntypedFormGroup;
   fornecedores: Fornecedor[] = [];
   constructor(
-    public formBuilder: FormBuilder,
+    public formBuilder: UntypedFormBuilder,
     public router: Router,
     public fornecedorService: FornecedorService,
     private spinnerService: NgxSpinnerService,
@@ -43,7 +43,7 @@ export class ProdutoComponent implements OnInit {
       fornecedores: this.formBuilder.array ([])
       });
     }
-     fornecedorVM  = new FormControl();
+     fornecedorVM  = new UntypedFormControl();
 
   ngOnInit(): void {
     this.popularComboFornecedores();
@@ -76,7 +76,7 @@ iserirProduto() {
   this.produtoService.iserir(produto).subscribe((res) => {
       if (res.result) {
         this.produtoForm.reset();
-        this.formBuilder = new  FormBuilder();
+        this.formBuilder = new  UntypedFormBuilder();
         this.toastSevice.Sucesso('Sucesso!', 'Produto incluido com Sucesso!');
       }
       this.spinnerService.hide();

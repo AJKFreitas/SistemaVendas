@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,10 +10,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  signinForm: FormGroup;
+  signinForm: UntypedFormGroup;
 
   constructor(
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public authService: AuthService,
     public router: Router,
     private route: ActivatedRoute

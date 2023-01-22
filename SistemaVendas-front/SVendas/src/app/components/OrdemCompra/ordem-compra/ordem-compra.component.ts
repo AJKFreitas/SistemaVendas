@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { OrdemCompra, OrdemCompraVM } from '../models/OrdemCompra';
 import { ItemOrdemCompra, ItemOrdemCompraVM } from '../models/ItemOrdemCompra';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Fornecedor } from '../../Fornecedor/model/Fornecedor';
 import { ProdutoItemPedido, Produto } from '../../Produto/model/Produto';
 import { FornecedorService } from '../../Fornecedor/services/fornecedor.service';
@@ -24,7 +24,7 @@ export class OrdemCompraComponent implements OnInit {
 
   ordemCompra: OrdemCompra = new OrdemCompra();
   itemsOrdemCompra: ItemOrdemCompra[] = [];
-  ordemCompraForm: FormGroup;
+  ordemCompraForm: UntypedFormGroup;
   fornecedores: Fornecedor[] = [];
   config = {
     displayKey: 'nome',
@@ -42,7 +42,7 @@ export class OrdemCompraComponent implements OnInit {
   itemsOrdemCompraDeleted: Array<ItemOrdemCompra>;
   desconto = 0;
   constructor(
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public fornecedoService: FornecedorService,
     public produtoService: ProdutoService,
     public ordemCompraService: OrdemCompraService,
