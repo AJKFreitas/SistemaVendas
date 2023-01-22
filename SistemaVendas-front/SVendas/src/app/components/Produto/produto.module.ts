@@ -9,18 +9,15 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [
-    ProdutoDialogComponent,
-    GestaoProdutosComponent,
-    ProdutoComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ProdutoRoutingModule
-  ],
-  entryComponents: [
-    ProdutoDialogComponent
-  ]
+    declarations: [
+        ProdutoDialogComponent,
+        GestaoProdutosComponent,
+        ProdutoComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ProdutoRoutingModule
+    ]
 })
 export class ProdutoModule { }

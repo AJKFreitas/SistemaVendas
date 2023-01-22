@@ -31,57 +31,50 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 registerLocaleData(localeFr, 'pt-BR');
 @NgModule({
-  declarations: [
-    AppComponent,
-    SigninComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    AppRoutingModule,
-    HttpClientModule,
-    JwtModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('access_token');
-        }
-      }
-    }),
-    NgxSpinnerModule,
-    ToastrModule.forRoot(
-      {
-        timeOut: 10000,
-        positionClass: 'top-right',
-        closeButton: true,
-      }),
-    NgxMaskModule.forRoot(options),
-    ToastContainerModule,
-    ClienteModule,
-    DashboardModule,
-    FornecedorModule,
-    ProdutoModule,
-    UsuarioModule,
-    RelatoriosModule,
-    PedidoModule,
-    OrdemCompraModule
-  ], exports: [
-
-
-  ],
-  entryComponents: [
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
-    { provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR' },
-
-    AuthGuard,
-    AuthService,
-    MensagemPopUPService,
-    UsuarioService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SigninComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        AppRoutingModule,
+        HttpClientModule,
+        JwtModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => {
+                    return localStorage.getItem('access_token');
+                }
+            }
+        }),
+        NgxSpinnerModule,
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'top-right',
+            closeButton: true,
+        }),
+        NgxMaskModule.forRoot(options),
+        ToastContainerModule,
+        ClienteModule,
+        DashboardModule,
+        FornecedorModule,
+        ProdutoModule,
+        UsuarioModule,
+        RelatoriosModule,
+        PedidoModule,
+        OrdemCompraModule
+    ], exports: [],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true, },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true, },
+        { provide: DEFAULT_CURRENCY_CODE, useValue: 'pt-BR' },
+        AuthGuard,
+        AuthService,
+        MensagemPopUPService,
+        UsuarioService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

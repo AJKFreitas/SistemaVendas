@@ -8,20 +8,15 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [
-    FornecedorDialogComponent,
-    FornecedorComponent,
-    ListarFornecedorComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    FornecedorRoutingModule,
-  ],
-  entryComponents: [
-    FornecedorDialogComponent,
-  ],
-
-
+    declarations: [
+        FornecedorDialogComponent,
+        FornecedorComponent,
+        ListarFornecedorComponent,
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        FornecedorRoutingModule,
+    ]
 })
 export class FornecedorModule { }

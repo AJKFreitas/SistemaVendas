@@ -8,18 +8,15 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [
-    ModalComponent,
-    UsuarioComponent,
-    ListarUsuarioComponent,
-  ],
-  imports: [
-    CommonModule,
-    UsuarioRoutingModule,
-    SharedModule,
-  ],
-  entryComponents: [
-    ModalComponent
-  ]
+    declarations: [
+        ModalComponent,
+        UsuarioComponent,
+        ListarUsuarioComponent,
+    ],
+    imports: [
+        CommonModule,
+        UsuarioRoutingModule,
+        SharedModule,
+    ]
 })
 export class UsuarioModule { }
