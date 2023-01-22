@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroupDirective } from '@angular/forms';
 import { AuthService } from '../../Auth/shared/services/auth.service';
 import { Router } from '@angular/router';
-import { error } from '@angular/compiler/src/util';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
 import { UsuarioService } from '../services/usuario.service';
@@ -21,7 +20,7 @@ export class UsuarioComponent implements OnInit {
   signupForm: UntypedFormGroup;
   role: string;
   roles: string[] = ['Funcionario', 'Fornecedor', 'Vendedor'];
- 
+
   constructor(
     public fb: UntypedFormBuilder,
     public service: UsuarioService,

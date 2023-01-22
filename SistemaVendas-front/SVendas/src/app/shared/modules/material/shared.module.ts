@@ -3,7 +3,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { MaterialModule } from './material.module';
 import { HasRoleDirective } from '../../utils/has-role.directive';
 
@@ -14,7 +13,6 @@ import { HasRoleDirective } from '../../utils/has-role.directive';
     MaterialModule,
     FlexLayoutModule,
     NgxDatatableModule,
-    SelectDropDownModule,
   ],
   declarations: [
     HasRoleDirective,
@@ -26,7 +24,6 @@ import { HasRoleDirective } from '../../utils/has-role.directive';
     FlexLayoutModule,
     NgxSpinnerModule,
     NgxDatatableModule,
-    SelectDropDownModule,
     HasRoleDirective,
   ]
 })

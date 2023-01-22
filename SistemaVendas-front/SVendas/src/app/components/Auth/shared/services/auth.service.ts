@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { LoginUser } from '../models/LoginUser';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 
 
 @Injectable({
@@ -94,7 +94,7 @@ export class AuthService {
     )
   }
 
-  // Error 
+  // Error
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {

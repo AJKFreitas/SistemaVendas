@@ -5,7 +5,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
 import { Cliente } from '../../Cliente/model/Cliente';
 import { ItemPedidoVenda } from '../../Pedido/models/ItemPedidoVenda';
-import { isNullOrUndefined } from 'util';
 import { Produto } from '../../Produto/model/Produto';
 import { DashboardService } from '../service/dashboard.service';
 

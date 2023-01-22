@@ -1,4 +1,4 @@
-import { isNullOrUndefined } from 'util';
+import { isNullOrUndefined } from "@swimlane/ngx-datatable";
 
 export class Parametros {
     NumeroDaPaginaAtual: number;

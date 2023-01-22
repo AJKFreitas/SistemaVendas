@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     this.token = this.jwtHelper.decodeToken(this.authService.getToken());
     }
   ngOnInit(): void {
+    debugger;
     if (this.authService.isLoggedIn) {
       this.authService.setProfileContext(JSON.parse(this.token.Data).Nome);
     } else {

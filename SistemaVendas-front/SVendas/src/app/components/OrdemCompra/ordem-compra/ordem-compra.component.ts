@@ -10,8 +10,8 @@ import { OrdemCompraService } from '../service/ordem-compra.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MensagemPopUPService } from '../../Shared/ToastService';
-import { isNullOrUndefined } from 'util';
 import { NgxSelectOption } from 'ngx-select-ex';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-ordem-compra',

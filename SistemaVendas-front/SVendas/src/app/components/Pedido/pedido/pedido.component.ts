@@ -9,9 +9,9 @@ import { ItemPedidoVenda, ItemPedidoVendaVM } from '../models/ItemPedidoVenda';
 import { ProdutoService } from '../../Produto/services/produto.service';
 import { Produto, ProdutoItemPedido } from '../../Produto/model/Produto';
 import { PedidoVenda, PedidoVendaVM } from '../models/PedidoVenda';
-import { isNullOrUndefined } from 'util';
 import { NgxSelectOption } from 'ngx-select-ex';
 import { PedidoVendaService } from '../service/pedido-venda.service';
+import { isNullOrUndefined } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-pedido',
