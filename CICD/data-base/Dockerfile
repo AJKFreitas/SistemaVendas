@@ -1,4 +1,4 @@
-From mysql
+From mysql:8.4.0-oraclelinux9
 command: --default-authentication-plugin=mysql_native_password
 restart: always
         environment:
